@@ -12,7 +12,7 @@ class Start extends Command
      *
      * @var string
      */
-    protected $signature = 'gulden:start {--gui : Whether to start Gulden for debugging, or the Gulden daemon}';
+    protected $signature = 'gulden:start {--binary= : Manually select the binary to start}';
 
     /**
      * The console command description.
@@ -58,7 +58,14 @@ class Start extends Command
             file_put_contents("binaries/datadir/Gulden.conf", $conf);
         }
 
-        $binary = ($this->option("gui")) ? "Gulden" : "GuldenD";
+        if($binary = $this->option("binary")) {
+            if(!in_array($binary, ["Gulden", "GuldenD"])) {
+                Log::error("Invalid binary given");
+                exit();
+            }
+        } else {
+            $binary = config('app.env') === 'local' ? 'Gulden' : 'GuldenD';
+        }
 
         exec("./binaries/{$binary} -datadir=binaries/datadir");
     }
