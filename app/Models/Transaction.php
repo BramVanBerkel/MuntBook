@@ -20,9 +20,11 @@ class Transaction extends Model
         "vsize",
         "version",
         "locktime",
-        "blockhash",
-        "confirmations",
-        "time",
-        "blocktime"
+        "block_id"
     ];
+
+    public function block()
+    {
+        return $this->hasOne(Block::class);
+    }
 }

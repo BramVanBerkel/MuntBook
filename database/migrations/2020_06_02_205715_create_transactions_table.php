@@ -22,10 +22,8 @@ class CreateTransactionsTable extends Migration
             $table->integer('vsize');
             $table->integer('version');
             $table->integer('locktime');
-            $table->string('blockhash');
-            $table->integer('confirmations');
-            $table->integer('time');
-            $table->integer('blocktime');
+            $table->integer('block_id');
+            $table->foreign('block_id')->references('id')->on('blocks');
 
             $table->timestamps();
         });

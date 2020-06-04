@@ -74,6 +74,6 @@ class Gulden
             ]
         ])->getBody()->getContents();
 
-        return collect(json_decode($response)->result);
+        return json_decode($response)->result;
     }
 }

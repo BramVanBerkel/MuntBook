@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands\Gulden;
 
-use App\Jobs\InsertBlock;
+use App\Jobs\SyncBlock;
 use App\Models\Block;
 use App\Services\Gulden;
 use Illuminate\Console\Command;
@@ -49,7 +49,7 @@ class Check extends Command
         do {
             Log::info(sprintf("Blockcount: %d/%d", $dbBlockCount, $guldenBlockCount));
 
-            dispatch(new InsertBlock($dbBlockCount));
+            dispatch(new SyncBlock($dbBlockCount));
 
             $dbBlockCount++;
         } while ($dbBlockCount !== $guldenBlockCount);

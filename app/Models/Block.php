@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
  * Class Block
  *
  * @package App\Models
- * @mixin Model
  */
 class Block extends Model
 {
@@ -40,4 +39,9 @@ class Block extends Model
         'chainwork',
         'previousblockhash',
     ];
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }
