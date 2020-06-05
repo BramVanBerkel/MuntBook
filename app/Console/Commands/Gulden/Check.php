@@ -44,17 +44,24 @@ class Check extends Command
      */
     public function handle()
     {
-        $guldenService = resolve(Gulden::class);
+        //don't run if initial_sync is active
+        if (config('gulden.initial_syncync') !== null) {
+            return;
+        }
 
+        $guldenService = resolve(Gulden::class);
         $guldenBlockCount = $guldenService->getBlockCount();
         $dbBlockCount = Block::count();
 
-        do {
-            Log::info(sprintf("Blockcount: %d/%d", $dbBlockCount, $guldenBlockCount));
+        if ($dbBlockCount === 0) {
+            // no blocks in db, set initial_sync to true to prevent double blocks
+            config(['gulden.initial_sync' => $guldenBlockCount]);
+        }
 
-            dispatch(new SyncBlock($dbBlockCount));
+        foreach (range($dbBlockCount, $guldenBlockCount) as $height) {
+            Log::info(sprintf("Blockcount: %d/%d", $height, $guldenBlockCount));
 
-            $dbBlockCount++;
-        } while ($dbBlockCount !== $guldenBlockCount);
+            dispatch(new SyncBlock($height));
+        }
     }
 }

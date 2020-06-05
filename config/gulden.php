@@ -23,5 +23,16 @@ return [
     | The command to execute when a new block is found
     |
     */
-    'blocknotify' => env('GULDEN_BLOCKNOTIFY')
+    'blocknotify' => env('GULDEN_BLOCKNOTIFY'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | InitialSync
+    |--------------------------------------------------------------------------
+    |
+    | Track whether the application is initially syncing, to prevent double blocks
+    | from being inserted into the DB
+    |
+    */
+    'initial_sync' => false
 ];
