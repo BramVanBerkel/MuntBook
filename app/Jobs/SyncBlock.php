@@ -50,13 +50,13 @@ class SyncBlock implements ShouldQueue
         DB::beginTransaction();
 
         $block = Block::create([
+            'height' => $blockData->get('height'),
             'hash' => $blockData->get('hash'),
             'confirmations' => $blockData->get('confirmations'),
             'strippedsize' => $blockData->get('strippedsize'),
             'validated' => $blockData->get('validated'),
             'size' => $blockData->get('size'),
             'weight' => $blockData->get('weight'),
-            'height' => $blockData->get('height'),
             'version' => $blockData->get('version'),
             'versionHex' => $blockData->get('versionHex'),
             'merkleroot' => $blockData->get('merkleroot'),
@@ -86,7 +86,7 @@ class SyncBlock implements ShouldQueue
                 'vsize' => $tx->get('vsize'),
                 'version' => $tx->get('version'),
                 'locktime' => $tx->get('locktime'),
-                'block_id' => $block->id,
+                'block_id' => $block->height,
             ]);
 
             foreach ($tx->get('vin') as $vin){

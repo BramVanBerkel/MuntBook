@@ -14,7 +14,7 @@ class CreateBlocksTable extends Migration
     public function up()
     {
         Schema::create('blocks', function (Blueprint $table) {
-            $table->id();
+            $table->id('height');
 
             $table->string('hash');
             $table->unsignedInteger('confirmations');
@@ -22,7 +22,6 @@ class CreateBlocksTable extends Migration
             $table->unsignedInteger('validated');
             $table->unsignedInteger('size');
             $table->unsignedInteger('weight');
-            $table->unsignedInteger('height');
             $table->unsignedInteger('version');
             $table->string('versionHex');
             $table->string('merkleroot');

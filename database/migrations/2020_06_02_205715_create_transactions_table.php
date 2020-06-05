@@ -23,7 +23,7 @@ class CreateTransactionsTable extends Migration
             $table->integer('version');
             $table->integer('locktime');
             $table->integer('block_id');
-            $table->foreign('block_id')->references('id')->on('blocks');
+            $table->foreign('block_id')->references('height')->on('blocks');
 
             $table->timestamps();
         });

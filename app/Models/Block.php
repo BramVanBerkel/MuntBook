@@ -13,6 +13,8 @@ class Block extends Model
 {
     protected $table = 'blocks';
 
+    protected $primaryKey = 'height';
+
     protected $fillable = [
         'hash',
         'confirmations',
