@@ -50,7 +50,7 @@ return [
         'daily' => [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),
-            'level' => 'notice',
+            'level' => 'info',
             'days' => 14,
         ],
 
