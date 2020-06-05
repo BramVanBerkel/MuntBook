@@ -47,19 +47,17 @@ class Start extends Command
             mkdir("binaries/datadir");
         }
 
-        if (!file_exists("binaries/datadir/Gulden.conf")) {
-            $conf = "disablewallet=1\n";
-            $conf .= "txindex=1\n";
-            $conf .= "server=1\n";
-            $conf .= "blocknotify=" . env('GULDEN_BLOCKNOTIFY') . "\n";
-            $conf .= "rpcuser=" . config('gulden.rpc_user') . "\n";
-            $conf .= "rpcpassword=" . config('gulden.rpc_password') . "\n";
+        $conf = "disablewallet=1\n";
+        $conf .= "txindex=1\n";
+        $conf .= "server=1\n";
+        $conf .= "blocknotify=" . env('GULDEN_BLOCKNOTIFY') . "\n";
+        $conf .= "rpcuser=" . config('gulden.rpc_user') . "\n";
+        $conf .= "rpcpassword=" . config('gulden.rpc_password') . "\n";
 
-            file_put_contents("binaries/datadir/Gulden.conf", $conf);
-        }
+        file_put_contents("binaries/datadir/Gulden.conf", $conf);
 
-        if($binary = $this->option("binary")) {
-            if(!in_array($binary, ["Gulden", "GuldenD"])) {
+        if ($binary = $this->option("binary")) {
+            if (!in_array($binary, ["Gulden", "GuldenD"])) {
                 Log::error("Invalid binary given");
                 exit();
             }
