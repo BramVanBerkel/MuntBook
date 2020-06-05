@@ -7,9 +7,12 @@ use App\Models\Block;
 use App\Services\Gulden;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
+use Illuminated\Console\WithoutOverlapping;
 
 class Check extends Command
 {
+    use WithoutOverlapping;
+
     /**
      * The name and signature of the console command.
      *
