@@ -14,6 +14,7 @@ use Psr\SimpleCache\InvalidArgumentException;
 class Check extends Command
 {
     use WithoutOverlapping;
+    protected $verbosity
 
     /**
      * The name and signature of the console command.
@@ -50,6 +51,10 @@ class Check extends Command
     {
         $guldenBlockCount = $guldenService->getBlockCount();
         $dbBlockCount = Block::count();
+
+        if($dbBlockCount === $guldenBlockCount) {
+            return;
+        }
 
         foreach(range($dbBlockCount, $guldenBlockCount) as $height) {
             if(!Cache::has("syncblock-{$height}")) {
