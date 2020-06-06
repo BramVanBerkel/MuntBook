@@ -6,8 +6,10 @@ use App\Jobs\SyncBlock;
 use App\Models\Block;
 use App\Services\Gulden;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminated\Console\WithoutOverlapping;
+use Psr\SimpleCache\InvalidArgumentException;
 
 class Check extends Command
 {
@@ -40,21 +42,23 @@ class Check extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @param Gulden $guldenService
+     * @return void
+     * @throws InvalidArgumentException
      */
-    public function handle()
+    public function handle(Gulden $guldenService)
     {
-        $guldenService = resolve(Gulden::class);
-
         $guldenBlockCount = $guldenService->getBlockCount();
         $dbBlockCount = Block::count();
 
-        do {
-            Log::info(sprintf("Blockcount: %d/%d", $dbBlockCount, $guldenBlockCount));
+        foreach(range($dbBlockCount, $guldenBlockCount) as $height) {
+            if(!Cache::has("syncblock-{$height}")) {
+                Log::info(sprintf("Blockcount: %d/%d", $height, $guldenBlockCount));
 
-            dispatch(new SyncBlock($dbBlockCount));
+                Cache::set("syncblock-{$height}", true);
 
-            $dbBlockCount++;
-        } while ($dbBlockCount !== $guldenBlockCount);
+                dispatch(new SyncBlock($height));
+            }
+        }
     }
 }

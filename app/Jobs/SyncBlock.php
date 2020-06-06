@@ -12,6 +12,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class SyncBlock implements ShouldQueue
@@ -126,7 +127,9 @@ class SyncBlock implements ShouldQueue
                     'transaction_id' => $transaction->id
                 ]);
             }
-            DB::commit();
         }
+        DB::commit();
+
+        Cache::forget("syncblock-{$this->height}");
     }
 }
