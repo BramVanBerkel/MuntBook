@@ -14,6 +14,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class SyncBlock implements ShouldQueue
 {
@@ -48,7 +49,7 @@ class SyncBlock implements ShouldQueue
         $blockData = $guldenService->getBlock($guldenService->getBlockHash($this->height));
         $blockData = collect($blockData);
 
-        DB::beginTransaction();
+        Log::info(sprintf("Processing block #{$this->height}"));
 
         $block = Block::create([
             'height' => $blockData->get('height'),
@@ -128,7 +129,6 @@ class SyncBlock implements ShouldQueue
                 ]);
             }
         }
-        DB::commit();
 
         Cache::forget("syncblock-{$this->height}");
     }
