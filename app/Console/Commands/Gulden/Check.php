@@ -51,6 +51,10 @@ class Check extends Command
         $guldenBlockCount = $guldenService->getBlockCount();
         $dbBlockCount = Block::count();
 
+        if($dbBlockCount === $guldenBlockCount) {
+            return;
+        }
+
         foreach(range($dbBlockCount, $guldenBlockCount) as $height) {
             if(!Cache::has("syncblock-{$height}")) {
                 Log::info(sprintf("Blockcount: %d/%d", $height, $guldenBlockCount));
