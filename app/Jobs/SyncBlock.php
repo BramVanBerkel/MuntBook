@@ -128,10 +128,5 @@ class SyncBlock implements ShouldQueue
             }
             DB::commit();
         }
-
-        if(config('gulden.initial_sync') === $this->height) {
-            // we have reached the last block of the initial sync, set to null
-            config(['gulden.initial_sync' => null]);
-        }
     }
 }
