@@ -27,7 +27,7 @@ class CreateVinsTable extends Migration
             $table->integer('rbf')->nullable();
 
             $table->integer('transaction_id');
-            $table->foreign('transaction_id')->references('id')->on('transactions');
+            $table->foreign('transaction_id')->references('id')->on('transactions')->cascadeOnDelete();
 
             $table->timestamps();
         });

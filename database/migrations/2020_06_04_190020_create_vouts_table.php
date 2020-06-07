@@ -30,7 +30,7 @@ class CreateVoutsTable extends Migration
             $table->string('witness-address')->nullable();
 
             $table->integer('transaction_id');
-            $table->foreign('transaction_id')->references('id')->on('transactions');
+            $table->foreign('transaction_id')->references('id')->on('transactions')->cascadeOnDelete();
 
             $table->timestamps();
         });
