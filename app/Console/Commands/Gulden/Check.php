@@ -58,7 +58,7 @@ class Check extends Command
         }
 
         foreach(range($dbBlockCount, $guldenBlockCount) as $height) {
-            if(!Cache::has("syncblock-{$height}")) {
+            if(!Cache::has("syncblock-{$height}") && !Block::whereKey($height)->exists()) {
                 Log::info(sprintf("Blockcount: %d/%d", $height, $guldenBlockCount));
 
                 Cache::set("syncblock-{$height}", true);

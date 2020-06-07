@@ -45,11 +45,6 @@ class SyncBlock implements ShouldQueue
      */
     public function handle()
     {
-        if(Block::whereKey($this->height)->exists()) {
-            Log::warning("Block #{$this->height} already exists!");
-            return;
-        }
-
         $guldenService = resolve(Gulden::class);
         $blockData = $guldenService->getBlock($guldenService->getBlockHash($this->height));
         $blockData = collect($blockData);
