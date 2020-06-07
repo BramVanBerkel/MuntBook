@@ -4,7 +4,7 @@ namespace App\Console\Commands\Gulden;
 
 use App\Jobs\SyncBlock;
 use App\Models\Block;
-use App\Services\Gulden;
+use App\Services\GuldenService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -42,11 +42,11 @@ class Check extends Command
     /**
      * Execute the console command.
      *
-     * @param Gulden $guldenService
+     * @param GuldenService $guldenService
      * @return void
      * @throws InvalidArgumentException
      */
-    public function handle(Gulden $guldenService)
+    public function handle(GuldenService $guldenService)
     {
         $guldenBlockCount = $guldenService->getBlockCount();
         $dbBlockCount = Block::max('height');

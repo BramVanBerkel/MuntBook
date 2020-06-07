@@ -6,14 +6,13 @@ use App\Models\Block;
 use App\Models\Transaction;
 use App\Models\Vin;
 use App\Models\Vout;
-use App\Services\Gulden;
+use App\Services\GuldenService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class SyncBlock implements ShouldQueue
@@ -43,9 +42,8 @@ class SyncBlock implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(GuldenService $guldenService)
     {
-        $guldenService = resolve(Gulden::class);
         $blockData = $guldenService->getBlock($guldenService->getBlockHash($this->height));
         $blockData = collect($blockData);
 

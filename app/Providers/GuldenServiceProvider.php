@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Services\Gulden;
+use App\Services\GuldenService;
 use Illuminate\Support\ServiceProvider;
 
 class GuldenServiceProvider extends ServiceProvider
@@ -14,11 +14,11 @@ class GuldenServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(Gulden::class, function() {
+        $this->app->singleton(GuldenService::class, function() {
             $rpcUser = config("gulden.rpc_user");
             $rpcPassword = config("gulden.rpc_password");
             $rpcHost = config('gulden.rpc_host') . ":" . config('gulden.rpc_port');
-            return new Gulden($rpcUser, $rpcPassword, $rpcHost);
+            return new GuldenService($rpcUser, $rpcPassword, $rpcHost);
         });
     }
 }

@@ -7,7 +7,7 @@ namespace App\Services;
 use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
 
-class Gulden
+class GuldenService
 {
     /**
      * @var Client
