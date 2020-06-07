@@ -45,7 +45,7 @@ class SyncBlock implements ShouldQueue
      */
     public function handle()
     {
-        if(Block::find($this->height)->exists()) {
+        if(Block::whereKey($this->height)->exists()) {
             Log::warning("Block #{$this->height} already exists!");
             return;
         }
