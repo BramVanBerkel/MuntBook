@@ -63,7 +63,7 @@ class Check extends Command
 
                 Cache::set("syncblock-{$height}", true);
 
-                dispatch(new SyncBlock($height));
+                dispatch(new SyncBlock($height))->delay(now()->addSeconds(5));
             }
         }
     }
