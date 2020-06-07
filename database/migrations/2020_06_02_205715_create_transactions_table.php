@@ -22,8 +22,8 @@ class CreateTransactionsTable extends Migration
             $table->integer('vsize');
             $table->integer('version');
             $table->integer('locktime');
-            $table->integer('block_id');
-            $table->foreign('block_id')->references('height')->on('blocks')->cascadeOnDelete();
+            $table->integer('block_height');
+            $table->foreign('block_height')->references('height')->on('blocks')->cascadeOnDelete();
 
             $table->timestamps();
         });

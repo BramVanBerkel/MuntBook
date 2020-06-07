@@ -20,11 +20,16 @@ class Transaction extends Model
         "vsize",
         "version",
         "locktime",
-        "block_id"
+        "block_height"
     ];
 
     public function block()
     {
         return $this->hasOne(Block::class);
+    }
+
+    public function vouts()
+    {
+        return $this->hasMany(Vout::class);
     }
 }

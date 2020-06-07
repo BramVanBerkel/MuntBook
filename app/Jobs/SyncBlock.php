@@ -86,7 +86,7 @@ class SyncBlock implements ShouldQueue
                 'vsize' => $tx->get('vsize'),
                 'version' => $tx->get('version'),
                 'locktime' => $tx->get('locktime'),
-                'block_id' => $block->height,
+                'block_height' => $block->height,
             ]);
 
             foreach ($tx->get('vin') as $vin){
@@ -112,16 +112,16 @@ class SyncBlock implements ShouldQueue
                 Vout::create([
                     'value' => $vout->get('value'),
                     'n' => $vout->get('n'),
-                    'standard-key-hash-hex' => optional($vout->get('standard-key-hash'))->hex,
-                    'standard-key-hash-address' => optional($vout->get('standard-key-hash'))->address,
-                    'witness-hex' => optional($vout->get('PoW²-witness'))->hex,
-                    'witness-lock-from-block' => optional($vout->get('PoW²-witness'))->lock_from_block,
-                    'witness-lock-until-block' => optional($vout->get('PoW²-witness'))->lock_until_block,
-                    'witness-fail-count' => optional($vout->get('PoW²-witness'))->fail_count,
-                    'witness-action-nonce' => optional($vout->get('PoW²-witness'))->action_nonce,
-                    'witness-pubkey-spend' => optional($vout->get('PoW²-witness'))->pubkey_spend,
-                    'witness-pubkey-witness' => optional($vout->get('PoW²-witness'))->pubkey_witness,
-                    'witness-address' => optional($vout->get('PoW²-witness'))->address,
+                    'standard_key_hash_hex' => optional($vout->get('standard-key-hash'))->hex,
+                    'standard_key_hash_address' => optional($vout->get('standard-key-hash'))->address,
+                    'witness_hex' => optional($vout->get('PoW²-witness'))->hex,
+                    'witness_lock_from_block' => optional($vout->get('PoW²-witness'))->lock_from_block,
+                    'witness_lock_until_block' => optional($vout->get('PoW²-witness'))->lock_until_block,
+                    'witness_fail_count' => optional($vout->get('PoW²-witness'))->fail_count,
+                    'witness_action_nonce' => optional($vout->get('PoW²-witness'))->action_nonce,
+                    'witness_pubkey_spend' => optional($vout->get('PoW²-witness'))->pubkey_spend,
+                    'witness_pubkey_witness' => optional($vout->get('PoW²-witness'))->pubkey_witness,
+                    'witness_address' => optional($vout->get('PoW²-witness'))->address,
 
                     'transaction_id' => $transaction->id
                 ]);

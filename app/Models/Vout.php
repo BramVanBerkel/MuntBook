@@ -16,16 +16,21 @@ class Vout extends Model
     protected $fillable = [
         'value',
         'n',
-        'standard-key-hash-hex',
-        'standard-key-hash-address',
-        'witness-hex',
-        'witness-lock-from-block',
-        'witness-lock-until-block',
-        'witness-fail-count',
-        'witness-action-nonce',
-        'witness-pubkey-spend',
-        'witness-pubkey-witness',
-        'witness-address',
+        'standard_key_hash_hex',
+        'standard_key_hash_address',
+        'witness_hex',
+        'witness_lock_from_block',
+        'witness_lock_until_block',
+        'witness_fail_count',
+        'witness_action_nonce',
+        'witness_pubkey_spend',
+        'witness_pubkey_witness',
+        'witness_address',
         'transaction_id',
     ];
+
+    public function isWitness()
+    {
+        return $this->witness_hex !== null;
+    }
 }

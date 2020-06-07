@@ -18,16 +18,16 @@ class CreateVoutsTable extends Migration
 
             $table->double('value');
             $table->integer('n');
-            $table->string('standard-key-hash-hex')->nullable();
-            $table->string('standard-key-hash-address')->nullable();
-            $table->string('witness-hex')->nullable();
-            $table->integer('witness-lock-from-block')->nullable();
-            $table->integer('witness-lock-until-block')->nullable();
-            $table->integer('witness-fail-count')->nullable();
-            $table->integer('witness-action-nonce')->nullable();
-            $table->string('witness-pubkey-spend')->nullable();
-            $table->string('witness-pubkey-witness')->nullable();
-            $table->string('witness-address')->nullable();
+            $table->string('standard_key_hash_hex')->nullable();
+            $table->string('standard_key_hash_address')->nullable();
+            $table->string('witness_hex')->nullable();
+            $table->integer('witness_lock_from_block')->nullable();
+            $table->integer('witness_lock_until_block')->nullable();
+            $table->integer('witness_fail_count')->nullable();
+            $table->integer('witness_action_nonce')->nullable();
+            $table->string('witness_pubkey_spend')->nullable();
+            $table->string('witness_pubkey_witness')->nullable();
+            $table->string('witness_address')->nullable();
 
             $table->integer('transaction_id');
             $table->foreign('transaction_id')->references('id')->on('transactions')->cascadeOnDelete();

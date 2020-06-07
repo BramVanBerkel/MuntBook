@@ -46,4 +46,19 @@ class Block extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    public function getTotalValueOut()
+    {
+        $value = 0;
+
+        $this->transactions()->each(function(Transaction $transaction) use (&$value){
+            $transaction->vouts()->each(function(Vout $vout) use (&$value){
+                if(!$vout->isWitness()){
+                    $value += $vout->value;
+                }
+            });
+        });
+
+        return $value;
+    }
 }
