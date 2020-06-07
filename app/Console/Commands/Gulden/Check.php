@@ -51,6 +51,8 @@ class Check extends Command
         $guldenBlockCount = $guldenService->getBlockCount();
         $dbBlockCount = Block::count();
 
+        Log::info("Checking for new blocks. DB height: {$dbBlockCount}, Gulden height: {$guldenBlockCount}");
+
         if($dbBlockCount === $guldenBlockCount) {
             return;
         }
