@@ -49,7 +49,7 @@ class Check extends Command
     public function handle(Gulden $guldenService)
     {
         $guldenBlockCount = $guldenService->getBlockCount();
-        $dbBlockCount = Block::count();
+        $dbBlockCount = Block::max('height');
 
         Log::info("Checking for new blocks. DB height: {$dbBlockCount}, Gulden height: {$guldenBlockCount}");
 
