@@ -1,0 +1,86 @@
+/* 
+---------------------------------------------
+faq
+--------------------------------------------- 
+*/
+
+.faq {
+	background: #FFFFFF;
+	box-shadow: 0 1px 18px 10px rgba(0,0,0,0.02);
+	border-radius: 4px;
+
+	.card {
+		border: none;
+		background: none;
+		border-bottom: 1px dashed #CEE1F8;
+
+		.card-header {
+			padding: 0px;
+			border: none;
+			background: none;
+			min-height: 70px;
+			@include transition(.3s);
+
+			&:hover {
+				background: #F3F8FF;
+				padding-left: 10px;
+			}
+
+			.faq-title {
+				min-height: 70px;
+				line-height: 70px;
+				width: 100%;
+				text-align: left;
+				padding: 0px;
+				padding-left: 30px;
+				padding-right: 30px;
+				@include font($normal, 16px);
+				letter-spacing: 1px;
+				color: $headingDark;
+				text-decoration: none !important;
+				@include transition(.3s);
+				cursor: pointer;
+
+				.badge {
+					display: inline-block;
+					width: 20px;
+					height: 20px;
+					@include radius(100px);
+					text-align: center;
+					background: $primaryColor;
+					color: #fff;
+					font-size: 12px;
+					margin-right: 10px;
+				}
+			}
+		}
+
+		.card-body {
+			padding: 30px;
+			padding-left: 35px;
+			padding-bottom: 16px;
+			@include font($normal, 16px);
+			color: $textDark;
+			line-height: 28px;
+			letter-spacing: 1px;
+			border-top: 1px solid #F3F8FF;
+
+			p {
+				margin-bottom: 14px;
+			}
+		}
+	}
+}
+
+@media (max-width : 991px) {
+	.faq {
+		.card {
+			.card-header {
+				.faq-title {
+					line-height: 26px;
+					margin-top: 10px;
+				}
+			}
+		}
+	}
+}

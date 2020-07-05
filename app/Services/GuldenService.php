@@ -65,7 +65,7 @@ class GuldenService
      * @param $verbosity
      * @return Collection
      */
-    public function getBlock($hash, $verbosity = 2)
+    public function getBlock(string $hash, int $verbosity = 0)
     {
         $response = $this->client->post('/', [
             'json' => [
@@ -74,6 +74,27 @@ class GuldenService
             ]
         ])->getBody()->getContents();
 
-        return json_decode($response)->result;
+        return collect(json_decode($response)->result);
+    }
+
+    /**
+     * Return the raw transaction data.
+     * If verbose is 'true', returns an Object with information about 'txid'.
+     * If verbose is 'false' or omitted, returns a string that is serialized, hex-encoded data for 'txid'.
+     *
+     * @param string $txid
+     * @param bool $verbose
+     * @return Collection
+     */
+    public function getTransaction(string $txid, bool $verbose = false)
+    {
+        $response = $this->client->post('/', [
+            'json' => [
+                'method' => 'getrawtransaction',
+                'params' => [$txid, $verbose]
+            ]
+        ])->getBody()->getContents();
+
+        return collect(json_decode($response)->result);
     }
 }

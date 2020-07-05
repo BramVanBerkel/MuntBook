@@ -15,6 +15,7 @@ class CreateVoutsTable extends Migration
     {
         Schema::create('vouts', function (Blueprint $table) {
             $table->id();
+            $table->string('transaction_id');
 
             $table->double('value');
             $table->integer('n');
@@ -29,7 +30,6 @@ class CreateVoutsTable extends Migration
             $table->string('witness_pubkey_witness')->nullable();
             $table->string('witness_address')->nullable();
 
-            $table->integer('transaction_id');
             $table->foreign('transaction_id')->references('id')->on('transactions')->cascadeOnDelete();
 
             $table->timestamps();

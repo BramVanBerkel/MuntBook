@@ -30,8 +30,7 @@ class CreateBlocksTable extends Migration
             $table->unsignedInteger('witness_time');
             $table->unsignedInteger('pow_time');
             $table->string('witness_merkleroot');
-            $table->unsignedInteger('time');
-            $table->unsignedInteger('mediantime');
+            $table->dateTime('time');
             $table->unsignedBigInteger('nonce');
             $table->unsignedInteger('pre_nonce');
             $table->unsignedInteger('post_nonce');

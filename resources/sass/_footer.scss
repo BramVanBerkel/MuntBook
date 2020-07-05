@@ -1,0 +1,190 @@
+/*
+---------------------------------------------
+footer & contact
+---------------------------------------------
+*/
+
+footer {
+
+	.footer-top {
+		height: 440px;
+		background: #F7F9FB;
+
+		.contact {
+			margin-top: 90px;
+
+			.section-title {
+				@include font($medium, 18px);
+				color: $headingDark;
+				letter-spacing: 0.77px;
+				line-height: 46px;
+				margin-bottom: 10px;
+			}
+
+			p {
+				@include font($normal, 16px);
+				color: $textDark;
+				line-height: 28px;
+				letter-spacing: 1px;
+				margin-bottom: 20px;
+			}
+
+			ul.list {
+				li {
+					overflow: hidden;
+
+					i {
+						float: left;
+						height: 40px;
+						line-height: 40px;
+						width: 30px;
+						font-size: 16px;
+						color: $primaryColor;
+					}
+
+					a, span {
+						float: left;
+						height: 40px;
+						line-height: 40px;
+						@include font($normal, 16px);
+						color: $headingDark;
+						letter-spacing: 0.69px;
+						@include transition(.3s);
+
+						&:hover {
+							padding-left: 10px;
+						}
+					}
+				}
+			}
+
+			.social {
+				float: left;
+				margin-top: 20px;
+
+				li {
+					float: left;
+					margin-right: 15px;
+
+					a {
+						font-size: 22px;
+						color: $primaryColor;
+						@include transition(.3s);
+					}
+				}
+			}
+		}
+
+		.contact-form {
+			background: #FFFFFF;
+			box-shadow: 0 1px 18px 10px rgba(0,0,0,0.06);
+			border-radius: 4px;
+			padding: 40px;
+			margin-top: 100px;
+			position: relative;
+			z-index: 2;
+
+			.section-title {
+				@include font($medium, 18px);
+				color: $headingDark;
+				letter-spacing: 0.77px;
+				margin-bottom: 30px;
+			}
+
+			.form-element {
+				input, textarea {
+					width: 100%;
+					height: 46px;
+					border: 1px solid #CEE1F8;
+					@include radius(4px);
+					outline: none;
+					padding-left: 20px;
+					padding-right: 20px;
+					margin-bottom: 24px;
+					@include transition(.3s);
+
+					&:focus {
+						padding-left: 30px;
+						border: 1px solid $primaryColor;
+					}
+				}
+
+				textarea {
+					height: 120px;
+					padding: 20px;
+					resize: none;
+				}
+
+				button {
+					width: 100%;
+
+					&:hover {
+						border: 1px solid $secondaryColor;
+						color: $secondaryColor;
+					}
+				}
+			}
+		}
+	}
+
+	.footer-bottom {
+        width: 100%;
+		padding-top: 80px;
+		background-image: linear-gradient(134deg, $gradientDark 0%, $gradientLight 100%);
+		position: absolute;
+
+		&.slim {
+			padding-top: 20px;
+
+			.copyright {
+				text-align: center;
+				margin-top: 0;
+				margin-bottom: 20px;
+			}
+		}
+
+		&:before {
+			content: '';
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background: url(../images/section-bg-bottom.png) center bottom no-repeat;
+			top: 0px;
+			left: 0px;
+		}
+
+		.copyright {
+			@include font($normal, 14px);
+			line-height: 24px;
+			color: #F3F8FF;
+			letter-spacing: 1.7px;
+			text-align: left;
+			margin-top: -15px;
+			margin-bottom: 50px;
+		}
+	}
+}
+
+@media (max-width : 991px) {
+	footer {
+		.footer-top {
+			height: auto;
+			padding-top: 100px;
+			padding-bottom: 100px;
+
+			.contact {
+				margin-top: 0px;
+			}
+		}
+
+		.footer-bottom {
+			padding-top: 40px;
+
+			.copyright {
+				margin: 0px;
+				margin-bottom: 30px;
+				text-align: center;
+			}
+		}
+	}
+}

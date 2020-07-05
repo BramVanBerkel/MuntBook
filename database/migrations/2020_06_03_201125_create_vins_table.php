@@ -15,6 +15,7 @@ class CreateVinsTable extends Migration
     {
         Schema::create('vins', function (Blueprint $table) {
             $table->id();
+            $table->string('transaction_id');
 
             $table->string('prevout_type')->nullable();
             $table->string('txid')->nullable();
@@ -26,7 +27,6 @@ class CreateVinsTable extends Migration
             $table->integer('vout')->nullable();
             $table->integer('rbf')->nullable();
 
-            $table->integer('transaction_id');
             $table->foreign('transaction_id')->references('id')->on('transactions')->cascadeOnDelete();
 
             $table->timestamps();

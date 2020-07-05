@@ -1,0 +1,176 @@
+/* 
+---------------------------------------------
+team
+--------------------------------------------- 
+*/
+
+.team-round {
+	margin-bottom: 30px;
+
+	.profile {
+		margin: auto;
+		background: #fff;
+		@include radius(100px);
+		box-shadow: 0 1px 18px 10px rgba(0,0,0,0.06);
+		width: 180px;
+		height: 180px;
+		position: relative;
+		text-align: center;
+		padding-top: 10px;
+		margin-bottom: 100px;
+
+		&:before {
+			content: '';
+			position: absolute;
+			left: 0px;
+			right: 0px;
+			margin: auto;
+			bottom: -89px;
+			width: 3px;
+			height: 89px;
+			background: url(../images/team.png);
+		}
+
+		.img {
+			position: relative;
+			width: 160px;
+			height: 160px;
+			overflow: hidden;
+			@include radius(100px);
+			margin-left: 10px;
+
+			img {
+				width: 160px;
+				height: 160px;
+				overflow: hidden;
+				@include radius(100px);
+			}
+
+			.social {
+				content: '';
+				position: absolute;
+				width: 160px;
+				height: 160px;
+				@include radius(100px);
+				top: 0px;
+				left: -160px;
+				background-image: linear-gradient(134deg, $gradientDark 0%, $gradientLight 100%);
+				opacity: 0.83;
+				text-align: center;
+				@include transition(.3s);
+
+				li {
+					display: inline-block;
+					margin-top: 67px;
+					margin-left: 3px;
+					margin-right: 3px;
+
+					a {
+						font-size: 18px;
+						color: #fff;
+					}
+				}
+			}
+		}
+	}
+
+	.team-name {
+		text-align: center;
+		@include font($medium, 16px);
+		letter-spacing: 1px;
+		line-height: 30px;
+		color: $headingDark;
+	}
+
+	span {
+		display: block;
+		text-align: center;
+		@include font($normal, 12px);
+		color: $textDark;
+	}
+
+
+	&:hover {
+		.profile {
+			.img {
+				.social {
+					left: 0px;
+				}
+			}
+		}
+	}
+}
+
+.team-square {
+	background: #fff;
+	box-shadow: 0 1px 18px 10px rgba(0,0,0,0.06);
+	padding: 10px;
+
+	.profile {
+		position: relative;
+		overflow: hidden;
+		margin-bottom: 10px;
+
+		.img {
+			position: relative;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+
+			img {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+			}
+
+			.social {
+				content: '';
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				bottom: -999px;
+				background-image: linear-gradient(134deg, $gradientDark 0%, $gradientLight 100%);
+				opacity: 0.83;
+				text-align: center;
+				@include transition(.3s);
+
+				li {
+					display: inline-block;
+					margin-top: 40%;
+					margin-left: 3px;
+					margin-right: 3px;
+
+					a {
+						font-size: 18px;
+						color: #fff;
+					}
+				}
+			}
+		}
+	}
+
+	.team-name {
+		text-align: center;
+		@include font($medium, 16px);
+		letter-spacing: 1px;
+		line-height: 30px;
+		color: $headingDark;
+	}
+
+	span {
+		display: block;
+		text-align: center;
+		@include font($normal, 12px);
+		color: $textDark;
+	}	
+
+	&:hover {
+		.profile {
+			.img {
+				.social {
+					bottom: 0px;
+				}
+			}
+		}
+	}	
+}

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -14,6 +15,8 @@ class Block extends Model
     protected $table = 'blocks';
 
     protected $primaryKey = 'height';
+
+    public $timestamps = true;
 
     protected $fillable = [
         'hash',
@@ -40,6 +43,11 @@ class Block extends Model
         'difficulty',
         'chainwork',
         'previousblockhash',
+        'created_at'
+    ];
+
+    protected $appends = [
+        'total_value_out'
     ];
 
     public function transactions()
@@ -47,7 +55,7 @@ class Block extends Model
         return $this->hasMany(Transaction::class);
     }
 
-    public function getTotalValueOut()
+    public function getTotalValueOutAttribute()
     {
         $value = 0;
 

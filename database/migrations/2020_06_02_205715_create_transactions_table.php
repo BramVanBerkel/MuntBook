@@ -14,15 +14,17 @@ class CreateTransactionsTable extends Migration
     public function up()
     {
         Schema::create('transactions', function (Blueprint $table) {
-            $table->id();
+            $table->string("id")->unique();
+            $table->integer('block_height');
 
-            $table->string("txid"); //TODO: check if txid and hash are the same
-            $table->string("hash");
             $table->integer('size');
             $table->integer('vsize');
             $table->integer('version');
             $table->integer('locktime');
-            $table->integer('block_height');
+            $table->string('blockhash');
+            $table->integer('confirmations');
+            $table->dateTime('blocktime');
+
             $table->foreign('block_height')->references('height')->on('blocks')->cascadeOnDelete();
 
             $table->timestamps();

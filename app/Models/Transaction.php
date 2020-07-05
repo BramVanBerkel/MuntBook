@@ -13,23 +13,38 @@ class Transaction extends Model
 {
     protected $table = 'transactions';
 
+    public $incrementing = false;
+
     protected $fillable = [
-        "txid",
-        "hash",
-        "size",
-        "vsize",
-        "version",
-        "locktime",
-        "block_height"
+        'id',
+        'txid',
+        'size',
+        'vsize',
+        'version',
+        'locktime',
+        "block_height",
+        'blockhash',
+        'confirmations',
+        'blocktime',
+        'created_at',
+    ];
+
+    protected $appends = [
+        'total_value_out'
     ];
 
     public function block()
     {
-        return $this->hasOne(Block::class);
+        return $this->belongsTo(Block::class);
     }
 
     public function vouts()
     {
         return $this->hasMany(Vout::class);
+    }
+
+    public function getTotalValueOutAttribute()
+    {
+        return $this->vouts()->sum('value');
     }
 }

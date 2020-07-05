@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::post('/', 'SearchController@search')->name('search');
+
+Route::get('/transaction/{transaction}', 'TransactionController@index')->name('transaction');
+
+Route::get('/address/{address}', 'AddressController@index')->name('address');
+
+Route::get('/block/{block}', 'BlockController@index')->name('block');

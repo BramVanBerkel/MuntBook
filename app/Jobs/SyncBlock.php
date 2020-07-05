@@ -2,10 +2,10 @@
 
 namespace App\Jobs;
 
-use App\Models\Block;
-use App\Models\Transaction;
-use App\Models\Vin;
-use App\Models\Vout;
+use App\Repositories\BlockRepository;
+use App\Repositories\TransactionRepository;
+use App\Repositories\VinRepository;
+use App\Repositories\VoutRepository;
 use App\Services\GuldenService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -40,91 +40,31 @@ class SyncBlock implements ShouldQueue
     /**
      * Execute the job.
      *
+     * @param GuldenService $guldenService
      * @return void
      */
     public function handle(GuldenService $guldenService)
     {
-        $blockData = $guldenService->getBlock($guldenService->getBlockHash($this->height));
-        $blockData = collect($blockData);
+        $blockData = $guldenService->getBlock($guldenService->getBlockHash($this->height), 1);
 
         Log::info(sprintf("Processing block #{$this->height}"));
 
-        $block = Block::create([
-            'height' => $blockData->get('height'),
-            'hash' => $blockData->get('hash'),
-            'confirmations' => $blockData->get('confirmations'),
-            'strippedsize' => $blockData->get('strippedsize'),
-            'validated' => $blockData->get('validated'),
-            'size' => $blockData->get('size'),
-            'weight' => $blockData->get('weight'),
-            'version' => $blockData->get('version'),
-            'versionHex' => $blockData->get('versionHex'),
-            'merkleroot' => $blockData->get('merkleroot'),
-            'witness_version' => $blockData->get('witness_version'),
-            'witness_versionHex' => $blockData->get('witness_versionHex'),
-            'witness_time' => $blockData->get('witness_time'),
-            'pow_time' => $blockData->get('pow_time'),
-            'witness_merkleroot' => $blockData->get('witness_merkleroot'),
-            'time' => $blockData->get('time'),
-            'mediantime' => $blockData->get('mediantime'),
-            'nonce' => $blockData->get('nonce'),
-            'pre_nonce' => $blockData->get('pre_nonce'),
-            'post_nonce' => $blockData->get('post_nonce'),
-            'bits' => $blockData->get('bits'),
-            'difficulty' => $blockData->get('difficulty'),
-            'chainwork' => $blockData->get('chainwork'),
-            'previousblockhash' => $blockData->get('previousblockhash'),
-        ]);
+        $block = BlockRepository::create($blockData);
 
-        foreach ($blockData->get('tx') as $tx) {
-            $tx = collect($tx);
+        foreach ($blockData->get('tx') as $txid) {
+            $tx = $guldenService->getTransaction($txid, true);
 
-            $transaction = Transaction::create([
-                'txid' => $tx->get('txid'),
-                'hash' => $tx->get('hash'),
-                'size' => $tx->get('size'),
-                'vsize' => $tx->get('vsize'),
-                'version' => $tx->get('version'),
-                'locktime' => $tx->get('locktime'),
-                'block_height' => $block->height,
-            ]);
-
+            $transaction = TransactionRepository::create($tx, $block->height);
             foreach ($tx->get('vin') as $vin){
-                $vin = collect($vin);
-
-                Vin::create([
-                    'prevout_type' => $vin->get('prevout_type'),
-                    'txid' => $vin->get('txid'),
-                    'coinbase' => $vin->get('coinbase'),
-                    'tx_height' => $vin->get('tx_height') !== "" ? $vin->get('tx_height') : null,
-                    'tx_index' => $vin->get('tx_index') !== "" ? $vin->get('tx_index') : null,
-                    'scriptSig_asm' => $vin->get('scriptSig_asm') !== "" ? $vin->get('scriptSig_asm') : null,
-                    'scriptSig_hex' => $vin->get('scriptSig_hex') !== "" ? $vin->get('scriptSig_hex') : null,
-                    'vout' => $vin->get('vout'),
-                    'rbf' => $vin->get('rbf'),
-                    'transaction_id' => $transaction->id
-                ]);
+                VinRepository::create(collect($vin), $transaction->id);
             }
 
             foreach ($tx->get('vout') as $vout) {
                 $vout = collect($vout);
-
-                Vout::create([
-                    'value' => $vout->get('value'),
-                    'n' => $vout->get('n'),
-                    'standard_key_hash_hex' => optional($vout->get('standard-key-hash'))->hex,
-                    'standard_key_hash_address' => optional($vout->get('standard-key-hash'))->address,
-                    'witness_hex' => optional($vout->get('PoW²-witness'))->hex,
-                    'witness_lock_from_block' => optional($vout->get('PoW²-witness'))->lock_from_block,
-                    'witness_lock_until_block' => optional($vout->get('PoW²-witness'))->lock_until_block,
-                    'witness_fail_count' => optional($vout->get('PoW²-witness'))->fail_count,
-                    'witness_action_nonce' => optional($vout->get('PoW²-witness'))->action_nonce,
-                    'witness_pubkey_spend' => optional($vout->get('PoW²-witness'))->pubkey_spend,
-                    'witness_pubkey_witness' => optional($vout->get('PoW²-witness'))->pubkey_witness,
-                    'witness_address' => optional($vout->get('PoW²-witness'))->address,
-
-                    'transaction_id' => $transaction->id
-                ]);
+                if(!$vout->has('scriptPubKey')){
+                    dd($blockData);
+                }
+                VoutRepository::create(collect($vout), $transaction->id);
             }
         }
 

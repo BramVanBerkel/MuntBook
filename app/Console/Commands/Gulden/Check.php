@@ -49,7 +49,7 @@ class Check extends Command
     public function handle(GuldenService $guldenService)
     {
         $guldenHeight = $guldenService->getBlockCount();
-        $dbHeight = Block::max('height');
+        $dbHeight = Block::max('height') ?? 0;
 
         Log::info("Checking for new blocks. DB height: {$dbHeight}, Gulden height: {$guldenHeight}");
 
@@ -57,11 +57,15 @@ class Check extends Command
             return;
         }
 
+//        $guldenHeight = 100;
+
         foreach(range($dbHeight, $guldenHeight) as $height) {
             if(!Cache::has("syncblock-{$height}") && !Block::whereKey($height)->exists()) {
                 Log::info(sprintf("Blockcount: %d/%d", $height, $guldenHeight));
 
-                Cache::set("syncblock-{$height}", true);
+                if(config('queue.default') !== 'sync'){
+                    Cache::set("syncblock-{$height}", true);
+                }
 
                 dispatch(new SyncBlock($height))->delay(now()->addSeconds(5));
             }

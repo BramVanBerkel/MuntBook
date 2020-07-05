@@ -1,0 +1,264 @@
+/* 
+---------------------------------------------
+services
+--------------------------------------------- 
+*/
+
+.features-elliptical {
+	text-align: center;
+	padding-left: 20px;
+	padding-right: 20px;
+	margin-bottom: 30px;
+	@include transition(.3s);
+
+	&.elliptical-bottom {
+		position: relative;
+
+		&:after {
+			content: '';
+			position: absolute;
+			width: 70%;
+			height: 32px;
+			top: 70px;
+			left: 70%;
+			background: url(../images/elliptical-bottom.png) center center no-repeat;
+			@include transition(.3s);
+		}
+	}
+
+	&.elliptical-top {
+		position: relative;
+
+		&:after {
+			content: '';
+			position: absolute;
+			width: 70%;
+			height: 32px;
+			top: 0px;
+			left: 70%;
+			background: url(../images/elliptical-top.png) center center no-repeat;
+			@include transition(.3s);
+		}
+	}
+
+	.icon {
+		width: 100px;
+		height: 100px;
+		margin: auto;
+		@include radius(100px);
+		border: 2px dashed #6F8BA4;
+		margin-bottom: 36px;
+		@include transition(.3s);
+
+		i {
+			display: block;
+			width: 100px;
+			height: 100px;
+			line-height: 100px;
+			color: #6F8BA4;
+			font-size: 50px;
+		}
+	}
+
+	.features-title {
+		@include font($normal, 18px);
+		color: $headingDark;
+		letter-spacing: 1.12px;
+		margin-bottom: 20px;
+	}
+
+	p {
+		@include font($normal, 16px);
+		color: $textDark;
+		line-height: 28px;
+		letter-spacing: 1px;
+	}
+
+	&:hover {
+		margin-top: -20px;
+		padding-bottom: 20px;
+
+		&.elliptical-bottom {
+
+			&:after {
+				top: 90px;
+			}
+		}
+
+		&.elliptical-top {
+
+			&:after {
+				top: 20px;
+			}
+		}
+	}
+}
+
+.features-line {
+	text-align: center;
+	padding-left: 20px;
+	padding-right: 20px;
+	margin-bottom: 30px;
+	@include transition(.3s);
+
+	&.line {
+		position: relative;
+
+		&:after {
+			content: '';
+			position: absolute;
+			width: 70%;
+			height: 2px;
+			top: 50px;
+			left: 70%;
+			@include transition(.3s);
+			border: 1px dashed $primaryColor;
+		}
+	}
+
+	.icon {
+		width: 100px;
+		height: 100px;
+		margin: auto;
+		@include radius(100px);
+		margin-bottom: 36px;
+		@include transition(.3s);
+		background: $primaryColor;
+
+		i {
+			display: block;
+			width: 100px;
+			height: 100px;
+			line-height: 100px;
+			color: #fff;
+			font-size: 40px;
+		}
+	}
+
+	.features-title {
+		@include font($normal, 18px);
+		color: $headingDark;
+		letter-spacing: 1.12px;
+		margin-bottom: 20px;
+	}
+
+	p {
+		@include font($normal, 16px);
+		color: $textDark;
+		line-height: 28px;
+		letter-spacing: 1px;
+	}
+
+	&:hover {
+		margin-top: -20px;
+		padding-bottom: 20px;
+
+		&:after {
+			top: 70px;
+		}
+	}
+}
+
+.features-bordered {
+	border: 1px solid #CEE1F8;
+	@include radius(4px);
+	padding: 30px;
+	@include transition(.3s);
+	overflow: hidden;
+	margin-bottom: 30px;
+
+	&:hover {
+		border: 1px solid $primaryColor;
+	}
+
+	.icon {
+		margin-bottom: 25px;
+	}
+
+	.features-title {
+		@include font($normal, 18px);
+		letter-spacing: 1.12px;
+		color: $headingDark;
+		line-height: 28px;
+		margin-bottom: 22px;
+	}
+
+	p {
+		@include font($normal, 16px);
+		color: $textDark;
+		letter-spacing: 1px;
+		line-height: 28px;
+		margin-bottom: 10px;
+	}
+
+	a {
+		float: right;
+		@include font($normal, 14px);
+		letter-spacing: 0.88px;
+		color: $textDark;
+		@include transition(.3s);
+
+		i {
+			margin-left: 3px;
+		}
+
+		&:hover {
+			color: $secondaryColor;
+		}
+	}
+}
+
+.features-shadow {
+	padding: 30px 20px;
+	text-align: center;
+	margin-bottom: 30px;
+	@include transition(.3s);
+
+	.icon {
+		margin-bottom: 20px;
+
+		i {
+			color: #6F8BA4;
+			font-size: 30px;
+			color: $secondaryColor;
+		}
+	}
+
+	.features-title {
+		@include font($normal, 16px);
+		color: $headingDark;
+		letter-spacing: 1.12px;
+		margin-bottom: 20px;
+		line-height: 26px;
+	}
+
+	p {
+		@include font($normal, 14px);
+		color: $textDark;
+		line-height: 26px;
+		letter-spacing: 1px;
+	}
+
+	&:hover {
+		background: #FFFFFF;
+		box-shadow: 0 1px 18px 10px rgba(0,0,0,0.06);
+		border-radius: 4px;
+		transform: scale(1.1);
+	}
+}
+
+@media (max-width : 991px) {
+	.features-elliptical {
+		padding: 0px;
+
+		&:after {
+			display: none;
+		}
+	}
+
+	.features-line {
+		&:after {
+			display: none;
+		}
+	}
+}

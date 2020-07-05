@@ -1,0 +1,107 @@
+/* 
+---------------------------------------------
+buttons
+--------------------------------------------- 
+*/
+
+.btn-secondary-box {
+	display: inline-block;
+	height: 46px;
+	line-height: 45px;
+	text-align: center;
+	@include radius(100px);
+	position: relative;
+	border: 1px solid $secondaryColor;
+	background: $secondaryColor;
+	@include font($medium, 14px);
+	color: #fff;
+	letter-spacing: 0.5px;
+	text-transform: uppercase;	
+	@include transition(.3s);
+	padding-left: 30px;
+	padding-right: 30px;
+	outline: none !important;
+	cursor: pointer;
+
+	&:hover {
+		border: 1px solid #fff;
+		background: none;
+		color: #fff;
+	}
+}
+
+.btn-secondary-line {
+	display: inline-block;
+	height: 46px;
+	line-height: 45px;
+	text-align: center;
+	@include radius(100px);
+	position: relative;
+	border: 1px solid $secondaryColor;
+	@include font($medium, 14px);
+	color: $secondaryColor;
+	letter-spacing: 0.5px;
+	text-transform: uppercase;	
+	@include transition(.3s);
+	padding-left: 30px;
+	padding-right: 30px;
+	outline: none !important;
+	cursor: pointer;
+
+	&:hover {
+		background: $secondaryColor;
+		color: #fff;
+	}
+}
+
+.btn-primary-line {
+	width: 100%;
+	display: inline-block;
+	height: 46px;
+	line-height: 45px;
+	text-align: center;
+	@include radius(100px);
+	position: relative;
+	border: 1px solid $primaryColor;
+	@include font($medium, 14px);
+	color: $primaryColor;
+	letter-spacing: 0.5px;
+	text-transform: uppercase;	
+	@include transition(.3s);
+	outline: none !important;
+	cursor: pointer;
+
+	&:hover {
+		background: $primaryColor;
+		color: #fff;
+	}
+}
+
+.btn-white-line {
+	display: inline-block;
+	height: 46px;
+	line-height: 45px;
+	text-align: center;
+	@include radius(100px);
+	position: relative;
+	border: 1px solid #fff;
+	@include font($medium, 14px);
+	color: #fff;
+	letter-spacing: 0.5px;
+	text-transform: uppercase;	
+	@include transition(.3s);
+	outline: none !important;
+	cursor: pointer;
+	padding-left: 30px;
+	padding-right: 30px;	
+
+	&:hover {
+		background: #fff;
+		color: $headingDark;
+	}
+}
+
+.app-download {
+	display: inline-block;
+	margin-right: 10px;
+}

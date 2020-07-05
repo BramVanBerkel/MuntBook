@@ -1,0 +1,189 @@
+/* 
+---------------------------------------------
+global styles
+--------------------------------------------- 
+*/
+
+::selection {
+  background: $primaryColor;
+  color: #fff;
+}
+
+::-moz-selection {
+  background: $primaryColor;
+  color: #fff;
+}
+
+.m-bottom-100 {
+	margin-bottom: 100px;
+}
+
+.m-bottom-60 {
+	margin-bottom: 60px;
+}
+
+.m-bottom-70 {
+	margin-bottom: 70px;
+}
+
+.m-bottom-30 {
+	margin-bottom: 30px;
+}
+
+.m-bottom-0 {
+	margin-bottom: 0px !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+	background: #F3F8FF;
+}
+
+.section {
+	padding-top: 100px;
+	padding-bottom: 100px;
+}
+
+.bg-bottom {
+	background: url(../images/section-bg.png);
+	background-position: center bottom;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.bg-top {
+	background: url(../images/section-bg.png);
+	background-position: center top;
+	background-repeat: no-repeat;
+}
+
+.left-heading {
+
+	&.light {
+		.section-title {
+			color: $headingLight;
+		}
+	}
+
+	.section-title {
+		@include font($normal, 30px);
+		color: $headingDark;
+		letter-spacing: 1.30px;
+		line-height: 40px;
+		margin-bottom: 20px;
+	}
+}
+
+.center-heading {
+	text-align: center;
+
+	.section-title {
+		@include font($normal, 30px);
+		color: $headingDark;
+		letter-spacing: 1.30px;
+		line-height: 40px;
+		margin-bottom: 20px;
+	}
+
+	&.colored {
+		.section-title {
+			color: $headingLight;
+		}
+	}
+}
+
+.left-text {
+	@include font($normal, 16px);
+	color: $textDark;
+	line-height: 28px;
+	letter-spacing: 1px;
+	margin-bottom: 50px;
+
+	&.light {
+		color: $textLight;
+	}
+
+	p {
+		margin-bottom: 30px;
+
+		&.dark {
+			color: $headingDark;
+		}
+	}
+
+	ul {
+		color: $textLight;
+		@include font($semi, 14px);
+		letter-spacing: 1.18px;
+		margin-bottom: 30px;
+
+		li {
+			height: 32px;
+			line-height: 32px;
+			position: relative;
+			padding-left: 30px;
+			@include transition(.3s);
+
+			&:before {
+				position: absolute;
+				left: 0px;
+				content: "\f178";
+				font-family: FontAwesome;
+				height: 38px;
+				line-height: 38px;
+			}
+
+			&:hover {
+				padding-left: 40px;
+			}
+		}
+	}
+}
+
+.center-text {
+	text-align: center;
+	@include font($normal, 16px);
+	color: $textDark;
+	line-height: 28px;
+	letter-spacing: 1px;
+	margin-bottom: 50px;
+
+	&.colored {
+		color: $textLight;
+	}
+
+	p {
+		margin-bottom: 30px;
+	}
+}
+
+.gradient {
+	background-image: linear-gradient(134deg, $gradientDark 0%, $gradientLight 100%);
+	position: relative;
+
+	&:before {
+		content: '';
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background: url(../images/section-bg-top.png) center top no-repeat;
+		top: 0px;
+		left: 0px;
+	}
+}
+
+.align-self-center {
+	-ms-flex-item-align: center!important;
+    align-self: center!important;
+}
+
+
+@media (max-width : 991px) {
+	html, body {
+	    overflow-x: hidden;
+	}
+
+	.mobile-bottom-fix {
+		margin-bottom: 60px;
+	}
+}
+
