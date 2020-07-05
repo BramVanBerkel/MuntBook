@@ -1,12 +1,10 @@
 /node_modules
-/public/hot
-/public/storage
 /public/css
 /public/images
 /public/js
 /storage/*.key
 /vendor
-/binaries/*
+/binaries
 /.idea
 .env
 .env.backup
