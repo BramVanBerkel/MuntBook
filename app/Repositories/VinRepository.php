@@ -9,18 +9,18 @@ use Illuminate\Support\Collection;
 
 class VinRepository
 {
-    public static function create(Collection $vin, string $transaction_id)
+    public static function create(Collection $data, string $transaction_id): Vin
     {
         return Vin::create([
-            'prevout_type' => $vin->get('prevout_type'),
-            'txid' => $vin->get('txid'),
-            'coinbase' => $vin->get('coinbase'),
-            'tx_height' => $vin->get('tx_height') !== "" ? $vin->get('tx_height') : null,
-            'tx_index' => $vin->get('tx_index') !== "" ? $vin->get('tx_index') : null,
-            'scriptSig_asm' => $vin->get('scriptSig_asm') !== "" ? $vin->get('scriptSig_asm') : null,
-            'scriptSig_hex' => $vin->get('scriptSig_hex') !== "" ? $vin->get('scriptSig_hex') : null,
-            'vout' => $vin->get('vout'),
-            'rbf' => $vin->get('rbf'),
+            'prevout_type' => $data->get('prevout_type'),
+            'txid' => $data->get('txid'),
+            'coinbase' => $data->get('coinbase'),
+            'tx_height' => $data->get('tx_height') !== "" ? $data->get('tx_height') : null,
+            'tx_index' => $data->get('tx_index') !== "" ? $data->get('tx_index') : null,
+            'scriptSig_asm' => $data->get('scriptSig_asm') !== "" ? $data->get('scriptSig_asm') : null,
+            'scriptSig_hex' => $data->get('scriptSig_hex') !== "" ? $data->get('scriptSig_hex') : null,
+            'vout' => $data->get('vout'),
+            'rbf' => $data->get('rbf'),
             'transaction_id' => $transaction_id
         ]);
     }

@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 
 class TransactionRepository
 {
-    public static function create(Collection $transaction, int $height)
+    public static function create(Collection $transaction, int $height): Transaction
     {
         return Transaction::create([
             'id' => $transaction->get('txid'),
