@@ -29,6 +29,11 @@ class Vout extends Model
         'transaction_id',
     ];
 
+    public function addresses()
+    {
+        return $this->belongsToMany(Address::class);
+    }
+
     public function isWitness()
     {
         return $this->witness_hex !== null;
