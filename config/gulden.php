@@ -12,8 +12,8 @@ return [
     */
     'rpc_user' => env('GULDEN_RPC_USER', 'gulden'),
     'rpc_password' => env('GULDEN_RPC_PASSWORD', 'secret'),
-    'rpc_host' => env('GULDEN_RPC_HOST', ''),
-    'rpc_port' => env('GULDEN_RPC_PORT', ''),
+    'rpc_host' => env('GULDEN_RPC_HOST', '127.0.0.1'),
+    'rpc_port' => env('GULDEN_RPC_PORT', '9232'),
 
     /*
     |--------------------------------------------------------------------------
