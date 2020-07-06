@@ -61,9 +61,7 @@ class SyncBlock implements ShouldQueue
 
             foreach ($tx->get('vout') as $vout) {
                 $vout = collect($vout);
-                if(!$vout->has('scriptPubKey')){
-                    dd($blockData);
-                }
+
                 VoutRepository::create(collect($vout), $transaction->id);
             }
         }
