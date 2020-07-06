@@ -16,8 +16,6 @@ class Block extends Model
 
     protected $primaryKey = 'height';
 
-    public $timestamps = true;
-
     protected $fillable = [
         'hash',
         'confirmations',
