@@ -28,15 +28,18 @@ class VoutRepository
             'transaction_id' => $transaction_id
         ]);
 
-        if(!property_exists($data->get('scriptPubKey'), 'addresses')){
-            return $vout;
-        }
 
-        foreach($data->get('scriptPubKey')->addresses as $address) {
-            $vout->addresses()->create([
-                'address' => $address,
-                'type' => Address::TYPE_ADDRESS
-            ]);
+        if($data->get('scriptPubKey') !== null) {
+            if(!property_exists($data->get('scriptPubKey'), 'addresses')){
+                return $vout;
+            }
+
+            foreach($data->get('scriptPubKey')->addresses as $address) {
+                $vout->addresses()->create([
+                    'address' => $address,
+                    'type' => Address::TYPE_ADDRESS
+                ]);
+            }
         }
 
         return $vout;
