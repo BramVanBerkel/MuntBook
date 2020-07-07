@@ -35,10 +35,9 @@ class VoutRepository
             }
 
             foreach($data->get('scriptPubKey')->addresses as $address) {
-                $vout->addresses()->create([
-                    'address' => $address,
-                    'type' => Address::TYPE_ADDRESS
-                ]);
+                $address = AddressRepository::create($address);
+
+                $vout->addresses()->attach($address);
             }
         }
 

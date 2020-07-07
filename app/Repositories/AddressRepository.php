@@ -3,17 +3,14 @@
 
 namespace App\Repositories;
 
-
-
 use App\Models\Address;
-use Illuminate\Support\Collection;
 
 class AddressRepository
 {
-    public static function create(Collection $data): Address
+    public static function create(string $address): Address
     {
         return Address::firstOrCreate(
-            ['address' => $data->get('address')],
+            ['address' => $address],
             ['type' => Address::TYPE_ADDRESS]
         );
     }
