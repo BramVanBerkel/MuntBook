@@ -14,6 +14,7 @@ class Vout extends Model
     protected $table = 'vouts';
 
     protected $fillable = [
+        'transaction_id',
         'value',
         'n',
         'standard_key_hash_hex',
@@ -26,7 +27,7 @@ class Vout extends Model
         'witness_pubkey_spend',
         'witness_pubkey_witness',
         'witness_address',
-        'transaction_id',
+
     ];
 
     public function addresses()

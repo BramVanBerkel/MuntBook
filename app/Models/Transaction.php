@@ -43,6 +43,11 @@ class Transaction extends Model
         return $this->hasMany(Vout::class);
     }
 
+    public function vins()
+    {
+        return $this->hasMany(Vin::class);
+    }
+
     public function getTotalValueOutAttribute()
     {
         return $this->vouts()->sum('value');

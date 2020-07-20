@@ -16,6 +16,7 @@ class CreateVinsTable extends Migration
         Schema::create('vins', function (Blueprint $table) {
             $table->id();
             $table->string('transaction_id');
+            $table->unsignedBigInteger('vout_id')->nullable();
 
             $table->string('prevout_type')->nullable();
             $table->string('txid')->nullable();
@@ -24,10 +25,11 @@ class CreateVinsTable extends Migration
             $table->integer('tx_index')->nullable();
             $table->string('scriptSig_asm')->nullable();
             $table->string('scriptSig_hex')->nullable();
-            $table->integer('vout')->nullable();
             $table->integer('rbf')->nullable();
 
             $table->foreign('transaction_id')->references('id')->on('transactions')->cascadeOnDelete();
+            $table->foreign('txid')->references('id')->on('transactions')->cascadeOnDelete();
+            $table->foreign('vout_id')->references('id')->on('vouts')->cascadeOnDelete();
 
             $table->timestamps();
         });

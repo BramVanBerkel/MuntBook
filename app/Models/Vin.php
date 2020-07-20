@@ -24,5 +24,16 @@ class Vin extends Model
         'vout',
         'rbf',
         'transaction_id',
+        'vout_id',
     ];
+
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class);
+    }
+
+    public function vout()
+    {
+        return $this->belongsTo(Vout::class);
+    }
 }

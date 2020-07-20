@@ -15,10 +15,10 @@ class CreateVoutsTable extends Migration
     {
         Schema::create('vouts', function (Blueprint $table) {
             $table->id();
-            $table->string('transaction_id');
+            $table->string('transaction_id')->index();
 
             $table->double('value');
-            $table->integer('n');
+            $table->integer('n')->index();
             $table->string('standard_key_hash_hex')->nullable();
             $table->string('standard_key_hash_address')->nullable();
             $table->string('witness_hex')->nullable();

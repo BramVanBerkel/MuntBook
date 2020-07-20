@@ -20,7 +20,7 @@
                             <form method="POST" action="{{ route('search') }}">
                                 @csrf
                                 <input type="text" name="query" placeholder="block, hash, transaction, etc...">
-                                <button type="submit"><i class="fa fa-search"></i></button>
+                                <button aria-label="search" type="submit"><i class="fa fa-search"></i></button>
                             </form>
                         </div>
                     </div>
