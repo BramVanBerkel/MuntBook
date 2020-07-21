@@ -61,11 +61,11 @@ class Check extends Command
             if(!Cache::has("syncblock-{$height}") && !Block::whereKey($height)->exists()) {
                 Log::info(sprintf("Blockcount: %d/%d", $height, $guldenHeight));
 
-                if(config('queue.default') !== 'sync'){
-                    Cache::set("syncblock-{$height}", true);
-                }
+//                if(config('queue.default') !== 'sync'){
+//                    Cache::set("syncblock-{$height}", true);
+//                }
 
-                dispatch(new SyncBlock($height))->delay(now()->addSeconds(5));
+                dispatch((new SyncBlock($height))->onConnection('sync'));
             }
         }
     }

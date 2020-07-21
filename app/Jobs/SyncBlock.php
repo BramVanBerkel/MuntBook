@@ -66,6 +66,6 @@ class SyncBlock implements ShouldQueue
             }
         }
 
-        Cache::forget("syncblock-{$this->height}");
+//        Cache::forget("syncblock-{$this->height}");
     }
 }
