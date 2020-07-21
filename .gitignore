@@ -1,7 +1,4 @@
 /node_modules
-/public/css/*
-/public/images/*
-/public/js/*
 /storage/*.key
 /vendor
 /binaries
@@ -16,3 +13,6 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+/public/js/
+/public/css/
+/public/images/
