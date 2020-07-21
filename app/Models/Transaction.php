@@ -13,10 +13,7 @@ class Transaction extends Model
 {
     protected $table = 'transactions';
 
-    public $incrementing = false;
-
     protected $fillable = [
-        'id',
         'txid',
         'size',
         'vsize',

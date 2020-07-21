@@ -15,7 +15,9 @@ class CreateVoutsTable extends Migration
     {
         Schema::create('vouts', function (Blueprint $table) {
             $table->id();
-            $table->string('transaction_id')->index();
+
+            $table->unsignedBigInteger('transaction_id')->index();
+            $table->foreign('transaction_id')->references('id')->on('transactions')->cascadeOnDelete();
 
             $table->double('value');
             $table->integer('n')->index();
@@ -29,8 +31,6 @@ class CreateVoutsTable extends Migration
             $table->string('witness_pubkey_spend')->nullable();
             $table->string('witness_pubkey_witness')->nullable();
             $table->string('witness_address')->nullable();
-
-            $table->foreign('transaction_id')->references('id')->on('transactions')->cascadeOnDelete();
 
             $table->timestamps();
         });

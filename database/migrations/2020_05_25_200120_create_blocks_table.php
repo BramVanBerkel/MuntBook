@@ -16,7 +16,7 @@ class CreateBlocksTable extends Migration
         Schema::create('blocks', function (Blueprint $table) {
             $table->id('height');
 
-            $table->string('hash');
+            $table->string('hash')->unique();
             $table->unsignedInteger('confirmations');
             $table->unsignedInteger('strippedsize');
             $table->unsignedInteger('validated');

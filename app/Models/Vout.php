@@ -27,12 +27,16 @@ class Vout extends Model
         'witness_pubkey_spend',
         'witness_pubkey_witness',
         'witness_address',
-
     ];
 
     public function addresses()
     {
         return $this->belongsToMany(Address::class);
+    }
+
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class);
     }
 
     public function isWitness()

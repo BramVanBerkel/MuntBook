@@ -16,7 +16,7 @@ class CreateAddressesTable extends Migration
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
 
-            $table->string('address')->index();
+            $table->string('address')->unique();
             $table->enum('type', [
                 'address',
                 'witness_address',

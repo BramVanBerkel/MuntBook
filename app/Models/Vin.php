@@ -15,7 +15,6 @@ class Vin extends Model
 
     protected $fillable = [
         'prevout_type',
-        'txid',
         'coinbase',
         'tx_height',
         'tx_index',

@@ -64,9 +64,8 @@
                     @foreach($block->transactions as $transaction)
                         <tr>
                             <td>
-                                <a href="{{ route('transaction', ['transaction' => $transaction->id]) }}">
-                                    {{ Str::limit($transaction->id, 25) }}
-                                </a>
+                                <a href="{{ route('transaction', ['transaction' => $transaction->txid]) }}">
+                                    {{ Str::limit($transaction->txid, 25) }}
                                 </a>
                             </td>
                             <td><span class="gulden-icon"></span> {{ $transaction->total_value_out }}</td>

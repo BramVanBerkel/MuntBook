@@ -13,7 +13,7 @@ class TransactionRepository
     public static function create(Collection $transaction, int $height): Transaction
     {
         return Transaction::create([
-            'id' => $transaction->get('txid'),
+            'txid' => $transaction->get('txid'),
             'size' => $transaction->get('size'),
             'vsize' => $transaction->get('vsize'),
             'version' => $transaction->get('version'),

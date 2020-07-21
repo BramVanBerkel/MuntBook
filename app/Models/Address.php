@@ -28,4 +28,9 @@ class Address extends Model
     {
         return $this->belongsToMany(Vout::class);
     }
+
+    public function vins()
+    {
+        return $this->hasManyThrough(Vin::class, Vout::class);
+    }
 }

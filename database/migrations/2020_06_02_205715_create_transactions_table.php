@@ -14,9 +14,12 @@ class CreateTransactionsTable extends Migration
     public function up()
     {
         Schema::create('transactions', function (Blueprint $table) {
-            $table->string("id")->unique();
-            $table->integer('block_height');
+            $table->id('id');
 
+            $table->unsignedBigInteger('block_height');
+            $table->foreign('block_height')->references('height')->on('blocks')->cascadeOnDelete();
+
+            $table->string('txid')->unique();
             $table->integer('size');
             $table->integer('vsize');
             $table->integer('version');
@@ -24,8 +27,6 @@ class CreateTransactionsTable extends Migration
             $table->string('blockhash');
             $table->integer('confirmations');
             $table->dateTime('blocktime');
-
-            $table->foreign('block_height')->references('height')->on('blocks')->cascadeOnDelete();
 
             $table->timestamps();
         });
