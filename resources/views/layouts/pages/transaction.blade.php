@@ -59,7 +59,7 @@
                     <thead>
                     <tr>
                         <th>Address</th>
-                        <th>Ammount</th>
+                        <th>Amount</th>
                     </tr>
                     </thead>
                     <tbody>
