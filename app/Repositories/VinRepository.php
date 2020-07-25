@@ -8,6 +8,7 @@ use App\Models\Transaction;
 use App\Models\Vin;
 use App\Models\Vout;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 
 class VinRepository
 {
@@ -27,9 +28,14 @@ class VinRepository
         if($data->get('txid') !== null) {
             $transaction = Transaction::firstWhere('txid', '=', $data->get('txid'));
 
-            $vout = Vout::where('transaction_id', '=', $transaction->id)->where('n', '=', $data->get('vout'))->first();
-            $vin->vout()->associate($vout);
-            $vin->save();
+            if($transaction !== null) {
+                $vout = Vout::where('transaction_id', '=', $transaction->id)->where('n', '=', $data->get('vout'))->first();
+                $vin->vout()->associate($vout);
+                $vin->save();
+            } else {
+                Log::error("transaction {$data->get('txid')} was not found in db");
+            }
+
         }
 
         return $vin;
