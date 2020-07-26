@@ -8,15 +8,15 @@ use Illuminate\Support\Str;
 
 class AddressRepository
 {
-    public static function create(string $address, string $type = null): Address
+    public static function create(string $address): Address
     {
         return Address::firstOrCreate(
             ['address' => $address],
-            ['type' => Address::TYPE_ADDRESS]
+            ['type' => self::getType($address)]
         );
     }
 
-    public static function getType(string $address)
+    private static function getType(string $address): ?string
     {
         switch (Str::length($address)) {
             case config('gulden.address_length'):

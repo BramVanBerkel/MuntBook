@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="center-heading">
-                <h2 class="section-title">Details for transaction #{{ Str::limit($transaction->id, 25) }}</h2>
+                <h2 class="section-title">Details for transaction #{{ Str::limit($transaction->txid, 25) }}</h2>
             </div>
         </div>
         {{--        <div class="offset-lg-3 col-lg-6">--}}
@@ -20,7 +20,7 @@
                     <tbody>
                     <tr>
                         <td><strong>Transaction id</strong></td>
-                        <td>{{ $transaction->id }}</td>
+                        <td>{{ $transaction->txid }}</td>
                     </tr>
                     <tr>
                         <td><strong>Block</strong></td>
@@ -64,7 +64,6 @@
                     </thead>
                     <tbody>
                     @foreach($transaction->vins()->whereNotNull('vout_id')->get() as $vin)
-
                         <tr>
                             <td>
                                 <a href="{{ route('address', ['address' => $vin->vout->addresses->first()->address]) }}">

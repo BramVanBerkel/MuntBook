@@ -65,7 +65,5 @@ class SyncBlock implements ShouldQueue
                 VoutRepository::create(collect($vout), $transaction->id);
             }
         }
-
-//        Cache::forget("syncblock-{$this->height}");
     }
 }

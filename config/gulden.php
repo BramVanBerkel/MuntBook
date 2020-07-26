@@ -34,6 +34,6 @@ return [
     |
     */
     'transaction_length' => 64,
-    'address_length' => 32,
+    'address_length' => 34,
     'witness_length' => 62,
 ];

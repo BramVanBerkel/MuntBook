@@ -17,8 +17,10 @@ class Vout extends Model
         'transaction_id',
         'value',
         'n',
+        'type',
         'standard_key_hash_hex',
         'standard_key_hash_address',
+        'scriptpubkey_type',
         'witness_hex',
         'witness_lock_from_block',
         'witness_lock_until_block',
@@ -26,8 +28,12 @@ class Vout extends Model
         'witness_action_nonce',
         'witness_pubkey_spend',
         'witness_pubkey_witness',
-        'witness_address',
     ];
+
+    const TYPE_TRANSACTION = 'transaction';
+    const TYPE_MINING = 'mining';
+    const TYPE_WITNESS = 'witness';
+    const TYPE_WITNESS_FUNDING = 'witness_funding';
 
     public function addresses()
     {
@@ -37,6 +43,11 @@ class Vout extends Model
     public function transaction()
     {
         return $this->belongsTo(Transaction::class);
+    }
+
+    public function witnessAddress()
+    {
+        $this->hasOne(Address::class, 'id', 'witness_address_id');
     }
 
     public function isWitness()

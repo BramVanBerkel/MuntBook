@@ -20,6 +20,12 @@ class Address extends Model
         'type'
     ];
 
+    /**
+     * This is the address for Gulden Development.
+     * From block number 1030000 this address will receive 40 Gulden for each block.
+     */
+    const DEVELOPMENT_ADDRESS = 'GPk2TdvW1bjPAaPL72PXhVfYvyqEHKGrDA';
+
     const TYPE_ADDRESS = 'address';
     const TYPE_WITNESS_ADDRESS = 'witness_address';
     const TYPE_MINING_ADDRESS = 'mining_address';

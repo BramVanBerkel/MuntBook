@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Address;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,9 +19,9 @@ class CreateAddressesTable extends Migration
 
             $table->string('address')->unique();
             $table->enum('type', [
-                'address',
-                'witness_address',
-                'mining_address',
+                Address::TYPE_ADDRESS,
+                Address::TYPE_WITNESS_ADDRESS,
+                Address::TYPE_MINING_ADDRESS,
             ]);
 
             $table->timestamps();
