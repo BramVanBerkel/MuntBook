@@ -63,10 +63,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($transaction->vins()->whereNotNull('vout_id')->get() as $vin)
+                    @foreach($transaction->vins()->has('vout.addresses')->get() as $vin)
                         <tr>
                             <td>
-                                <a href="{{ route('address', ['address' => $vin->vout->addresses->whereHas('address')->first()->address]) }}">
+                                <a href="{{ route('address', ['address' => $vin->vout->addresses->first()->address]) }}">
                                     {{ $vin->vout->addresses->first()->address }}
                                 </a>
                             </td>
