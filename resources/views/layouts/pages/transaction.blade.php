@@ -66,7 +66,8 @@
                     @foreach($transaction->vins()->whereNotNull('vout_id')->get() as $vin)
                         <tr>
                             <td>
-                                <a href="{{ route('address', ['address' => $vin->vout->addresses->first()->address]) }}">
+                                @dd($vin->vout->addresses);
+                                <a href="{{ route('address', ['address' => $vin->vout->addresses->whereHas('address')->first()->address]) }}">
                                     {{ $vin->vout->addresses->first()->address }}
                                 </a>
                             </td>
@@ -74,7 +75,7 @@
                         </tr>
                     @endforeach
 
-                    @foreach($transaction->vouts as $vout)
+                    @foreach($transaction->vouts()->has('addresses')->get() as $vout)
                         <tr>
                             <td>
                                 @if($vout->addresses->count() === 1)
