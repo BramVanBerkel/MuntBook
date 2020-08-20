@@ -17,10 +17,10 @@ class CreateAddressVoutTable extends Migration
             $table->id();
 
             $table->unsignedBigInteger('address_id')->index();
-            $table->foreign('address_id')->references('id')->on('addresses');
+            $table->foreign('address_id')->references('id')->on('addresses')->cascadeOnDelete();
 
             $table->unsignedBigInteger('vout_id')->index();
-            $table->foreign('vout_id')->references('id')->on('vouts');
+            $table->foreign('vout_id')->references('id')->on('vouts')->cascadeOnDelete();
         });
     }
 

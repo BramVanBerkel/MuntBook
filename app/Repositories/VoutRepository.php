@@ -4,8 +4,6 @@
 namespace App\Repositories;
 
 
-use App\Models\Address;
-use App\Models\Transaction;
 use App\Models\Vout;
 use Illuminate\Support\Collection;
 
@@ -68,7 +66,7 @@ class VoutRepository
 
     private static function getType(Collection $data): string
     {
-        if($data->has('PoW²-witness')) {
+        if($data->has('PoW²-witness') || optional($data->get('scriptPubKey'))->type === 'pow2_witness') {
             return Vout::TYPE_WITNESS;
         }
 
