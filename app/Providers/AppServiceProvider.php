@@ -6,6 +6,7 @@ use App\Models\Block;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -30,6 +31,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::share('maxBlock', Block::max('height'));
+        try {
+            View::share('maxBlock', Block::max('height'));
+        } catch (\PDOException $e) {
+            Log::error($e);
+        }
     }
 }
