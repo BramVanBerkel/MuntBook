@@ -5,9 +5,11 @@
                 <div class="col-lg-12 align-self-center">
                     <h1>Gulden Blockchain Explorer</h1>
                 </div>
-                <div class="offset-lg-3 col-lg-6">
-                    <p>Up To Block {{ $maxBlock }}</p>
-                </div>
+                @if($maxBlock !== null)
+                    <div class="offset-lg-3 col-lg-6">
+                        <p>Up To Block {{ $maxBlock }}</p>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
