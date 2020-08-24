@@ -5,8 +5,8 @@
                 <nav class="main-nav">
                     <!-- Logo -->
                     <a href="{{ route('home') }}" class="logo">
-                        <img src="assets/images/logos/transparent-logo-blue.svg" class="light-logo" alt="Arda ICO"/>
-                        <img src="assets/images/logos/white-logo-blue.svg" class="dark-logo" alt="Arda ICO"/>
+                        <img src="{{ asset('images/logos/white.svg') }}" class="light-logo" alt="GuldenBook"/>
+                        <img src="{{ asset('images/logos/black.svg') }}" class="dark-logo" alt="GuldenBook"/>
                     </a>
 
                     <!-- Lang -->
