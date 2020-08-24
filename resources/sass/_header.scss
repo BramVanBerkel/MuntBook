@@ -21,6 +21,7 @@ header
 			@include transition(.3s);
 
 			img {
+                max-height: 25px;
 				@include transition(.3s);
 			}
 		}
