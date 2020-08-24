@@ -1,7 +1,7 @@
-/* 
+/*
 ---------------------------------------------
 header
---------------------------------------------- 
+---------------------------------------------
 */
 
 .header-area {
@@ -28,7 +28,7 @@ header
 
 		.dark-logo {
 			display: none;
-		}		
+		}
 
 		.nav {
 			float: right;
@@ -241,7 +241,7 @@ header
 					height: 0;
 					border-left: 10px solid transparent;
 					border-right: 10px solid transparent;
-					border-bottom: 8px solid #fff;					
+					border-bottom: 8px solid #fff;
 				}
 
 				li {
@@ -353,11 +353,11 @@ header
 
 			.selected {
 				border: 1px solid $headingDark;
-				
+
 				span, i {
 					color: $headingDark;
 					@include font($semi, 12px);
-				}			
+				}
 			}
 		}
 	}
@@ -442,10 +442,10 @@ header
 
 				.selected {
 					border: 1px solid $headingDark;
-					
+
 					span, i {
 						color: $headingDark;
-					}				
+					}
 				}
 
 				.flag-list {
