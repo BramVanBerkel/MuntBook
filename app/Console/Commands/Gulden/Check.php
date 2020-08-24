@@ -60,8 +60,12 @@ class Check extends Command
         foreach(range($dbHeight, $guldenHeight) as $height) {
             if(!Cache::has("syncblock-{$height}") && !Block::whereKey($height)->exists()) {
                 Log::info(sprintf("Blockcount: %d/%d", $height, $guldenHeight));
-                
-                dispatch((new SyncBlock($height))->onConnection('sync'));
+
+                //initial sync
+                dispatch((new SyncBlock($height)));
+
+                //second sync to pick up the witness data
+                dispatch((new SyncBlock($height)))->delay(now()->addSeconds(20));
             }
         }
     }
