@@ -54,6 +54,14 @@ class Start extends Command
         $conf .= "rpcuser=" . config('gulden.rpc_user') . "\n";
         $conf .= "rpcpassword=" . config('gulden.rpc_password') . "\n";
 
+        if(!empty(config('gulden.testnet'))) {
+            $conf .= "testnet=" . config('gulden.testnet') . "\n";
+        }
+
+        if(!empty(config('gulden.addnode'))) {
+            $conf .= "addnode=" . config('gulden.addnode') . "\n";
+        }
+
         file_put_contents("binaries/datadir/Gulden.conf", $conf);
 
         if ($binary = $this->option("binary")) {
