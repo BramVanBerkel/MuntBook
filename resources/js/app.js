@@ -1,7 +1,5 @@
 require('./bootstrap');
 
-console.log('kak');
-
 // Page loading animation
 $(window).on('load', function(){
     $(".loading-wrapper").animate({
