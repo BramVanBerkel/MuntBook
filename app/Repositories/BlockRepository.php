@@ -12,8 +12,9 @@ class BlockRepository
 {
     public static function create(Collection $data): Block
     {
-        return Block::create([
+        return Block::updateOrCreate([
             'height' => $data->get('height'),
+        ],[
             'hash' => $data->get('hash'),
             'confirmations' => $data->get('confirmations'),
             'strippedsize' => $data->get('strippedsize'),

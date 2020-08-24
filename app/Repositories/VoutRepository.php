@@ -11,7 +11,9 @@ class VoutRepository
 {
     public static function create(Collection $data, string $transaction_id): Vout
     {
-        $vout = Vout::create([
+        $vout = Vout::updateOrCreate([
+            'transaction_id' => $transaction_id
+        ], [
             'type' => self::getType($data),
             'value' => $data->get('value'),
             'n' => $data->get('n'),

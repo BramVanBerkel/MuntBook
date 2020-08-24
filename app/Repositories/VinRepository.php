@@ -13,7 +13,9 @@ class VinRepository
 {
     public static function create(Collection $data, string $transaction_id): Vin
     {
-        $vin = Vin::create([
+        $vin = Vin::updateOrCreate([
+            'transaction_id' => $transaction_id
+        ], [
             'prevout_type' => $data->get('prevout_type'),
             'coinbase' => $data->get('coinbase'),
             'tx_height' => $data->get('tx_height') !== "" ? $data->get('tx_height') : null,

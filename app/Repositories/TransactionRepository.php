@@ -12,8 +12,9 @@ class TransactionRepository
 {
     public static function create(Collection $transaction, int $height): Transaction
     {
-        return Transaction::create([
+        return Transaction::updateOrCreate([
             'txid' => $transaction->get('txid'),
+        ], [
             'size' => $transaction->get('size'),
             'vsize' => $transaction->get('vsize'),
             'version' => $transaction->get('version'),
