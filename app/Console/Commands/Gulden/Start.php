@@ -47,22 +47,22 @@ class Start extends Command
             mkdir("binaries/datadir");
         }
 
-        $conf = "disablewallet=1\n";
-        $conf .= "txindex=1\n";
-        $conf .= "server=1\n";
-        $conf .= "blocknotify=" . env('GULDEN_BLOCKNOTIFY') . "\n";
-        $conf .= "rpcuser=" . config('gulden.rpc_user') . "\n";
-        $conf .= "rpcpassword=" . config('gulden.rpc_password') . "\n";
+        $config = "disablewallet=1\n";
+        $config .= "txindex=1\n";
+        $config .= "server=1\n";
+        $config .= "blocknotify=" . config('gulden.blocknotify') . "\n";
+        $config .= "rpcuser=" . config('gulden.rpc_user') . "\n";
+        $config .= "rpcpassword=" . config('gulden.rpc_password') . "\n";
 
         if(!empty(config('gulden.testnet'))) {
-            $conf .= "testnet=" . config('gulden.testnet') . "\n";
+            $config .= "testnet=" . config('gulden.testnet') . "\n";
         }
 
         if(!empty(config('gulden.addnode'))) {
-            $conf .= "addnode=" . config('gulden.addnode') . "\n";
+            $config .= "addnode=" . config('gulden.addnode') . "\n";
         }
 
-        file_put_contents("binaries/datadir/Gulden.conf", $conf);
+        file_put_contents("binaries/datadir/Gulden.conf", $config);
 
         if ($binary = $this->option("binary")) {
             if (!in_array($binary, ["Gulden", "GuldenD"])) {
