@@ -16,13 +16,11 @@ class CreateVinsTable extends Migration
         Schema::create('vins', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('transaction_id');
+            $table->unsignedBigInteger('transaction_id')->index();
             $table->foreign('transaction_id')->references('id')->on('transactions')->cascadeOnDelete();
-            $table->index('transaction_id');
 
-            $table->unsignedBigInteger('vout_id')->nullable();
+            $table->unsignedBigInteger('vout_id')->nullable()->index();
             $table->foreign('vout_id')->references('id')->on('vouts')->cascadeOnDelete();
-            $table->index('vout_id');
 
             $table->string('prevout_type')->nullable();
             $table->string('coinbase')->nullable();
