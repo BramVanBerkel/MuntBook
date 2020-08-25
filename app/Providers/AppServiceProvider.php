@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
         try {
             View::share('maxBlock', Block::max('height'));
         } catch (\PDOException $e) {
-            Log::error($e);
+
         }
     }
 }
