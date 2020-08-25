@@ -19,6 +19,7 @@ class CreateVoutsTable extends Migration
 
             $table->unsignedBigInteger('transaction_id')->index();
             $table->foreign('transaction_id')->references('id')->on('transactions')->cascadeOnDelete();
+            $table->index('transaction_id');
 
             $table->enum('type', [
                 Vout::TYPE_TRANSACTION,

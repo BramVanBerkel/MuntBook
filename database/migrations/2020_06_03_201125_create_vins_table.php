@@ -18,10 +18,12 @@ class CreateVinsTable extends Migration
 
             $table->unsignedBigInteger('transaction_id');
             $table->foreign('transaction_id')->references('id')->on('transactions')->cascadeOnDelete();
+            $table->index('transaction_id');
 
             $table->unsignedBigInteger('vout_id')->nullable();
             $table->foreign('vout_id')->references('id')->on('vouts')->cascadeOnDelete();
-            
+            $table->index('vout_id');
+
             $table->string('prevout_type')->nullable();
             $table->string('coinbase')->nullable();
             $table->integer('tx_height')->nullable();

@@ -19,6 +19,7 @@ class CreateTransactionsTable extends Migration
 
             $table->unsignedBigInteger('block_height');
             $table->foreign('block_height')->references('height')->on('blocks')->cascadeOnDelete();
+            $table->index('block_height');
 
             $table->string('txid')->unique();
             $table->integer('size');
