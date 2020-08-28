@@ -53,6 +53,7 @@ class Start extends Command
         $config .= "blocknotify=" . config('gulden.blocknotify') . "\n";
         $config .= "rpcuser=" . config('gulden.rpc_user') . "\n";
         $config .= "rpcpassword=" . config('gulden.rpc_password') . "\n";
+        $config .= "port=" . config('gulden.port') . "\n";
 
         if(!empty(config('gulden.testnet'))) {
             $config .= "testnet=" . config('gulden.testnet') . "\n";
@@ -73,6 +74,10 @@ class Start extends Command
             $binary = config('app.env') === 'local' ? 'Gulden' : 'GuldenD';
         }
 
-        exec("./binaries/{$binary} -datadir=binaries/datadir");
+        $command = "./binaries/{$binary} -datadir=binaries/datadir";
+
+        if (!empty(config('gulden.testnet'))) $command = sprintf("{$command} -testnet=%s", config('gulden.testnet'));
+
+        exec($command);
     }
 }
