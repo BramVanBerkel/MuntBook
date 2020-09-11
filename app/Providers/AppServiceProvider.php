@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Models\Block;
-use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
@@ -19,9 +18,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if ($this->app->environment() !== 'production') {
-            $this->app->register(IdeHelperServiceProvider::class);
-        }
+        //
     }
 
     /**
@@ -34,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
         try {
             View::share('maxBlock', Block::max('height'));
         } catch (\PDOException $e) {
-
+            //
         }
     }
 }
