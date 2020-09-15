@@ -46,7 +46,7 @@ class SyncBlock implements ShouldQueue
     {
         $blockData = $guldenService->getBlock($guldenService->getBlockHash($this->height), 1);
 
-        if($blockData->confirmations < 0) {
+        if($blockData->get('confirmations') < 0) {
             return;
         }
 
