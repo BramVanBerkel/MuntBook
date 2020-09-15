@@ -46,6 +46,10 @@ class SyncBlock implements ShouldQueue
     {
         $blockData = $guldenService->getBlock($guldenService->getBlockHash($this->height), 1);
 
+        if($blockData->confirmations < 0) {
+            return;
+        }
+
         Log::info(sprintf("Processing block #{$this->height}"));
 
         $block = BlockRepository::create($blockData);
