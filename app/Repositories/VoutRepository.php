@@ -30,12 +30,11 @@ class VoutRepository
 
             foreach($data->get('scriptPubKey')->addresses as $address) {
                 $address = AddressRepository::create($address);
-
-                $vout->addresses()->attach($address);
+                $vout->addresses()->syncWithoutDetaching($address);
             }
         } elseif ($data->has('standard-key-hash')) {
             $address = AddressRepository::create($data->get('standard-key-hash')->address);
-            $vout->addresses()->attach($address);
+            $vout->addresses()->syncWithoutDetaching($address);
         }
 
         if($data->has('PoW²-witness')) {
