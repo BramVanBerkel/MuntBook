@@ -19,6 +19,10 @@
                 <table class="table table-striped table-latests table-detail">
                     <tbody>
                     <tr>
+                        <td><strong>Hash</strong></td>
+                        <td>{{ $block->hash }}</td>
+                    </tr>
+                    <tr>
                         <td><strong>Timestamp</strong></td>
                         <td>{{ $block->created_at }}</td>
                     </tr>
