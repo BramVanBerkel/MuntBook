@@ -9,7 +9,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $blocks = Block::orderBy('height', 'desc')->limit(20)->get();
+        $blocks = Block::simplePaginate(20);
 
         return view('layouts.pages.index', [
             'blocks' => $blocks
