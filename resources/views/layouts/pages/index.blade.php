@@ -14,92 +14,32 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-            <div class="item">
-                <div class="title">
-                    <div class="icon"></div>
-                    <h5>BTC Price</h5>
-                </div>
-                <div class="text">
-                    <span>3623 Satoshis</span>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-            <div class="item">
-                <div class="title">
-                    <div class="icon"></div>
-                    <h5>USD Price</h5>
-                </div>
-                <div class="text">
-                    <span>$0.333</span>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-            <div class="item">
-                <div class="title">
-                    <div class="icon"></div>
-                    <h5>Market Cap</h5>
-                </div>
-                <div class="text">
-                    <span>$72.29 M</span>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-            <div class="item">
-                <div class="title">
-                    <div class="icon"></div>
-                    <h5>Hashrate</h5>
-                </div>
-                <div class="text">
-                    <span>224.562 GH/s</span>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-            <div class="item">
-                <div class="title">
-                    <div class="icon"></div>
-                    <h5>Difficulty</h5>
-                </div>
-                <div class="text">
-                    <span>4433.5 <i class="blue fa fa-long-arrow-up"></i></span>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-            <div class="item">
-                <div class="title">
-                    <div class="icon"></div>
-                    <h5>Outstanding</h5>
-                </div>
-                <div class="text">
-                    <span>216,853,789 ARD</span>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-            <div class="item">
-                <div class="title">
-                    <div class="icon"></div>
-                    <h5>Transactions Per Day</h5>
-                </div>
-                <div class="text">
-                    <span>208919</span>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-            <div class="item">
-                <div class="title">
-                    <div class="icon"></div>
-                    <h5>Trade Volume</h5>
-                </div>
-                <div class="text">
-                    <span>$479,093,652.91</span>
-                </div>
+        <div class="col-lg-12">
+            <div class="table-responsive">
+                <table class="table table-striped table-latests">
+                    <thead>
+                        <tr>
+                            <td>Block</td>
+                            <td>Timestamp</td>
+                            <td>Transactions</td>
+                            <td>Total value</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($blocks as $block)
+                        <tr>
+                            <td>
+                                <a href="{{ route('block', ['block' => $block->height]) }}">
+                                    {{ $block->height }}
+                                </a>
+                            </td>
+                            <td>{{ $block->created_at->format('Y-m-d H:i:s') }}</td>
+                            <td>{{ $block->transactions()->count() }}</td>
+                            <td>{{ $block->totalValueOut }}</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
