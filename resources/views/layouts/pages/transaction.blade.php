@@ -32,7 +32,7 @@
                     </tr>
                     <tr>
                         <td><strong>Total value out</strong></td>
-                        <td><span class="gulden-icon"></span> {{ $transaction->total_value_out }}</td>
+                        <td><span class="gulden-icon"></span> {{ $transaction->totalValueOut }}</td>
                     </tr>
                     <tr>
                         <td><strong>Version</strong></td>
