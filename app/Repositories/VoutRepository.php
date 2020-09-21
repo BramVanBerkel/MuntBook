@@ -12,15 +12,15 @@ class VoutRepository
     public static function create(Collection $data, string $transaction_id): Vout
     {
         $vout = Vout::updateOrCreate([
-            'transaction_id' => $transaction_id
+            'transaction_id' => $transaction_id,
+            'n' => $data->get('n'),
         ], [
             'type' => self::getType($data),
             'value' => $data->get('value'),
-            'n' => $data->get('n'),
             'standard_key_hash_hex' => optional($data->get('standard-key-hash'))->hex,
             'standard_key_hash_address' => optional($data->get('standard-key-hash'))->address,
             'scriptpubkey_type' => optional($data->get('scriptPubKey'))->type,
-            'transaction_id' => $transaction_id
+            'transaction_id' => $transaction_id,
         ]);
 
         if($data->has('scriptPubKey')) {
