@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Block;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
@@ -11,8 +11,14 @@ class HomeController extends Controller
     {
         $blocks = Block::orderBy('height', 'desc')->simplePaginate(20);
 
+        $hashrate = Cache::get('hashrate') ?? 'unknown';
+
+        $difficulty = Cache::get('difficulty') ?? 'unknown';
+
         return view('layouts.pages.index', [
-            'blocks' => $blocks
+            'blocks' => $blocks,
+            'hashrate' => $hashrate,
+            'difficulty' => $difficulty,
         ]);
     }
 }

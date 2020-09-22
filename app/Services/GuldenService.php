@@ -97,4 +97,43 @@ class GuldenService
 
         return collect(json_decode($response)->result);
     }
+
+    /**
+     * Returns the estimated network hashes per second based on the last n blocks.
+     * Pass in $blocks to override # of blocks.
+     * Pass in $height to estimate the network speed at the time when a certain block was found.
+     *
+     * @param int|null $blocks
+     * @param int|null $height
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getNetworkHashrate(int $blocks = 120, int $height = -1)
+    {
+        $response = $this->client->post('/', [
+            'json' => [
+                'method' => 'getnetworkhashps',
+                'params' => [$blocks, $height]
+            ]
+        ])->getBody()->getContents();
+
+        return json_decode($response)->result;
+    }
+
+    /**
+     * Returns the proof-of-work difficulty as a multiple of the minimum difficulty.
+     *
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getDifficulty()
+    {
+        $response = $this->client->post('/', [
+            'json' => [
+                'method' => 'getdifficulty',
+            ]
+        ])->getBody()->getContents();
+
+        return json_decode($response)->result;
+    }
 }

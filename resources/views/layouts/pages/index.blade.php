@@ -2,6 +2,31 @@
 
 @section('content')
     <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <div class="item">
+                <div class="title">
+                    <div class="icon"></div>
+                    <h5>Hashrate</h5>
+                </div>
+                <div class="text">
+                    <span>{{ $hashrate }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <div class="item">
+                <div class="title">
+                    <div class="icon"></div>
+                    <h5>Difficulty</h5>
+                </div>
+                <div class="text">
+                    <span>{{ $difficulty}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-lg-12">
             <div class="center-heading">
                 <h2 class="section-title">Latest blocks</h2>
