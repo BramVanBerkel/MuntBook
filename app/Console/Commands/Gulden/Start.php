@@ -60,7 +60,10 @@ class Start extends Command
         }
 
         if(!empty(config('gulden.addnode'))) {
-            $config .= "addnode=" . config('gulden.addnode') . "\n";
+            $nodes = explode(',', config('gulden.addnode'));
+            foreach ($nodes as $node) {
+                $config .= "addnode={$node}\n";
+            }
         }
 
         file_put_contents("binaries/datadir/Gulden.conf", $config);

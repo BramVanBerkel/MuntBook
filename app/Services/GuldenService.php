@@ -24,8 +24,8 @@ class GuldenService
 
     /**
      * Returns the number of blocks in the longest blockchain.
-     *
      * @return int
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getBlockCount(): int
     {
@@ -39,31 +39,13 @@ class GuldenService
     }
 
     /**
-     * Returns hash of block in best-block-chain at height provided.
-     *
-     * @param int $height
-     * @return string
-     */
-    public function getBlockHash(int $height): string
-    {
-        $response = $this->client->post('/', [
-            'json' => [
-                'method' => 'getblockhash',
-                'params' => [$height]
-            ]
-        ])->getBody()->getContents();
-
-        return json_decode($response)->result;
-    }
-
-    /**
      * If verbosity is 0, returns a string that is serialized, hex-encoded data for block 'hash'.
      * If verbosity is 1, returns an Object with information about block <hash>.
      * If verbosity is 2, returns an Object with information about block <hash> and information about each transaction.
-     *
-     * @param $hash
-     * @param $verbosity
+     * @param string $hash
+     * @param int $verbosity
      * @return Collection
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getBlock(string $hash, int $verbosity = 0)
     {
@@ -78,13 +60,31 @@ class GuldenService
     }
 
     /**
+     * Returns hash of block in best-block-chain at height provided.
+     * @param int $height
+     * @return string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getBlockHash(int $height): string
+    {
+        $response = $this->client->post('/', [
+            'json' => [
+                'method' => 'getblockhash',
+                'params' => [$height]
+            ]
+        ])->getBody()->getContents();
+
+        return json_decode($response)->result;
+    }
+
+    /**
      * Return the raw transaction data.
      * If verbose is 'true', returns an Object with information about 'txid'.
      * If verbose is 'false' or omitted, returns a string that is serialized, hex-encoded data for 'txid'.
-     *
      * @param string $txid
      * @param bool $verbose
      * @return Collection
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getTransaction(string $txid, bool $verbose = false)
     {

@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Block;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use PDOException;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
     {
         try {
             View::share('maxBlock', Block::max('height'));
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
             //
         }
     }

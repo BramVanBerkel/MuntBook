@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Address
  * @package App\Models
- * @mixin \Eloquent
  */
 class Address extends Model
 {

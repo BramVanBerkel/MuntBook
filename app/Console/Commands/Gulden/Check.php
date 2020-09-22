@@ -6,7 +6,6 @@ use App\Jobs\SyncBlock;
 use App\Models\Block;
 use App\Services\GuldenService;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminated\Console\WithoutOverlapping;
 use Psr\SimpleCache\InvalidArgumentException;
@@ -44,7 +43,6 @@ class Check extends Command
      *
      * @param GuldenService $guldenService
      * @return void
-     * @throws InvalidArgumentException
      */
     public function handle(GuldenService $guldenService)
     {
