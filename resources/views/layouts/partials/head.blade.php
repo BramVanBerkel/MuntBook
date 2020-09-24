@@ -8,7 +8,7 @@
     <meta name="author" content="{{ config('app.name') }}"/>
 
     <!-- TODO -->
-    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}" />
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
 </head>
