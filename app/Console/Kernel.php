@@ -26,9 +26,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command(UpdateHashrate::class)->everyFiveMinutes();
+         $schedule->command(UpdateHashrate::class)->everyMinute();
 
-         $schedule->command(UpdateDifficulty::class)->everyFiveMinutes();
+         $schedule->command(UpdateDifficulty::class)->everyMinute();
     }
 
     /**
