@@ -7,7 +7,7 @@
                 </div>
                 @if($maxBlock !== null)
                     <div class="offset-lg-3 col-lg-6">
-                        <p>Up To Block {{ $maxBlock }}</p>
+                        <p>Up To Block <a href="{{ route('block', ['block' => $maxBlock]) }}">{{ $maxBlock }}</a></p>
                     </div>
                 @endif
             </div>
