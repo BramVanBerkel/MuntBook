@@ -6,10 +6,6 @@ use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
-    const TRANSACTION_LENGTH = 64;
-
-    const ADDRESS_LENGTH = 34;
-
     public function search(Request $request)
     {
         $query = $request->get('query');
@@ -19,12 +15,12 @@ class SearchController extends Controller
         }
 
         //query is a transaction
-        if(strlen($query) === self::TRANSACTION_LENGTH) {
+        if(strlen($query) === config('gulden.transaction_length')) {
             return redirect()->route('transaction', ['transaction' => $query]);
         }
 
         //query is an address
-        if(strlen($query) === self::ADDRESS_LENGTH) {
+        if(strlen($query) === config('gulden.address_length')) {
             return redirect()->route('address', ['address' => $query]);
         }
 
