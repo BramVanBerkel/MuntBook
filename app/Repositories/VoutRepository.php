@@ -39,6 +39,7 @@ class VoutRepository
 
         if($data->has('PoW²-witness')) {
             $witness_address = AddressRepository::create($data->get('PoW²-witness')->address);
+            $vout->addresses()->syncWithoutDetaching($witness_address);
             $lockFromBlock = $data->get('PoW²-witness')->lock_from_block;
 
             Vout::whereHas('addresses', function($query) use($witness_address) {
