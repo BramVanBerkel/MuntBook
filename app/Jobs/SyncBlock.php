@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Vout;
 use App\Repositories\BlockRepository;
 use App\Repositories\TransactionRepository;
 use App\Repositories\VinRepository;
@@ -50,7 +51,7 @@ class SyncBlock implements ShouldQueue
             return;
         }
 
-        Log::info(sprintf("Processing block #{$this->height}"));
+        Log::info("Processing block #{$this->height}");
 
         $block = BlockRepository::create($blockData);
 
@@ -59,14 +60,10 @@ class SyncBlock implements ShouldQueue
 
             $transaction = TransactionRepository::create($tx, $block->height);
             foreach ($tx->get('vin') as $vin){
-                VinRepository::create(collect($vin), $transaction->id);
+                VinRepository::create($vin, $transaction->id);
             }
 
-            foreach ($tx->get('vout') as $vout) {
-                $vout = collect($vout);
-
-                VoutRepository::create(collect($vout), $transaction->id);
-            }
+            VoutRepository::syncVouts($tx->get('vout'), $transaction);
         }
     }
 }

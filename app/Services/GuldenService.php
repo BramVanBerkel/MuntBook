@@ -56,7 +56,7 @@ class GuldenService
             ]
         ])->getBody()->getContents();
 
-        return collect(json_decode($response)->result);
+        return collect(json_decode($response)->result)->recursive();
     }
 
     /**
@@ -95,7 +95,7 @@ class GuldenService
             ]
         ])->getBody()->getContents();
 
-        return collect(json_decode($response)->result);
+        return collect(json_decode($response)->result)->recursive();
     }
 
     /**

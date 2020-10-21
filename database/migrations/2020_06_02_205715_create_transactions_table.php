@@ -28,6 +28,7 @@ class CreateTransactionsTable extends Migration
             $table->string('blockhash');
             $table->integer('confirmations');
             $table->dateTime('blocktime');
+            $table->string('type')->nullable();
 
             $table->timestamps();
         });

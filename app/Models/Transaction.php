@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Transaction extends Model
 {
+    const TYPE_WITNESS_FUNDING = 'witness_funding';
+
     protected $table = 'transactions';
 
     protected $fillable = [
@@ -23,6 +25,7 @@ class Transaction extends Model
         'blockhash',
         'confirmations',
         'blocktime',
+        'type',
         'created_at',
     ];
 
