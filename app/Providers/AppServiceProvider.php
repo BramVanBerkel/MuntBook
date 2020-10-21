@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Block;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use PDOException;
@@ -31,5 +32,14 @@ class AppServiceProvider extends ServiceProvider
         } catch (PDOException $e) {
             //
         }
+
+        Collection::macro('recursive', function () {
+            return $this->map(function ($value) {
+                if (is_array($value) || is_object($value)) {
+                    return collect($value)->recursive();
+                }
+                return $value;
+            });
+        });
     }
 }
