@@ -51,8 +51,6 @@ class Check extends Command
 
         Log::info("Checking for new blocks. DB height: {$dbHeight}, Gulden height: {$guldenHeight}");
 
-        $dbHeight = 1262334;
-
         if($dbHeight === $guldenHeight) {
             return;
         }
