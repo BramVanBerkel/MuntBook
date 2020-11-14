@@ -36,12 +36,12 @@
                 <!-- ***** Lang End ***** -->
 
                     <!-- ***** Menu Start ***** -->
-                    <ul class="nav">
-                        <li><a href="blue-block-explorer.html">BLOCKCHAIN HOME</a></li>
-                        <li><a href="blue-block-explorer-latest-blocks.html">LATEST BLOCKS</a></li>
-                        <li><a href="blue-block-explorer-rich-list.html">RICH LIST</a></li>
-                        <li><a href="#" class="btn-nav-box">SIGN UP</a></li>
-                    </ul>
+{{--                    <ul class="nav">--}}
+{{--                        <li><a href="blue-block-explorer.html">BLOCKCHAIN HOME</a></li>--}}
+{{--                        <li><a href="blue-block-explorer-latest-blocks.html">LATEST BLOCKS</a></li>--}}
+{{--                        <li><a href="blue-block-explorer-rich-list.html">RICH LIST</a></li>--}}
+{{--                        <li><a href="#" class="btn-nav-box">SIGN UP</a></li>--}}
+{{--                    </ul>--}}
                     <a class='menu-trigger'>
                         <span>Menu</span>
                     </a>
