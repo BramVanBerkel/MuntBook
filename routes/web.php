@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\AddressController;
+use App\Http\Controllers\BlockController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,12 +18,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::post('/', 'SearchController@search')->name('search');
+Route::post('/', [SearchController::class, 'search'])->name('search');
 
-Route::get('/transaction/{transaction}', 'TransactionController@index')->name('transaction');
+Route::get('/transaction/{transaction}', [TransactionController::class, 'index'])->name('transaction');
 
-Route::get('/address/{address}', 'AddressController@index')->name('address');
+Route::get('/address/{address}', [AddressController::class, 'index'])->name('address');
 
-Route::get('/block/{block}', 'BlockController@index')->name('block');
+Route::get('/block/{block}', [BlockController::class, 'index'])->name('block');
