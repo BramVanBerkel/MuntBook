@@ -17,7 +17,7 @@ class CreateVoutsTable extends Migration
         Schema::create('vouts', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('transaction_id')->index();
+            $table->foreignId('transaction_id')->index();
             $table->foreign('transaction_id')->references('id')->on('transactions')->cascadeOnDelete();
 
             $table->enum('type', [

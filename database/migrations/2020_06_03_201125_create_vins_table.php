@@ -16,10 +16,10 @@ class CreateVinsTable extends Migration
         Schema::create('vins', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('transaction_id')->index();
+            $table->foreignId('transaction_id')->index();
             $table->foreign('transaction_id')->references('id')->on('transactions')->cascadeOnDelete();
 
-            $table->unsignedBigInteger('vout_id')->nullable()->index();
+            $table->foreignId('vout_id')->nullable()->index();
             $table->foreign('vout_id')->references('id')->on('vouts')->cascadeOnDelete();
 
             $table->string('prevout_type')->nullable();

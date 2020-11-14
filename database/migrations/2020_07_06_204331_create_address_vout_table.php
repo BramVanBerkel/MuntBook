@@ -16,10 +16,10 @@ class CreateAddressVoutTable extends Migration
         Schema::create('address_vout', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('address_id')->index();
+            $table->foreignId('address_id')->index();
             $table->foreign('address_id')->references('id')->on('addresses')->cascadeOnDelete();
 
-            $table->unsignedBigInteger('vout_id')->index();
+            $table->foreignId('vout_id')->index();
             $table->foreign('vout_id')->references('id')->on('vouts')->cascadeOnDelete();
         });
     }

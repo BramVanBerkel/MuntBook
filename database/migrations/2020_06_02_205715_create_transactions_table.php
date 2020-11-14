@@ -17,7 +17,7 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('block_height')->index();
+            $table->foreignId('block_height')->index();
             $table->foreign('block_height')->references('height')->on('blocks')->cascadeOnDelete();
 
             $table->string('txid')->unique();
