@@ -12,14 +12,6 @@ use Illuminate\Support\Collection;
 class VoutRepository
 {
     public static function syncVouts(Collection $vouts, Transaction $transaction) {
-        //check if vout is a witness vout
-        $isWitness = $vouts->contains(function($vout) {
-            return $vout->has('PoW²-witness') || optional($vout->get('scriptPubKey'))->get('type') === 'pow2_witness';
-        });
-
-        //check if vout is compounding, if vout is compounding we need to manually insert a vout
-        $isCompounding = $isWitness && $vouts->count() === 1;
-
         foreach ($vouts as $vout) {
             $voutModel = Vout::updateOrCreate([
                 'transaction_id' => $transaction->id,
@@ -43,9 +35,19 @@ class VoutRepository
                 $voutModel->addresses()->syncWithoutDetaching($address);
             }
 
-            if($vout->has('PoW²-witness')) {
+            if($vout->has('PoW²-witness') || optional($vout->get('scriptPubKey'))->get('type') === 'pow2_witness') {
                 $witnessAddress = AddressRepository::create(Arr::get($vout, 'PoW²-witness.address'));
                 $lockFromBlock = Arr::get($vout, 'PoW²-witness.lock_from_block');
+
+                if($vouts->count() === 1 && !$voutModel->wasRecentlyCreated) {
+                    //witness is compounding earnings, manually create a vout to keep track of transactions
+                    Vout::create([
+                        'transaction_id' => $transaction->id,
+                        'value' => 30,
+                        'n' => 1,
+                        'type' => Vout::TYPE_WITNESS_COMPOUND,
+                    ])->addresses()->attach($witnessAddress);
+                }
 
                 //todo: abstract this query away
                 $fundingTransaction = Transaction::whereHas('vouts', function($query) use($lockFromBlock, $witnessAddress) {
@@ -55,6 +57,7 @@ class VoutRepository
                         $query->where('block_height', '=', $lockFromBlock);
                     });
                 })->first();
+
                 if($fundingTransaction !== null) {
                     $fundingTransaction->update(['type' => Transaction::TYPE_WITNESS_FUNDING]);
                 }
@@ -72,7 +75,6 @@ class VoutRepository
                 $voutModel->save();
             }
         }
-
     }
 
     public static function create(Collection $data, string $transaction_id): Vout

@@ -62,8 +62,10 @@ class Check extends Command
                 //initial sync
                 dispatch((new SyncBlock($height))->onConnection('sync'));
 
-                //second sync to pick up the witness data
-                dispatch((new SyncBlock($height)))->delay(now()->addSeconds(config('gulden.sync_delay')));
+                if(!Block::find($height)->confirmations < 3) {
+                    //second sync to pick up the witness data for new blocks
+                    dispatch((new SyncBlock($height)))->delay(now()->addSeconds(config('gulden.sync_delay')));
+                }
             }
         }
     }

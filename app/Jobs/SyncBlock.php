@@ -42,16 +42,13 @@ class SyncBlock implements ShouldQueue
      *
      * @param GuldenService $guldenService
      * @return void
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function handle(GuldenService $guldenService)
     {
-        $blockData = $guldenService->getBlock($guldenService->getBlockHash($this->height), 1);
-
-        if($blockData->get('confirmations') < 0) {
-            return;
-        }
-
         Log::info("Processing block #{$this->height}");
+
+        $blockData = $guldenService->getBlock($guldenService->getBlockHash($this->height), 1);
 
         $block = BlockRepository::create($blockData);
 
@@ -59,6 +56,7 @@ class SyncBlock implements ShouldQueue
             $tx = $guldenService->getTransaction($txid, true);
 
             $transaction = TransactionRepository::create($tx, $block->height);
+
             foreach ($tx->get('vin') as $vin){
                 VinRepository::create($vin, $transaction->id);
             }
