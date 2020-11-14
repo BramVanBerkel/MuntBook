@@ -10,23 +10,6 @@ $(window).on('load', function(){
             $('.header-area .nav').slideToggle(200);
         });
     }
-
-    $(".loading-wrapper").animate({
-        'opacity': '0'
-    }, 600, function(){
-        setTimeout(function(){
-            $(".loading-wrapper").css("visibility", "hidden").fadeOut();
-
-            // Parallax init
-            $parallax = $('.parallax');
-            if($parallax.length){
-                $parallax.parallax({
-                    imageSrc: 'assets/images/parallax.jpg',
-                    zIndex: '1'
-                });
-            }
-        }, 300);
-    });
 });
 
 // Header Scrolling Set White Background

@@ -2,8 +2,6 @@
 <html lang="en">
 @include('layouts.partials.head')
 <body>
-{{--    @include('layouts.partials.loader')--}}
-
     @include('layouts.partials.nav')
 
     @include('layouts.partials.search')
