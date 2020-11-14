@@ -2,6 +2,15 @@ require('./bootstrap');
 
 // Page loading animation
 $(window).on('load', function(){
+    let $menuTrigger = $('.menu-trigger');
+
+    if($menuTrigger.length){
+        $menuTrigger.on('click', function(){
+            $(this).toggleClass('active');
+            $('.header-area .nav').slideToggle(200);
+        });
+    }
+
     $(".loading-wrapper").animate({
         'opacity': '0'
     }, 600, function(){
@@ -9,8 +18,9 @@ $(window).on('load', function(){
             $(".loading-wrapper").css("visibility", "hidden").fadeOut();
 
             // Parallax init
-            if($('.parallax').length){
-                $('.parallax').parallax({
+            $parallax = $('.parallax');
+            if($parallax.length){
+                $parallax.parallax({
                     imageSrc: 'assets/images/parallax.jpg',
                     zIndex: '1'
                 });
@@ -19,8 +29,7 @@ $(window).on('load', function(){
     });
 });
 
-
-// // Header Scrolling Set White Background
+// Header Scrolling Set White Background
 $(window).on('scroll', function(){
     var width = $(window).width();
     if(width > 991) {
