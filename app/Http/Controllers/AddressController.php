@@ -11,6 +11,9 @@ class AddressController extends Controller
     {
         $address = Address::firstWhere('address', $address);
 
+        if($address === null) {
+            return redirect()->route('home');
+        }
         return view('layouts.pages.address', [
             'address' => $address
         ]);

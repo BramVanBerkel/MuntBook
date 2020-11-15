@@ -26,4 +26,4 @@ Route::get('/transaction/{transaction}', [TransactionController::class, 'index']
 
 Route::get('/address/{address}', [AddressController::class, 'index'])->name('address');
 
-Route::get('/block/{block}', [BlockController::class, 'index'])->name('block');
+Route::get('/block/{block}', [BlockController::class, 'index'])->name('block')->where('block', '[0-9]+');
