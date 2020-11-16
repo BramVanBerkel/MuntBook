@@ -12,7 +12,7 @@ class AddressController extends Controller
         $address = Address::firstWhere('address', $address);
 
         if($address === null) {
-            return abort(404);
+            abort(404);
         }
         return view('layouts.pages.address', [
             'address' => $address
