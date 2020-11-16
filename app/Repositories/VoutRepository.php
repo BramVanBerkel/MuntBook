@@ -39,7 +39,7 @@ class VoutRepository
                 $witnessAddress = AddressRepository::create(Arr::get($vout, 'PoW²-witness.address'));
                 $lockFromBlock = Arr::get($vout, 'PoW²-witness.lock_from_block');
 
-                if($vouts->count() === 1 && !$voutModel->wasRecentlyCreated) {
+                if($vouts->count() === 1 && $voutModel->wasRecentlyCreated) {
                     //witness is compounding earnings, manually create a vout to keep track of transactions
                     Vout::create([
                         'transaction_id' => $transaction->id,
