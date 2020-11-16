@@ -63,5 +63,9 @@ class SyncBlock implements ShouldQueue
 
             VoutRepository::syncVouts($tx->get('vout'), $transaction);
         }
+
+        if($block->transactions()->count() < 2) {
+            dispatch((new SyncBlock($this->height)))->delay(now()->addSeconds(config('gulden.sync_delay')));
+        }
     }
 }
