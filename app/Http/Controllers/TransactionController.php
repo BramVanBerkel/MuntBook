@@ -11,7 +11,7 @@ class TransactionController extends Controller
         $transaction = Transaction::firstWhere('txid', $transaction);
 
         if($transaction === null) {
-            return redirect()->route('home');
+            return abort(404);
         }
 
         return view('layouts.pages.transaction')->with([
