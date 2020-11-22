@@ -18,7 +18,7 @@ class SearchController extends Controller
         //query is either a transaction or a block hash
         if(strlen($query) === config('gulden.transaction_or_block_hash_length')) {
             if($block = Block::select('height')->firstWhere('hash', '=', $query)) {
-                return redirect()->route('block', ['height' => $block->height]);
+                return redirect()->route('block', ['block' => $block->height]);
             }
 
             return redirect()->route('transaction', ['transaction' => $query]);
