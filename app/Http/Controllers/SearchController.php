@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Block;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 
 class SearchController extends Controller
 {
@@ -15,10 +15,12 @@ class SearchController extends Controller
             return redirect()->route('home');
         }
 
-        //query is a transaction
-        // todo: transactions and block hashes have the same length, first check if a block with the given hash exists
-        //  in the db and if true, redirect to that block, if false check for a transaction
-        if(strlen($query) === config('gulden.transaction_length')) {
+        //query is either a transaction or a block hash
+        if(strlen($query) === config('gulden.transaction_or_block_hash_length')) {
+            if($block = Block::select('height')->firstWhere('hash', '=', $query)) {
+                return redirect()->route('block', ['height' => $block->height]);
+            }
+
             return redirect()->route('transaction', ['transaction' => $query]);
         }
 
