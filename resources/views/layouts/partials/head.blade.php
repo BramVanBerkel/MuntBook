@@ -6,7 +6,9 @@
     <meta name="description" content="{{ config('app.description') }}" />
     <meta name="keywords" content="gulden, blockchain, explorer" />
     <meta name="author" content="{{ config('app.name') }}"/>
-    
+
+    <link rel="manifest" href="{{ asset('site.webmanifest') }}">
+
     <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}" />
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
