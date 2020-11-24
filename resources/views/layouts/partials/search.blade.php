@@ -21,8 +21,8 @@
                         <div class="input">
                             <form method="POST" action="{{ route('search') }}">
                                 @csrf
-                                <input type="text" name="query" placeholder="block, hash, transaction, etc...">
-                                <button aria-label="search" type="submit"><i class="fa fa-search"></i></button>
+                                <input aria-label="Search" type="text" name="query" placeholder="block, hash, transaction, etc...">
+                                <button type="submit"><i class="fa fa-search"></i></button>
                             </form>
                         </div>
                     </div>
