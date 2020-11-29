@@ -1,4 +1,5 @@
 require('./bootstrap');
+require('particles.js')
 
 // Page loading animation
 $(window).on('load', function () {
@@ -10,6 +11,8 @@ $(window).on('load', function () {
             $('.header-area .nav').slideToggle(200);
         });
     }
+
+    particlesJS.load('welcome', '/js/particleSettings.json');
 });
 
 // Header Scrolling Set White Background
@@ -26,5 +29,14 @@ $(window).on('scroll', function () {
             $(".header-area .dark-logo").css('display', 'none');
             $(".header-area .light-logo").css('display', 'block');
         }
+    }
+});
+
+// Window resize setting
+$(window).resize(function(){
+    if($(window).width() > 991) {
+        $('.welcome-area').css('height', $(window).height() - 80);
+    }else{
+        $('.welcome-area').css('height', 'auto');
     }
 });

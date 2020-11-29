@@ -1,4 +1,4 @@
-<section class="block-explorer-wrapper bg-bottom-center" id="welcome-1">
+<section class="block-explorer-wrapper bg-bottom-center" id="welcome">
     <div class="block-explorer text">
         <div class="container text-center">
             <div class="row">
