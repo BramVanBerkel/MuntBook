@@ -22,8 +22,27 @@ class TransactionRepository
             'blockhash' => $transaction->get('blockhash'),
             'confirmations' => $transaction->get('confirmations'),
             'blocktime' => new Carbon($transaction->get('blocktime')),
+            'type' => self::getType($transaction),
             'created_at' => new Carbon($transaction->get('time')),
             'block_height' => $height,
         ]);
+    }
+
+    private static function getType(Collection $transaction): ?string
+    {
+        //todo: mining
+        $witnessVout = $transaction->get('vout')->filter(function ($vout) {
+            return $vout->has('PoW²-witness');
+        })->first();
+
+        if ($witnessVout !== null) {
+            if ($witnessVout->get('PoW²-witness')->get('lock_from_block') === 0) {
+                return Transaction::TYPE_WITNESS_FUNDING;
+            }
+
+            return Transaction::TYPE_WITNESS;
+        }
+
+        return null;
     }
 }

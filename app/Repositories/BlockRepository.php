@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 
 class BlockRepository
 {
-    public static function create(Collection $data): Block
+    public static function syncBlock(Collection $data): Block
     {
         return Block::updateOrCreate([
             'height' => $data->get('height'),
@@ -26,8 +26,8 @@ class BlockRepository
             'merkleroot' => $data->get('merkleroot'),
             'witness_version' => $data->get('witness_version'),
             'witness_versionHex' => $data->get('witness_versionHex'),
-            'witness_time' => $data->get('witness_time'),
-            'pow_time' => $data->get('pow_time'),
+            'witness_time' => new Carbon($data->get('witness_time')),
+            'pow_time' => new Carbon($data->get('pow_time')),
             'witness_merkleroot' => $data->get('witness_merkleroot'),
             'time' => new Carbon($data->get('time')),
             'nonce' => $data->get('nonce'),

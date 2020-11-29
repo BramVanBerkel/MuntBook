@@ -61,7 +61,8 @@
                     <thead>
                     <tr>
                         <th>Transaction id</th>
-                        <th>Transaction ammount</th>
+                        <th>Transaction amount</th>
+                        <th>Type</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -73,6 +74,7 @@
                                 </a>
                             </td>
                             <td><span class="gulden-icon"></span> {{ $transaction->total_value_out }}</td>
+                            <td>{{ $transaction->type }}</td>
                         </tr>
                     @endforeach
                     </tbody>

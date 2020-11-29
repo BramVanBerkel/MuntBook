@@ -8,7 +8,9 @@ class TransactionController extends Controller
 {
     public function index(string $transaction)
     {
-        $transaction = Transaction::firstWhere('txid', $transaction);
+        $transaction = Transaction::with(['vouts' => function($query) {
+            return $query->where('type', '<>', 'witness');
+        }])->firstWhere('txid', $transaction);
 
         if($transaction === null) {
             abort(404);

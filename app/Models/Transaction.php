@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     const TYPE_WITNESS_FUNDING = 'witness_funding';
+    const TYPE_WITNESS = 'witness';
 
     protected $table = 'transactions';
 

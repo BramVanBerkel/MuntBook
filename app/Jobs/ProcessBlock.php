@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Models\Vout;
 use App\Repositories\BlockRepository;
 use App\Repositories\TransactionRepository;
 use App\Repositories\VinRepository;
@@ -15,7 +14,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class SyncBlock implements ShouldQueue
+class ProcessBlock implements ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;
@@ -54,22 +53,20 @@ class SyncBlock implements ShouldQueue
             return;
         }
 
-        $block = BlockRepository::create($blockData);
+        $block = BlockRepository::syncBlock($blockData);
 
         foreach ($blockData->get('tx') as $txid) {
             $tx = $guldenService->getTransaction($txid, true);
 
             $transaction = TransactionRepository::create($tx, $block->height);
 
-            foreach ($tx->get('vin') as $vin){
-                VinRepository::create($vin, $transaction->id);
-            }
+            VinRepository::syncVins($tx->get('vin'), $transaction);
 
             VoutRepository::syncVouts($tx->get('vout'), $transaction);
         }
 
         if($block->transactions()->count() < 2) {
-            dispatch((new SyncBlock($this->height)))->delay(now()->addSeconds(config('gulden.sync_delay')));
+            dispatch((new ProcessBlock($this->height)))->delay(now()->addSeconds(config('gulden.sync_delay')));
         }
     }
 }

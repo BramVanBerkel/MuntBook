@@ -2,13 +2,12 @@
 
 namespace App\Console\Commands\Gulden;
 
-use App\Jobs\SyncBlock;
+use App\Jobs\ProcessBlock;
 use App\Models\Block;
 use App\Services\GuldenService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Illuminated\Console\WithoutOverlapping;
-use Psr\SimpleCache\InvalidArgumentException;
 
 class Check extends Command
 {
@@ -55,12 +54,14 @@ class Check extends Command
             return;
         }
 
+        $dbHeight = 1268000;
+//        $guldenHeight = 1268171;
+
+        Log::info(sprintf("Blockcount: %d/%d", $dbHeight, $guldenHeight));
         foreach(range($dbHeight, $guldenHeight) as $height) {
             if(!Block::whereKey($height)->exists()) {
-                Log::info(sprintf("Blockcount: %d/%d", $height, $guldenHeight));
-
                 //initial sync
-                dispatch((new SyncBlock($height))->onConnection('sync'));
+                dispatch((new ProcessBlock($height))->onConnection('sync'));
             }
         }
     }

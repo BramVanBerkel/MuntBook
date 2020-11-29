@@ -32,7 +32,7 @@
                     </tr>
                     <tr>
                         <td><strong>Total value out</strong></td>
-                        <td><span class="gulden-icon"></span> {{ $transaction->totalValueOut }}</td>
+                        <td><span class="gulden-icon"></span> {{ $transaction->total_value_out }}</td>
                     </tr>
                     <tr>
                         <td><strong>Version</strong></td>
@@ -60,6 +60,7 @@
                     <tr>
                         <th>Address</th>
                         <th>Amount</th>
+                        <th>Type</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -74,11 +75,11 @@
                         </tr>
                     @endforeach
 
-                    @foreach($transaction->vouts()->has('addresses')->get() as $vout)
+                    @foreach($transaction->vouts as $vout)
                         <tr>
                             <td>
                                 @if($vout->addresses->count() === 1)
-                                <a href="{{ route('address', ['address' => $vout->addresses->first()->address]) }}">
+                                    <a href="{{ route('address', ['address' => $vout->addresses->first()->address]) }}">
                                         {{ $vout->addresses->first()->address }}
                                     </a>
                                 @else
@@ -90,6 +91,7 @@
                                 @endif
                             </td>
                             <td class="text-success">+<span class="gulden-icon"></span>{{ $vout->value }}</td>
+                            <td>{{ $vout->type }}</td>
                         </tr>
                     @endforeach
                 </table>
