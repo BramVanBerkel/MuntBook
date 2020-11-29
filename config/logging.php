@@ -57,7 +57,8 @@ return [
         'slack' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),
-            'username' => 'GuldenBook Log',
+            'username' => env('LOG_SLACK_USERNAME'),
+            'channel' => env('LOG_SLACK_CHANNEL'),
             'emoji' => ':boom:',
             'level' => 'notice',
         ],
