@@ -16,12 +16,13 @@ header
 	.main-nav {
 
 		.logo {
+            display: flex;
 			float: left;
 			margin-top: 34px;
 			@include transition(.3s);
 
 			img {
-                max-height: 25px;
+                max-height: 45px;
 				@include transition(.3s);
 			}
 		}
