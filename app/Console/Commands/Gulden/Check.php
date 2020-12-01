@@ -53,10 +53,7 @@ class Check extends Command
         if($dbHeight === $guldenHeight) {
             return;
         }
-
-        $dbHeight = 1268000;
-//        $guldenHeight = 1268171;
-
+        
         Log::info(sprintf("Blockcount: %d/%d", $dbHeight, $guldenHeight));
         foreach(range($dbHeight, $guldenHeight) as $height) {
             if(!Block::whereKey($height)->exists()) {
