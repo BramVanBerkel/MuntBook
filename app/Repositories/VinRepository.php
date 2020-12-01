@@ -13,25 +13,25 @@ class VinRepository
 {
     public static function syncVins(Collection $vins, Transaction $transaction): void
     {
-        foreach ($vins as $vin) {
+        foreach ($vins as $vinData) {
             $vin = Vin::updateOrCreate([
                 'transaction_id' => $transaction->id
             ], [
-                'prevout_type' => $data->get('prevout_type'),
-                'coinbase' => $data->get('coinbase'),
-                'tx_height' => $data->get('tx_height') !== "" ? $data->get('tx_height') : null,
-                'tx_index' => $data->get('tx_index') !== "" ? $data->get('tx_index') : null,
-                'scriptSig_asm' => $data->get('scriptSig_asm') !== "" ? $data->get('scriptSig_asm') : null,
-                'scriptSig_hex' => $data->get('scriptSig_hex') !== "" ? $data->get('scriptSig_hex') : null,
-                'rbf' => $data->get('rbf'),
+                'prevout_type' => $vinData->get('prevout_type'),
+                'coinbase' => $vinData->get('coinbase'),
+                'tx_height' => $vinData->get('tx_height') !== "" ? $vinData->get('tx_height') : null,
+                'tx_index' => $vinData->get('tx_index') !== "" ? $vinData->get('tx_index') : null,
+                'scriptSig_asm' => $vinData->get('scriptSig_asm') !== "" ? $vinData->get('scriptSig_asm') : null,
+                'scriptSig_hex' => $vinData->get('scriptSig_hex') !== "" ? $vinData->get('scriptSig_hex') : null,
+                'rbf' => $vinData->get('rbf'),
                 'transaction_id' => $transaction->id
             ]);
 
-            if($data->get('txid') !== null) {
-                $transaction = Transaction::firstWhere('txid', '=', $data->get('txid'));
+            if($vinData->get('txid') !== null) {
+                $transaction = Transaction::firstWhere('txid', '=', $vinData->get('txid'));
 
                 if($transaction !== null) {
-                    $vout = Vout::where('transaction_id', '=', $transaction->id)->where('n', '=', $data->get('vout'))->first();
+                    $vout = Vout::where('transaction_id', '=', $transaction->id)->where('n', '=', $vinData->get('vout'))->first();
                     $vin->vout()->associate($vout);
                     $vin->save();
                 }
