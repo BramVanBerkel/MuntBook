@@ -28,10 +28,10 @@ class VinRepository
             ]);
 
             if($vinData->get('txid') !== null) {
-                $transaction = Transaction::firstWhere('txid', '=', $vinData->get('txid'));
+                $referencingTransaction = Transaction::firstWhere('txid', '=', $vinData->get('txid'));
 
-                if($transaction !== null) {
-                    $vout = Vout::where('transaction_id', '=', $transaction->id)->where('n', '=', $vinData->get('vout'))->first();
+                if($referencingTransaction !== null) {
+                    $vout = Vout::where('transaction_id', '=', $referencingTransaction->id)->where('n', '=', $vinData->get('vout'))->first();
                     $vin->vout()->associate($vout);
                     $vin->save();
                 }
