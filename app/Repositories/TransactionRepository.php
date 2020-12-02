@@ -3,14 +3,13 @@
 
 namespace App\Repositories;
 
-
 use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 
 class TransactionRepository
 {
-    public static function create(Collection $transaction, int $height): Transaction
+    public static function syncTransaction(Collection $transaction, int $height): Transaction
     {
         return Transaction::updateOrCreate([
             'txid' => $transaction->get('txid'),

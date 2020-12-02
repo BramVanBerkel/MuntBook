@@ -58,7 +58,7 @@ class ProcessBlock implements ShouldQueue
         foreach ($blockData->get('tx') as $txid) {
             $tx = $guldenService->getTransaction($txid, true);
 
-            $transaction = TransactionRepository::create($tx, $block->height);
+            $transaction = TransactionRepository::syncTransaction($tx, $block->height);
 
             VinRepository::syncVins($tx->get('vin'), $transaction);
 
