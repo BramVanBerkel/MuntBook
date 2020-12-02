@@ -2,8 +2,8 @@
 
 namespace App\Console;
 
-use App\Console\Commands\Gulden\UpdateDifficulty;
-use App\Console\Commands\Gulden\UpdateHashrate;
+use App\Jobs\UpdateDifficulty;
+use App\Jobs\UpdateHashrate;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -26,9 +26,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command(UpdateHashrate::class)->everyMinute();
+         $schedule->job(new UpdateHashrate)->everyMinute();
 
-         $schedule->command(UpdateDifficulty::class)->everyMinute();
+         $schedule->job(new UpdateDifficulty)->everyMinute();
     }
 
     /**
