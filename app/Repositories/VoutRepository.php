@@ -131,7 +131,7 @@ class VoutRepository
      * @param Transaction $transaction
      * @return Address
      */
-    private static function syncAddresses(Collection $voutData, Vout $voutModel, Transaction $transaction): Address
+    private static function syncAddresses(Collection $voutData, Vout $voutModel, Transaction $transaction)
     {
         if (Arr::has($voutData, 'scriptPubKey.addresses')) {
             foreach (Arr::get($voutData, 'scriptPubKey.addresses') as $address) {
@@ -152,8 +152,6 @@ class VoutRepository
             $voutModel->addresses()->attach($address);
             return $address;
         }
-
-        Log::error("No addresses in tx " . $transaction->txid);
     }
 
     /**
