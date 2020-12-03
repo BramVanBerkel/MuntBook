@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         try {
-            View::share('maxBlock', Block::max('height'));
+            View::share('lastBlock', Block::latest()->first());
         } catch (PDOException $e) {
             //
         }

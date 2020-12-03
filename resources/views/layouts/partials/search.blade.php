@@ -5,9 +5,9 @@
                 <div class="col-lg-12 align-self-center">
                     <h1>Gulden Blockchain Explorer</h1>
                 </div>
-                @if($maxBlock !== null)
+                @if($lastBlock !== null)
                     <div class="offset-lg-3 col-lg-6">
-                        <p>Up To Block <a href="{{ route('block', ['block' => $maxBlock]) }}">{{ $maxBlock }}</a></p>
+                        <p>Up To Block <a href="{{ route('block', ['block' => $lastBlock->height]) }}">{{ $lastBlock->height }}</a> <small>({{ $lastBlock->created_at->diffInSeconds(now()) }} seconds ago)</small></p>
                     </div>
                 @endif
             </div>
