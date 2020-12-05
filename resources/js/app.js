@@ -1,5 +1,6 @@
 require('./bootstrap');
-require('particles.js')
+require('particles.js');
+require('chart.js');
 
 // Page loading animation
 $(window).on('load', function () {

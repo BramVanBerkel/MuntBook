@@ -14,9 +14,9 @@
 
 @include('layouts.partials.footer')
 
-<!-- ***** Contact & Footer End ***** -->
-
 @include('scripts')
+
+@yield('script')
 
 </body>
 </html>
