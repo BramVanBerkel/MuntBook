@@ -19,10 +19,10 @@ class VinRepository
             ], [
                 'prevout_type' => $vinData->get('prevout_type'),
                 'coinbase' => $vinData->get('coinbase'),
-                'tx_height' => $vinData->get('tx_height') !== "" ? $vinData->get('tx_height') : null,
-                'tx_index' => $vinData->get('tx_index') !== "" ? $vinData->get('tx_index') : null,
-                'scriptSig_asm' => $vinData->get('scriptSig_asm') !== "" ? $vinData->get('scriptSig_asm') : null,
-                'scriptSig_hex' => $vinData->get('scriptSig_hex') !== "" ? $vinData->get('scriptSig_hex') : null,
+                'tx_height' => $vinData->get('tx_height', null),
+                'tx_index' => $vinData->get('tx_index', null),
+                'scriptSig_asm' => $vinData->get('scriptSig_asm', null),
+                'scriptSig_hex' => $vinData->get('scriptSig_hex', null),
                 'rbf' => $vinData->get('rbf'),
                 'transaction_id' => $transaction->id
             ]);
