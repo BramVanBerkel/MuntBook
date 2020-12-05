@@ -67,4 +67,9 @@ class Block extends Model
 
         return $value;
     }
+
+    public function isWitness(): bool
+    {
+        return $this->witness_versionHex === '20000000';
+    }
 }

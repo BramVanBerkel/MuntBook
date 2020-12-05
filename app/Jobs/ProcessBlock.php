@@ -65,7 +65,7 @@ class ProcessBlock implements ShouldQueue
             VoutRepository::syncVouts($tx->get('vout'), $transaction);
         }
 
-        if($block->transactions()->count() < 2) {
+        if($block->isWitness() && $block->transactions()->count() < 2) {
             dispatch((new ProcessBlock($this->height)))->delay(now()->addSeconds(config('gulden.sync_delay')));
         }
     }
