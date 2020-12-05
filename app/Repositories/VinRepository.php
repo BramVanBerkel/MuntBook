@@ -27,12 +27,20 @@ class VinRepository
                 'transaction_id' => $transaction->id
             ]);
 
-            if($vinData->get('txid') !== null) {
-                $referencingTransaction = Transaction::firstWhere('txid', '=', $vinData->get('txid'));
+            if($vinData->get('prevout_type') === 'index') {
+                //todo: combine these 2 queries into one
+                $referencingTransaction = Transaction::where('block_height', '=', $vinData->get('tx_height'))
+                    ->skip($vinData->get('tx_index'))
+                    ->take(1)
+                    ->first();
 
-                if($referencingTransaction !== null) {
-                    $vout = Vout::where('transaction_id', '=', $referencingTransaction->id)->where('n', '=', $vinData->get('vout'))->first();
-                    $vin->vout()->associate($vout);
+                $referencingVout = $referencingTransaction->vouts()
+                    ->skip($vinData->get('vout'))
+                    ->take(1)
+                    ->get();
+
+                if($referencingVout !== null) {
+                    $vin->vout()->associate($referencingVout);
                     $vin->save();
                 }
             }
