@@ -8,6 +8,7 @@ use App\Models\Transaction;
 use App\Models\Vin;
 use App\Models\Vout;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 
 class VinRepository
 {
@@ -34,14 +35,20 @@ class VinRepository
                     ->take(1)
                     ->first();
 
-                $referencingVout = $referencingTransaction->vouts()
-                    ->skip($vinData->get('vout'))
-                    ->take(1)
-                    ->get();
+                if($referencingTransaction !== null) {
+                    $referencingVout = $referencingTransaction->vouts()
+                        ->skip($vinData->get('vout'))
+                        ->take(1)
+                        ->first();
 
-                if($referencingVout !== null) {
-                    $vin->vout()->associate($referencingVout);
-                    $vin->save();
+                    if($referencingVout !== null) {
+                        $vin->vout()->associate($referencingVout);
+                        $vin->save();
+                    } else {
+                        Log::notice(sprintf("couldn't find vout at transaction %d and index %d", $transaction->id, $vinData->get('vout')));
+                    }
+                } else {
+                    Log::notice(sprintf("couldn't find transaction at height %d and index %d", $vinData->get('tx_height'), $vinData->get('tx_index')));
                 }
             }
         }
