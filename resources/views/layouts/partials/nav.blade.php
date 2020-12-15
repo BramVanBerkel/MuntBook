@@ -99,7 +99,9 @@
                         </li>
                         <li><a>item</a></li>
                     </ul>
-                    <a class="menu- trigger"></a>
+                    <a class="menu-trigger">
+                        <span></span>
+                    </a>
                     <!-- ***** Menu End ***** -->
 
                     <!-- ***** Header Buttons Start ***** -->
