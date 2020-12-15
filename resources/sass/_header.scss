@@ -435,6 +435,10 @@ header
                         }
                     }
                 }
+
+                &:after {
+                    color: $headingDark !important;
+                }
             }
         }
 
