@@ -16,7 +16,7 @@ $(window).on('load', function () {
     particlesJS.load('welcome', '/js/particleSettings.json');
 });
 
-// Header Scrolling Set White Background
+// Header scrolling set white background
 $(window).on('scroll', function () {
     var width = $(window).width();
     if (width > 991) {
@@ -30,6 +30,14 @@ $(window).on('scroll', function () {
             $(".header-area .dark-logo").css('display', 'none');
             $(".header-area .light-logo").css('display', 'block');
         }
+    }
+});
+
+$('.sub-menu').on('click', function(el) {
+    if($(window).width() < 992) {
+        // Close other open menus, except current and toggle active state of current
+        $('.sub-menu ul').not($(this).find('ul')).removeClass('active');
+        $(this).find('ul').toggleClass('active');
     }
 });
 
