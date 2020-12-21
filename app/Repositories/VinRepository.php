@@ -34,6 +34,7 @@ class VinRepository
                         ->where('block_height', '=', $vinData->get('tx_height'))
                         ->skip($vinData->get('tx_index'))
                         ->take(1);
+                })->skip($vinData->get('vout'))
                     ->take(1)
                     ->first();
 
@@ -42,6 +43,10 @@ class VinRepository
                     $vin->save();
                 }
             }
+
+//            if($vinData->get('prevout_type') === 'hash' && $vinData->get('txid') !== Transaction::EMPTY_TXID) {
+//                dd($vinData);
+//            }
         }
     }
 }
