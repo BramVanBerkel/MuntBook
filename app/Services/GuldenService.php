@@ -5,6 +5,7 @@ namespace App\Services;
 
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Collection;
 
 class GuldenService
@@ -25,7 +26,7 @@ class GuldenService
     /**
      * Returns the number of blocks in the longest blockchain.
      * @return int
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getBlockCount(): int
     {
@@ -45,7 +46,7 @@ class GuldenService
      * @param string $hash
      * @param int $verbosity
      * @return Collection
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getBlock(string $hash, int $verbosity = 0)
     {
@@ -63,7 +64,7 @@ class GuldenService
      * Returns hash of block in best-block-chain at height provided.
      * @param int $height
      * @return string
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getBlockHash(int $height): string
     {
@@ -84,7 +85,7 @@ class GuldenService
      * @param string $txid
      * @param bool $verbose
      * @return Collection
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getTransaction(string $txid, bool $verbose = false)
     {
@@ -106,7 +107,7 @@ class GuldenService
      * @param int|null $blocks
      * @param int|null $height
      * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getNetworkHashrate(int $blocks = 120, int $height = -1)
     {
@@ -124,7 +125,7 @@ class GuldenService
      * Returns the proof-of-work difficulty as a multiple of the minimum difficulty.
      *
      * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getDifficulty()
     {

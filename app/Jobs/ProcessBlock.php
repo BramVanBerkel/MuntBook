@@ -7,6 +7,7 @@ use App\Repositories\TransactionRepository;
 use App\Repositories\VinRepository;
 use App\Repositories\VoutRepository;
 use App\Services\GuldenService;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -41,7 +42,7 @@ class ProcessBlock implements ShouldQueue
      *
      * @param GuldenService $guldenService
      * @return void
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function handle(GuldenService $guldenService)
     {

@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Services\GuldenService;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -19,7 +20,7 @@ class UpdateDifficulty implements ShouldQueue
 
     /**
      * @param GuldenService $guldenService
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function handle(GuldenService $guldenService)
     {

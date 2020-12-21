@@ -35,7 +35,7 @@ class VoutRepository
                 'transaction_id' => $transaction->id,
             ]);
 
-            self::syncAddresses($voutData, $voutModel, $transaction);
+            self::syncAddresses($voutData, $voutModel);
 
             if (self::isWitnessVout($voutData) && $voutModel->type !== Vout::TYPE_WITNESS_FUNDING) {
                 $compound = self::isCompounding($vouts);
@@ -128,29 +128,24 @@ class VoutRepository
     /**
      * @param Collection $voutData
      * @param Vout $voutModel
-     * @param Transaction $transaction
-     * @return Address
      */
-    private static function syncAddresses(Collection $voutData, Vout $voutModel, Transaction $transaction)
+    private static function syncAddresses(Collection $voutData, Vout $voutModel)
     {
         if (Arr::has($voutData, 'scriptPubKey.addresses')) {
             foreach (Arr::get($voutData, 'scriptPubKey.addresses') as $address) {
                 $address = AddressRepository::create($address);
                 $voutModel->addresses()->attach($address);
             }
-            return $voutModel->addresses->first();
         }
 
         if ($voutData->has('standard-key-hash')) {
             $address = AddressRepository::create(Arr::get($voutData, 'standard-key-hash.address'));
             $voutModel->addresses()->attach($address);
-            return $address;
         }
 
         if($voutData->has('PoW²-witness')) {
             $address = AddressRepository::create(Arr::get($voutData, 'PoW²-witness.address'));
             $voutModel->addresses()->attach($address);
-            return $address;
         }
     }
 
