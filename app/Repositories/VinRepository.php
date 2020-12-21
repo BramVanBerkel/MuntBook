@@ -8,7 +8,6 @@ use App\Models\Transaction;
 use App\Models\Vin;
 use App\Models\Vout;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Log;
 
 class VinRepository
 {
@@ -29,13 +28,12 @@ class VinRepository
             ]);
 
             if ($vinData->get('prevout_type') === 'index') {
-                //todo: combine these 2 queries into one
-                $referencingVout = Transaction::where('block_height', '=', $vinData->get('tx_height'))
-                    ->skip($vinData->get('tx_index'))
-                    ->take(1)
-                    ->first()
-                    ?->vouts()
-                    ->skip($vinData->get('vout'))
+                $referencingVout = Vout::where('transaction_id', function ($query) use ($vinData) {
+                    return $query->select('id')
+                        ->from((new Transaction)->getTable())
+                        ->where('block_height', '=', $vinData->get('tx_height'))
+                        ->skip($vinData->get('tx_index'))
+                        ->take(1);
                     ->take(1)
                     ->first();
 
