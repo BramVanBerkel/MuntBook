@@ -40,25 +40,7 @@ class VoutRepository
             }
 
             if (self::isWitnessVout($voutData) && $voutModel->type !== Vout::TYPE_WITNESS_FUNDING) {
-                $compound = self::isCompounding($vouts);
-                $witnessAddress = AddressRepository::create(Arr::get($voutData, 'PoW²-witness.address'));
-
-                if ($compound === true) {
-                    //fully compounding
-                    $transaction->vouts()->create([
-                        'value' => 30,
-                        'n' => 1,
-                        'type' => Vout::TYPE_WITNESS_COMPOUND
-                    ])->addresses()->attach($witnessAddress);
-                }
-
-                if (is_numeric($compound)) {
-                    $transaction->vouts()->create([
-                        'value' => 30 - $compound, //28
-                        'n' => 2,
-                        'type' => Vout::TYPE_WITNESS_COMPOUND
-                    ])->addresses()->attach($witnessAddress);
-                }
+                self::checkWitnessVout($vouts, $voutData, $transaction);
             }
 
 //            if ($vout->has('PoW²-witness') || optional($vout->get('scriptPubKey'))->get('type') === 'pow2_witness') {
@@ -148,6 +130,34 @@ class VoutRepository
         if($voutData->has('PoW²-witness')) {
             $address = AddressRepository::create(Arr::get($voutData, 'PoW²-witness.address'));
             $voutModel->addresses()->attach($address);
+        }
+    }
+
+    /**
+     * @param Collection $vouts
+     * @param Collection $voutData
+     * @param Transaction $transaction
+     */
+    private static function checkWitnessVout(Collection $vouts, Collection $voutData, Transaction $transaction)
+    {
+        $compound = self::isCompounding($vouts);
+        $witnessAddress = AddressRepository::create(Arr::get($voutData, 'PoW²-witness.address'));
+
+        if ($compound === true) {
+            //fully compounding
+            $transaction->vouts()->create([
+                'value' => 30,
+                'n' => 1,
+                'type' => Vout::TYPE_WITNESS_COMPOUND
+            ])->addresses()->attach($witnessAddress);
+        }
+
+        if (is_numeric($compound)) {
+            $transaction->vouts()->create([
+                'value' => 30 - $compound,
+                'n' => 2,
+                'type' => Vout::TYPE_WITNESS_COMPOUND
+            ])->addresses()->attach($witnessAddress);
         }
     }
 
