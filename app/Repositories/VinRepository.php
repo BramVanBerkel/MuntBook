@@ -11,42 +11,76 @@ use Illuminate\Support\Collection;
 
 class VinRepository
 {
+    /**
+     * @param Collection $vins
+     * @param Transaction $transaction
+     */
     public static function syncVins(Collection $vins, Transaction $transaction): void
     {
         foreach ($vins as $vinData) {
+            //convert empty strings to null, to prevent inserting empty values in the DB
+            $vinData = $vinData->map(fn($item) => $item === "" ? null : $item);
+
             $vin = Vin::updateOrCreate([
-                'transaction_id' => $transaction->id
+                'transaction_id' => $transaction->id,
+                'tx_height' => $vinData->get('tx_height'),
+                'tx_index' => $vinData->get('tx_index'),
             ], [
+                'transaction_id' => $transaction->id,
                 'prevout_type' => $vinData->get('prevout_type'),
                 'coinbase' => $vinData->get('coinbase'),
-                'tx_height' => $vinData->get('tx_height') !== "" ? $vinData->get('tx_height') : null,
-                'tx_index' => $vinData->get('tx_index') !== "" ? $vinData->get('tx_index') : null,
-                'scriptSig_asm' => $vinData->get('scriptSig_asm') !== "" ? $vinData->get('scriptSig_asm') : null,
-                'scriptSig_hex' => $vinData->get('scriptSig_hex') !== "" ? $vinData->get('scriptSig_hex') : null,
+                'tx_height' => $vinData->get('tx_height'),
+                'tx_index' => $vinData->get('tx_index'),
+                'scriptSig_asm' => $vinData->get('scriptSig_asm'),
+                'scriptSig_hex' => $vinData->get('scriptSig_hex'),
                 'rbf' => $vinData->get('rbf'),
-                'transaction_id' => $transaction->id
             ]);
 
-            if ($vinData->get('prevout_type') === 'index') {
-                $referencingVout = Vout::where('transaction_id', function ($query) use ($vinData) {
-                    return $query->select('id')
-                        ->from((new Transaction)->getTable())
-                        ->where('block_height', '=', $vinData->get('tx_height'))
-                        ->skip($vinData->get('tx_index'))
-                        ->take(1);
-                })->skip($vinData->get('vout'))
-                    ->take(1)
-                    ->first();
+            $referencingVout = null;
 
-                if ($referencingVout !== null) {
-                    $vin->vout()->associate($referencingVout);
-                    $vin->save();
-                }
+            if ($vinData->get('prevout_type') === Vin::PREVOUT_TYPE_INDEX) {
+                $referencingVout = self::getIndexVout($vinData);
+            } elseif ($vinData->get('prevout_type') === Vin::PREVOUT_TYPE_HASH) {
+                $referencingVout = self::getHashVout($vinData, $transaction);
             }
 
-//            if($vinData->get('prevout_type') === 'hash' && $vinData->get('txid') !== Transaction::EMPTY_TXID) {
-//                dd($vinData);
-//            }
+            if ($referencingVout !== null) {
+                $vin->vout()->associate($referencingVout);
+                $vin->save();
+            }
         }
+    }
+
+    /**
+     * @param Collection $vinData
+     * @return Vout|null
+     */
+    private static function getIndexVout(Collection $vinData): ?Vout
+    {
+        return Vout::where('transaction_id', function ($query) use ($vinData) {
+            return $query->select('id')
+                ->from((new Transaction)->getTable())
+                ->where('block_height', '=', $vinData->get('tx_height'))
+                ->skip($vinData->get('tx_index'))
+                ->take(1);
+        })->skip($vinData->get('vout'))
+            ->take(1)
+            ->first();
+    }
+
+    /**
+     * @param Collection $vinData
+     * @param Transaction $transaction
+     * @return Vout|null
+     */
+    private static function getHashVout(Collection $vinData, Transaction $transaction): ?Vout
+    {
+        if ($vinData->get('txid') === Transaction::EMPTY_TXID || $transaction->type === Transaction::TYPE_WITNESS) {
+            return null;
+        }
+
+        return Transaction::firstWhere('txid', '=', $vinData->get('txid'))
+            ->vouts
+            ->get($vinData->get('vout'));
     }
 }
