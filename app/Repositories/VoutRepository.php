@@ -35,7 +35,9 @@ class VoutRepository
                 'transaction_id' => $transaction->id,
             ]);
 
-            self::syncAddresses($voutData, $voutModel);
+            if($voutModel->wasRecentlyCreated) {
+                self::syncAddresses($voutData, $voutModel);
+            }
 
             if (self::isWitnessVout($voutData) && $voutModel->type !== Vout::TYPE_WITNESS_FUNDING) {
                 $compound = self::isCompounding($vouts);
