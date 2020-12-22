@@ -61,9 +61,9 @@ class ProcessBlock implements ShouldQueue
 
             $transaction = TransactionRepository::syncTransaction($tx, $block->height);
 
-            VinRepository::syncVins($tx->get('vin'), $transaction);
-
             VoutRepository::syncVouts($tx->get('vout'), $transaction);
+
+            VinRepository::syncVins($tx->get('vin'), $transaction);
         }
 
         if($block->isWitness() && $block->transactions()->count() < 2) {
