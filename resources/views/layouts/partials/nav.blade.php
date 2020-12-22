@@ -78,26 +78,12 @@
                     </a>
 
                     <ul class="nav" style="display: none;">
-                        <li><a>item</a></li>
                         <li class="sub-menu">
-                            <a>dropdown</a>
+                            <a>Network</a>
                             <ul class="">
-                                <li><a href="#">item</a></li>
-                                <li><a href="#">item</a></li>
-                                <li><a href="#">item</a></li>
-                                <li><a href="#">item</a></li>
+                                <li><a href="{{ route('nonce-distribution') }}">Nonce distribution</a></li>
                             </ul>
                         </li>
-                        <li class="sub-menu">
-                            <a>dropdown</a>
-                            <ul class="">
-                                <li><a href="#">item</a></li>
-                                <li><a href="#">item</a></li>
-                                <li><a href="#">item</a></li>
-                                <li><a href="#">item</a></li>
-                            </ul>
-                        </li>
-                        <li><a>item</a></li>
                     </ul>
                     <a class="menu-trigger">
                         <span></span>
