@@ -14,6 +14,8 @@ class Transaction extends Model
     const TYPE_WITNESS_FUNDING = 'witness_funding';
     const TYPE_WITNESS = 'witness';
 
+    const EMPTY_TXID = '0000000000000000000000000000000000000000000000000000000000000000';
+
     protected $table = 'transactions';
 
     protected $fillable = [
