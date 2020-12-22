@@ -26,6 +26,9 @@ class Vin extends Model
         'vout_id',
     ];
 
+    const PREVOUT_TYPE_INDEX = 'index';
+    const PREVOUT_TYPE_HASH = 'hash';
+
     public function transaction()
     {
         return $this->belongsTo(Transaction::class);
