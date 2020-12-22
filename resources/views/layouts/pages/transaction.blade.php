@@ -60,7 +60,6 @@
                     <tr>
                         <th>Address</th>
                         <th>Amount</th>
-                        <th>Type</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -91,7 +90,6 @@
                                 @endif
                             </td>
                             <td class="text-success">+<span class="gulden-icon"></span>{{ $vout->value }}</td>
-                            <td>{{ $vout->type }}</td>
                         </tr>
                     @endforeach
                 </table>
