@@ -18,12 +18,11 @@ header
         .logo {
             display: flex;
             float: left;
-            margin-top: 34px;
-            @include transition(.3s);
+            margin-top: 20px;
 
             img {
-                max-height: 45px;
-                @include transition(.3s);
+                height: 40px;
+                width: auto;
             }
         }
 
@@ -32,9 +31,8 @@ header
         }
 
         .nav {
-            float: right;
-            margin-top: 30px;
-            @include transition(.3s);
+            float: left;
+            margin-top: 22px;
 
             li {
                 margin-left: 35px;
@@ -394,17 +392,11 @@ header
         height: 80px;
         box-shadow: 0 2px 28px 0 rgba(0, 0, 0, 0.06);
 
-        .logo {
-            margin-top: 26px;
-        }
-
         .light-logo {
             display: none;
         }
 
         .nav {
-            margin-top: 22px !important;
-
             li {
                 a {
                     color: $headingDark;
