@@ -20,7 +20,7 @@ class VoutRepository
                 'transaction_id' => $transaction->id,
                 'n' => $voutData->get('n'),
             ], [
-                'address_id' => self::getAddress($voutData)->id,
+                'address_id' => self::getAddress($voutData)?->id,
                 'type' => self::getType($voutData),
                 'value' => $voutData->get('value'),
                 'standard_key_hash_hex' => optional($voutData->get('standard-key-hash'))->get('hex'),
@@ -44,9 +44,9 @@ class VoutRepository
 
     /**
      * @param Collection $voutData
-     * @param Vout $voutModel
+     * @return Address|null
      */
-    private static function getAddress(Collection $voutData): Address
+    private static function getAddress(Collection $voutData): ?Address
     {
         if (Arr::has($voutData, 'scriptPubKey.addresses')) {
             return AddressRepository::create(Arr::get($voutData, 'scriptPubKey.addresses')[0]);
@@ -59,6 +59,8 @@ class VoutRepository
         if ($voutData->has('PoW²-witness')) {
             return AddressRepository::create(Arr::get($voutData, 'PoW²-witness.address'));
         }
+
+        return null;
     }
 
     /**

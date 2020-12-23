@@ -20,7 +20,7 @@ class CreateVoutsTable extends Migration
             $table->foreignId('transaction_id')->index();
             $table->foreign('transaction_id')->references('id')->on('transactions')->cascadeOnDelete();
 
-            $table->foreignId('address_id')->index();
+            $table->foreignId('address_id')->nullable()->index();
             $table->foreign('address_id')->references('id')->on('addresses')->cascadeOnDelete();
 
             $table->enum('type', [
