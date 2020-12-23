@@ -16,6 +16,8 @@ class Transaction extends Model
 
     const EMPTY_TXID = '0000000000000000000000000000000000000000000000000000000000000000';
 
+    const WITNESS_REWARD = 30;
+
     protected $table = 'transactions';
 
     protected $fillable = [
