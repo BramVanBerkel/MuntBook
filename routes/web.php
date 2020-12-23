@@ -23,7 +23,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::post('/', [SearchController::class, 'search'])->name('search');
 
-Route::get('/transaction/{transaction}', [TransactionController::class, 'index'])->name('transaction');
+Route::get('/transaction/{txid}', [TransactionController::class, 'index'])->name('transaction');
 
 Route::get('/address/{address}', [AddressController::class, 'index'])->name('address');
 

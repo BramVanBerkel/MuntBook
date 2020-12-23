@@ -69,7 +69,7 @@
                     @foreach($block->transactions as $transaction)
                         <tr>
                             <td>
-                                <a href="{{ route('transaction', ['transaction' => $transaction->txid]) }}">
+                                <a href="{{ route('transaction', ['txid' => $transaction->txid]) }}">
                                     {{ Str::limit($transaction->txid, 25) }}
                                 </a>
                             </td>

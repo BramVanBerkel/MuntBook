@@ -6,11 +6,11 @@ use App\Models\Transaction;
 
 class TransactionController extends Controller
 {
-    public function index(string $transaction)
+    public function index(string $txid)
     {
         $transaction = Transaction::with(['vouts' => function($query) {
             return $query->where('type', '<>', 'witness');
-        }])->firstWhere('txid', $transaction);
+        }])->firstWhere('txid', '=', $txid);
 
         if($transaction === null) {
             abort(404);
