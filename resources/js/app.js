@@ -33,7 +33,7 @@ $(window).on('scroll', function () {
     }
 });
 
-$('.sub-menu').on('click', function(el) {
+$('.sub-menu').on('click', function() {
     if($(window).width() < 992) {
         // Close other open menus, except current and toggle active state of current
         $('.sub-menu ul').not($(this).find('ul')).removeClass('active');
