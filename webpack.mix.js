@@ -15,4 +15,17 @@ mix.js('resources/js/app.js', 'public/js')
     .copy('resources/js/particleSettings.json', 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
 
-mix.copy('resources/images', 'public/images');
+if(process.env.MIX_TESTNET === 'false') {
+    //use images for mainnet
+    console.log('Building for mainnet...');
+    mix.copy('resources/images/icon/mainnet/*', 'public/images/icon');
+    mix.copy('resources/images/logos/mainnet/*', 'public/images/logos');
+    mix.copy('resources/images/splash/mainnet/*', 'public/images/splash');
+} else {
+    //use images for testnet
+    console.log('Building for testnet...');
+    mix.copy('resources/images/icon/testnet/*', 'public/images/icon');
+    mix.copy('resources/images/logos/testnet/*', 'public/images/logos');
+    mix.copy('resources/images/splash/testnet/*', 'public/images/splash');
+}
+
