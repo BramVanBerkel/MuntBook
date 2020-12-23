@@ -20,6 +20,7 @@ class VoutRepository
                 'transaction_id' => $transaction->id,
                 'n' => $voutData->get('n'),
             ], [
+                'address_id' => self::getAddress($voutData)->id,
                 'type' => self::getType($voutData),
                 'value' => $voutData->get('value'),
                 'standard_key_hash_hex' => optional($voutData->get('standard-key-hash'))->get('hex'),
@@ -35,10 +36,6 @@ class VoutRepository
                 'transaction_id' => $transaction->id,
             ]);
 
-            if($voutModel->wasRecentlyCreated) {
-                self::syncAddresses($voutData, $voutModel);
-            }
-
             if (self::isWitnessVout($voutData) && $voutModel->type !== Vout::TYPE_WITNESS_FUNDING) {
                 self::checkWitnessVout($vouts, $voutData, $transaction);
             }
@@ -49,23 +46,18 @@ class VoutRepository
      * @param Collection $voutData
      * @param Vout $voutModel
      */
-    private static function syncAddresses(Collection $voutData, Vout $voutModel)
+    private static function getAddress(Collection $voutData): Address
     {
         if (Arr::has($voutData, 'scriptPubKey.addresses')) {
-            foreach (Arr::get($voutData, 'scriptPubKey.addresses') as $address) {
-                $address = AddressRepository::create($address);
-                $voutModel->addresses()->attach($address);
-            }
+            return AddressRepository::create(Arr::get($voutData, 'scriptPubKey.addresses')[0]);
         }
 
         if ($voutData->has('standard-key-hash')) {
-            $address = AddressRepository::create(Arr::get($voutData, 'standard-key-hash.address'));
-            $voutModel->addresses()->attach($address);
+            return AddressRepository::create(Arr::get($voutData, 'standard-key-hash.address'));
         }
 
-        if($voutData->has('PoW²-witness')) {
-            $address = AddressRepository::create(Arr::get($voutData, 'PoW²-witness.address'));
-            $voutModel->addresses()->attach($address);
+        if ($voutData->has('PoW²-witness')) {
+            return AddressRepository::create(Arr::get($voutData, 'PoW²-witness.address'));
         }
     }
 
@@ -81,19 +73,24 @@ class VoutRepository
 
         if ($compound === true) {
             //fully compounding
-            $transaction->vouts()->create([
-                'value' => 30,
+            /** @var Vout $compoundingVout */
+            $compoundingVout = $transaction->vouts()->create([
+                'value' => Transaction::WITNESS_REWARD,
                 'n' => 1,
                 'type' => Vout::TYPE_WITNESS_COMPOUND
-            ])->addresses()->attach($witnessAddress);
+            ]);
+            $compoundingVout->address()->associate($witnessAddress);
         }
 
         if (is_numeric($compound)) {
-            $transaction->vouts()->create([
-                'value' => 30 - $compound,
+            //partially compounding
+            /** @var Vout $compoundingVout */
+            $compoundingVout = $transaction->vouts()->create([
+                'value' => Transaction::WITNESS_REWARD - $compound,
                 'n' => 2,
                 'type' => Vout::TYPE_WITNESS_COMPOUND
-            ])->addresses()->attach($witnessAddress);
+            ]);
+            $compoundingVout->address()->associate($witnessAddress);
         }
     }
 
@@ -117,15 +114,15 @@ class VoutRepository
      */
     private static function isCompounding(Collection $vouts)
     {
-        if($vouts->count() === 1) {
+        if ($vouts->count() === 1) {
             return true;
         }
 
-        $reward = $vouts->filter(function($vout) {
+        $reward = $vouts->filter(function ($vout) {
             return !$vout->has('PoW²-witness');
         })->pluck('value')->sum();
 
-        if(floor($reward) === 30.0) {
+        if (floor($reward) === 30.0) {
             return false;
         }
 
@@ -135,7 +132,7 @@ class VoutRepository
     private static function getType(Collection $data): string
     {
         if ($data->has('PoW²-witness') || optional($data->get('scriptPubKey'))->get('type') === 'pow2_witness') {
-            if($data->get('PoW²-witness')->get('lock_from_block') === 0) {
+            if ($data->get('PoW²-witness')->get('lock_from_block') === 0) {
                 return Vout::TYPE_WITNESS_FUNDING;
             }
 

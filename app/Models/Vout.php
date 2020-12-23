@@ -15,6 +15,7 @@ class Vout extends Model
 
     protected $fillable = [
         'transaction_id',
+        'address_id',
         'value',
         'n',
         'type',
@@ -36,9 +37,9 @@ class Vout extends Model
     const TYPE_WITNESS_FUNDING = 'witness_funding';
     const TYPE_WITNESS_COMPOUND = 'witness_compound';
 
-    public function addresses()
+    public function address()
     {
-        return $this->belongsToMany(Address::class);
+        return $this->belongsTo(Address::class);
     }
 
     public function transaction()
