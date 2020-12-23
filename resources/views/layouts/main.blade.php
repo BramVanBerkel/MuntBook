@@ -4,7 +4,12 @@
 <body>
     @include('layouts.partials.nav')
 
-    @include('layouts.partials.search')
+    @if(Route::is('home'))
+        @include('layouts.partials.header')
+    @else
+        @include('layouts.partials.header_small')
+    @endif
+
 
 <section class="block-explorer-features section bg-bottom">
     <div class="container">

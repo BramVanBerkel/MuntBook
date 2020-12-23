@@ -5,7 +5,6 @@ block explorer
 */
 
 .block-explorer-wrapper {
-	min-height: 360px;
 	position: relative;
 
 	&.bg-top-right {
@@ -138,6 +137,14 @@ block explorer
 			}
 		}
 	}
+}
+
+.header-large {
+    min-height: 350px;
+}
+
+.header-small {
+    min-height: 150px;
 }
 
 .block-explorer-features {
