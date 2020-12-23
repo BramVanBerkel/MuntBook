@@ -591,3 +591,17 @@ header
         }
     }
 }
+
+@media (max-width: 400px) {
+    .header-area {
+        .main-nav {
+            .logo {
+                margin-top: 27.5px;
+
+                img {
+                    height: 25px;
+                }
+            }
+        }
+    }
+}
