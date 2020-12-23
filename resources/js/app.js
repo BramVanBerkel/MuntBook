@@ -23,12 +23,12 @@ $(window).on('scroll', function () {
         var scroll = $(window).scrollTop();
         if (scroll >= 30) {
             $(".header-area").addClass("header-sticky");
-            $(".header-area .dark-logo").css('display', 'block');
-            $(".header-area .light-logo").css('display', 'none');
+            $(".header-area .dark-logo").show();
+            $(".header-area .light-logo").hide();
         } else {
             $(".header-area").removeClass("header-sticky");
-            $(".header-area .dark-logo").css('display', 'none');
-            $(".header-area .light-logo").css('display', 'block');
+            $(".header-area .dark-logo").hide();
+            $(".header-area .light-logo").show();
         }
     }
 });
