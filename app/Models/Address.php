@@ -12,8 +12,6 @@ class Address extends Model
 {
     protected $table = 'addresses';
 
-    public $timestamps = true;
-
     protected $fillable = [
         'address',
         'type'
