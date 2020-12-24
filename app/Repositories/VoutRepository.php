@@ -73,6 +73,7 @@ class VoutRepository
         $compound = self::isCompounding($vouts);
         $witnessAddress = AddressRepository::create(Arr::get($voutData, 'PoW²-witness.address'));
 
+        $compoundingVout = null;
         if ($compound === true) {
             //fully compounding
             /** @var Vout $compoundingVout */
@@ -81,7 +82,6 @@ class VoutRepository
                 'n' => 1,
                 'type' => Vout::TYPE_WITNESS_COMPOUND
             ]);
-            $compoundingVout->address()->associate($witnessAddress);
         }
 
         if (is_numeric($compound)) {
@@ -92,7 +92,10 @@ class VoutRepository
                 'n' => 2,
                 'type' => Vout::TYPE_WITNESS_COMPOUND
             ]);
-            $compoundingVout->address()->associate($witnessAddress);
+        }
+
+        if($compoundingVout !== null) {
+            $compoundingVout->address()->associate($witnessAddress)->save();
         }
     }
 
