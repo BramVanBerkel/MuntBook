@@ -48,6 +48,8 @@ class Block extends Model
         'total_value_out'
     ];
 
+    const EMPTY_WITNESS_MERLKEROOT = '0000000000000000000000000000000000000000000000000000000000000000';
+
     public function transactions()
     {
         return $this->hasMany(Transaction::class);

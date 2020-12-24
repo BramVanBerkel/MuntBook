@@ -12,6 +12,9 @@ class BlockRepository
 {
     public static function syncBlock(Collection $data): Block
     {
+        $witness_time = $data->get('witness_time') !== 0 ? new Carbon($data->get('witness_time')) : null;
+        $witness_merkleroot = $data->get('witness_merkleroot') !== Block::EMPTY_WITNESS_MERLKEROOT ? $data->get('witness_merkleroot') : null;
+
         return Block::updateOrCreate([
             'height' => $data->get('height'),
         ],[
@@ -26,9 +29,9 @@ class BlockRepository
             'merkleroot' => $data->get('merkleroot'),
             'witness_version' => $data->get('witness_version'),
             'witness_versionHex' => $data->get('witness_versionHex'),
-            'witness_time' => new Carbon($data->get('witness_time')),
+            'witness_time' => $witness_time,
             'pow_time' => new Carbon($data->get('pow_time')),
-            'witness_merkleroot' => $data->get('witness_merkleroot'),
+            'witness_merkleroot' => $witness_merkleroot,
             'time' => new Carbon($data->get('time')),
             'nonce' => $data->get('nonce'),
             'pre_nonce' => $data->get('pre_nonce'),
