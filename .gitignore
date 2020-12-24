@@ -18,3 +18,4 @@ yarn-error.log
 /public/images
 /public/fonts
 /public/mix-manifest.json
+/public/site.webmanifest
