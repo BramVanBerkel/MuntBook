@@ -21,11 +21,13 @@ if(process.env.MIX_TESTNET === 'false') {
     mix.copy('resources/images/icon/mainnet/*', 'public/images/icon');
     mix.copy('resources/images/logos/mainnet/*', 'public/images/logos');
     mix.copy('resources/images/splash/mainnet/*', 'public/images/splash');
+    mix.copy('resources/webmanifest/mainnet.webmanifest', 'public/site.webmanifest');
 } else {
     //use images for testnet
     console.log('Building for testnet...');
     mix.copy('resources/images/icon/testnet/*', 'public/images/icon');
     mix.copy('resources/images/logos/testnet/*', 'public/images/logos');
     mix.copy('resources/images/splash/testnet/*', 'public/images/splash');
+    mix.copy('resources/webmanifest/testnet.webmanifest', 'public/site.webmanifest');
 }
 
