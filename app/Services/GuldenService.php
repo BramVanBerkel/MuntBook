@@ -104,8 +104,8 @@ class GuldenService
      * Pass in $blocks to override # of blocks.
      * Pass in $height to estimate the network speed at the time when a certain block was found.
      *
-     * @param int|null $blocks
-     * @param int|null $height
+     * @param null $blocks
+     * @param null $height
      * @return mixed
      * @throws GuzzleException
      */
