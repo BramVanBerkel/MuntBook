@@ -73,9 +73,9 @@ class VinRepository
      * @param Transaction $transaction
      * @return Vout|null
      */
-    private static function getHashVout(Collection $vinData, Transaction $transaction): ?Vout
+    private static function getHashVout(Collection $vinData): ?Vout
     {
-        if ($vinData->get('txid') === Transaction::EMPTY_TXID || $transaction->type === Transaction::TYPE_WITNESS) {
+        if ($vinData->get('txid') === Transaction::EMPTY_TXID) {
             return null;
         }
 
