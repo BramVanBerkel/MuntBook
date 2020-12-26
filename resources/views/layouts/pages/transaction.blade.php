@@ -63,31 +63,23 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($transaction->vins()->has('vout.addresses')->get() as $vin)
+                    @foreach($vins as $vin)
                         <tr>
                             <td>
-                                <a href="{{ route('address', ['address' => $vin->vout->addresses->first()->address]) }}">
-                                    {{ $vin->vout->addresses->first()->address }}
+                                <a href="{{ route('address', ['address' => $vin->address]) }}">
+                                    {{ $vin->address }}
                                 </a>
                             </td>
-                            <td class="text-danger">-<span class="gulden-icon"></span> {{ $vin->vout->value }}</td>
+                            <td class="text-danger">-<span class="gulden-icon"></span> {{ $vin->value }}</td>
                         </tr>
                     @endforeach
 
-                    @foreach($transaction->vouts as $vout)
+                    @foreach($vouts as $vout)
                         <tr>
                             <td>
-                                @if($vout->addresses->count() === 1)
-                                    <a href="{{ route('address', ['address' => $vout->addresses->first()->address]) }}">
-                                        {{ $vout->addresses->first()->address }}
-                                    </a>
-                                @else
-                                    @foreach($vout->addresses as $address)
-                                        <a href="{{ route('address', ['address' => $address->address]) }}">
-                                            {{ Str::limit($address->address, 10) }}
-                                        </a>
-                                    @endforeach
-                                @endif
+                                <a href="{{ route('address', ['address' => $vout->address->address]) }}">
+                                    {{ $vout->address->address }}
+                                </a>
                             </td>
                             <td class="text-success">+<span class="gulden-icon"></span>{{ $vout->value }}</td>
                         </tr>
