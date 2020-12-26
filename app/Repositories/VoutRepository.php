@@ -21,7 +21,7 @@ class VoutRepository
                 'n' => $voutData->get('n'),
             ], [
                 'address_id' => self::getAddress($voutData)?->id,
-                'type' => self::getType($voutData),
+                'type' => self::getType($voutData, $vouts),
                 'value' => $voutData->get('value'),
                 'standard_key_hash_hex' => optional($voutData->get('standard-key-hash'))->get('hex'),
                 'standard_key_hash_address' => optional($voutData->get('standard-key-hash'))->get('address'),
@@ -134,8 +134,13 @@ class VoutRepository
         return $reward;
     }
 
-    private static function getType(Collection $data): string
+    private static function getType(Collection $data, Collection $vouts): string
     {
+        //todo: check if this works
+//        if($vouts->get(0)->has('PoW²-witness') && !$data->has('PoW²-witness')) {
+//            return Vout::TYPE_WITNESS_REWARD;
+//        }
+
         if ($data->has('PoW²-witness') || optional($data->get('scriptPubKey'))->get('type') === 'pow2_witness') {
             if ($data->get('PoW²-witness')->get('lock_from_block') === 0) {
                 return Vout::TYPE_WITNESS_FUNDING;

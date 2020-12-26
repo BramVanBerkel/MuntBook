@@ -27,6 +27,7 @@ class CreateVoutsTable extends Migration
                 Vout::TYPE_TRANSACTION,
                 Vout::TYPE_MINING,
                 Vout::TYPE_WITNESS,
+                Vout::TYPE_WITNESS_REWARD,
                 Vout::TYPE_WITNESS_FUNDING,
                 Vout::TYPE_WITNESS_COMPOUND,
             ]);
