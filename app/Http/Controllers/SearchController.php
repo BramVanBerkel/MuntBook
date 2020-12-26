@@ -21,7 +21,7 @@ class SearchController extends Controller
                 return redirect()->route('block', ['block' => $block->height]);
             }
 
-            return redirect()->route('transaction', ['transaction' => $query]);
+            return redirect()->route('transaction', ['txid' => $query]);
         }
 
         //query is an address
