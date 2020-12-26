@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use App\Models\Vin;
 use App\Models\Vout;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
@@ -23,7 +22,9 @@ class TransactionController extends Controller
         $vins = Vin::select(['addresses.address', DB::raw('sum(vouts.value) as value')])
             ->leftJoin('vouts', 'vins.vout_id', '=', 'vouts.id')
             ->leftJoin('addresses', 'addresses.id', '=', 'vouts.address_id')
-            ->where('vins.transaction_id', '=', $transaction->id)->groupBy('addresses.address')
+            ->where('vins.transaction_id', '=', $transaction->id)
+            ->where('vins.vout_id', '<>', null)
+            ->groupBy('addresses.address')
             ->get();
 
         return view('layouts.pages.transaction')->with([
