@@ -29,7 +29,7 @@ class Address extends Model
 
     public function vouts()
     {
-        return $this->belongsToMany(Vout::class);
+        return $this->hasMany(Vout::class);
     }
 
     public function vins()

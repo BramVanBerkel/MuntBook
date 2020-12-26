@@ -57,20 +57,17 @@
                 <table class="table table-striped table-latests table-detail">
                     <thead>
                     <tr>
-                        <th>Transaction id</th>
-                        <th>Transaction ammount</th>
-                        <th>Transaction date</th>
+                        <th>Date</th>
+                        <th>Amount</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($address->transactions as $transaction)
+                    @foreach($transactions as $transaction)
                         <tr>
                             <td>
-                                <a href="{{ route('transaction', ['txid' => $transaction->txid]) }}">
-                                    {{ Str::limit($transaction->txid, 25) }}
-                                </a>
+                                {{ $transaction->get('timestamp') }}
                             </td>
-                            <td><span class="gulden-icon"></span> {{ $transaction->total_value_out }}</td>
+                            <td><span class="gulden-icon"></span> {{ $transaction->get('value') }}</td>
                         </tr>
                     @endforeach
                     </tbody>
