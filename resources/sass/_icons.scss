@@ -6,10 +6,10 @@ icons
 
 .gulden-icon {
     background-image: url('../images/gulden.svg');
-    height: 16px;
-    width: 16px;
+    height: $font-size-base;
+    width: $font-size-base;
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: initial;
     background-repeat: no-repeat;
     background-size: contain;
 }
