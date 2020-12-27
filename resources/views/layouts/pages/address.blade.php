@@ -26,7 +26,7 @@
                         <td><strong>Total value in</strong></td>
                         <td></td>
                     </tr>
-                    <tr >
+                    <tr>
                         <td><strong>Total value out</strong></td>
                         <td style="border-bottom: black 1px solid"></td>
                     </tr>
@@ -67,7 +67,9 @@
                             <td>
                                 {{ $transaction->get('timestamp') }}
                             </td>
-                            <td><span class="gulden-icon"></span> {{ $transaction->get('value') }}</td>
+                            <td>
+                                <x-gulden_display value="{{ $transaction->get('value') }}" colored=true />
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
