@@ -10,7 +10,7 @@
     }
 
     //format the number to 8 decimal places
-    $number_formatted = number_format($value, 8, ',');
+    $number_formatted = number_format($value, 8, ',', '.');
 
     //take the last 6 digits to display small
     $small = substr($number_formatted, -6);
