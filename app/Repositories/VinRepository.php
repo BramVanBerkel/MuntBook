@@ -21,10 +21,19 @@ class VinRepository
             //convert empty strings to null, to prevent inserting empty values in the DB
             $vinData = $vinData->map(fn($item) => $item === "" ? null : $item);
 
+            $referencingVout = null;
+
+            if ($vinData->get('prevout_type') === Vin::PREVOUT_TYPE_INDEX) {
+                $referencingVout = self::getIndexVout($vinData);
+            } elseif ($vinData->get('prevout_type') === Vin::PREVOUT_TYPE_HASH) {
+                $referencingVout = self::getHashVout($vinData);
+            }
+
             $vin = Vin::updateOrCreate([
                 'transaction_id' => $transaction->id,
                 'tx_height' => $vinData->get('tx_height'),
                 'tx_index' => $vinData->get('tx_index'),
+                'vout_id' => $referencingVout?->id,
             ], [
                 'transaction_id' => $transaction->id,
                 'prevout_type' => $vinData->get('prevout_type'),
@@ -35,14 +44,6 @@ class VinRepository
                 'scriptSig_hex' => $vinData->get('scriptSig_hex'),
                 'rbf' => $vinData->get('rbf'),
             ]);
-
-            $referencingVout = null;
-
-            if ($vinData->get('prevout_type') === Vin::PREVOUT_TYPE_INDEX) {
-                $referencingVout = self::getIndexVout($vinData);
-            } elseif ($vinData->get('prevout_type') === Vin::PREVOUT_TYPE_HASH) {
-                $referencingVout = self::getHashVout($vinData, $transaction);
-            }
 
             if ($referencingVout !== null) {
                 $vin->vout()->associate($referencingVout);
