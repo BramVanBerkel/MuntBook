@@ -71,7 +71,6 @@ class VinRepository
 
     /**
      * @param Collection $vinData
-     * @param Transaction $transaction
      * @return Vout|null
      */
     private static function getHashVout(Collection $vinData): ?Vout
