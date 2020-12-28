@@ -42,6 +42,6 @@ class TransactionRepository
             return Transaction::TYPE_WITNESS;
         }
 
-        return null;
+        return Transaction::TYPE_TRANSACTION;
     }
 }
