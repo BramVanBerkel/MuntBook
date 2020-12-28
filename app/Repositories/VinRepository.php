@@ -80,7 +80,7 @@ class VinRepository
         }
 
         return Transaction::firstWhere('txid', '=', $vinData->get('txid'))
-            ->vouts
+            ?->vouts
             ->get($vinData->get('vout'));
     }
 }
