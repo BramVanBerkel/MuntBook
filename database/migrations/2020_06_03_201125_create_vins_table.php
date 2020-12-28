@@ -23,14 +23,6 @@ class CreateVinsTable extends Migration
             $table->foreignId('vout_id')->nullable()->index();
             $table->foreign('vout_id')->references('id')->on('vouts')->cascadeOnDelete();
 
-            $table->enum('prevout_type', Vin::PREVOUT_TYPES)->nullable();
-            $table->string('coinbase')->nullable();
-            $table->integer('tx_height')->nullable();
-            $table->integer('tx_index')->nullable();
-            $table->string('scriptSig_asm')->nullable();
-            $table->string('scriptSig_hex')->nullable();
-            $table->integer('rbf')->nullable();
-
             $table->timestamps();
         });
     }

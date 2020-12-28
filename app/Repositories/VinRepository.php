@@ -18,7 +18,8 @@ class VinRepository
     public static function syncVins(Collection $vins, Transaction $transaction): void
     {
         foreach ($vins as $vinData) {
-            //convert empty strings to null, to prevent inserting empty values in the DB
+            //convert empty strings to null, to prevent inserting empty strings in the DB
+            /** @var Collection $vinData */
             $vinData = $vinData->map(fn($item) => $item === "" ? null : $item);
 
             $referencingVout = null;
@@ -31,18 +32,7 @@ class VinRepository
 
             $vin = Vin::updateOrCreate([
                 'transaction_id' => $transaction->id,
-                'tx_height' => $vinData->get('tx_height'),
-                'tx_index' => $vinData->get('tx_index'),
                 'vout_id' => $referencingVout?->id,
-            ], [
-                'transaction_id' => $transaction->id,
-                'prevout_type' => $vinData->get('prevout_type'),
-                'coinbase' => $vinData->get('coinbase'),
-                'tx_height' => $vinData->get('tx_height'),
-                'tx_index' => $vinData->get('tx_index'),
-                'scriptSig_asm' => $vinData->get('scriptSig_asm'),
-                'scriptSig_hex' => $vinData->get('scriptSig_hex'),
-                'rbf' => $vinData->get('rbf'),
             ]);
 
             if ($referencingVout !== null) {
