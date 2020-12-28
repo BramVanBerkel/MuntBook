@@ -27,6 +27,12 @@ class Address extends Model
     const TYPE_WITNESS_ADDRESS = 'witness_address';
     const TYPE_MINING_ADDRESS = 'mining_address';
 
+    const TYPES = [
+        self::TYPE_ADDRESS,
+        self::TYPE_WITNESS_ADDRESS,
+        self::TYPE_MINING_ADDRESS,
+    ];
+
     public function vouts()
     {
         return $this->hasMany(Vout::class);

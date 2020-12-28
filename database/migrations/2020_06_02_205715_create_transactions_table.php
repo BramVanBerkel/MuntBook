@@ -28,11 +28,7 @@ class CreateTransactionsTable extends Migration
             $table->string('blockhash');
             $table->integer('confirmations');
             $table->dateTime('blocktime');
-            $table->enum('type', [
-                Transaction::TYPE_TRANSACTION,
-                Transaction::TYPE_WITNESS,
-                Transaction::TYPE_WITNESS_FUNDING,
-            ]);
+            $table->enum('type', Transaction::TYPES);
 
             $table->timestamps();
         });

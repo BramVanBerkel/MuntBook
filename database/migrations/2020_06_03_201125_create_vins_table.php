@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Vin;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -22,7 +23,7 @@ class CreateVinsTable extends Migration
             $table->foreignId('vout_id')->nullable()->index();
             $table->foreign('vout_id')->references('id')->on('vouts')->cascadeOnDelete();
 
-            $table->string('prevout_type')->nullable();
+            $table->enum('prevout_type', Vin::PREVOUT_TYPES)->nullable();
             $table->string('coinbase')->nullable();
             $table->integer('tx_height')->nullable();
             $table->integer('tx_index')->nullable();

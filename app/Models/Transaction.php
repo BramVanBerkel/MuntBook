@@ -11,14 +11,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Transaction extends Model
 {
-    const TYPE_TRANSACTION = 'transaction';
-    const TYPE_WITNESS_FUNDING = 'witness_funding';
-    const TYPE_WITNESS = 'witness';
-
-    const EMPTY_TXID = '0000000000000000000000000000000000000000000000000000000000000000';
-
-    const WITNESS_REWARD = 30;
-
     protected $table = 'transactions';
 
     protected $fillable = [
@@ -38,6 +30,20 @@ class Transaction extends Model
     protected $appends = [
         'total_value_out'
     ];
+
+    const TYPE_TRANSACTION = 'transaction';
+    const TYPE_WITNESS_FUNDING = 'witness_funding';
+    const TYPE_WITNESS = 'witness';
+
+    const TYPES = [
+        self::TYPE_TRANSACTION,
+        self::TYPE_WITNESS_FUNDING,
+        self::TYPE_WITNESS,
+    ];
+
+    const EMPTY_TXID = '0000000000000000000000000000000000000000000000000000000000000000';
+
+    const WITNESS_REWARD = 30;
 
     public function block()
     {

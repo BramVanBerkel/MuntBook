@@ -18,11 +18,7 @@ class CreateAddressesTable extends Migration
             $table->id();
 
             $table->string('address')->unique();
-            $table->enum('type', [
-                Address::TYPE_ADDRESS,
-                Address::TYPE_WITNESS_ADDRESS,
-                Address::TYPE_MINING_ADDRESS,
-            ]);
+            $table->enum('type', Address::TYPES);
 
             $table->timestamps();
         });

@@ -38,6 +38,15 @@ class Vout extends Model
     const TYPE_WITNESS_FUNDING = 'witness_funding';
     const TYPE_WITNESS_COMPOUND = 'witness_compound';
 
+    const TYPES = [
+        self::TYPE_TRANSACTION,
+        self::TYPE_MINING,
+        self::TYPE_WITNESS,
+        self::TYPE_WITNESS_REWARD,
+        self::TYPE_WITNESS_FUNDING,
+        self::TYPE_WITNESS_COMPOUND,
+    ];
+
 
     public function address()
     {
