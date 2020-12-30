@@ -28,7 +28,7 @@
                     </tr>
                     <tr>
                         <td><strong>Total value out</strong></td>
-                        <td><span class="gulden-icon"></span> {{ $block->total_value_out }}</td>
+                        <td><x-gulden_display value="{{ $block->total_value_out }}" /></td>
                     </tr>
                     <tr>
                         <td><strong>No. of transactions</strong></td>
@@ -73,7 +73,7 @@
                                     {{ Str::limit($transaction->txid, 25) }}
                                 </a>
                             </td>
-                            <td><span class="gulden-icon"></span> {{ $transaction->total_value_out }}</td>
+                            <td><x-gulden_display value="{{ $transaction->total_value_out }}"/></td>
                             <td>{{ $transaction->type }}</td>
                         </tr>
                     @endforeach

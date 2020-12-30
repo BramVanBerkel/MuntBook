@@ -32,7 +32,7 @@
                     </tr>
                     <tr>
                         <td><strong>Total value out</strong></td>
-                        <td><span class="gulden-icon"></span> {{ $transaction->total_value_out }}</td>
+                        <td><x-gulden_display value="{{ $transaction->total_value_out }}" /></td>
                     </tr>
                     <tr>
                         <td><strong>Version</strong></td>
@@ -70,7 +70,7 @@
                                     {{ $vin->address }}
                                 </a>
                             </td>
-                            <td class="text-danger">-<span class="gulden-icon"></span> {{ $vin->value }}</td>
+                            <td><x-gulden_display value="{{ -$vin->value }}" colored="true" /></td>
                         </tr>
                     @endforeach
 
@@ -81,7 +81,7 @@
                                     {{ $vout->address->address }}
                                 </a>
                             </td>
-                            <td class="text-success">+<span class="gulden-icon"></span>{{ $vout->value }}</td>
+                            <td><x-gulden_display value="{{ $vout->value }}" colored="true"/></td>
                         </tr>
                     @endforeach
                 </table>
