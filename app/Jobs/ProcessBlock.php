@@ -13,6 +13,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class ProcessBlock implements ShouldQueue
@@ -54,6 +55,8 @@ class ProcessBlock implements ShouldQueue
             return;
         }
 
+        DB::beginTransaction();
+
         $block = BlockRepository::syncBlock($blockData);
 
         foreach ($blockData->get('tx') as $txid) {
@@ -65,6 +68,8 @@ class ProcessBlock implements ShouldQueue
 
             VinRepository::syncVins($tx->get('vin'), $transaction);
         }
+
+        DB::commit();
 
         if($block->isWitness() && $block->transactions()->count() < 2) {
             dispatch((new ProcessBlock($this->height)))->delay(now()->addSeconds(config('gulden.sync_delay')));
