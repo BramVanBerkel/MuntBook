@@ -65,10 +65,14 @@
                     @foreach($transactions as $transaction)
                         <tr>
                             <td>
-                                {{ $transaction->get('timestamp') }}
+                                {{ $transaction->created_at }}
                             </td>
                             <td>
-                                <x-gulden_display value="{{ $transaction->get('value') }}" colored=true />
+                                @if($transaction->type === 'vout')
+                                    <x-gulden_display value="{{ $transaction->value }}" colored=true />
+                                @elseif($transaction->type === 'vin')
+                                    <x-gulden_display value="{{ -$transaction->value }}" colored=true />
+                                @endif
                             </td>
                         </tr>
                     @endforeach
@@ -76,5 +80,8 @@
                 </table>
             </div>
         </div>
+    </div>
+    <div class="row">
+        {{ $transactions->links('layouts.partials.pagination_links') }}
     </div>
 @endsection
