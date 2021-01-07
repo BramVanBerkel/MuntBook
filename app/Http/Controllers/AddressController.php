@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
+use App\Models\Vout;
 use Illuminate\Support\Facades\DB;
 
 class AddressController extends Controller
@@ -15,18 +16,29 @@ class AddressController extends Controller
             abort(404);
         }
 
-        $vouts = DB::table('vouts')->select(['transactions.id', 'transactions.txid', 'vouts.value', 'blocks.created_at', DB::raw('\'vout\' as type')])
-            ->join('transactions', 'vouts.transaction_id', '=', 'transactions.id')
-            ->join('blocks', 'transactions.block_height', '=', 'blocks.height')
-            ->where('vouts.address_id', '=', $address->id);
-
-        $vins = DB::table('vins')->select(['transactions.id', 'transactions.txid', 'vouts.value', 'blocks.created_at', DB::raw('\'vin\' as type')])
-            ->join('vouts', 'vins.vout_id', '=', 'vouts.id')
+        $vins = DB::table('vins')->select([
+            'transactions.txid', 'blocks.created_at', DB::raw('sum(vouts.value) as value'), DB::raw("'vin' as type")
+        ])->join('vouts', 'vins.vout_id', '=', 'vouts.id')
             ->join('transactions', 'vins.transaction_id', '=', 'transactions.id')
             ->join('blocks', 'transactions.block_height', '=', 'blocks.height')
-            ->where('vouts.address_id', '=', $address->id);
+            ->where('vouts.address_id', '=', $address->id)
+            ->groupBy(['vins.transaction_id', 'transactions.txid', 'blocks.created_at']);
 
-        $transactions = $vouts->union($vins)->paginate();
+        $vouts = DB::table('vouts')->select([
+            'transactions.txid', 'blocks.created_at', DB::raw('sum(vouts.value) as value'), DB::raw("'vout' as type")
+        ])->join('transactions', 'vouts.transaction_id', '=', 'transactions.id')
+            ->join('blocks', 'transactions.block_height', '=', 'blocks.height')
+            ->where('vouts.address_id', '=', $address->id)
+            ->groupBy('vouts.transaction_id', 'transactions.txid', 'blocks.created_at');
+
+        if($address->address !== Address::DEVELOPMENT_ADDRESS) {
+            $query = $vouts->union($vins);
+        } else {
+            $query = $vins;
+        }
+
+        $transactions = $query->orderByDesc('created_at')->paginate();
+
 
         return view('layouts.pages.address', [
             'address' => $address,

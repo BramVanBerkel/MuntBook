@@ -65,7 +65,9 @@
                     @foreach($transactions as $transaction)
                         <tr>
                             <td>
-                                {{ $transaction->created_at }}
+                                <a href="{{ route('transaction', ['txid' => $transaction->txid]) }}">
+                                    {{ $transaction->created_at }}
+                                </a>
                             </td>
                             <td>
                                 @if($transaction->type === 'vout')
