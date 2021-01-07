@@ -20,7 +20,7 @@
                     <tbody>
                     <tr>
                         <td><strong>First seen</strong></td>
-                        <td>{{ $address->vouts->first()->transaction->created_at }}</td>
+                        <td>{{ $address->vouts()->first()->transaction->block->created_at }}</td>
                     </tr>
                     <tr>
                         <td><strong>Total value in</strong></td>
