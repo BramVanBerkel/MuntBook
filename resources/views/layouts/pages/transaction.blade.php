@@ -38,6 +38,17 @@
                         <td><strong>Version</strong></td>
                         <td>{{ $transaction->version }}</td>
                     </tr>
+                    <tr>
+                        <td><strong>{{ $transaction->type === \App\Models\Transaction::TYPE_WITNESS ?
+                                'Witness transaction fee' : 'Transaction fee' }}</strong></td>
+                        <td><x-gulden_display value="{{ $fee }}" /></td>
+                    </tr>
+                    @if($transaction->type === \App\Models\Transaction::TYPE_WITNESS)
+                        <tr>
+                            <td><strong>Witness rewarded</strong></td>
+                            <td><a href="{{ route('address', ['address' => $witness_address->address]) }}">{{ $witness_address->address }}</a></td>
+                        </tr>
+                    @endif
                     </tbody>
                 </table>
             </div>
