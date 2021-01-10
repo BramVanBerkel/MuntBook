@@ -29,6 +29,11 @@ class TransactionRepository
 
     private static function getType(Collection $transaction): ?string
     {
+        //transactions with empty inputs generate new coins
+        if($transaction->get('vin')->first()->get('coinbase') === "") {
+            return Transaction::TYPE_MINING;
+        }
+
         //todo: mining
         $witnessVout = $transaction->get('vout')->filter(function ($vout) {
             return $vout->has('PoW²-witness');
