@@ -64,9 +64,7 @@ class VinRepository
                 ->where('block_height', '=', $vinData->get('tx_height'))
                 ->skip($vinData->get('tx_index'))
                 ->take(1);
-        })->skip($vinData->get('vout'))
-            ->take(1)
-            ->first();
+        })->firstWhere('n', '=', $vinData->get('vout'));
     }
 
     /**
