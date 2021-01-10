@@ -62,6 +62,9 @@ class Transaction extends Model
 
     public function getTotalValueOutAttribute()
     {
-        return $this->vouts()->where('type', '<>', Vout::TYPE_WITNESS)->sum('value');
+        return $this->vouts()
+            ->where('type', '<>', Vout::TYPE_WITNESS)
+            ->where('scriptpubkey_type', '<>', 'nonstandard')
+            ->sum('value');
     }
 }
