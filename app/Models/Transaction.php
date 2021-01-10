@@ -64,7 +64,7 @@ class Transaction extends Model
     {
         return $this->vouts()
             ->where('type', '<>', Vout::TYPE_WITNESS)
-            ->where('scriptpubkey_type', '<>', 'nonstandard')
+            ->where('scriptpubkey_type', 'is distinct from', 'nonstandard')
             ->sum('value');
     }
 }
