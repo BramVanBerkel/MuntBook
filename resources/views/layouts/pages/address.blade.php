@@ -32,7 +32,7 @@
                     </tr>
                     <tr>
                         <td><strong>Value</strong></td>
-                        <td><x-gulden_display value="{{ $totalValue }}" /></td>
+                        <td><x-gulden_display value="{{ $totalValue }}" colored="true" sign="false"/></td>
                     </tr>
                     <tr>
                         <td><strong>Total transactions</strong></td>

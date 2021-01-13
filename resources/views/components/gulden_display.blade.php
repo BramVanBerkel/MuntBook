@@ -2,8 +2,11 @@
     'value',
     'colored' => false,
     'show_decimals' => true,
+    'sign' => true,
 ])
 @php
+    $sign = $sign !== "false";
+
     $class = null;
     if($colored) {
         $class = $value < 0 ? 'text-danger' : 'text-success';
@@ -18,7 +21,7 @@
     //and remove those 6 digits from the main value
     $number_formatted = substr_replace($number_formatted, '', -6);
 
-    if($colored && $value > 0) {
+    if($colored && $value > 0 && $sign) {
         $number_formatted = '+'.$number_formatted;
     }
 @endphp
