@@ -36,7 +36,7 @@
                     </tr>
                     <tr>
                         <td><strong>Total transactions</strong></td>
-                        <td>{{ $transactions->count()}}</td>
+                        <td>{{ $transactions->total() }}</td>
                     </tr>
                     </tbody>
                 </table>
