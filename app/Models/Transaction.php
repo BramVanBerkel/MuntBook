@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 /**
  * Class Transaction
@@ -41,6 +42,11 @@ class Transaction extends Model
         self::TYPE_WITNESS_FUNDING,
         self::TYPE_WITNESS,
         self::TYPE_MINING,
+    const ICONS = [
+        self::TYPE_TRANSACTION => 'exchange-alt',
+        self::TYPE_WITNESS_FUNDING => 'piggy-bank',
+        self::TYPE_WITNESS => 'glasses',
+        self::TYPE_MINING => 'calculator',
     ];
 
     const EMPTY_TXID = '0000000000000000000000000000000000000000000000000000000000000000';
@@ -68,5 +74,15 @@ class Transaction extends Model
             ->where('type', '<>', Vout::TYPE_WITNESS)
             ->where('scriptpubkey_type', 'is distinct from', 'nonstandard')
             ->sum('value');
+    }
+
+    public function getIconAttribute()
+    {
+        return Transaction::ICONS[$this->type];
+    }
+
+    public function getIconNameAttribute()
+    {
+        return Str::ucfirst(str_replace('_', ' ', $this->type));
     }
 }
