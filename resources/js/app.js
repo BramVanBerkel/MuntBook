@@ -15,6 +15,8 @@ $(window).on('load', function () {
     }
 
     particlesJS.load('welcome', '/js/particleSettings.json');
+
+    $('[data-toggle="tooltip"]').tooltip();
 });
 
 // Header scrolling set white background
