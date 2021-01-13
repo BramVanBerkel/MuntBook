@@ -42,6 +42,8 @@ class Transaction extends Model
         self::TYPE_WITNESS_FUNDING,
         self::TYPE_WITNESS,
         self::TYPE_MINING,
+    ];
+    
     const ICONS = [
         self::TYPE_TRANSACTION => 'exchange-alt',
         self::TYPE_WITNESS_FUNDING => 'piggy-bank',
