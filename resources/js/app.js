@@ -20,9 +20,9 @@ $(window).on('load', function () {
 
 // Header scrolling set white background
 $(window).on('scroll', function () {
-    var width = $(window).width();
+    const width = $(window).width();
     if (width > 991) {
-        var scroll = $(window).scrollTop();
+        const scroll = $(window).scrollTop();
         if (scroll >= 30) {
             $(".header-area").addClass("header-sticky");
             $(".header-area .dark-logo").show();

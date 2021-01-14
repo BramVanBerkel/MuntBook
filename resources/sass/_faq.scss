@@ -1,7 +1,7 @@
-/* 
+/*
 ---------------------------------------------
 faq
---------------------------------------------- 
+---------------------------------------------
 */
 
 .faq {
@@ -15,7 +15,7 @@ faq
 		border-bottom: 1px dashed #CEE1F8;
 
 		.card-header {
-			padding: 0px;
+			padding: 0;
 			border: none;
 			background: none;
 			min-height: 70px;
@@ -31,10 +31,8 @@ faq
 				line-height: 70px;
 				width: 100%;
 				text-align: left;
-				padding: 0px;
-				padding-left: 30px;
-				padding-right: 30px;
-				@include font($normal, 16px);
+                padding: 0px 30px;
+                @include font($normal, 16px);
 				letter-spacing: 1px;
 				color: $headingDark;
 				text-decoration: none !important;
@@ -56,10 +54,8 @@ faq
 		}
 
 		.card-body {
-			padding: 30px;
-			padding-left: 35px;
-			padding-bottom: 16px;
-			@include font($normal, 16px);
+            padding: 30px 30px 16px 35px;
+            @include font($normal, 16px);
 			color: $textDark;
 			line-height: 28px;
 			letter-spacing: 1px;

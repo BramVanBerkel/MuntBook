@@ -29,9 +29,7 @@ class AppServiceProvider extends ServiceProvider
     {
         try {
             View::share('lastBlock', Block::latest()->first());
-        } catch (PDOException $e) {
-            //
-        }
+        } catch (PDOException $e) {}
 
         Collection::macro('recursive', function () {
             return $this->map(function ($value) {

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
-use App\Models\Vout;
 use Illuminate\Support\Facades\DB;
 
 class AddressController extends Controller

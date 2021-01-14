@@ -13,7 +13,7 @@ class GuldenService
     /**
      * @var Client
      */
-    private $client;
+    private Client $client;
 
     public function __construct($rpcUser, $rpcPassword, $rpcHost)
     {
@@ -104,8 +104,8 @@ class GuldenService
      * Pass in $blocks to override # of blocks.
      * Pass in $height to estimate the network speed at the time when a certain block was found.
      *
-     * @param null $blocks
-     * @param null $height
+     * @param int $blocks
+     * @param int $height
      * @return mixed
      * @throws GuzzleException
      */

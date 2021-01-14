@@ -8,8 +8,7 @@ team
 	margin-bottom: 30px;
 
 	.profile {
-		margin: auto;
-		background: #fff;
+        background: #fff;
 		@include radius(100px);
 		box-shadow: 0 1px 18px 10px rgba(0,0,0,0.06);
 		width: 180px;
@@ -17,13 +16,13 @@ team
 		position: relative;
 		text-align: center;
 		padding-top: 10px;
-		margin-bottom: 100px;
+        margin: auto auto 100px;
 
-		&:before {
+        &:before {
 			content: '';
 			position: absolute;
-			left: 0px;
-			right: 0px;
+			left: 0;
+			right: 0;
 			margin: auto;
 			bottom: -89px;
 			width: 3px;
@@ -52,7 +51,7 @@ team
 				width: 160px;
 				height: 160px;
 				@include radius(100px);
-				top: 0px;
+				top: 0;
 				left: -160px;
 				background-image: linear-gradient(134deg, $gradientDark 0%, $gradientLight 100%);
 				opacity: 0.83;
@@ -94,7 +93,7 @@ team
 		.profile {
 			.img {
 				.social {
-					left: 0px;
+					left: 0;
 				}
 			}
 		}
@@ -168,7 +167,7 @@ team
 		.profile {
 			.img {
 				.social {
-					bottom: 0px;
+					bottom: 0;
 				}
 			}
 		}

@@ -3,7 +3,6 @@
 namespace App\Console\Commands\Gulden;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
 
 class Stop extends Command
 {

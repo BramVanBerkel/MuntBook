@@ -1,7 +1,7 @@
-/* 
+/*
 ---------------------------------------------
 pre-loader
---------------------------------------------- 
+---------------------------------------------
 */
 
 .loading-wrapper {
@@ -28,8 +28,6 @@ pre-loader
 }
 .loading > div {
 	background-color: #fff;
-	width: 10px;
-	height: 10px;
 	border-radius: 100%;
 	-webkit-animation-fill-mode: both;
 	animation-fill-mode: both;
@@ -42,7 +40,7 @@ pre-loader
 }
 .loading > div:nth-child(2) {
 	-webkit-animation-delay: 0.33333s;
-	animation-delay: 0.33333s;  
+	animation-delay: 0.33333s;
 }
 .loading > div:nth-child(3) {
 	-webkit-animation-delay: 0.66666s;

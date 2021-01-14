@@ -18,13 +18,10 @@ class AddressRepository
 
     private static function getType(string $address): ?string
     {
-        switch (Str::length($address)) {
-            case config('gulden.address_length'):
-                return Address::TYPE_ADDRESS;
-            case config('gulden.witness_length');
-                return Address::TYPE_WITNESS_ADDRESS;
-            default:
-                return null;
-        }
+        return match (Str::length($address)) {
+            config('gulden.address_length') => Address::TYPE_ADDRESS,
+            config('gulden.witness_length') => Address::TYPE_WITNESS_ADDRESS,
+            default => null,
+        };
     }
 }

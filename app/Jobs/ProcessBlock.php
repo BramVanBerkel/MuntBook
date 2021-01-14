@@ -26,7 +26,7 @@ class ProcessBlock implements ShouldQueue
     /**
      * @var int
      */
-    private $height;
+    private int $height;
 
     /**
      * Create a new job instance.

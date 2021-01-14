@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use App\Models\Vin;
 use App\Models\Vout;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller

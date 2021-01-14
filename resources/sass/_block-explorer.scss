@@ -13,8 +13,8 @@ block explorer
 			position: absolute;
 			width: 100%;
 			height: 100%;
-			left: 0px;
-			top: 0px;
+			left: 0;
+			top: 0;
 			background: url(../images/dark-top-right-bg.png) top right no-repeat;
 			z-index: 3;
 		}
@@ -26,8 +26,8 @@ block explorer
 			position: absolute;
 			width: 100%;
 			height: 100%;
-			left: 0px;
-			top: 0px;
+			left: 0;
+			top: 0;
 			background: url(../images/section-bg-bottom.png) bottom center no-repeat;
 			z-index: 3;
 		}
@@ -38,8 +38,8 @@ block explorer
 		position: absolute;
 		width: 100%;
 		height: 100%;
-		left: 0px;
-		top: 0px;
+		left: 0;
+		top: 0;
 		background-image: linear-gradient(134deg, $gradientDark 0%, $gradientLight 100%);
 		z-index: 2;
 	}
@@ -48,8 +48,8 @@ block explorer
 		width: 100%;
 		height: 100%;
 		position: absolute;
-		left: 0px;
-		top: 0px;
+		left: 0;
+		top: 0;
 		z-index: 4;
 	}
 
@@ -122,7 +122,7 @@ block explorer
 					height: 36px;
 					line-height: 36px;
 					text-align: center;
-					padding: 0px;
+					padding: 0;
 					z-index: 2;
 					width: 36px;
 					top: 7px;
@@ -172,7 +172,7 @@ block explorer
 			.icon {
 				position: absolute;
 				left: 50px;
-				top: 0px;
+				top: 0;
 				width: 2px;
 				height: 32px;
 				background: $primaryColor;
@@ -184,7 +184,7 @@ block explorer
 					position: absolute;
 					width: 10px;
 					height: 10px;
-					bottom: 0px;
+					bottom: 0;
 					left: -4px;
 					background: $primaryColor;
 					box-shadow: 0 1px 18px 10px #F3F8FF;
@@ -297,7 +297,7 @@ block explorer
 
 				.progress-line {
 					position: absolute;
-					width: 0%;
+					width: 0;
 					height: 15px;
 					background: $primaryColor;
 					@include radius(100px);

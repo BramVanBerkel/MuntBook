@@ -31,7 +31,7 @@ global styles
 }
 
 .m-bottom-0 {
-	margin-bottom: 0px !important;
+	margin-bottom: 0 !important;
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
@@ -44,16 +44,12 @@ global styles
 }
 
 .bg-bottom {
-	background: url(../images/section-bg.png);
-	background-position: center bottom;
-	background-repeat: no-repeat;
-	background-size: cover;
+    background: url(../images/section-bg.png) no-repeat center bottom;
+    background-size: cover;
 }
 
 .bg-top {
-	background: url(../images/section-bg.png);
-	background-position: center top;
-	background-repeat: no-repeat;
+    background: url(../images/section-bg.png) no-repeat center top;
 }
 
 .left-heading {
@@ -125,7 +121,7 @@ global styles
 
 			&:before {
 				position: absolute;
-				left: 0px;
+				left: 0;
 				content: "\f178";
 				font-family: FontAwesome;
 				height: 38px;
@@ -166,8 +162,8 @@ global styles
 		width: 100%;
 		height: 100%;
 		background: url(../images/section-bg-top.png) center top no-repeat;
-		top: 0px;
-		left: 0px;
+		top: 0;
+		left: 0;
 	}
 }
 

@@ -34,7 +34,7 @@ services
 			position: absolute;
 			width: 70%;
 			height: 32px;
-			top: 0px;
+			top: 0;
 			left: 70%;
 			background: url(../images/elliptical-top.png) center center no-repeat;
 			@include transition(.3s);
@@ -44,11 +44,10 @@ services
 	.icon {
 		width: 100px;
 		height: 100px;
-		margin: auto;
-		@include radius(100px);
+        @include radius(100px);
 		border: 2px dashed #6F8BA4;
-		margin-bottom: 36px;
-		@include transition(.3s);
+        margin: auto auto 36px;
+        @include transition(.3s);
 
 		i {
 			display: block;
@@ -119,10 +118,9 @@ services
 	.icon {
 		width: 100px;
 		height: 100px;
-		margin: auto;
-		@include radius(100px);
-		margin-bottom: 36px;
-		@include transition(.3s);
+        @include radius(100px);
+        margin: auto auto 36px;
+        @include transition(.3s);
 		background: $primaryColor;
 
 		i {
@@ -218,7 +216,6 @@ services
 		margin-bottom: 20px;
 
 		i {
-			color: #6F8BA4;
 			font-size: 30px;
 			color: $secondaryColor;
 		}
@@ -249,7 +246,7 @@ services
 
 @media (max-width : 991px) {
 	.features-elliptical {
-		padding: 0px;
+		padding: 0;
 
 		&:after {
 			display: none;

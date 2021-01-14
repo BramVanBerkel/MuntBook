@@ -9,7 +9,6 @@ use App\Models\Transaction;
 use App\Models\Vout;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Log;
 
 class VoutRepository
 {
@@ -134,13 +133,8 @@ class VoutRepository
         return $reward;
     }
 
-    private static function getType(Collection $data, Collection $vouts): string
+    private static function getType(Collection $data): string
     {
-        //todo: check if this works
-//        if($vouts->get(0)->has('PoW²-witness') && !$data->has('PoW²-witness')) {
-//            return Vout::TYPE_WITNESS_REWARD;
-//        }
-
         if ($data->has('PoW²-witness') || optional($data->get('scriptPubKey'))->get('type') === 'pow2_witness') {
             if ($data->get('PoW²-witness')->get('lock_from_block') === 0) {
                 return Vout::TYPE_WITNESS_FUNDING;

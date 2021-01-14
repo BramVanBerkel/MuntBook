@@ -1,7 +1,7 @@
-/* 
+/*
 ---------------------------------------------
 roadmap
---------------------------------------------- 
+---------------------------------------------
 */
 
 .roadmap-full {
@@ -32,8 +32,8 @@ roadmap
 
 		.status {
 			position: absolute;
-			left: 0px;
-			right: 0px;
+			left: 0;
+			right: 0;
 			top: -100px;
 			width: 2px;
 			height: 124px;
@@ -55,11 +55,11 @@ roadmap
 				position: absolute;
 				width: 18px;
 				height: 18px;
-				bottom: 0px;
+				bottom: 0;
 				left: -8px;
 				background: #CEE1F8;
 				box-shadow: 0 1px 18px 10px #F3F8FF;
-				@include radius(100px);			
+				@include radius(100px);
 			}
 
 			&:after {
@@ -71,7 +71,7 @@ roadmap
 				left: -32px;
 				border: 1px solid #CEE1F8;
 				z-index: 1;
-				@include radius(100px);			
+				@include radius(100px);
 			}
 		}
 
@@ -87,7 +87,7 @@ roadmap
 .roadmap-modern-wrapper {
 	.roadmap-modern {
 		background: #FFFFFF;
-		border-radius: 4px;	
+		border-radius: 4px;
 		padding: 30px;
 		border: 1px solid #CEE1F8;
 		position: relative;
@@ -97,7 +97,7 @@ roadmap
 		.status {
 			position: absolute;
 			left: 40px;
-			top: 0px;
+			top: 0;
 			width: 2px;
 			height: 29px;
 			background: #CEE1F8;
@@ -117,11 +117,11 @@ roadmap
 				position: absolute;
 				width: 10px;
 				height: 10px;
-				bottom: 0px;
+				bottom: 0;
 				left: -4px;
 				background: #CEE1F8;
 				box-shadow: 0 1px 18px 10px #F3F8FF;
-				@include radius(100px);			
+				@include radius(100px);
 			}
 
 			&:after {
@@ -133,7 +133,7 @@ roadmap
 				left: -11px;
 				border: 1px solid #CEE1F8;
 				z-index: 1;
-				@include radius(100px);			
+				@include radius(100px);
 			}
 		}
 
@@ -150,7 +150,7 @@ roadmap
 		p {
 			@include font($normal, 15px);
 			color: $textDark;
-			letter-spacing: 0.6;
+			letter-spacing: 0.6px;
 			line-height: 27px;
 		}
 	}
@@ -198,7 +198,7 @@ roadmap
 			position: relative;
 			width: 74px;
 			height: 38px;
-			border-radius: 4px 4px 0px 0px;
+			border-radius: 4px 4px 0 0;
 			margin-left: 20px;
 			background: lighten($primaryColor, 20%);
 
@@ -238,12 +238,12 @@ roadmap
 				line-height: 38px;
 				font-size: 12px;
 				color: lighten($primaryColor, 5%);
-			}			
+			}
 		}
 
 		.text {
 			background: #FFFFFF;
-			border-radius: 4px;	
+			border-radius: 4px;
 			padding: 30px;
 			border: 1px solid #CEE1F8;
 			position: relative;
@@ -252,9 +252,9 @@ roadmap
 			p {
 				@include font($normal, 15px);
 				color: $textDark;
-				letter-spacing: 0.6;
+				letter-spacing: 0.6px;
 				line-height: 27px;
-			}			
+			}
 		}
 	}
 

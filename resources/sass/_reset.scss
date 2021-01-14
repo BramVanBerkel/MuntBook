@@ -1,19 +1,16 @@
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, div
-pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q,
-s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li,
-figure, header, nav, section, article, aside, footer, figcaption {
-	margin: 0; 
-	padding: 0;	
-	border: 0;	
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, div, {
+	margin: 0;
+	padding: 0;
+	border: 0;
 	outline: 0;
 }
 
 .clearfix:after {
-	content: "."; 
-	display: block; 
+	content: ".";
+	display: block;
 	clear: both;
-	visibility: hidden;	
-	line-height: 0;	
+	visibility: hidden;
+	line-height: 0;
 	height: 0;
 }
 
@@ -21,8 +18,8 @@ figure, header, nav, section, article, aside, footer, figcaption {
 	display: inline-block;
 }
 
-html[xmlns] .clearfix { 
-	display: block; 
+html[xmlns] .clearfix {
+	display: block;
 }
 
 * html .clearfix {
@@ -30,13 +27,13 @@ html[xmlns] .clearfix {
 }
 
 ul, li {
-	padding: 0; 
-	margin: 0; 
+	padding: 0;
+	margin: 0;
 	list-style: none;
 }
 
-header ,nav ,section ,article ,aside ,footer ,hgroup { 
-	display: block; 
+header ,nav ,section ,article ,aside ,footer ,hgroup {
+	display: block;
 }
 
 * {
@@ -58,10 +55,10 @@ a {
 }
 
 h1, h2, h3, h4, h5, h6 {
-	margin-top: 0px;
-	margin-bottom: 0px;
+	margin-top: 0;
+	margin-bottom: 0;
 }
 
 ul {
-	margin-bottom: 0px;
+	margin-bottom: 0;
 }
