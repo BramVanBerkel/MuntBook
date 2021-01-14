@@ -27,7 +27,10 @@ class TransactionController extends Controller
             ->groupBy('addresses.address')
             ->get();
 
-        $vouts = $transaction->vouts()->where('type', '<>', Vout::TYPE_WITNESS)->get();
+        $vouts = $transaction->vouts()
+            ->whereHas('address')
+            ->where('type', '<>', Vout::TYPE_WITNESS)
+            ->get();
 
         if($transaction->type === Transaction::TYPE_WITNESS) {
             $fee = $vouts->sum('value') - Transaction::WITNESS_REWARD;
