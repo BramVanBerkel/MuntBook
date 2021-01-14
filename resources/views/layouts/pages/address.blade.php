@@ -7,11 +7,15 @@
                 <h2 class="section-title">Details for address {{ $address->address }}</h2>
             </div>
         </div>
-        {{--        <div class="offset-lg-3 col-lg-6">--}}
-        {{--            <div class="center-text">--}}
-        {{--                <p>Fusce placerat pretium mauris, vel sollicitudin elit lacinia vitae. Quisque sit amet nisi erat.</p>--}}
-        {{--            </div>--}}
-        {{--        </div>--}}
+        @if($address->address === App\Models\Address::DEVELOPMENT_ADDRESS)
+            <div class="col-lg-12">
+                <div class="center-text">
+                    <p>This is the address for Gulden development.
+                        From block number 1030000 this address will receive 40 Gulden for each block and from block 1226652 80 Gulden, this is why we don't show the inputs.</p>
+                        <p>To support Gulden development directly by buying Guldens, please visit <a href="https://blockhut.com/" target="_blank">Blockhut</a></p>
+                </div>
+            </div>
+        @endif
     </div>
     <div class="row m-bottom-70">
         <div class="col-lg-12 col-md-12 col-sm-12">
