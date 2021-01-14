@@ -24,7 +24,7 @@
                     </tr>
                     <tr>
                         <td><strong>Block</strong></td>
-                        <td>{{ $transaction->block->height }}</td>
+                        <td><a href="{{ route('block', ['block' => $transaction->block->height]) }}">{{ $transaction->block->height }}</a></td>
                     </tr>
                     <tr>
                         <td><strong>Timestamp</strong></td>
