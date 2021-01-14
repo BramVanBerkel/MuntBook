@@ -1,7 +1,6 @@
 require('./bootstrap');
 require('particles.js');
 require('chart.js');
-require('@fortawesome/fontawesome-free/js/all.js')
 
 // Page loading animation
 $(window).on('load', function () {
