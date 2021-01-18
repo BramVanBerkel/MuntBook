@@ -19,13 +19,51 @@
             <canvas id="difficulty" width="300" height="200"></canvas>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="btn-group btn-group-toggle" id="timeframes" data-toggle="buttons">
+                <label class="btn btn-outline-primary">
+                    <input type="radio" class="timeframe" value="30" name="options" autocomplete="off" checked> 30 days
+                </label>
+                <label class="btn btn-outline-primary">
+                    <input type="radio" class="timeframe" value="60" name="options" autocomplete="off"> 60 days
+                </label>
+                <label class="btn btn-outline-primary active">
+                    <input type="radio" class="timeframe" value="180" name="options" autocomplete="off"> 180 days
+                </label>
+                <label class="btn btn-outline-primary">
+                    <input type="radio" class="timeframe" value="365" name="options" autocomplete="off"> 1 year
+                </label>
+                <label class="btn btn-outline-primary">
+                    <input type="radio" class="timeframe" value="1095" name="options" autocomplete="off"> 3 years
+                </label>
+                <label class="btn btn-outline-primary">
+                    <input type="radio" class="timeframe" value="-1" name="options" autocomplete="off"> All Time
+                </label>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="btn-group btn-group-toggle float-right" id="averages" data-toggle="buttons">
+                <label class="btn btn-outline-primary">
+                    <input type="radio" class="average" value="1" name="options" autocomplete="off" checked> Raw Values
+                </label>
+                <label class="btn btn-outline-primary active">
+                    <input type="radio" class="average" value="7" name="options" autocomplete="off"> 7 day average
+                </label>
+                <label class="btn btn-outline-primary">
+                    <input type="radio" class="average" value="30" name="options" autocomplete="off"> 30 day average
+                </label>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('script')
     <script>
-        let url = '{{ route('difficulty.data') }}';
-        let difficultyCanvas = document.getElementById('difficulty').getContext('2d');
-        let difficultyChart = new Chart(difficultyCanvas, {
+        const url = '{{ route('difficulty.data') }}';
+        const difficultyCanvas = document.getElementById('difficulty').getContext('2d');
+        const difficultyChart = new Chart(difficultyCanvas, {
             type: 'line',
             options: {
                 scales: {
@@ -44,14 +82,30 @@
             }
         });
 
-        ajax_chart(difficultyChart, url);
-
         // function to update our chart
-        function ajax_chart(chart, url) {
-            $.getJSON(url).done(function(response) {
-                chart.data = response;
-                chart.update();
+        function ajax_chart(timeframe, average) {
+            $.getJSON(url, {timeframe, average}).done(function(response) {
+                difficultyChart.data = response;
+                difficultyChart.update();
             });
         }
+
+        $('#timeframes .timeframe').click(function(event){
+            let timeframe = $(event.target).attr('value');
+            let average = $('#averages .active input').attr('value');
+            console.log('timeframe: ' + timeframe + ', average: ' + average);
+            ajax_chart(timeframe, average);
+        });
+
+        $('#averages .average').click(function(event){
+            let timeframe = $('#timeframes .active input').attr('value');
+            let average = $(event.target).attr('value');
+            console.log('timeframe: ' + timeframe + ', average: ' + average);
+            ajax_chart(timeframe, average);
+        });
+
+        $(function(){
+            ajax_chart(180, 7)
+        });
     </script>
 @endsection

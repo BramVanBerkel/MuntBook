@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Block;
+use App\Repositories\DifficultyRepository;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,19 +15,13 @@ class DifficultyController extends Controller
         return view('layouts.pages.difficulty');
     }
 
-    public function data()
+    public function data(Request $request, DifficultyRepository $difficultyRepository)
     {
-        $difficulty = DB::table('blocks')->select([
-            DB::raw("date_trunc('day', created_at) AS day"),
-            DB::raw("avg(difficulty) as difficulty"),
-        ])->groupBy('day')
-            ->orderBy('day')
-            ->whereBetween('created_at', [now()->subDays(100), now()])
-            ->get()
+        $data = $difficultyRepository->getDifficulty($request->get('timeframe'), $request->get('average'))
             ->map(function ($diff) {
                 return [
-                    'x' => $diff->day,
-                    'y' => $diff->difficulty,
+                    'x' => $diff->date,
+                    'y' => $diff->average_difficulty,
                 ];
             });
 
@@ -35,7 +31,7 @@ class DifficultyController extends Controller
                     'label' => 'Difficulty',
                     'borderColor' => 'rgb(54, 162, 235)',
                     'backgroundColor' => 'rgba(54, 162, 235, 0.2)',
-                    'data' => $difficulty,
+                    'data' => $data,
                 ],
             ]
         ]);

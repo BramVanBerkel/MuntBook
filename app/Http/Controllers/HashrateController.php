@@ -15,15 +15,15 @@ class HashrateController extends Controller
     public function data()
     {
         $hashrate = DB::table('blocks')->select([
-            DB::raw("date_trunc('day', created_at) AS day"),
+            DB::raw("date_trunc('hour', created_at) AS date"),
             DB::raw("avg(hashrate) as hashrate"),
-        ])->groupBy('day')
-            ->orderBy('day')
+        ])->groupBy('date')
+            ->orderBy('date')
             ->whereBetween('created_at', [now()->subDays(100), now()])
             ->get()
             ->map(function ($diff) {
                 return [
-                    'x' => $diff->day,
+                    'x' => $diff->date,
                     'y' => $diff->hashrate,
                 ];
             });
