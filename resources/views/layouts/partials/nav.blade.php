@@ -83,6 +83,7 @@
                             <ul class="">
                                 <li><a href="{{ route('nonce-distribution') }}">Nonce distribution</a></li>
                                 <li><a href="{{ route('difficulty') }}">Difficulty</a></li>
+                                <li><a href="{{ route('hashrate') }}">Hashrate</a></li>
                             </ul>
                         </li>
                     </ul>

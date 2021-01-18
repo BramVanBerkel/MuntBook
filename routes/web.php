@@ -3,6 +3,7 @@
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\BlockController;
 use App\Http\Controllers\DifficultyController;
+use App\Http\Controllers\HashrateController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NonceDistributionController;
 use App\Http\Controllers\SearchController;
@@ -35,3 +36,7 @@ Route::get('/nonce-distribution/data', [NonceDistributionController::class, 'dat
 
 Route::get('/difficulty', [DifficultyController::class, 'index'])->name('difficulty');
 Route::get('/difficulty/data', [DifficultyController::class, 'data'])->name('difficulty.data');
+
+Route::get('/hashrate', [HashrateController::class, 'index'])->name('hashrate');
+Route::get('/hashrate/data', [HashrateController::class, 'data'])->name('hashrate.data');
+
