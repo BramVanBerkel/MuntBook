@@ -22,11 +22,11 @@ class HashrateController extends Controller
             ->whereBetween('created_at', [now()->subDays(100), now()])
             ->get()
             ->map(function ($diff) {
-            return [
-                'x' => $diff->day,
-                'y' => $diff->hashrate,
-            ];
-        });
+                return [
+                    'x' => $diff->day,
+                    'y' => $diff->hashrate,
+                ];
+            });
 
         return response()->json([
             'datasets' => [

@@ -18,12 +18,16 @@ class DifficultyController extends Controller
         $difficulty = DB::table('blocks')->select([
             DB::raw("date_trunc('day', created_at) AS day"),
             DB::raw("avg(difficulty) as difficulty"),
-        ])->groupBy('day')->whereBetween('created_at', [now()->subDays(100), now()])->get()->map(function ($diff) {
-            return [
-                'x' => $diff->day,
-                'y' => $diff->difficulty,
-            ];
-        });
+        ])->groupBy('day')
+            ->orderBy('day')
+            ->whereBetween('created_at', [now()->subDays(100), now()])
+            ->get()
+            ->map(function ($diff) {
+                return [
+                    'x' => $diff->day,
+                    'y' => $diff->difficulty,
+                ];
+            });
 
         return response()->json([
             'datasets' => [
