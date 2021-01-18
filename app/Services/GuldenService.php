@@ -7,12 +7,10 @@ namespace App\Services;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 
 class GuldenService
 {
-    /**
-     * @var Client
-     */
     private Client $client;
 
     public function __construct($rpcUser, $rpcPassword, $rpcHost)
@@ -23,20 +21,27 @@ class GuldenService
         ]);
     }
 
+    private function getData(string $method, array $params = []): object
+    {
+        try {
+            return json_decode($this->client->post('/', [
+                'json' => [
+                    'method' => $method,
+                    'params' => $params,
+                ]
+            ])->getBody());
+        } catch (GuzzleException $e) {
+            Log::error($e->getMessage());
+        }
+    }
+
     /**
      * Returns the number of blocks in the longest blockchain.
      * @return int
-     * @throws GuzzleException
      */
     public function getBlockCount(): int
     {
-        $response = $this->client->post('/', [
-            'json' => [
-                'method' => 'getblockcount'
-            ]
-        ])->getBody()->getContents();
-
-        return json_decode($response)->result;
+        return (int)$this->getData('getblockcount')->result;
     }
 
     /**
@@ -46,36 +51,21 @@ class GuldenService
      * @param string $hash
      * @param int $verbosity
      * @return Collection
-     * @throws GuzzleException
      */
-    public function getBlock(string $hash, int $verbosity = 0)
+    public function getBlock(string $hash, int $verbosity = 0): Collection
     {
-        $response = $this->client->post('/', [
-            'json' => [
-                'method' => 'getblock',
-                'params' => [$hash, $verbosity]
-            ]
-        ])->getBody()->getContents();
-
-        return collect(json_decode($response)->result)->recursive();
+        return collect($this->getData('getblock', [$hash, $verbosity])->result)->recursive();
     }
 
     /**
      * Returns hash of block in best-block-chain at height provided.
+     *
      * @param int $height
      * @return string
-     * @throws GuzzleException
      */
     public function getBlockHash(int $height): string
     {
-        $response = $this->client->post('/', [
-            'json' => [
-                'method' => 'getblockhash',
-                'params' => [$height]
-            ]
-        ])->getBody()->getContents();
-
-        return json_decode($response)->result;
+        return $this->getData('getblockhash', [$height])->result;
     }
 
     /**
@@ -85,56 +75,29 @@ class GuldenService
      * @param string $txid
      * @param bool $verbose
      * @return Collection
-     * @throws GuzzleException
      */
-    public function getTransaction(string $txid, bool $verbose = false)
+    public function getTransaction(string $txid, bool $verbose = false): Collection
     {
-        $response = $this->client->post('/', [
-            'json' => [
-                'method' => 'getrawtransaction',
-                'params' => [$txid, $verbose]
-            ]
-        ])->getBody()->getContents();
-
-        return collect(json_decode($response)->result)->recursive();
+        return collect($this->getData('getrawtransaction', [$txid, $verbose])->result)->recursive();
     }
 
     /**
      * Returns the estimated network hashes per second based on the last n blocks.
      * Pass in $blocks to override # of blocks.
      * Pass in $height to estimate the network speed at the time when a certain block was found.
-     *
-     * @param int $blocks
-     * @param int $height
-     * @return mixed
-     * @throws GuzzleException
+     * @return float
      */
-    public function getNetworkHashrate(int $blocks = 120, int $height = -1)
+    public function getNetworkHashrate(int $blocks = 120, int $height = -1): float
     {
-        $response = $this->client->post('/', [
-            'json' => [
-                'method' => 'getnetworkhashps',
-                'params' => [$blocks, $height]
-            ]
-        ])->getBody()->getContents();
-
-        return json_decode($response)->result;
+        return $this->getData('getnetworkhashps', [$blocks, $height])->result;
     }
 
     /**
      * Returns the proof-of-work difficulty as a multiple of the minimum difficulty.
-     *
-     * @return mixed
-     * @throws GuzzleException
+     * @return float
      */
-    public function getDifficulty()
+    public function getDifficulty(): float
     {
-        $response = $this->client->post('/', [
-            'json' => [
-                'method' => 'getdifficulty',
-            ]
-        ])->getBody()->getContents();
-
-        return json_decode($response)->result;
+        return $this->getData('getdifficulty')->result;
     }
 }
