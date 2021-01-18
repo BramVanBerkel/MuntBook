@@ -24,13 +24,13 @@
         <div class="col-lg-6">
             <div class="btn-group btn-group-toggle" id="timeframes" data-toggle="buttons">
                 <label class="btn btn-outline-primary">
-                    <input type="radio" class="timeframe" value="30" name="options" autocomplete="off" checked> 30 days
+                    <input type="radio" class="timeframe" value="30" name="options" autocomplete="off"> 30 days
                 </label>
                 <label class="btn btn-outline-primary">
                     <input type="radio" class="timeframe" value="60" name="options" autocomplete="off"> 60 days
                 </label>
-                <label class="btn btn-outline-primary active">
-                    <input type="radio" class="timeframe" value="180" name="options" autocomplete="off"> 180 days
+                <label class="btn btn-outline-primary">
+                    <input type="radio" class="timeframe" value="180" name="options" autocomplete="off" checked> 180 days
                 </label>
                 <label class="btn btn-outline-primary">
                     <input type="radio" class="timeframe" value="365" name="options" autocomplete="off"> 1 year
@@ -46,10 +46,10 @@
         <div class="col-lg-6">
             <div class="btn-group btn-group-toggle float-right" id="averages" data-toggle="buttons">
                 <label class="btn btn-outline-primary">
-                    <input type="radio" class="average" value="1" name="options" autocomplete="off" checked> Raw Values
+                    <input type="radio" class="average" value="1" name="options" autocomplete="off"> Raw Values
                 </label>
                 <label class="btn btn-outline-primary active">
-                    <input type="radio" class="average" value="7" name="options" autocomplete="off"> 7 day average
+                    <input type="radio" class="average" value="7" name="options" autocomplete="off" checked> 7 day average
                 </label>
                 <label class="btn btn-outline-primary">
                     <input type="radio" class="average" value="30" name="options" autocomplete="off"> 30 day average
