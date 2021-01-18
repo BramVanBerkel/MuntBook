@@ -38,6 +38,7 @@ class Block extends Model
         'post_nonce',
         'bits',
         'difficulty',
+        'hashrate',
         'chainwork',
         'previousblockhash',
         'created_at'

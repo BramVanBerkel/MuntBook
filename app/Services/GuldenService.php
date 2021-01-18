@@ -85,6 +85,8 @@ class GuldenService
      * Returns the estimated network hashes per second based on the last n blocks.
      * Pass in $blocks to override # of blocks.
      * Pass in $height to estimate the network speed at the time when a certain block was found.
+     * @param int $blocks
+     * @param int $height
      * @return float
      */
     public function getNetworkHashrate(int $blocks = 120, int $height = -1): float

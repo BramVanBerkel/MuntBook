@@ -36,6 +36,7 @@ class CreateBlocksTable extends Migration
             $table->unsignedInteger('post_nonce');
             $table->string('bits');
             $table->double('difficulty');
+            $table->double('hashrate')->nullable();
             $table->string('chainwork');
             $table->string('previousblockhash')->nullable();
 

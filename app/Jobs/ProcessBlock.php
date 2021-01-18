@@ -59,6 +59,10 @@ class ProcessBlock implements ShouldQueue
 
         $block = BlockRepository::syncBlock($blockData);
 
+        if($block->hashps === null) {
+            dispatch(new SetHashrate($block->height));
+        }
+
         foreach ($blockData->get('tx') as $txid) {
             $tx = $guldenService->getTransaction($txid, true);
 
