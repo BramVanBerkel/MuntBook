@@ -7,11 +7,11 @@
                 <h2 class="section-title">Difficulty</h2>
             </div>
         </div>
-                <div class="offset-lg-3 col-lg-6">
-                    <div class="center-text">
-                        <p>The average difficulty per day, for the last 100 days</p>
-                    </div>
-                </div>
+        <div class="offset-lg-3 col-lg-6">
+            <div class="center-text">
+                <p>The average difficulty per day, for the last 100 days</p>
+            </div>
+        </div>
     </div>
 
     <div class="row">
@@ -30,7 +30,8 @@
                     <input type="radio" class="chart-setting" value="60" name="options" autocomplete="off"> 60 days
                 </label>
                 <label class="btn btn-outline-primary">
-                    <input type="radio" class="chart-setting" value="180" name="options" autocomplete="off" checked> 180 days
+                    <input type="radio" class="chart-setting" value="180" name="options" autocomplete="off" checked> 180
+                    days
                 </label>
                 <label class="btn btn-outline-primary">
                     <input type="radio" class="chart-setting" value="365" name="options" autocomplete="off"> 1 year
@@ -49,10 +50,12 @@
                     <input type="radio" class="chart-setting" value="1" name="options" autocomplete="off"> Raw Values
                 </label>
                 <label class="btn btn-outline-primary active">
-                    <input type="radio" class="chart-setting" value="7" name="options" autocomplete="off" checked> 7 day average
+                    <input type="radio" class="chart-setting" value="7" name="options" autocomplete="off" checked> 7 day
+                    average
                 </label>
                 <label class="btn btn-outline-primary">
-                    <input type="radio" class="chart-setting" value="30" name="options" autocomplete="off"> 30 day average
+                    <input type="radio" class="chart-setting" value="30" name="options" autocomplete="off"> 30 day
+                    average
                 </label>
             </div>
         </div>
@@ -84,19 +87,19 @@
 
         // function to update our chart
         function ajax_chart(timeframe, average) {
-            $.getJSON(url, {timeframe, average}).done(function(response) {
+            $.getJSON(url, {timeframe, average}).done(function (response) {
                 difficultyChart.data = response;
                 difficultyChart.update();
             });
         }
 
-        $('.chart-setting').change(function(event) {
+        $('.chart-setting').change(function (event) {
             let timeframe = $('#timeframes .active input').attr('value');
             let average = $('#averages .active input').attr('value');
             ajax_chart(timeframe, average);
         });
 
-        $(function(){
+        $(function () {
             ajax_chart(180, 7)
         });
     </script>
