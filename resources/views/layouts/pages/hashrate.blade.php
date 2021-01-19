@@ -9,7 +9,7 @@
         </div>
         <div class="offset-lg-3 col-lg-6">
             <div class="center-text">
-                <p>The average hashrate per day, for the last 100 days</p>
+                <p>The average hashrate per day</p>
             </div>
         </div>
     </div>
