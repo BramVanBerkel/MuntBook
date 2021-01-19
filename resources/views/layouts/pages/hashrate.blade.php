@@ -88,7 +88,6 @@
         // function to update our chart
         function ajax_chart(timeframe, average) {
             $.getJSON(url, {timeframe, average}).done(function (response) {
-                console.log(response);
                 hashrateChart.data = response;
                 hashrateChart.update();
             });
