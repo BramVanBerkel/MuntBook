@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Block;
 use App\Repositories\DifficultyRepository;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,13 +16,13 @@ class DifficultyController extends Controller
         return view('layouts.pages.difficulty');
     }
 
-    public function data(Request $request, DifficultyRepository $difficultyRepository)
+    public function data(Request $request, DifficultyRepository $difficultyRepository): JsonResponse
     {
         $data = $difficultyRepository->getDifficulty($request->get('timeframe'), $request->get('average'))
-            ->map(function ($diff) {
+            ->map(function ($difficulty) {
                 return [
-                    'x' => $diff->date,
-                    'y' => $diff->average_difficulty,
+                    'x' => $difficulty->date,
+                    'y' => $difficulty->average_difficulty,
                 ];
             });
 

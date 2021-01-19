@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\HashrateRepository;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,19 +14,13 @@ class HashrateController extends Controller
         return view('layouts.pages.hashrate');
     }
 
-    public function data()
+    public function data(Request $request, HashrateRepository $hashrateRepository): JsonResponse
     {
-        $hashrate = DB::table('blocks')->select([
-            DB::raw("date_trunc('hour', created_at) AS date"),
-            DB::raw("avg(hashrate) as hashrate"),
-        ])->groupBy('date')
-            ->orderBy('date')
-            ->whereBetween('created_at', [now()->subDays(100), now()])
-            ->get()
-            ->map(function ($diff) {
+        $hashrate = $hashrateRepository->getHashrate($request->get('timeframe'), $request->get('average'))
+            ->map(function($hashRate) {
                 return [
-                    'x' => $diff->date,
-                    'y' => $diff->hashrate,
+                    'x' => $hashRate->date,
+                    'y' => $hashRate->average_hashrate,
                 ];
             });
 

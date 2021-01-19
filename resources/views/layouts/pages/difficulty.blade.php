@@ -93,7 +93,7 @@
             });
         }
 
-        $('.chart-setting').change(function (event) {
+        $('.chart-setting').change(function () {
             let timeframe = $('#timeframes .active input').attr('value');
             let average = $('#averages .active input').attr('value');
             ajax_chart(timeframe, average);

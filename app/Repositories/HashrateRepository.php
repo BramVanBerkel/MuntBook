@@ -9,9 +9,9 @@ use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
-class DifficultyRepository
+class HashrateRepository
 {
-    public function getDifficulty(int $timeframe, int $average): Collection
+    public function getHashrate(int $timeframe, int $average): Collection
     {
         // -1 because we already include the current row.
         $average--;
@@ -20,14 +20,14 @@ class DifficultyRepository
 
         return DB::table(function (Builder $query) use ($from) {
             $query->select(DB::raw("date_trunc('day', created_at) AS date"),
-                DB::raw("AVG(difficulty) AS difficulty"))
+                DB::raw("avg(hashrate) as hashrate"))
                 ->from('blocks')
                 ->whereBetween('created_at', [$from, now()])
                 ->groupBy('date')
                 ->orderBy('date');
         }, 'average')
             ->select('average.date as date',
-                DB::raw("AVG(average.difficulty) OVER(ORDER BY average.date ROWS BETWEEN {$average} PRECEDING AND CURRENT ROW) AS average_difficulty"))
+                DB::raw("AVG(average.hashrate) OVER(ORDER BY average.date ROWS BETWEEN {$average} PRECEDING AND CURRENT ROW) AS average_hashrate"))
             ->get();
     }
 }
