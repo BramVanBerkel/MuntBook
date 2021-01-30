@@ -9,7 +9,12 @@
 
     $class = null;
     if($colored) {
-        $class = $value < 0 ? 'text-danger' : 'text-success';
+        $class = match(true) {
+            $value < 0 => 'text-danger',
+            $value > 0 => 'text-success',
+            default => '',
+        };
+
     }
 
     //format the number to 8 decimal places
