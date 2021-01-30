@@ -75,5 +75,5 @@ return [
     */
     'transaction_or_block_hash_length' => 64,
     'address_length' => 34,
-    'witness_length' => 62,
+    'witness_address_length' => 62,
 ];
