@@ -42,4 +42,9 @@ class Address extends Model
     {
         return $this->hasManyThrough(Vin::class, Vout::class);
     }
+
+    public function witnessAddressParts()
+    {
+        return $this->hasMany(WitnessAddressPart::class);
+    }
 }
