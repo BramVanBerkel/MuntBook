@@ -47,8 +47,7 @@ class Start extends Command
             mkdir("binaries/datadir");
         }
 
-        $config = "disablewallet=1\n";
-        $config .= "txindex=1\n";
+        $config = "txindex=1\n";
         $config .= "server=1\n";
         $config .= "blocknotify=" . config('gulden.blocknotify') . "\n";
         $config .= "rpcuser=" . config('gulden.rpc_user') . "\n";
