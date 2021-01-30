@@ -102,4 +102,17 @@ class GuldenService
     {
         return $this->getData('getdifficulty')->result;
     }
+
+    /**
+     * Returns witness related network info for a given block.
+     * When verbose is enabled returns additional statistics.
+     *
+     * @param string $blockSpecifier
+     * @param bool $verbose
+     * @return object
+     */
+    public function getWitnessInfo(string $blockSpecifier = 'tip', bool $verbose = false)
+    {
+        return collect($this->getData('getwitnessinfo', [$blockSpecifier, $verbose])->result[0])->recursive();
+    }
 }
