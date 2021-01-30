@@ -24,8 +24,8 @@ class SearchController extends Controller
             return redirect()->route('transaction', ['txid' => $query]);
         }
 
-        //query is an address
-        if(strlen($query) === config('gulden.address_length')) {
+        //query is a (witness)address
+        if(strlen($query) === config('gulden.address_length') || strlen($query) === config('gulden.witness_address_length')) {
             return redirect()->route('address', ['address' => $query]);
         }
 
