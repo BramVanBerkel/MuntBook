@@ -9,7 +9,7 @@ class AddressController extends Controller
 {
     public function index(string $address)
     {
-        $address = Address::firstWhere('address', $address);
+        $address = Address::firstWhere('address', '=', $address);
 
         if ($address === null) {
             abort(404);
@@ -35,11 +35,9 @@ class AddressController extends Controller
         $totalValueOut = (float)$vinsQuery->get()->sum('value');
         $totalValue = $totalValueIn - $totalValueOut;
 
-        if($address->address !== Address::DEVELOPMENT_ADDRESS) {
-            $query = $voutsQuery->union($vinsQuery);
-        } else {
-            $query = $vinsQuery;
-        }
+        $query = ($address->address !== Address::DEVELOPMENT_ADDRESS) ?
+            $voutsQuery->union($vinsQuery) :
+            $vinsQuery;
 
         $transactions = $query->orderByDesc('created_at')->paginate();
 
