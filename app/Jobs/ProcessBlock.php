@@ -51,9 +51,9 @@ class ProcessBlock implements ShouldQueue
 
         $blockData = $guldenService->getBlock($guldenService->getBlockHash($this->height), 1);
 
-        if($blockData->get('confirmations') < 3) {
-            return;
-        }
+//        if($blockData->get('confirmations') < 3) {
+//            return;
+//        }
 
         DB::beginTransaction();
 
