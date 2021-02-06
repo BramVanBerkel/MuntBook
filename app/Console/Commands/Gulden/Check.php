@@ -53,13 +53,11 @@ class Check extends Command
         if($dbHeight === $guldenHeight) {
             return;
         }
-        
+
         Log::info(sprintf("Blockcount: %d/%d", $dbHeight, $guldenHeight));
         foreach(range($dbHeight, $guldenHeight) as $height) {
-            if(!Block::whereKey($height)->exists()) {
-                //initial sync
-                dispatch((new ProcessBlock($height))->onConnection('sync'));
-            }
+            //initial sync
+            dispatch((new ProcessBlock($height))->onConnection('sync'));
         }
     }
 }
