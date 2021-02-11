@@ -30,9 +30,9 @@ class AddressController extends Controller
             ->where('vouts.address_id', '=', $address->id)
             ->groupBy('vouts.transaction_id', 'transactions.txid', 'blocks.created_at');
 
+        $totalValueIn = (float)DB::query()->fromSub($vinsQuery, 'vins')->sum('value');
+        $totalValueOut = (float)DB::query()->fromSub($voutsQuery, 'vouts')->sum('value');
 
-        $totalValueIn = (float)$voutsQuery->get()->sum('value');
-        $totalValueOut = (float)$vinsQuery->get()->sum('value');
         $totalValue = $totalValueIn - $totalValueOut;
 
         $query = ($address->address !== Address::DEVELOPMENT_ADDRESS) ?
