@@ -32,6 +32,7 @@ class GuldenService
             ])->getBody());
         } catch (GuzzleException $e) {
             Log::error($e->getMessage());
+            die();
         }
     }
 
