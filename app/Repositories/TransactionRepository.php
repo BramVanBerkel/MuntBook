@@ -3,15 +3,16 @@
 
 namespace App\Repositories;
 
+use App\Models\Block;
 use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 
 class TransactionRepository
 {
-    public static function syncTransaction(Collection $transaction, int $height): Transaction
+    public static function syncTransaction(Collection $transaction, Block $block): Transaction
     {
-        return Transaction::updateOrCreate([
+        return $block->transactions()->updateOrCreate([
             'txid' => $transaction->get('txid'),
         ], [
             'size' => $transaction->get('size'),
@@ -21,20 +22,22 @@ class TransactionRepository
             'blockhash' => $transaction->get('blockhash'),
             'confirmations' => $transaction->get('confirmations'),
             'blocktime' => new Carbon($transaction->get('blocktime')),
-            'type' => self::getType($transaction),
+            'type' => self::getType($transaction, $block),
             'created_at' => new Carbon($transaction->get('time')),
-            'block_height' => $height,
         ]);
     }
 
-    private static function getType(Collection $transaction): ?string
+    private static function getType(Collection $transaction, Block $block): ?string
     {
         //transactions with empty inputs generate new coins
-        if($transaction->get('vin')->first()->get('coinbase') === "") {
+//        if($transaction->get('vin')->first()->get('coinbase') === "") {
+//            return Transaction::TYPE_MINING;
+//        }
+
+        if($transaction->get('hash') === $block->merkleroot) {
             return Transaction::TYPE_MINING;
         }
 
-        //todo: mining
         $witnessVout = $transaction->get('vout')->filter(function ($vout) {
             return $vout->has('PoW²-witness');
         })->first();

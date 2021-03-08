@@ -37,6 +37,7 @@ class Vout extends Model
     const TYPE_WITNESS_REWARD = 'witness_reward';
     const TYPE_WITNESS_FUNDING = 'witness_funding';
     const TYPE_WITNESS_COMPOUND = 'witness_compound';
+    const TYPE_DEVELOPMENT_REWARD = 'development_reward';
 
     const TYPES = [
         self::TYPE_TRANSACTION,
@@ -45,6 +46,7 @@ class Vout extends Model
         self::TYPE_WITNESS_REWARD,
         self::TYPE_WITNESS_FUNDING,
         self::TYPE_WITNESS_COMPOUND,
+        self::TYPE_DEVELOPMENT_REWARD,
     ];
 
 

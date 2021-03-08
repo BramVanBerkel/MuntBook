@@ -15,12 +15,14 @@ class VoutRepository
     public static function syncVouts(Collection $vouts, Transaction $transaction): void
     {
         foreach ($vouts as $voutData) {
+            $address = self::getAddress($voutData);
+
             $voutModel = Vout::updateOrCreate([
                 'transaction_id' => $transaction->id,
                 'n' => $voutData->get('n'),
             ], [
-                'address_id' => self::getAddress($voutData)?->id,
-                'type' => self::getType($voutData, $vouts),
+                'address_id' => $address?->id,
+                'type' => self::getType($voutData, $transaction, $address),
                 'value' => $voutData->get('value'),
                 'standard_key_hash_hex' => optional($voutData->get('standard-key-hash'))->get('hex'),
                 'standard_key_hash_address' => optional($voutData->get('standard-key-hash'))->get('address'),
@@ -133,7 +135,7 @@ class VoutRepository
         return $reward;
     }
 
-    private static function getType(Collection $data): string
+    private static function getType(Collection $data, Transaction $transaction, ?Address $address): string
     {
         if ($data->has('PoW²-witness') || optional($data->get('scriptPubKey'))->get('type') === 'pow2_witness') {
             if ($data->get('PoW²-witness')->get('lock_from_block') === 0) {
@@ -143,7 +145,13 @@ class VoutRepository
             return Vout::TYPE_WITNESS;
         }
 
-        //TODO: implement checking for mining type?
+        if($transaction->type === Transaction::TYPE_MINING) {
+            if($address?->address === Address::DEVELOPMENT_ADDRESS) {
+                return Vout::TYPE_DEVELOPMENT_REWARD;
+            }
+
+            return Vout::TYPE_MINING;
+        }
 
         return Vout::TYPE_TRANSACTION;
     }
