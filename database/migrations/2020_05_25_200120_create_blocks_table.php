@@ -23,10 +23,8 @@ class CreateBlocksTable extends Migration
             $table->unsignedInteger('size');
             $table->unsignedInteger('weight');
             $table->unsignedInteger('version');
-            $table->string('versionHex');
             $table->string('merkleroot');
-            $table->unsignedInteger('witness_version');
-            $table->unsignedInteger('witness_versionHex');
+            $table->unsignedInteger('witness_version')->nullable();
             $table->dateTime('witness_time')->nullable();
             $table->dateTime('pow_time');
             $table->string('witness_merkleroot')->nullable();

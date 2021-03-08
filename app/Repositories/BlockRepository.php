@@ -14,6 +14,7 @@ class BlockRepository
     {
         $witness_time = $data->get('witness_time') !== 0 ? new Carbon($data->get('witness_time')) : null;
         $witness_merkleroot = $data->get('witness_merkleroot') !== Block::EMPTY_WITNESS_MERLKEROOT ? $data->get('witness_merkleroot') : null;
+        $witness_version = $data->get('witness_version') === 0 ? null : $data->get('witness_version');
 
         return Block::updateOrCreate([
             'height' => $data->get('height'),
@@ -25,10 +26,8 @@ class BlockRepository
             'size' => $data->get('size'),
             'weight' => $data->get('weight'),
             'version' => $data->get('version'),
-            'versionHex' => $data->get('versionHex'),
             'merkleroot' => $data->get('merkleroot'),
-            'witness_version' => $data->get('witness_version'),
-            'witness_versionHex' => $data->get('witness_versionHex'),
+            'witness_version' => $witness_version,
             'witness_time' => $witness_time,
             'pow_time' => new Carbon($data->get('pow_time')),
             'witness_merkleroot' => $witness_merkleroot,
