@@ -47,8 +47,6 @@ class ProcessBlock implements ShouldQueue
      */
     public function handle(GuldenService $guldenService)
     {
-        Log::info("Processing block #{$this->height}");
-
         $blockData = $guldenService->getBlock($guldenService->getBlockHash($this->height), 1);
 
         DB::beginTransaction();

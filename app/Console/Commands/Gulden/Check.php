@@ -56,7 +56,8 @@ class Check extends Command
 
         Log::info(sprintf("Blockcount: %d/%d", $dbHeight, $guldenHeight));
         foreach(range($dbHeight, $guldenHeight) as $height) {
-            //initial sync
+            $progress = ($height / $guldenHeight) * 100;
+            Log::info(sprintf("Processing block %d/%d Progress: %f", $height, $guldenHeight, $progress));
             dispatch((new ProcessBlock($height))->onConnection('sync'));
         }
     }
