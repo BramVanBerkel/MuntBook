@@ -33,7 +33,7 @@ class AddressController extends Controller
         $totalValueIn = (float)DB::query()->fromSub($vinsQuery, 'vins')->sum('value');
         $totalValueOut = (float)DB::query()->fromSub($voutsQuery, 'vouts')->sum('value');
 
-        $totalValue = $totalValueIn - $totalValueOut;
+        $totalValue = $totalValueOut - $totalValueIn;
 
         $query = ($address->address !== Address::DEVELOPMENT_ADDRESS) ?
             $voutsQuery->union($vinsQuery) :
