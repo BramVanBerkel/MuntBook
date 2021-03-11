@@ -150,6 +150,10 @@ class VoutRepository
                 return Vout::TYPE_DEVELOPMENT_REWARD;
             }
 
+            $address->update([
+                'type' => Address::TYPE_MINING_ADDRESS,
+            ]);
+
             return Vout::TYPE_MINING;
         }
 
