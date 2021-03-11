@@ -33,4 +33,3 @@
 <div class="{{ $class }}">
     <span class="gulden-icon"></span> {{ $number_formatted }}<span class="small">{{ $small }}</span>
 </div>
-

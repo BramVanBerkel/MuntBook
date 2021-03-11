@@ -43,6 +43,7 @@ class ProcessBlock implements ShouldQueue
      * @param GuldenService $guldenService
      * @return void
      * @throws GuzzleException
+     * @throws \Throwable
      */
     public function handle(GuldenService $guldenService)
     {

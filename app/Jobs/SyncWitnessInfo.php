@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Models\WitnessAddressPart;
 use App\Repositories\WitnessAddressRepository;
 use App\Services\GuldenService;
 use Illuminate\Bus\Queueable;
@@ -10,7 +9,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\DB;
 
 class SyncWitnessInfo implements ShouldQueue
 {

@@ -22,7 +22,7 @@ class TransactionController extends Controller
             ->leftJoin('addresses', 'addresses.id', '=', 'vouts.address_id')
             ->where('vouts.type', '<>', Vout::TYPE_WITNESS)
             ->where('vins.transaction_id', '=', $transaction->id)
-            ->where('vins.vout_id', '<>', null)
+            ->whereNotNull('vins.vout_id')
             ->groupBy('addresses.address')
             ->get();
 

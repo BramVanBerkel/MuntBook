@@ -14,7 +14,7 @@ class NonceDistributionController extends Controller
 
     public function data()
     {
-        $blocks = Block::select('height', 'pre_nonce', 'post_nonce')->orderByDesc('height')->limit(1000)->get();
+        $blocks = Block::select(['height', 'pre_nonce', 'post_nonce'])->orderByDesc('height')->limit(1000)->get();
 
         $preNonceData = $blocks->map(function ($block) {
             return [

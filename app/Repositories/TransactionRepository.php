@@ -12,9 +12,10 @@ class TransactionRepository
 {
     public static function syncTransaction(Collection $transaction, Block $block): Transaction
     {
-        return $block->transactions()->updateOrCreate([
+        return Transaction::updateOrCreate([
             'txid' => $transaction->get('txid'),
         ], [
+            'block_height' => $block->height,
             'size' => $transaction->get('size'),
             'vsize' => $transaction->get('vsize'),
             'version' => $transaction->get('version'),
