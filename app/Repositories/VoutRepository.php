@@ -152,10 +152,10 @@ class VoutRepository
 
             if($address) {
                 $address->update([
-                    'type' => Address::TYPE_MINING_ADDRESS,
+                    'type' => Address::TYPE_MINING,
                 ]);
             }
-            
+
             return Vout::TYPE_MINING;
         }
 

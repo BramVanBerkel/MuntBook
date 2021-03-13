@@ -20,7 +20,7 @@ class AddressRepository
     {
         return match (Str::length($address)) {
             config('gulden.address_length') => Address::TYPE_ADDRESS,
-            config('gulden.witness_address_length') => Address::TYPE_WITNESS_ADDRESS,
+            config('gulden.witness_address_length') => Address::TYPE_WITNESS,
             default => null,
         };
     }
