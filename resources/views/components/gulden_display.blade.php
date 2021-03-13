@@ -30,6 +30,6 @@
         $number_formatted = '+'.$number_formatted;
     }
 @endphp
-<div class="{{ $class }}">
+<span class="{{ $class }}">
     <span class="gulden-icon"></span> {{ $number_formatted }}<span class="small">{{ $small }}</span>
-</div>
+</span>
