@@ -18,7 +18,7 @@ class BittrexPricesSeeder extends Seeder
         $zipPath = realpath('database/seeds/bittrex.csv.zip');
         $zipArchive = new \ZipArchive();
 
-        \Log::channel('stderr')->info('Openging bittrex.csv.zip...');
+        \Log::channel('stderr')->info('Opening bittrex.csv.zip...');
         $opened = $zipArchive->open($zipPath);
         if(!$opened) {
             \Log::channel('stderr')->info('Failed opening bittrex.csv.zip!');
