@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BittrexPrices extends Model
+class Price extends Model
 {
-    protected $table = 'prices.bittrex';
+    protected $table = 'prices';
 
     public $timestamps = false;
 
@@ -19,5 +19,11 @@ class BittrexPrices extends Model
         'close',
         'volume',
         'quote_volume',
+    ];
+
+    const SOURCE_BITTREX = 'BITTREX';
+
+    const SOURCES = [
+        self::SOURCE_BITTREX,
     ];
 }

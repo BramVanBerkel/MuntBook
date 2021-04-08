@@ -37,7 +37,7 @@ class BittrexPricesSeeder extends Seeder
         //import
         \Log::channel('stderr')->info('Importing bittrex.csv.zip...');
         DB::statement(<<<SQL
-            COPY prices.bittrex(timestamp, open, high, low, close, volume, quote_volume)
+            COPY prices(timestamp, open, high, low, close, volume, quote_volume, source)
             FROM '{$path}'
             DELIMITER ','
             CSV HEADER;
