@@ -86,6 +86,10 @@
                             </ul>
                         </li>
                     </ul>
+                    <ul class="nav" style="display: none;">
+                        <li><a href="{{ route('prices') }}">Prices</a></li>
+                    </ul>
+
                     <a class="menu-trigger">
                         <span></span>
                     </a>

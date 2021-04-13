@@ -25,6 +25,7 @@
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.1",
         "chart.js": "^2.9.4",
+        "lightweight-charts": "^3.3.0",
         "particles.js": "^2.0.0"
     },
     "name": "guldenbook"

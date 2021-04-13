@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\UpdateBittrexPrices;
 use App\Jobs\UpdateDifficulty;
 use App\Jobs\UpdateHashrate;
 use Illuminate\Console\Scheduling\Schedule;
@@ -29,6 +30,8 @@ class Kernel extends ConsoleKernel
          $schedule->job(new UpdateHashrate)->everyMinute();
 
          $schedule->job(new UpdateDifficulty)->everyMinute();
+
+         $schedule->job(new UpdateBittrexPrices)->hourlyAt(00);
     }
 
     /**

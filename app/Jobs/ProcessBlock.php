@@ -14,6 +14,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class ProcessBlock implements ShouldQueue
 {
@@ -42,8 +43,7 @@ class ProcessBlock implements ShouldQueue
      *
      * @param GuldenService $guldenService
      * @return void
-     * @throws GuzzleException
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function handle(GuldenService $guldenService)
     {

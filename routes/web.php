@@ -5,6 +5,7 @@ use App\Http\Controllers\BlockController;
 use App\Http\Controllers\DifficultyHashrateController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NonceDistributionController;
+use App\Http\Controllers\PriceController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
@@ -35,3 +36,6 @@ Route::get('/nonce-distribution/data', [NonceDistributionController::class, 'dat
 
 Route::get('/difficulty-hashrate', [DifficultyHashrateController::class, 'index'])->name('difficulty-hashrate');
 Route::get('/difficulty-hashrate/data', [DifficultyHashrateController::class, 'data'])->name('difficulty-hashrate.data');
+
+Route::get('/prices', [PriceController::class, 'index'])->name('prices');
+Route::get('/prices/data', [PriceController::class, 'data'])->name('prices.data');

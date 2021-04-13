@@ -18,7 +18,7 @@ class Price extends Model
         'low',
         'close',
         'volume',
-        'quote_volume',
+        'source',
     ];
 
     const SOURCE_BITTREX = 'BITTREX';
