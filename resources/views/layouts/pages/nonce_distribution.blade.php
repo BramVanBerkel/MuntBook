@@ -23,23 +23,7 @@
 
 @section('script')
     <script>
-        let url = '{{ route('nonce-distribution.data') }}';
-        let nonceDistributionCanvas = document.getElementById('nonceDistribution').getContext('2d');
-        let nonceDistributionChart = new Chart(nonceDistributionCanvas, {
-            type: 'scatter',
-        });
-
-        ajax_chart(nonceDistributionChart, url);
-
-        // function to update our chart
-        function ajax_chart(chart, url) {
-            $.getJSON(url).done(function(response) {
-                let min = response.datasets[0].data[response.datasets[0].data.length - 1].x;
-                chart.data = response;
-                chart.options.scales.xAxes[0].ticks.min = min
-                chart.options.scales.xAxes[0].ticks.stepSize = 100;
-                chart.update();
-            });
-        }
+        const nonce_distribution_endpoint = '{{ route('nonce-distribution.data') }}';
     </script>
+    <script src="{{ asset('js/nonce_distribution.js') }}"></script>
 @endsection

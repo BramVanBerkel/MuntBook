@@ -18,10 +18,6 @@ class UpdateHashrate implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    /**
-     * @param GuldenService $guldenService
-     * @throws GuzzleException
-     */
     public function handle(GuldenService $guldenService)
     {
         // hashrate in hashes per second
