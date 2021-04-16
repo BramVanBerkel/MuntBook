@@ -46,7 +46,7 @@ function fillGraph(timeframe) {
                 return {
                     time: item.time,
                     value: item.volume,
-                    color: (item.open <= item.close) ? '#25A69A' : '#F0A2A1',
+                    color: (item.open <= item.close) ? '#92D1CC' : '#F0A2A1',
                 }
             })
 
