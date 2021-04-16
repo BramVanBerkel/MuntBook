@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Models\BittrexPrices;
 use App\Models\Price;
 use App\Repositories\PriceRepository;
 use App\Services\BittrexService;
@@ -25,7 +24,7 @@ class UpdateBittrexPrices implements ShouldQueue
     {
         $lastDate = Price::where('source', '=', Price::SOURCE_BITTREX)->max('timestamp');
 
-        foreach (CarbonPeriod::create($lastDate, now()) as $date) {
+        foreach (CarbonPeriod::create($lastDate, now())->roundDays() as $date) {
             \Log::channel('stderr')->info((string)$date);
             $prices = $priceTransformer->bittrexTransformer($bittrexService->getPrices($date));
 
