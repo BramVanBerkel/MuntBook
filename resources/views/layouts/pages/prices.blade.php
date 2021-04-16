@@ -7,11 +7,11 @@
                 <h2 class="section-title">Prices</h2>
             </div>
         </div>
-        {{--        <div class="offset-lg-3 col-lg-6">--}}
-        {{--            <div class="center-text">--}}
-        {{--                <p>Fusce placerat pretium mauris, vel sollicitudin elit lacinia vitae. Quisque sit amet nisi erat.</p>--}}
-        {{--            </div>--}}
-        {{--        </div>--}}
+        <div class="offset-lg-3 col-lg-6">
+            <div class="center-text">
+                <p>Bitrex prices</p>
+            </div>
+        </div>
     </div>
 
     <div class="row">
@@ -21,6 +21,53 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                Timeframe:
+            </button>
+            <div class="dropdown-menu" id="timeframes">
+                <h6 class="dropdown-header">Minutes</h6>
+                <button class="dropdown-item timeframe" type="button"
+                        value="{{ \App\Enums\PriceTimeframeEnum::MINUTE_1() }}"> {{ \App\Enums\PriceTimeframeEnum::MINUTE_1()->label }}
+                </button>
+                <button class="dropdown-item timeframe active" type="button"
+                        value="{{ \App\Enums\PriceTimeframeEnum::MINUTE_5() }}"> {{ \App\Enums\PriceTimeframeEnum::MINUTE_5()->label }}
+                </button>
+                <button class="dropdown-item timeframe" type="button"
+                        value="{{ \App\Enums\PriceTimeframeEnum::MINUTE_15() }}"> {{ \App\Enums\PriceTimeframeEnum::MINUTE_15()->label }}
+                </button>
+                <button class="dropdown-item timeframe" type="button"
+                        value="{{ \App\Enums\PriceTimeframeEnum::MINUTE_30() }}"> {{ \App\Enums\PriceTimeframeEnum::MINUTE_30()->label }}
+                </button>
+                <h6 class="dropdown-header">Hours</h6>
+                <button class="dropdown-item timeframe" type="button"
+                        value="{{ \App\Enums\PriceTimeframeEnum::HOUR_1() }}"> {{ \App\Enums\PriceTimeframeEnum::HOUR_1()->label }}
+                </button>
+                <button class="dropdown-item timeframe" type="button"
+                        value="{{ \App\Enums\PriceTimeframeEnum::HOUR_2() }}"> {{ \App\Enums\PriceTimeframeEnum::HOUR_2()->label }}
+                </button>
+                <button class="dropdown-item timeframe" type="button"
+                        value="{{ \App\Enums\PriceTimeframeEnum::HOUR_3() }}"> {{ \App\Enums\PriceTimeframeEnum::HOUR_3()->label }}
+                </button>
+                <button class="dropdown-item timeframe" type="button"
+                        value="{{ \App\Enums\PriceTimeframeEnum::HOUR_4() }}"> {{ \App\Enums\PriceTimeframeEnum::HOUR_4()->label }}
+                </button>
+                <h6 class="dropdown-header">Days</h6>
+                <button class="dropdown-item timeframe" type="button"
+                        value="{{ \App\Enums\PriceTimeframeEnum::DAY_1() }}"> {{ \App\Enums\PriceTimeframeEnum::DAY_1()->label }}
+                </button>
+                <button class="dropdown-item timeframe" type="button"
+                        value="{{ \App\Enums\PriceTimeframeEnum::DAY_7() }}"> {{ \App\Enums\PriceTimeframeEnum::DAY_7()->label }}
+                </button>
+                <button class="dropdown-item timeframe" type="button"
+                        value="{{ \App\Enums\PriceTimeframeEnum::DAY_30() }}"> {{ \App\Enums\PriceTimeframeEnum::DAY_30()->label }}
+                </button>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('script')

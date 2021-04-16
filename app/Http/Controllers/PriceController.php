@@ -2,41 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BittrexPrices;
-use App\Models\Price;
+use App\Enums\PriceTimeframeEnum;
+use App\Repositories\PriceRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
+use Spatie\Enum\Laravel\Rules\EnumRule;
 
 class PriceController extends Controller
 {
+    public function __construct(private PriceRepository $priceRepository){}
+
     public function index()
     {
         return view('layouts.pages.prices');
     }
 
-    public function data()
+    public function data(Request $request)
     {
-        return cache()->remember('bittrex_prices', now()->addHour(), function() {
-            return DB::table('prices')->select([
-                DB::raw('(MAX(ARRAY[id, open]))[2] as open'),
-                DB::raw('MAX(high) as high'),
-                DB::raw('MAX(low) as low'),
-                DB::raw('(MIN(ARRAY[id, close]))[2] AS close'),
-                DB::raw('EXTRACT(epoch FROM date_trunc(\'hour\', timestamp)) AS time'),
-            ])->where('source', '=', Price::SOURCE_BITTREX)
-                ->groupBy('time')
-                ->orderBy('time')
-                ->where('timestamp', '>', now()->subYear())
-                ->get()
-                ->map(function($price) {
-                    return [
-                        "open" => (int)$price->open,
-                        "high" => (int)$price->high,
-                        "low" => (int)$price->low,
-                        "close" => (int)$price->close,
-                        "time" => (int)$price->time,
-                    ];
-                });
-        });
+        $request->validate([
+            'timeframe' => [
+                Rule::in(PriceTimeframeEnum::toValues())
+            ],
+        ]);
+
+        return $this->priceRepository->getPrices($request->get('timeframe'), 'BITTREX');
     }
 }

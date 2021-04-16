@@ -11,6 +11,7 @@
         "php": "^8.0",
         "ext-json": "*",
         "ext-pdo": "*",
+        "ext-zip": "*",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -18,7 +19,7 @@
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
-        "ext-zip": "*"
+        "spatie/laravel-enum": "^2.4"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.9",

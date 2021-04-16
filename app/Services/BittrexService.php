@@ -22,9 +22,11 @@ class BittrexService
     public function getPrices(CarbonInterface $date)
     {
         if ($date->isToday()) {
+            dump('getting recent...');
             /** /recent returns all candles of the last 24hrs  */
             $request = $this->client->get('/v3/markets/NLG-BTC/candles/MINUTE_1/recent');
         } else {
+            dump('getting historical...');
             $request = $this->client->get(sprintf('/v3/markets/NLG-BTC/candles/MINUTE_1/historical/%s', $date->format('Y/m/d')));
         }
 
