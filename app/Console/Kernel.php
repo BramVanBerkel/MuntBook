@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
 
          $schedule->job(new UpdateDifficulty)->everyMinute();
 
-         $schedule->job(new UpdateBittrexPrices)->hourlyAt(00);
+         $schedule->job(new UpdateBittrexPrices)->everyMinute();
     }
 
     /**
