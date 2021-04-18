@@ -6,6 +6,7 @@ use App\Models\Price;
 use App\Repositories\PriceRepository;
 use App\Services\BittrexService;
 use App\Transformers\PriceTransformer;
+use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -24,7 +25,7 @@ class UpdateBittrexPrices implements ShouldQueue
     {
         $lastDate = Price::where('source', '=', Price::SOURCE_BITTREX)->max('timestamp');
 
-        foreach (CarbonPeriod::create($lastDate, now())->roundDays() as $date) {
+        foreach (CarbonPeriod::create($lastDate, now())->floorDays() as $date) {
             \Log::channel('stderr')->info((string)$date);
             $prices = $priceTransformer->bittrexTransformer($bittrexService->getPrices($date));
 
