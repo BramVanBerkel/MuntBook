@@ -54,11 +54,11 @@ class Start extends Command
         $config .= "rpcpassword=" . config('gulden.rpc_password') . "\n";
         $config .= "port=" . config('gulden.port') . "\n";
 
-        if(!empty(config('gulden.testnet'))) {
+        if (!empty(config('gulden.testnet'))) {
             $config .= "testnet=" . config('gulden.testnet') . "\n";
         }
 
-        if(!empty(config('gulden.addnode'))) {
+        if (!empty(config('gulden.addnode'))) {
             $nodes = explode(',', config('gulden.addnode'));
             foreach ($nodes as $node) {
                 $config .= "addnode={$node}\n";
@@ -80,6 +80,7 @@ class Start extends Command
 
         if (!empty(config('gulden.testnet'))) $command = sprintf("{$command} -testnet=%s", config('gulden.testnet'));
 
-        exec($command);
+        proc_close(proc_open("{$command} &", [], $foo));
+//        exec($command);
     }
 }
