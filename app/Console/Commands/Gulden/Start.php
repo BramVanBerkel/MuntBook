@@ -79,8 +79,7 @@ class Start extends Command
         $command = "./binaries/{$binary} -datadir=binaries/datadir";
 
         if (!empty(config('gulden.testnet'))) $command = sprintf("{$command} -testnet=%s", config('gulden.testnet'));
-
-        proc_close(proc_open("{$command} &", [], $foo));
-//        exec($command);
+        
+        exec($command);
     }
 }
