@@ -49,8 +49,7 @@ function fillGraph(timeframe) {
                     color: (item.open <= item.close) ? '#92D1CC' : '#F0A2A1',
                 }
             })
-
-            console.log(volumeData);
+            
             volumeSeries.setData(volumeData);
         });
 }
