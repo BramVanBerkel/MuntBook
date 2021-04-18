@@ -77,9 +77,13 @@
                     @foreach($vins as $vin)
                         <tr>
                             <td>
-                                <a href="{{ route('address', ['address' => $vin->address]) }}">
-                                    {{ $vin->address }}
-                                </a>
+                                @if($vin->address)
+                                    <a href="{{ route('address', ['address' => $vin->address]) }}">
+                                        {{ $vin->address }}
+                                    </a>
+                                @else
+                                    Address unknown
+                                @endif
                             </td>
                             <td><x-gulden_display value="{{ -$vin->value }}" colored="true" /></td>
                         </tr>
