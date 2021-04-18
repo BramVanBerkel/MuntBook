@@ -27,6 +27,7 @@ let volumeSeries = chart.addHistogramSeries({
 });
 
 function fillGraph(timeframe) {
+    $('#loader').removeClass('d-none');
     fetch(prices_endpoint + '?' + new URLSearchParams({
         timeframe: timeframe,
     })).then((response) => response.json())
@@ -49,8 +50,9 @@ function fillGraph(timeframe) {
                     color: (item.open <= item.close) ? '#92D1CC' : '#F0A2A1',
                 }
             })
-            
+
             volumeSeries.setData(volumeData);
+            $('#loader').addClass('d-none');
         });
 }
 

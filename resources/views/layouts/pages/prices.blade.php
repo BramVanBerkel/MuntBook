@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-3">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                 Timeframe: <span class="timeframe-text"></span>
@@ -64,6 +64,9 @@
                 <button class="dropdown-item timeframe" type="button"
                         value="{{ \App\Enums\PriceTimeframeEnum::DAY_30() }}"> {{ \App\Enums\PriceTimeframeEnum::DAY_30()->label }}
                 </button>
+            </div>
+            <div id="loader" class="spinner-border text-primary align-middle d-none" role="status">
+                <span class="sr-only">Loading...</span>
             </div>
         </div>
     </div>
