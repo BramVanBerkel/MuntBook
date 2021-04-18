@@ -56,6 +56,7 @@ function fillGraph(timeframe) {
 
 $('.timeframe').on('click', function (event) {
     const timeframe = $(event.target).val();
+    $('.timeframe-text').text($(event.target).text());
     $('#timeframes .active').removeClass('active');
     $(event.target).addClass('active');
     chart.removeSeries(candlestickSeries)
@@ -76,5 +77,6 @@ $('.timeframe').on('click', function (event) {
 
 $(document).ready(function() {
     const timeframe = $('.timeframe.active');
+    $('.timeframe-text').text(timeframe.text());
     fillGraph(timeframe.val());
 })

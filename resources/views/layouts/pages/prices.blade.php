@@ -25,7 +25,7 @@
         <div class="col-lg-12">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-                Timeframe:
+                Timeframe: <span class="timeframe-text"></span>
             </button>
             <div class="dropdown-menu" id="timeframes">
                 <h6 class="dropdown-header">Minutes</h6>
