@@ -11,11 +11,7 @@ use Illuminate\Support\Collection;
 
 class VinRepository
 {
-    /**
-     * @param Collection $vins
-     * @param Transaction $transaction
-     */
-    public static function syncVins(Collection $vins, Transaction $transaction): void
+    public function syncVins(Collection $vins, Transaction $transaction): void
     {
         foreach ($vins as $vinData) {
             //convert empty strings to null, to prevent inserting empty values in the DB
@@ -24,9 +20,9 @@ class VinRepository
             $referencingVout = null;
 
             if ($vinData->get('prevout_type') === Vin::PREVOUT_TYPE_INDEX) {
-                $referencingVout = self::getIndexVout($vinData);
+                $referencingVout = $this->getIndexVout($vinData);
             } elseif ($vinData->get('prevout_type') === Vin::PREVOUT_TYPE_HASH) {
-                $referencingVout = self::getHashVout($vinData);
+                $referencingVout = $this->getHashVout($vinData);
             }
 
             $vin = Vin::updateOrCreate([
@@ -52,11 +48,7 @@ class VinRepository
         }
     }
 
-    /**
-     * @param Collection $vinData
-     * @return Vout|null
-     */
-    private static function getIndexVout(Collection $vinData): ?Vout
+    private function getIndexVout(Collection $vinData): ?Vout
     {
         return Vout::where('transaction_id', function ($query) use ($vinData) {
             return $query->select('id')
@@ -67,11 +59,7 @@ class VinRepository
         })->firstWhere('n', '=', $vinData->get('vout'));
     }
 
-    /**
-     * @param Collection $vinData
-     * @return Vout|null
-     */
-    private static function getHashVout(Collection $vinData): ?Vout
+    private function getHashVout(Collection $vinData): ?Vout
     {
         if ($vinData->get('txid') === Transaction::EMPTY_TXID) {
             return null;

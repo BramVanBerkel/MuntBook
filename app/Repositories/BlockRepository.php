@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 
 class BlockRepository
 {
-    public static function syncBlock(Collection $data): Block
+    public function syncBlock(Collection $data): Block
     {
         $witness_time = $data->get('witness_time') !== 0 ? new Carbon($data->get('witness_time')) : null;
         $witness_merkleroot = $data->get('witness_merkleroot') !== Block::EMPTY_WITNESS_MERLKEROOT ? $data->get('witness_merkleroot') : null;

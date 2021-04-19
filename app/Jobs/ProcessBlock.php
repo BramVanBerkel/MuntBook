@@ -7,7 +7,6 @@ use App\Repositories\TransactionRepository;
 use App\Repositories\VinRepository;
 use App\Repositories\VoutRepository;
 use App\Services\GuldenService;
-use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -23,35 +22,22 @@ class ProcessBlock implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    /**
-     * @var int
-     */
-    private int $height;
+    public function __construct(
+        private int $height,
+    ) {}
 
-    /**
-     * Create a new job instance.
-     *
-     * @param int $height
-     */
-    public function __construct(int $height)
-    {
-        $this->height = $height;
-    }
-
-    /**
-     * Execute the job.
-     *
-     * @param GuldenService $guldenService
-     * @return void
-     * @throws Throwable
-     */
-    public function handle(GuldenService $guldenService)
+    public function handle(
+        GuldenService $guldenService,
+        BlockRepository $blockRepository,
+        TransactionRepository $transactionRepository,
+        VoutRepository $voutRepository,
+        VinRepository $vinRepository)
     {
         $blockData = $guldenService->getBlock($guldenService->getBlockHash($this->height), 1);
 
         DB::beginTransaction();
 
-        $block = BlockRepository::syncBlock($blockData);
+        $block = $blockRepository->syncBlock($blockData);
 
         if($block->hashps === null) {
             dispatch(new SetHashrate($block->height));
@@ -60,11 +46,11 @@ class ProcessBlock implements ShouldQueue
         foreach ($blockData->get('tx') as $txid) {
             $tx = $guldenService->getTransaction($txid, true);
 
-            $transaction = TransactionRepository::syncTransaction($tx, $block);
+            $transaction = $transactionRepository->syncTransaction($tx, $block);
 
-            VoutRepository::syncVouts($tx->get('vout'), $transaction);
+            $voutRepository->syncVouts($tx->get('vout'), $transaction);
 
-            VinRepository::syncVins($tx->get('vin'), $transaction);
+            $vinRepository->syncVins($tx->get('vin'), $transaction);
         }
 
         DB::commit();

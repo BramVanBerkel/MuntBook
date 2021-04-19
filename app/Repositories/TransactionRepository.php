@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 
 class TransactionRepository
 {
-    public static function syncTransaction(Collection $transaction, Block $block): Transaction
+    public function syncTransaction(Collection $transaction, Block $block): Transaction
     {
         return Transaction::updateOrCreate([
             'txid' => $transaction->get('txid'),
@@ -23,18 +23,18 @@ class TransactionRepository
             'blockhash' => $transaction->get('blockhash'),
             'confirmations' => $transaction->get('confirmations'),
             'blocktime' => new Carbon($transaction->get('blocktime')),
-            'type' => self::getType($transaction, $block),
+            'type' => $this->getType($transaction),
             'created_at' => new Carbon($transaction->get('time')),
         ]);
     }
 
-    private static function getType(Collection $transaction, Block $block): ?string
+    private function getType(Collection $transaction): ?string
     {
         //transactions with empty inputs generate new coins
         if($transaction->get('vin')->first()->get('coinbase') === "") {
             return Transaction::TYPE_MINING;
         }
-        
+
         $witnessVout = $transaction->get('vout')->filter(function ($vout) {
             return $vout->has('PoW²-witness');
         })->first();
