@@ -24,8 +24,6 @@ class CreatePricesTable extends Migration
             $table->unsignedInteger('close');
             $table->decimal('volume', 16, 8);
             $table->enum('source', Price::SOURCES);
-
-            $table->timestamps();
         });
     }
 
