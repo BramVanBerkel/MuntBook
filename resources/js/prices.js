@@ -6,11 +6,23 @@ const chart = Chart.createChart(document.getElementById('prices'), {
     localization: {
         timeFormatter: businessDayOrTimestamp => {
             const date = new Date(businessDayOrTimestamp * 1000);
-
-            // console.log(businessDayOrTimestamp + ' ' + Chart.isBusinessDay(businessDayOrTimestamp));
-
-            return `${date.getDate()} ${date.toLocaleString('default', { month: 'short' })} '${date.getFullYear().toString().substr(-2)} ${date.getHours()}:${date.getUTCMinutes()}`;
+            
+            return `${date.getDate()} ${date.toLocaleString('default', {month: 'short'})} '${date.getFullYear().toString().substr(-2)} ${date.getHours()}:${('0'+date.getMinutes()).slice(-2)}`;
         }
+    },
+    rightPriceScale: {
+        scaleMargins: {
+            top: 0.3,
+            bottom: 0.25,
+        },
+        borderVisible: false,
+    },
+    layout: {
+        fontFamily: 'Roboto',
+    },
+    timeScale: {
+        timeVisible: true,
+        secondsVisible: false,
     },
 });
 
@@ -43,7 +55,7 @@ function fillGraph(timeframe) {
             });
             candlestickSeries.setData(ohlcData)
 
-            const volumeData = data.map(function(item) {
+            const volumeData = data.map(function (item) {
                 return {
                     time: item.time,
                     value: item.volume,
@@ -77,7 +89,7 @@ $('.timeframe').on('click', function (event) {
     fillGraph(timeframe)
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
     const timeframe = $('.timeframe.active');
     $('.timeframe-text').text(timeframe.text());
     fillGraph(timeframe.val());
