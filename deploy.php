@@ -52,7 +52,7 @@ task('npm-ci', function() {
 desc('Run npm run production');
 task('npm-build', function() {
     $testnet = (get('testnet')) ? 'true' : 'false';
-    run("cd {{release_path}} && TESTNET=$testnet npm run production");
+    run("cd {{release_path}} && MIX_TESTNET=$testnet npm run production");
 });
 
 desc('Run composer install');
