@@ -85,8 +85,6 @@
                                 <li><a href="{{ route('difficulty-hashrate') }}">Difficulty / Hashrate</a></li>
                             </ul>
                         </li>
-                    </ul>
-                    <ul class="nav" style="display: none;">
                         <li><a href="{{ route('prices') }}">Prices</a></li>
                     </ul>
 
