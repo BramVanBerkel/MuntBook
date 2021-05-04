@@ -28,10 +28,12 @@ add('writable_dirs', []);
 
 // Hosts
 host('guldenbook.com')
-    ->set('deploy_path', '/var/www/guldenbook');
+    ->set('deploy_path', '/var/www/guldenbook')
+    ->set('testnet', false);
 
 host('testnet.guldenbook.com')
-    ->set('deploy_path', '/var/www/guldenbook-testnet');
+    ->set('deploy_path', '/var/www/guldenbook-testnet')
+    ->set('testnet', true);
 
 after('deploy:update_code', 'build');
 
@@ -49,7 +51,8 @@ task('npm-ci', function() {
 
 desc('Run npm run production');
 task('npm-build', function() {
-    run('cd {{release_path}} && npm run production');
+    $testnet = (get('testnet')) ? 'true' : 'false';
+    run("cd {{release_path}} && TESTNET=$testnet npm run production");
 });
 
 desc('Run composer install');
