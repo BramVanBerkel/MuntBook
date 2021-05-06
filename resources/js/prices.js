@@ -6,7 +6,7 @@ const chart = Chart.createChart(document.getElementById('prices'), {
     localization: {
         timeFormatter: businessDayOrTimestamp => {
             const date = new Date(businessDayOrTimestamp * 1000);
-            
+
             return `${date.getDate()} ${date.toLocaleString('default', {month: 'short'})} '${date.getFullYear().toString().substr(-2)} ${date.getHours()}:${('0'+date.getMinutes()).slice(-2)}`;
         }
     },
@@ -40,9 +40,15 @@ let volumeSeries = chart.addHistogramSeries({
 
 function fillGraph(timeframe) {
     $('#loader').removeClass('d-none');
-    fetch(prices_endpoint + '?' + new URLSearchParams({
+    const params = new URLSearchParams({
         timeframe: timeframe,
-    })).then((response) => response.json())
+    });
+
+    fetch(prices_endpoint + '?' + params, {
+        headers: {
+            'accept': 'application/json',
+        }
+    }).then((response) => response.json())
         .then(function (data) {
             const ohlcData = data.map(function (item) {
                 return {
