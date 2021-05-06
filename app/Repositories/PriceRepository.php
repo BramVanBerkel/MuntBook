@@ -51,7 +51,7 @@ class PriceRepository
                         "low" => (int)$price->low,
                         "close" => (int)$price->close,
                         "volume" => (int)$price->volume,
-                        "time" => (int)Carbon::make($price->time)->unix(),
+                        "time" => Carbon::make($price->time)->unix(),
                     ];
                 });
         });
