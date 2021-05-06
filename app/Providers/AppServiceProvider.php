@@ -7,25 +7,25 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use PDOException;
+use Request;
+use Spatie\Enum\Laravel\Http\EnumRequest;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
+    public function register(): void
     {
-        //
+        $this->registerRequestTransformMacro();
     }
 
     /**
-     * Bootstrap any application services.
-     *
-     * @return void
+     * @throws \ReflectionException
      */
-    public function boot()
+    protected function registerRequestTransformMacro(): void
+    {
+        Request::mixin(new EnumRequest);
+    }
+
+    public function boot(): void
     {
         try {
             View::share('lastBlock', Block::latest()->first());

@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Enums\PriceTimeframeEnum;
 use App\Repositories\PriceRepository;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use Spatie\Enum\Enum;
 use Spatie\Enum\Laravel\Rules\EnumRule;
 
+/**
+ * Class PriceController
+ * @package App\Http\Controllers
+ */
 class PriceController extends Controller
 {
 
@@ -27,9 +30,13 @@ class PriceController extends Controller
         $request->validate([
             'timeframe' => [
                 'required',
-                'integer',
-                Rule::in(PriceTimeframeEnum::toValues()),
+                'string',
+                new EnumRule(PriceTimeframeEnum::class),
             ],
+        ]);
+
+        $request->transformEnums([
+            'timeframe' => PriceTimeframeEnum::class,
         ]);
 
         return $this->priceRepository->getPrices($request->get('timeframe'), 'BITTREX');

@@ -19,24 +19,7 @@ use Spatie\Enum\Laravel\Enum;
  */
 final class PriceTimeframeEnum extends Enum
 {
-    protected static function values()
-    {
-        return [
-            'MINUTE_1' => 60,
-            'MINUTE_5' => 300,
-            'MINUTE_15' => 900,
-            'MINUTE_30' => 1800,
-            'HOUR_1' => 3600,
-            'HOUR_2' => 7200,
-            'HOUR_3' => 10800,
-            'HOUR_4' => 14400,
-            'DAY_1' => 86400,
-            'DAY_7' => 604800,
-            'DAY_30' => 2592000,
-        ];
-    }
-
-    protected static function labels()
+    protected static function labels(): array
     {
         return [
             'MINUTE_1' => '1 minute',

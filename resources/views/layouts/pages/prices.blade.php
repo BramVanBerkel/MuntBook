@@ -30,39 +30,39 @@
             <div class="dropdown-menu" id="timeframes">
                 <h6 class="dropdown-header">Minutes</h6>
                 <button class="dropdown-item timeframe" type="button"
-                        value="{{ \App\Enums\PriceTimeframeEnum::MINUTE_1() }}"> {{ \App\Enums\PriceTimeframeEnum::MINUTE_1()->label }}
+                        value="{{ \App\Enums\PriceTimeframeEnum::MINUTE_1()->value }}"> {{ \App\Enums\PriceTimeframeEnum::MINUTE_1()->label }}
                 </button>
                 <button class="dropdown-item timeframe active" type="button"
-                        value="{{ \App\Enums\PriceTimeframeEnum::MINUTE_5() }}"> {{ \App\Enums\PriceTimeframeEnum::MINUTE_5()->label }}
+                        value="{{ \App\Enums\PriceTimeframeEnum::MINUTE_5()->value }}"> {{ \App\Enums\PriceTimeframeEnum::MINUTE_5()->label }}
                 </button>
                 <button class="dropdown-item timeframe" type="button"
-                        value="{{ \App\Enums\PriceTimeframeEnum::MINUTE_15() }}"> {{ \App\Enums\PriceTimeframeEnum::MINUTE_15()->label }}
+                        value="{{ \App\Enums\PriceTimeframeEnum::MINUTE_15()->value }}"> {{ \App\Enums\PriceTimeframeEnum::MINUTE_15()->label }}
                 </button>
                 <button class="dropdown-item timeframe" type="button"
-                        value="{{ \App\Enums\PriceTimeframeEnum::MINUTE_30() }}"> {{ \App\Enums\PriceTimeframeEnum::MINUTE_30()->label }}
+                        value="{{ \App\Enums\PriceTimeframeEnum::MINUTE_30()->value }}"> {{ \App\Enums\PriceTimeframeEnum::MINUTE_30()->label }}
                 </button>
                 <h6 class="dropdown-header">Hours</h6>
                 <button class="dropdown-item timeframe" type="button"
-                        value="{{ \App\Enums\PriceTimeframeEnum::HOUR_1() }}"> {{ \App\Enums\PriceTimeframeEnum::HOUR_1()->label }}
+                        value="{{ \App\Enums\PriceTimeframeEnum::HOUR_1()->value }}"> {{ \App\Enums\PriceTimeframeEnum::HOUR_1()->label }}
                 </button>
                 <button class="dropdown-item timeframe" type="button"
-                        value="{{ \App\Enums\PriceTimeframeEnum::HOUR_2() }}"> {{ \App\Enums\PriceTimeframeEnum::HOUR_2()->label }}
+                        value="{{ \App\Enums\PriceTimeframeEnum::HOUR_2()->value }}"> {{ \App\Enums\PriceTimeframeEnum::HOUR_2()->label }}
                 </button>
                 <button class="dropdown-item timeframe" type="button"
-                        value="{{ \App\Enums\PriceTimeframeEnum::HOUR_3() }}"> {{ \App\Enums\PriceTimeframeEnum::HOUR_3()->label }}
+                        value="{{ \App\Enums\PriceTimeframeEnum::HOUR_3()->value }}"> {{ \App\Enums\PriceTimeframeEnum::HOUR_3()->label }}
                 </button>
                 <button class="dropdown-item timeframe" type="button"
-                        value="{{ \App\Enums\PriceTimeframeEnum::HOUR_4() }}"> {{ \App\Enums\PriceTimeframeEnum::HOUR_4()->label }}
+                        value="{{ \App\Enums\PriceTimeframeEnum::HOUR_4()->value }}"> {{ \App\Enums\PriceTimeframeEnum::HOUR_4()->label }}
                 </button>
                 <h6 class="dropdown-header">Days</h6>
                 <button class="dropdown-item timeframe" type="button"
-                        value="{{ \App\Enums\PriceTimeframeEnum::DAY_1() }}"> {{ \App\Enums\PriceTimeframeEnum::DAY_1()->label }}
+                        value="{{ \App\Enums\PriceTimeframeEnum::DAY_1()->value }}"> {{ \App\Enums\PriceTimeframeEnum::DAY_1()->label }}
                 </button>
                 <button class="dropdown-item timeframe" type="button"
-                        value="{{ \App\Enums\PriceTimeframeEnum::DAY_7() }}"> {{ \App\Enums\PriceTimeframeEnum::DAY_7()->label }}
+                        value="{{ \App\Enums\PriceTimeframeEnum::DAY_7()->value }}"> {{ \App\Enums\PriceTimeframeEnum::DAY_7()->label }}
                 </button>
                 <button class="dropdown-item timeframe" type="button"
-                        value="{{ \App\Enums\PriceTimeframeEnum::DAY_30() }}"> {{ \App\Enums\PriceTimeframeEnum::DAY_30()->label }}
+                        value="{{ \App\Enums\PriceTimeframeEnum::DAY_30()->value }}"> {{ \App\Enums\PriceTimeframeEnum::DAY_30()->label }}
                 </button>
             </div>
             <div id="loader" class="spinner-border text-primary align-middle d-none" role="status">
