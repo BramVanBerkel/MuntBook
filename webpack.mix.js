@@ -32,4 +32,4 @@ if(process.env.MIX_TESTNET === 'true') {
     mix.copy('resources/images/splash/mainnet/*', 'public/images/splash');
     mix.copy('resources/webmanifest/mainnet.webmanifest', 'public/site.webmanifest');
 }
-
+mix.copy('resources/images/favicon.ico', 'public/images')
