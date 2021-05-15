@@ -3,6 +3,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Address;
 use App\Models\Block;
 use App\Models\Transaction;
 use Carbon\Carbon;
@@ -40,9 +41,18 @@ class TransactionRepository
         })->first();
 
         if ($witnessVout !== null) {
-            if ($witnessVout->get('PoW²-witness')->get('lock_from_block') === 0) {
+            $address = $witnessVout->get('PoW²-witness')
+                ->get('address');
+            $addressExists = Address::where('address', '=', $address)
+                ->exists();
+
+            if(!$addressExists) {
                 return Transaction::TYPE_WITNESS_FUNDING;
             }
+
+//            if ($witnessVout->get('PoW²-witness')->get('lock_from_block') === 0) {
+//                return Transaction::TYPE_WITNESS_FUNDING;
+//            }
 
             return Transaction::TYPE_WITNESS;
         }
