@@ -32,7 +32,7 @@
                     </tr>
                     <tr>
                         <td><strong>Total value out</strong></td>
-                        <td><x-gulden_display value="{{ $transaction->total_value_out }}" /></td>
+                        <td><x-gulden-display value="{{ $transaction->total_value_out }}" /></td>
                     </tr>
                     <tr>
                         <td><strong>Version</strong></td>
@@ -41,7 +41,7 @@
                     <tr>
                         <td><strong>{{ $transaction->type === \App\Models\Transaction::TYPE_WITNESS ?
                                 'Witness transaction fee' : 'Transaction fee' }}</strong></td>
-                        <td><x-gulden_display value="{{ $fee }}" /></td>
+                        <td><x-gulden-display value="{{ $fee }}" /></td>
                     </tr>
                     @if($transaction->type === \App\Models\Transaction::TYPE_WITNESS)
                         <tr>
@@ -85,7 +85,7 @@
                                     Address unknown
                                 @endif
                             </td>
-                            <td><x-gulden_display value="{{ -$vin->value }}" colored="true" /></td>
+                            <td><x-gulden-display value="{{ -$vin->value }}" colored="true" /></td>
                         </tr>
                     @endforeach
 
@@ -96,7 +96,7 @@
                                     {{ $vout->address->address }}
                                 </a>
                             </td>
-                            <td><x-gulden_display value="{{ $vout->value }}" colored="true"/></td>
+                            <td><x-gulden-display value="{{ $vout->value }}" colored="true"/></td>
                         </tr>
                     @endforeach
                 </table>

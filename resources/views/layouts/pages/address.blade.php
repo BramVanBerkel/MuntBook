@@ -28,15 +28,15 @@
                     </tr>
                     <tr>
                         <td><strong>Value in</strong></td>
-                        <td><x-gulden_display value="{{ $totalValueIn }}" /></td>
+                        <td><x-gulden-display value="{{ $totalValueIn }}" /></td>
                     </tr>
                     <tr>
                         <td><strong>Value out</strong></td>
-                        <td style="border-bottom: black 1px solid"><x-gulden_display value="{{ $totalValueOut }}" /></td>
+                        <td style="border-bottom: black 1px solid"><x-gulden-display value="{{ $totalValueOut }}" /></td>
                     </tr>
                     <tr>
                         <td><strong>Value</strong></td>
-                        <td><x-gulden_display value="{{ $totalValue }}" colored="true" sign="false"/></td>
+                        <td><x-gulden-display value="{{ $totalValue }}" colored="true" sign="false"/></td>
                     </tr>
                     <tr>
                         <td><strong>Total transactions</strong></td>
@@ -75,9 +75,9 @@
                             </td>
                             <td>
                                 @if($transaction->type === 'vout')
-                                    <x-gulden_display value="{{ $transaction->value }}" colored=true />
+                                    <x-gulden-display value="{{ $transaction->value }}" colored=true />
                                 @elseif($transaction->type === 'vin')
-                                    <x-gulden_display value="{{ -$transaction->value }}" colored=true />
+                                    <x-gulden-display value="{{ -$transaction->value }}" colored=true />
                                 @endif
                             </td>
                         </tr>
