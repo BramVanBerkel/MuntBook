@@ -43,6 +43,8 @@ class ProcessBlock implements ShouldQueue
             dispatch(new SetHashrate($block->height));
         }
 
+        $block->transactions()->delete();
+
         foreach ($blockData->get('tx') as $txid) {
             $tx = $guldenService->getTransaction($txid, true);
 
