@@ -16,6 +16,9 @@ class BlockRepository
         $witness_merkleroot = $data->get('witness_merkleroot') !== Block::EMPTY_WITNESS_MERLKEROOT ? $data->get('witness_merkleroot') : null;
         $witness_version = $data->get('witness_version') === 0 ? null : $data->get('witness_version');
 
+        //convert chainwork to gigahashes. We're using GMP because the chainwork decimal number is too long for php
+        $chainwork = gmp_div(gmp_hexdec($data->get('chainwork')), gmp_init(1000000000));
+
         return Block::updateOrCreate([
             'height' => $data->get('height'),
         ],[
@@ -37,7 +40,7 @@ class BlockRepository
             'post_nonce' => $data->get('post_nonce'),
             'bits' => $data->get('bits'),
             'difficulty' => $data->get('difficulty'),
-            'chainwork' => gmp_strval(gmp_hexdec($data->get('chainwork'))),
+            'chainwork' => gmp_intval($chainwork),
             'previousblockhash' => $data->get('previousblockhash'),
             'created_at' => new Carbon($data->get('mediantime')),
         ]);
