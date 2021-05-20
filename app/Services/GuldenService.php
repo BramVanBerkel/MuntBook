@@ -110,10 +110,28 @@ class GuldenService
      *
      * @param string $blockSpecifier
      * @param bool $verbose
-     * @return object
+     * @return Collection
      */
-    public function getWitnessInfo(string $blockSpecifier = 'tip', bool $verbose = false)
+    public function getWitnessInfo(string $blockSpecifier = 'tip', bool $verbose = false): Collection
     {
-        return collect($this->getData('getwitnessinfo', [$blockSpecifier, $verbose])->result[0])->recursive();
+        return collect($this->getData('getwitnessinfo', [$blockSpecifier, $verbose])->result)->recursive();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getNetworkInfo(): Collection
+    {
+        return collect($this->getData('getnetworkinfo')->result)->recursive();
+    }
+
+    /**
+     * Returns the total uptime of the server (in seconds).
+     *
+     * @return integer
+     */
+    public function getUptime(): int
+    {
+        return (int)$this->getData('uptime')->result;
     }
 }

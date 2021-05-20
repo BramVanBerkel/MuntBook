@@ -4,6 +4,7 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\BlockController;
 use App\Http\Controllers\DifficultyHashrateController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NodeInformationController;
 use App\Http\Controllers\NonceDistributionController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\SearchController;
@@ -39,3 +40,5 @@ Route::get('/difficulty-hashrate/data', [DifficultyHashrateController::class, 'd
 
 Route::get('/prices', [PriceController::class, 'index'])->name('prices');
 Route::get('/prices/data', [PriceController::class, 'data'])->name('prices.data');
+
+Route::get('/node-information', [NodeInformationController::class, 'index'])->name('node-information');

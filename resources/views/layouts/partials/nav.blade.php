@@ -86,6 +86,7 @@
                             </ul>
                         </li>
                         <li><a href="{{ route('prices') }}">Prices</a></li>
+                        <li><a href="{{ route('node-information') }}">Node information</a></li>
                     </ul>
 
                     <a class="menu-trigger">
