@@ -19,7 +19,8 @@
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
-        "spatie/laravel-enum": "^2.4"
+        "spatie/laravel-enum": "^2.4",
+        "ext-gmp": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.9",
@@ -40,6 +41,9 @@
         }
     },
     "autoload": {
+        "files": [
+            "app/helpers.php"
+        ],
         "psr-4": {
             "App\\": "app/"
         },

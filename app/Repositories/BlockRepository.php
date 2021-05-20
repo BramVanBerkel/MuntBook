@@ -37,9 +37,9 @@ class BlockRepository
             'post_nonce' => $data->get('post_nonce'),
             'bits' => $data->get('bits'),
             'difficulty' => $data->get('difficulty'),
-            'chainwork' => $data->get('chainwork'),
+            'chainwork' => gmp_strval(gmp_hexdec($data->get('chainwork'))),
             'previousblockhash' => $data->get('previousblockhash'),
-            'created_at' => new Carbon($data->get('mediantime'))
+            'created_at' => new Carbon($data->get('mediantime')),
         ]);
     }
 }
