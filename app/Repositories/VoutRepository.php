@@ -120,7 +120,7 @@ class VoutRepository
      * Returns float of value that witness is partially compounding
      * Returns false if witness is not compounding
      */
-    private function isCompounding(Collection $vouts)
+    private function isCompounding(Collection $vouts): bool|float
     {
         if ($vouts->count() === 1) {
             return true;
