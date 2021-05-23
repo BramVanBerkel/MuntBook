@@ -65,8 +65,8 @@ class Vout extends Model
         $this->hasOne(Address::class, 'id', 'witness_address_id');
     }
 
-    public function isWitness()
+    public function isWitness(): bool
     {
-        return $this->witness_hex !== null;
+        return $this->type === self::TYPE_WITNESS;
     }
 }
