@@ -140,6 +140,13 @@ class VoutRepository
     private function getType(Collection $data, Transaction $transaction, ?Address $address): string
     {
         if ($data->has('PoW²-witness') || optional($data->get('scriptPubKey'))->get('type') === 'pow2_witness') {
+            //TODO refactor "nonstandard" to enum
+            if($transaction->vins()->first()->vout?->scriptpubkey_type === 'nonstandard') {
+                //TODO: ugly
+                $transaction->update(['type' => Transaction::TYPE_WITNESS_FUNDING]);
+                return Vout::TYPE_WITNESS_FUNDING;
+            }
+
             if ($data->get('PoW²-witness')->get('lock_from_block') === 0) {
                 return Vout::TYPE_WITNESS_FUNDING;
             }

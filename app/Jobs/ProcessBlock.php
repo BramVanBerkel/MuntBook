@@ -50,9 +50,9 @@ class ProcessBlock implements ShouldQueue
 
             $transaction = $transactionRepository->syncTransaction($tx, $block);
 
-            $voutRepository->syncVouts($tx->get('vout'), $transaction);
-
             $vinRepository->syncVins($tx->get('vin'), $transaction);
+
+            $voutRepository->syncVouts($tx->get('vout'), $transaction);
         }
 
         DB::commit();
