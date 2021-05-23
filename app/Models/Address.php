@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 /**
  * Class Address
@@ -33,17 +35,17 @@ class Address extends Model
         self::TYPE_MINING,
     ];
 
-    public function vouts()
+    public function vouts(): HasMany
     {
         return $this->hasMany(Vout::class);
     }
 
-    public function vins()
+    public function vins(): HasManyThrough
     {
         return $this->hasManyThrough(Vin::class, Vout::class);
     }
 
-    public function witnessAddressParts()
+    public function witnessAddressParts(): HasMany
     {
         return $this->hasMany(WitnessAddressPart::class);
     }

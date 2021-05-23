@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class Vin
@@ -34,12 +35,12 @@ class Vin extends Model
         self::PREVOUT_TYPE_HASH,
     ];
 
-    public function transaction()
+    public function transaction(): BelongsTo
     {
         return $this->belongsTo(Transaction::class);
     }
 
-    public function vout()
+    public function vout(): BelongsTo
     {
         return $this->belongsTo(Vout::class);
     }

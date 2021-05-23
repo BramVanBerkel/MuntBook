@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 /**
@@ -43,7 +45,7 @@ class Transaction extends Model
         self::TYPE_WITNESS,
         self::TYPE_MINING,
     ];
-    
+
     const ICONS = [
         self::TYPE_TRANSACTION => 'exchange-alt',
         self::TYPE_WITNESS_FUNDING => 'piggy-bank',
@@ -55,35 +57,35 @@ class Transaction extends Model
 
     const WITNESS_REWARD = 30;
 
-    public function block()
+    public function block(): BelongsTo
     {
         return $this->belongsTo(Block::class);
     }
 
-    public function vouts()
+    public function vouts(): HasMany
     {
         return $this->hasMany(Vout::class);
     }
 
-    public function vins()
+    public function vins(): HasMany
     {
         return $this->hasMany(Vin::class);
     }
 
-    public function getTotalValueOutAttribute()
+    public function getTotalValueOutAttribute(): float
     {
-        return $this->vouts()
+        return (float)$this->vouts()
             ->where('type', '<>', Vout::TYPE_WITNESS)
             ->where('scriptpubkey_type', 'is distinct from', 'nonstandard')
             ->sum('value');
     }
 
-    public function getIconAttribute()
+    public function getIconAttribute(): string
     {
         return Transaction::ICONS[$this->type];
     }
 
-    public function getIconNameAttribute()
+    public function getIconNameAttribute(): string
     {
         return Str::ucfirst(str_replace('_', ' ', $this->type));
     }
