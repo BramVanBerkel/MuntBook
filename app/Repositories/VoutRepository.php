@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 
+use App\Enums\AddressTypeEnum;
 use App\Models\Address;
 use App\Models\Transaction;
 use App\Models\Vout;
@@ -158,7 +159,7 @@ class VoutRepository
 
             if($address) {
                 $address->update([
-                    'type' => Address::TYPE_MINING,
+                    'type' => AddressTypeEnum::MINING(),
                 ]);
             }
 

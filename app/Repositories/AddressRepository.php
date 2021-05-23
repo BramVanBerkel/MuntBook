@@ -3,6 +3,7 @@
 
 namespace App\Repositories;
 
+use App\Enums\AddressTypeEnum;
 use App\Models\Address;
 use Illuminate\Support\Str;
 
@@ -19,8 +20,8 @@ class AddressRepository
     private function getType(string $address): ?string
     {
         return match (Str::length($address)) {
-            config('gulden.address_length') => Address::TYPE_ADDRESS,
-            config('gulden.witness_address_length') => Address::TYPE_WITNESS,
+            config('gulden.address_length') => AddressTypeEnum::ADDRESS(),
+            config('gulden.witness_address_length') => AddressTypeEnum::WITNESS(),
             default => null,
         };
     }
