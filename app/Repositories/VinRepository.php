@@ -17,13 +17,7 @@ class VinRepository
             //convert empty strings to null, to prevent inserting empty values in the DB
             $vinData = $vinData->map(fn($item) => $item === "" ? null : $item);
 
-            $referencingVout = null;
-
-            if ($vinData->get('prevout_type') === Vin::PREVOUT_TYPE_INDEX) {
-                $referencingVout = $this->getIndexVout($vinData);
-            } elseif ($vinData->get('prevout_type') === Vin::PREVOUT_TYPE_HASH) {
-                $referencingVout = $this->getHashVout($vinData);
-            }
+            $referencingVout = $this->getReferencingVout($vinData);
 
             $vin = Vin::updateOrCreate([
                 'transaction_id' => $transaction->id,
@@ -41,11 +35,21 @@ class VinRepository
                 'rbf' => $vinData->get('rbf'),
             ]);
 
-            if ($referencingVout !== null) {
+            if ($referencingVout instanceof Vout) {
                 $vin->vout()->associate($referencingVout);
                 $vin->save();
             }
         }
+    }
+
+    private function getReferencingVout(Collection $vinData): ?Vout
+    {
+        if ($vinData->get('prevout_type') === Vin::PREVOUT_TYPE_INDEX) {
+            return $this->getIndexVout($vinData);
+        } elseif ($vinData->get('prevout_type') === Vin::PREVOUT_TYPE_HASH) {
+            return $this->getHashVout($vinData);
+        }
+        return null;
     }
 
     private function getIndexVout(Collection $vinData): ?Vout
