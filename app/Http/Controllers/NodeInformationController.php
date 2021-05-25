@@ -5,17 +5,21 @@ namespace App\Http\Controllers;
 use App\Services\GuldenService;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
+use GuzzleHttp\Exception\GuzzleException;
 
 class NodeInformationController extends Controller
 {
     public function index(GuldenService $guldenService)
     {
-        //format seconds to a human readable format
-        $uptime = now()->subSeconds($guldenService->getUptime())->toNow(Carbon::DIFF_ABSOLUTE, parts: 3);
+        if($running = $guldenService->running()) {
+            $uptime = now()->subSeconds($guldenService->getUptime())->toNow(Carbon::DIFF_ABSOLUTE, parts: 3);
+            $networkInfo = $guldenService->getNetworkInfo();
+        }
 
         return view('layouts.pages.node_information', [
-            'networkInfo' => $guldenService->getNetworkInfo(),
-            'uptime' => $uptime,
+            'running' => $running,
+            'networkInfo' => $networkInfo ?? null,
+            'uptime' => $uptime ?? null,
         ]);
     }
 }

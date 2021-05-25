@@ -21,6 +21,9 @@ class GuldenService
         ]);
     }
 
+    /**
+     * @throws GuzzleException
+     */
     private function getData(string $method, array $params = []): object
     {
         try {
@@ -32,7 +35,23 @@ class GuldenService
             ])->getBody());
         } catch (GuzzleException $e) {
             Log::error($e->getMessage());
-            die();
+            throw $e;
+        }
+    }
+
+    /**
+     * Checks if the GuldenD process is running
+     *
+     * @return bool
+     */
+    public function running(): bool
+    {
+        try {
+            $this->getUptime();
+
+            return true;
+        } catch (GuzzleException $e) {
+            return false;
         }
     }
 
