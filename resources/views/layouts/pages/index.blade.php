@@ -53,7 +53,10 @@
                                     {{ $block->height }}
                                 </a>
                             </td>
-                            <td>{{ $block->created_at->format('Y-m-d H:i:s') }}</td>
+                            <td>
+                                {{ $block->created_at->format('Y-m-d H:i:s') }}
+                                <small class="text-muted">{{ $block->created_at->longRelativeToNowDiffForHumans() }}</small>
+                            </td>
                             <td>{{ $block->transactions()->count() }}</td>
                             <td><x-gulden-display value="{{ $block->total_value_out }}" /></td>
                         </tr>
