@@ -23,7 +23,7 @@
     </div>
     <div class="row">
         <div class="col-lg-3">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                 Timeframe: <span class="timeframe-text"></span>
             </button>
