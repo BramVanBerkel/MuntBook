@@ -11,15 +11,7 @@ use Illuminate\Support\Facades\Log;
 
 class GuldenService
 {
-    private Client $client;
-
-    public function __construct($rpcUser, $rpcPassword, $rpcHost)
-    {
-        $this->client = new Client([
-            'base_uri' => $rpcHost,
-            'auth' => [$rpcUser, $rpcPassword]
-        ]);
-    }
+    public function __construct(private Client $client) {}
 
     /**
      * @throws GuzzleException
