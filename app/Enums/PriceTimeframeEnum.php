@@ -35,4 +35,21 @@ final class PriceTimeframeEnum extends Enum
             'DAY_30' => '1 month',
         ];
     }
+
+    public function toSeconds(): int
+    {
+        return match ($this->value) {
+            self::MINUTE_1()->value => 60,
+            self::MINUTE_5()->value => 300,
+            self::MINUTE_15()->value => 900,
+            self::MINUTE_30()->value => 1800,
+            self::HOUR_1()->value => 3600,
+            self::HOUR_2()->value => 7200,
+            self::HOUR_3()->value => 10800,
+            self::HOUR_4()->value => 14400,
+            self::DAY_1()->value => 86400,
+            self::DAY_7()->value => 604800,
+            self::DAY_30()->value => 2592000,
+        };
+    }
 }
