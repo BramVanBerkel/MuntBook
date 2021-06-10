@@ -36,12 +36,6 @@
                 <label class="btn btn-outline-primary">
                     <input type="radio" class="chart-setting" value="365" name="options" autocomplete="off"> 1 year
                 </label>
-                <label class="btn btn-outline-primary">
-                    <input type="radio" class="chart-setting" value="1095" name="options" autocomplete="off"> 3 years
-                </label>
-                <label class="btn btn-outline-primary">
-                    <input type="radio" class="chart-setting" value="-1" name="options" autocomplete="off"> All Time
-                </label>
             </div>
         </div>
         <div class="col-lg-6">
