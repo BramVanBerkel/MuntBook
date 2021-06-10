@@ -21,7 +21,7 @@ class GeoIPService
         })->groupBy('country_name')
             ->map(function (Collection $group): int {
                 return $group->count();
-            });
+            })->sortDesc();
     }
 }
 
