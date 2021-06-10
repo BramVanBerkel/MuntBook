@@ -21,12 +21,21 @@
                     <div class="card-body">
                         <h5 class="card-title">Version: {{ $networkInfo->get('version') }}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">Subversion: {{ $networkInfo->get('subversion') }}</h6>
-                        <h6 class="card-subtitle mb-2 text-muted">Protocol version: {{ $networkInfo->get('protocolversion') }}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">Protocol
+                            version: {{ $networkInfo->get('protocolversion') }}</h6>
                     </div>
                 </div>
                 <div class="card mb-3">
                     <div class="card-body">
                         <h5 class="card-title">Connections: {{ $networkInfo->get('connections') }}</h5>
+                        <table class="table">
+                            @foreach($countries as $country => $count)
+                                <tr>
+                                    <td>{{ $country }}</td>
+                                    <td>{{ $count }}</td>
+                                </tr>
+                            @endforeach
+                        </table>
                     </div>
                 </div>
                 <div class="card">

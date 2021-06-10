@@ -145,4 +145,9 @@ class GuldenService
     {
         return (int)$this->getData('uptime')->result;
     }
+
+    public function getPeerInfo(): Collection
+    {
+        return collect($this->getData('getpeerinfo')->result)->recursive();
+    }
 }

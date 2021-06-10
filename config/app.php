@@ -177,7 +177,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        App\Providers\GuldenServiceProvider::class
+        App\Providers\GuldenServiceProvider::class,
+        App\Providers\BittrexServiceProvider::class,
     ],
 
     /*

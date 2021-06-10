@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Price;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,20 +15,25 @@ class BittrexPricesSeeder extends Seeder
      */
     public function run()
     {
+        // check if prices have already been seeded
+        if (Price::count() !== 0) {
+            return;
+        }
+
         //unzip
         $zipPath = realpath('database/seeds/bittrex.csv.zip');
         $zipArchive = new \ZipArchive();
 
         \Log::channel('stderr')->info('Opening bittrex.csv.zip...');
         $opened = $zipArchive->open($zipPath);
-        if(!$opened) {
+        if (!$opened) {
             \Log::channel('stderr')->info('Failed opening bittrex.csv.zip!');
             die();
         }
 
         \Log::channel('stderr')->info('Unzipping bittrex.csv.zip...');
         $extracted = $zipArchive->extractTo('database/seeds');
-        if(!$extracted) {
+        if (!$extracted) {
             \Log::channel('stderr')->info('Failed extracting bittrex.csv.zip!');
             die();
         }
@@ -41,7 +47,8 @@ class BittrexPricesSeeder extends Seeder
             FROM '{$path}'
             DELIMITER ','
             CSV HEADER;
-        SQL);
+        SQL
+        );
 
         //cleanup
         \Log::channel('stderr')->info('Removing bittrex.csv.zip...');
