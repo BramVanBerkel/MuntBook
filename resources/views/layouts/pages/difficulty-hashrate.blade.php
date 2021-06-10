@@ -16,7 +16,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <canvas id="diffilulty-hashrate" width="300" height="200"></canvas>
+            <canvas id="difficulty-hashrate" width="300" height="200"></canvas>
         </div>
     </div>
 
@@ -59,7 +59,7 @@
 @section('script')
     <script>
         const url = '{{ route('difficulty-hashrate.data') }}';
-        const difficultyHashrateCanvas = document.getElementById('diffilulty-hashrate').getContext('2d');
+        const difficultyHashrateCanvas = document.getElementById('difficulty-hashrate').getContext('2d');
         const difficultyHashrateChart = new Chart(difficultyHashrateCanvas, {
             type: 'line',
             options: {
