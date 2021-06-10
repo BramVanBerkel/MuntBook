@@ -43,14 +43,14 @@ Route::get('/address/{address}', [AddressController::class, 'index'])
 /** Block */
 Route::get('/block/{block}', [BlockController::class, 'index'])
     ->name('block')
-    ->where('block', '[0-9]+')
+    ->where('block', '[0-9]{1,10}+')
     ->missing(function(Request $request) {
         return Redirect::route('missing-block', ['block' => $request->route('block')]);
     });
 
 Route::get('/missing-block/{block}', [MissingBlockController::class, 'index'])
     ->name('missing-block')
-    ->where('block', '[0-9]+');
+    ->where('block', '[0-9]{1,10}+');
 
 /** Nonce distribution */
 Route::get('/nonce-distribution', [NonceDistributionController::class, 'index'])
