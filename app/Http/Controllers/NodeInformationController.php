@@ -16,8 +16,11 @@ class NodeInformationController extends Controller
             $peerInfo = $guldenService->getPeerInfo();
 
             $ips = $peerInfo->pluck('addr')->map(function(string $addr) {
-                // strip port from address
-                return parse_url($addr)['host'];
+                //remove port from end of string
+                $addr = substr($addr, 0, strrpos($addr, ":"));
+
+                //remove brackets from ipv6 notation
+                return str_replace(['[', ']'], '', $addr);
             });
 
             $countries = $geoIPService->countCountries($ips);
