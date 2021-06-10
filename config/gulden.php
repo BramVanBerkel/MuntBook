@@ -76,4 +76,14 @@ return [
     'transaction_or_block_hash_length' => 64,
     'address_length' => 34,
     'witness_address_length' => 62,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Blocktime
+    |--------------------------------------------------------------------------
+    |
+    | The desired amount of seconds between blocks
+    |
+    */
+    'blocktime' => 150,
 ];

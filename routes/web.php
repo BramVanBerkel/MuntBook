@@ -4,12 +4,14 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\BlockController;
 use App\Http\Controllers\DifficultyHashrateController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MissingBlockController;
 use App\Http\Controllers\NodeInformationController;
 use App\Http\Controllers\NonceDistributionController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,23 +24,53 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+/** Home */
+Route::get('/', [HomeController::class, 'index'])
+    ->name('home');
 
-Route::post('/', [SearchController::class, 'search'])->name('search');
+/** Search */
+Route::post('/', [SearchController::class, 'search'])
+    ->name('search');
 
-Route::get('/transaction/{txid}', [TransactionController::class, 'index'])->name('transaction');
+/** Transaction */
+Route::get('/transaction/{txid}', [TransactionController::class, 'index'])
+    ->name('transaction');
 
-Route::get('/address/{address}', [AddressController::class, 'index'])->name('address');
+/** Address */
+Route::get('/address/{address}', [AddressController::class, 'index'])
+    ->name('address');
 
-Route::get('/block/{block}', [BlockController::class, 'index'])->name('block')->where('block', '[0-9]+');
+/** Block */
+Route::get('/block/{block}', [BlockController::class, 'index'])
+    ->name('block')
+    ->where('block', '[0-9]+')
+    ->missing(function(Request $request) {
+        return Redirect::route('missing-block', ['block' => $request->route('block')]);
+    });
 
-Route::get('/nonce-distribution', [NonceDistributionController::class, 'index'])->name('nonce-distribution');
-Route::get('/nonce-distribution/data', [NonceDistributionController::class, 'data'])->name('nonce-distribution.data');
+Route::get('/missing-block/{block}', [MissingBlockController::class, 'index'])
+    ->name('missing-block')
+    ->where('block', '[0-9]+');
 
-Route::get('/difficulty-hashrate', [DifficultyHashrateController::class, 'index'])->name('difficulty-hashrate');
-Route::get('/difficulty-hashrate/data', [DifficultyHashrateController::class, 'data'])->name('difficulty-hashrate.data');
+/** Nonce distribution */
+Route::get('/nonce-distribution', [NonceDistributionController::class, 'index'])
+    ->name('nonce-distribution');
 
-Route::get('/prices', [PriceController::class, 'index'])->name('prices');
-Route::get('/prices/data', [PriceController::class, 'data'])->name('prices.data');
+Route::get('/nonce-distribution/data', [NonceDistributionController::class, 'data'])
+    ->name('nonce-distribution.data');
 
-Route::get('/node-information', [NodeInformationController::class, 'index'])->name('node-information');
+/** Difficulty & Hashrate */
+Route::get('/difficulty-hashrate', [DifficultyHashrateController::class, 'index'])
+    ->name('difficulty-hashrate');
+Route::get('/difficulty-hashrate/data', [DifficultyHashrateController::class, 'data'])
+    ->name('difficulty-hashrate.data');
+
+/** Prices */
+Route::get('/prices', [PriceController::class, 'index'])
+    ->name('prices');
+Route::get('/prices/data', [PriceController::class, 'data'])
+    ->name('prices.data');
+
+/** Node Information */
+Route::get('/node-information', [NodeInformationController::class, 'index'])
+    ->name('node-information');
