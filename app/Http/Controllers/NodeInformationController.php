@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\GeoIPService;
 use App\Services\GuldenService;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 
 class NodeInformationController extends Controller
 {
@@ -13,17 +14,21 @@ class NodeInformationController extends Controller
         if($running = $guldenService->running()) {
             $uptime = now()->subSeconds($guldenService->getUptime())->toNow(Carbon::DIFF_ABSOLUTE, parts: 3);
             $networkInfo = $guldenService->getNetworkInfo();
-            $peerInfo = $guldenService->getPeerInfo();
 
-            $ips = $peerInfo->pluck('addr')->map(function(string $addr) {
-                //remove port from end of string
-                $addr = substr($addr, 0, strrpos($addr, ":"));
+            $countries = Cache::remember('peer_info_countries', now()->addHour(), function() use($guldenService, $geoIPService) {
+                $peerInfo = $guldenService->getPeerInfo();
 
-                //remove brackets from ipv6 notation
-                return str_replace(['[', ']'], '', $addr);
+                $ips = $peerInfo->pluck('addr')->map(function(string $addr) {
+                    //remove port from end of string
+                    $addr = substr($addr, 0, strrpos($addr, ":"));
+
+                    //remove brackets from ipv6 notation
+                    return str_replace(['[', ']'], '', $addr);
+                });
+
+                return $geoIPService->countCountries($ips);
             });
 
-            $countries = $geoIPService->countCountries($ips);
         }
 
         return view('layouts.pages.node_information', [
