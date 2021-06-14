@@ -5,10 +5,8 @@ namespace App\Repositories;
 
 
 use GeoIp2\Database\Reader;
-use GeoIp2\Exception\AddressNotFoundException;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use InvalidArgumentException;
 
 class GeoIPRepository
 {
@@ -20,7 +18,7 @@ class GeoIPRepository
     {
         try {
             $this->reader = new Reader(Storage::path('GeoLite2-Country.mmdb'));
-        } catch (InvalidArgumentException $e) {
+        } catch (\Exception $e) {
             Log::error($e);
             $this->reader = null;
         }
@@ -34,7 +32,7 @@ class GeoIPRepository
 
         try {
             return $this->reader->country($ip)->country->name;
-        } catch (AddressNotFoundException $e) {
+        } catch (\Exception $e) {
             Log::error($e);
             return self::UNKNOWN;
         }
