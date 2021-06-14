@@ -4,15 +4,39 @@
 namespace App\Repositories;
 
 
-use App\Models\GeoIpLocation;
-use Illuminate\Database\Eloquent\Builder;
+use GeoIp2\Database\Reader;
+use GeoIp2\Exception\AddressNotFoundException;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use InvalidArgumentException;
 
-class GeoIpRepository
+class GeoIPRepository
 {
-    public function findLocation(string $ip): ?GeoIpLocation
+    public const UNKNOWN = 'Unknown';
+
+    private ?Reader $reader;
+
+    public function __construct()
     {
-        return GeoIpLocation::whereHas('geoIpBlocks', function (Builder $query) use ($ip) {
-            $query->where('cidr', '>>=', $ip);
-        })->first();
+        try {
+            $this->reader = new Reader(Storage::path('GeoLite2-Country.mmdb'));
+        } catch (InvalidArgumentException $e) {
+            Log::error($e);
+            $this->reader = null;
+        }
+    }
+
+    public function findCity(string $ip)
+    {
+        if($this->reader === null) {
+            return "Unknown";
+        }
+
+        try {
+            return $this->reader->country($ip)->country->name;
+        } catch (AddressNotFoundException $e) {
+            Log::error($e);
+            return self::UNKNOWN;
+        }
     }
 }
