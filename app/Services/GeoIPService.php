@@ -7,13 +7,11 @@ use Illuminate\Support\Collection;
 
 class GeoIPService
 {
-    public function __construct(private GeoIPRepository $geoIPRepository) {}
-
     public function countCountries(Collection $ips): Collection
     {
         return $ips->map(function (string $ip) {
             return [
-                'country' => $this->geoIPRepository->findCity($ip),
+                'country' => app(GeoIPRepository::class)->findCity($ip),
                 'ip' => $ip,
             ];
         })->groupBy('country')
