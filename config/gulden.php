@@ -86,4 +86,14 @@ return [
     |
     */
     'blocktime' => 150,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Max connections
+    |--------------------------------------------------------------------------
+    |
+    | Maintain at most <n> connections to peers (default: 125)
+    |
+    */
+    'maxconnections' => env('GULDEN_MAXCONNECTIONS'),
 ];

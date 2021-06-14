@@ -54,6 +54,10 @@ class Start extends Command
         $config .= "rpcpassword=" . config('gulden.rpc_password') . "\n";
         $config .= "port=" . config('gulden.port') . "\n";
 
+        if(config('gulden.maxconnections')) {
+            $config .= "maxconnections=" . config('gulden.maxconnections') . "\n";
+        }
+
         if (!empty(config('gulden.testnet'))) {
             $config .= "testnet=" . config('gulden.testnet') . "\n";
         }
