@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Block;
-use Illuminate\Routing\Controller;
 
 class NonceDistributionController extends Controller
 {
