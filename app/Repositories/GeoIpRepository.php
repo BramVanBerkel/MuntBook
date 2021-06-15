@@ -27,7 +27,7 @@ class GeoIPRepository
     public function findCity(string $ip)
     {
         if($this->reader === null) {
-            return "Unknown";
+            return self::UNKNOWN;
         }
 
         try {
