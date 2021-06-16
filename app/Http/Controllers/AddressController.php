@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\AddressTypeEnum;
 use App\Models\Address;
 use Illuminate\Support\Facades\DB;
 
@@ -9,11 +10,8 @@ class AddressController extends Controller
 {
     public function index(string $address)
     {
-        $address = Address::firstWhere('address', '=', $address);
-
-        if ($address === null) {
-            abort(404);
-        }
+        /** @var Address $address */
+        $address = Address::where('address', '=', $address)->firstOrFail();
 
         $vinsQuery = DB::table('vins')->select([
             'transactions.txid', 'blocks.created_at', DB::raw('sum(vouts.value) as value'), DB::raw("'vin' as type")
