@@ -8,14 +8,13 @@ use App\Enums\AddressTypeEnum;
 use App\Models\Address;
 use App\Models\Transaction;
 use App\Models\Vout;
-use App\Repositories\AddressRepository;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 class VoutService
 {
     public function __construct(
-        private AddressRepository $addressRepository
+        private AddressService $addressService
     ) {}
 
     public function saveVouts(Collection $vouts, Transaction $transaction): void
@@ -52,15 +51,15 @@ class VoutService
     private function getAddress(Collection $vout): ?Address
     {
         if (Arr::has($vout, 'scriptPubKey.addresses')) {
-            return $this->addressRepository->create(Arr::get($vout, 'scriptPubKey.addresses')[0]);
+            return $this->addressService->getAddress(Arr::get($vout, 'scriptPubKey.addresses')[0]);
         }
 
         if ($vout->has('standard-key-hash')) {
-            return $this->addressRepository->create(Arr::get($vout, 'standard-key-hash.address'));
+            return $this->addressService->getAddress(Arr::get($vout, 'standard-key-hash.address'));
         }
 
         if ($vout->has('PoW²-witness')) {
-            return $this->addressRepository->create(Arr::get($vout, 'PoW²-witness.address'));
+            return $this->addressService->getAddress(Arr::get($vout, 'PoW²-witness.address'));
         }
 
         return null;
