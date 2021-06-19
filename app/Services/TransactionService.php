@@ -1,17 +1,18 @@
 <?php
 
 
-namespace App\Repositories;
+namespace App\Services;
 
-use App\Models\Address;
+
 use App\Models\Block;
 use App\Models\Transaction;
-use Carbon\Carbon;
+use Carbon\Traits\Creator;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
-class TransactionRepository
+class TransactionService
 {
-    public function syncTransaction(Collection $transaction, Block $block): Transaction
+    public function saveTransaction(Collection $transaction, Block $block): Transaction
     {
         return Transaction::updateOrCreate([
             'txid' => $transaction->get('txid'),
@@ -41,19 +42,6 @@ class TransactionRepository
         })->first();
 
         if ($witnessVout !== null) {
-//            $address = $witnessVout->get('PoW²-witness')
-//                ->get('address');
-//            $addressExists = Address::where('address', '=', $address)
-//                ->exists();
-//
-//            if(!$addressExists) {
-//                return Transaction::TYPE_WITNESS_FUNDING;
-//            }
-
-//            if ($witnessVout->get('PoW²-witness')->get('lock_from_block') === 0) {
-//                return Transaction::TYPE_WITNESS_FUNDING;
-//            }
-
             return Transaction::TYPE_WITNESS;
         }
 

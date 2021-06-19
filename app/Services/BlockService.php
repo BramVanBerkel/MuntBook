@@ -1,33 +1,25 @@
 <?php
 
 
-namespace App\Repositories;
+namespace App\Services;
 
 
 use App\Models\Block;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
-class BlockRepository
+class BlockService
 {
-    public function syncBlock(Collection $data): Block
+    public function saveBlock(Collection $data): Block
     {
         $witness_time = $data->get('witness_time') !== 0 ? new Carbon($data->get('witness_time')) : null;
         $witness_merkleroot = $data->get('witness_merkleroot') !== Block::EMPTY_WITNESS_MERLKEROOT ? $data->get('witness_merkleroot') : null;
-        $witness_version = $data->get('witness_version') === 0 ? null : $data->get('witness_version');
+        $witness_version = $data->get('witness_version') !== 0 ? $data->get('witness_version') : null;
 
         //convert timestamps to current timezone
-        $medianTime = new Carbon($data->get('mediantime'));
-        $medianTime->setTimezone(date_default_timezone_get());
-
-        $time = new Carbon($data->get('time'));
-        $time->setTimezone(date_default_timezone_get());
-
-        $powTime = new Carbon($data->get('pow_time'));
-        $powTime->setTimezone(date_default_timezone_get());
-
-        // Convert chainwork to gigahashes. We're using GMP because the chainwork decimal number is too long for php
-        $chainwork = gmp_div(gmp_hexdec($data->get('chainwork')), gmp_init(1000000000));
+        $medianTime = $this->getInCurrentTimezone($data->get('mediantime'));
+        $time = $this->getInCurrentTimezone($data->get('time'));
+        $powTime = $this->getInCurrentTimezone($data->get('pow_time'));
 
         return Block::updateOrCreate([
             'height' => $data->get('height'),
@@ -50,9 +42,30 @@ class BlockRepository
             'post_nonce' => $data->get('post_nonce'),
             'bits' => $data->get('bits'),
             'difficulty' => $data->get('difficulty'),
-            'chainwork' => gmp_intval($chainwork),
+            'chainwork' => $this->getChainWork($data->get('chainwork')),
             'previousblockhash' => $data->get('previousblockhash'),
             'created_at' => $medianTime,
         ]);
+    }
+
+    /**
+     * Convert chainwork to gigahashes. We're using GMP because the chainwork decimal number is too long for php
+     *
+     * @param string $chainwork
+     * @return int
+     */
+    private function getChainwork(string $chainwork): int
+    {
+        $chainwork = gmp_div(gmp_hexdec($chainwork), gmp_init(1000000000));
+
+        return gmp_intval($chainwork);
+    }
+
+    private function getInCurrentTimezone(int $time): Carbon
+    {
+        $time = new Carbon($time);
+        $time->setTimezone(date_default_timezone_get());
+
+        return $time;
     }
 }
