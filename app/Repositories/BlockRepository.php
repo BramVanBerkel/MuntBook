@@ -16,7 +16,17 @@ class BlockRepository
         $witness_merkleroot = $data->get('witness_merkleroot') !== Block::EMPTY_WITNESS_MERLKEROOT ? $data->get('witness_merkleroot') : null;
         $witness_version = $data->get('witness_version') === 0 ? null : $data->get('witness_version');
 
-        //convert chainwork to gigahashes. We're using GMP because the chainwork decimal number is too long for php
+        //convert timestamps to current timezone
+        $medianTime = new Carbon($data->get('mediantime'));
+        $medianTime->setTimezone(date_default_timezone_get());
+
+        $time = new Carbon($data->get('time'));
+        $time->setTimezone(date_default_timezone_get());
+
+        $powTime = new Carbon($data->get('pow_time'));
+        $powTime->setTimezone(date_default_timezone_get());
+
+        // Convert chainwork to gigahashes. We're using GMP because the chainwork decimal number is too long for php
         $chainwork = gmp_div(gmp_hexdec($data->get('chainwork')), gmp_init(1000000000));
 
         return Block::updateOrCreate([
@@ -32,9 +42,9 @@ class BlockRepository
             'merkleroot' => $data->get('merkleroot'),
             'witness_version' => $witness_version,
             'witness_time' => $witness_time,
-            'pow_time' => new Carbon($data->get('pow_time')),
+            'pow_time' => $powTime,
             'witness_merkleroot' => $witness_merkleroot,
-            'time' => new Carbon($data->get('time')),
+            'time' => $time,
             'nonce' => $data->get('nonce'),
             'pre_nonce' => $data->get('pre_nonce'),
             'post_nonce' => $data->get('post_nonce'),
@@ -42,7 +52,7 @@ class BlockRepository
             'difficulty' => $data->get('difficulty'),
             'chainwork' => gmp_intval($chainwork),
             'previousblockhash' => $data->get('previousblockhash'),
-            'created_at' => new Carbon($data->get('mediantime')),
+            'created_at' => $medianTime,
         ]);
     }
 }
