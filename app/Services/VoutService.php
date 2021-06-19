@@ -67,8 +67,8 @@ class VoutService
 
     private function checkWitnessVout(Collection $vouts, Collection $voutData, Transaction $transaction)
     {
-        $compound = $this->isCompounding($vouts);
-        $witnessAddress = $this->addressRepository->create(Arr::get($voutData, 'PoW²-witness.address'));
+        $compound = $this->isCompounding($vouts, $transaction->block_height);
+        $witnessAddress = $this->addressService->getAddress(Arr::get($voutData, 'PoW²-witness.address'));
 
         $compoundingVout = null;
         if ($compound === true) {
@@ -104,13 +104,14 @@ class VoutService
 
     /**
      * @param Collection $vouts
+     * @param int $blockHeight
      * @return bool|float
      *
      * Returns true if witness is fully compounding
      * Returns float of value that witness is partially compounding
      * Returns false if witness is not compounding
      */
-    private function isCompounding(Collection $vouts): bool|float
+    private function isCompounding(Collection $vouts, int $blockHeight): bool|float
     {
         if ($vouts->count() === 1) {
             return true;
@@ -121,7 +122,9 @@ class VoutService
         })->pluck('value')
             ->sum();
 
-        if (floor($reward) === 30.0) { //TODO: refactor 30 to current witness reward
+        $witnessReward = ($blockHeight < 1400000) ? 30.0 : 15.0;
+
+        if (floor($reward) === $witnessReward) {
             return false;
         }
 
