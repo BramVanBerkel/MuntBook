@@ -14,7 +14,8 @@ use Illuminate\Support\Collection;
 class VoutService
 {
     public function __construct(
-        private AddressService $addressService
+        private AddressService $addressService,
+        private GuldenService $guldenService
     ) {}
 
     public function saveVouts(Collection $vouts, Transaction $transaction): void
@@ -122,7 +123,7 @@ class VoutService
         })->pluck('value')
             ->sum();
 
-        $witnessReward = ($blockHeight < 1400000) ? 30.0 : 15.0;
+        $witnessReward = $this->guldenService->getWitnessReward($blockHeight);
 
         if (floor($reward) === $witnessReward) {
             return false;

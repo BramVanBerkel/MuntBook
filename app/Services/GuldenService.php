@@ -150,4 +150,19 @@ class GuldenService
     {
         return collect($this->getData('getpeerinfo')->result)->recursive();
     }
+
+    /**
+     * @param int $blockHeight
+     * @return float
+     * TODO: implement reward halving every 4 (or so) years
+     */
+    public function getWitnessReward(int $blockHeight): float
+    {
+        if(config('gulden.testnet') !== null) {
+            // testnet
+            return ($blockHeight < 352200) ? 20.0 : 10.0;
+        }
+
+        return ($blockHeight < 1400000) ? 30.0 : 15.0;
+    }
 }
