@@ -27,28 +27,34 @@
                 </div>
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Connections: {{ $networkInfo->get('connections') }}</h5>
-                        <table class="table">
-                            @foreach($countries as $country => $count)
-                                <tr>
-                                    <td>{{ $country }}</td>
-                                    <td>{{ $count }}</td>
-                                </tr>
-                            @endforeach
-                        </table>
-                    </div>
-                </div>
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">By version</h5>
-                        <table class="table">
-                            @foreach($versions as $version => $count)
-                                <tr>
-                                    <td>{{ $version }}</td>
-                                    <td>{{ $count }}</td>
-                                </tr>
-                            @endforeach
-                        </table>
+                        <div class="card-title">Connections <small
+                                class="text-muted">total: {{ $networkInfo->get('connections') }}</small></div>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">By country</h5>
+                                <table class="table">
+                                    @foreach($countries as $country => $count)
+                                        <tr>
+                                            <td>{{ $country }}</td>
+                                            <td>{{ $count }}</td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">By version</h5>
+                                <table class="table">
+                                    @foreach($versions as $version => $count)
+                                        <tr>
+                                            <td>{{ $version }}</td>
+                                            <td>{{ $count }}</td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card">
