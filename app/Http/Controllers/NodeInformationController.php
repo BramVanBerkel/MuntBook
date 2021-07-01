@@ -28,7 +28,8 @@ class NodeInformationController extends Controller
 
             $versions = $peerInfo
                 ->groupBy('subver')
-                ->mapWithKeys(fn($group, $version) => [$version => $group->count()]);
+                ->mapWithKeys(fn($group, $version) => [$version => $group->count()])
+                ->sortDesc();
         }
 
         return view('layouts.pages.node_information', [
