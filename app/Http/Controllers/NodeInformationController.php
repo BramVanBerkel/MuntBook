@@ -25,6 +25,10 @@ class NodeInformationController extends Controller
             });
 
             $countries = $geoIPService->countCountries($ips);
+
+            $versions = $peerInfo
+                ->groupBy('subver')
+                ->mapWithKeys(fn($group, $version) => [$version => $group->count()]);
         }
 
         return view('layouts.pages.node_information', [
@@ -32,6 +36,7 @@ class NodeInformationController extends Controller
             'networkInfo' => $networkInfo ?? null,
             'uptime' => $uptime ?? null,
             'countries' => $countries ?? null,
+            'versions' => $versions ?? null,
         ]);
     }
 }

@@ -38,6 +38,19 @@
                         </table>
                     </div>
                 </div>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">By version</h5>
+                        <table class="table">
+                            @foreach($versions as $version => $count)
+                                <tr>
+                                    <td>{{ $version }}</td>
+                                    <td>{{ $count }}</td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Uptime: {{ $uptime }}</h5>
