@@ -5,10 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use App\Models\Vin;
 use App\Models\Vout;
+use App\Services\GuldenService;
 use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
+    public function __construct(
+        private GuldenService $guldenService
+    )
+    {}
+
     public function index(string $txid)
     {
         $transaction = Transaction::firstWhere('txid', '=', $txid);
@@ -32,7 +38,7 @@ class TransactionController extends Controller
             ->get();
 
         if($transaction->type === Transaction::TYPE_WITNESS) {
-            $fee = $vouts->sum('value') - Transaction::WITNESS_REWARD;
+            $fee = $vouts->sum('value') - $this->guldenService->getWitnessReward($transaction->block_height);
             $witness_address = $transaction->vouts()->first()->address;
         } else {
             $input_total = $vins->sum('value');

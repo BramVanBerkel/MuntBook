@@ -76,7 +76,7 @@ class VoutService
             //fully compounding
             /** @var Vout $compoundingVout */
             $compoundingVout = $transaction->vouts()->create([
-                'value' => Transaction::WITNESS_REWARD,
+                'value' => $this->guldenService->getWitnessReward($transaction->block_height),
                 'n' => 1,
                 'type' => Vout::TYPE_WITNESS_COMPOUND
             ]);
@@ -86,7 +86,7 @@ class VoutService
             //partially compounding
             /** @var Vout $compoundingVout */
             $compoundingVout = $transaction->vouts()->create([
-                'value' => Transaction::WITNESS_REWARD - $compound,
+                'value' => $this->guldenService->getWitnessReward($transaction->block_height) - $compound,
                 'n' => 2,
                 'type' => Vout::TYPE_WITNESS_COMPOUND
             ]);

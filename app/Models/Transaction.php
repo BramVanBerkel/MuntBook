@@ -55,8 +55,6 @@ class Transaction extends Model
 
     const EMPTY_TXID = '0000000000000000000000000000000000000000000000000000000000000000';
 
-    const WITNESS_REWARD = 30;
-
     public function block(): BelongsTo
     {
         return $this->belongsTo(Block::class);
