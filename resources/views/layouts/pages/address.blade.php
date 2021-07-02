@@ -12,7 +12,7 @@
                 <div class="center-text">
                     <p>This is the address for Gulden development.
                         This address will receive 40 gulden from each block since block 1226652, 80 gulden since
-                        block 1226652, and 65 gulden since block 1400000. This is why we don't show the inputs</p>
+                        block 1226652, and 65 gulden since block 1400001. This is why we don't show the inputs</p>
                         <p>To support Gulden development directly by buying Guldens, please visit <a href="https://blockhut.com/" target="_blank">Blockhut</a></p>
                 </div>
             </div>
