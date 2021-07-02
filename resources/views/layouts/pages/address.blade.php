@@ -11,7 +11,8 @@
             <div class="col-lg-12">
                 <div class="center-text">
                     <p>This is the address for Gulden development.
-                        From block number 1030000 this address will receive 40 Gulden for each block and from block 1226652 80 Gulden, this is why we don't show the inputs.</p>
+                        This address will receive 40 gulden from each block since block 1226652, 80 gulden since
+                        block 1226652, and 65 gulden since block 1400000. This is why we don't show the inputs</p>
                         <p>To support Gulden development directly by buying Guldens, please visit <a href="https://blockhut.com/" target="_blank">Blockhut</a></p>
                 </div>
             </div>
