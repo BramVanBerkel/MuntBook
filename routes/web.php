@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\AverageBlocktimeController;
 use App\Http\Controllers\BlockController;
 use App\Http\Controllers\DifficultyHashrateController;
 use App\Http\Controllers\HomeController;
@@ -74,3 +75,9 @@ Route::get('/prices/data', [PriceController::class, 'data'])
 /** Node Information */
 Route::get('/node-information', [NodeInformationController::class, 'index'])
     ->name('node-information');
+
+/** Average Blocktime */
+Route::get('/average-blocktime', [AverageBlocktimeController::class, 'index'])
+    ->name('average-blocktime');
+Route::get('/average-blocktime/data', [AverageBlocktimeController::class, 'data'])
+    ->name('average-blocktime.data');

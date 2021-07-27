@@ -83,6 +83,7 @@
                             <ul class="">
                                 <li><a href="{{ route('nonce-distribution') }}">Nonce distribution</a></li>
                                 <li><a href="{{ route('difficulty-hashrate') }}">Difficulty / Hashrate</a></li>
+                                <li><a href="{{ route('average-blocktime') }}">Average blocktime</a></li>
                             </ul>
                         </li>
                         <li><a href="{{ route('prices') }}">Prices</a></li>
