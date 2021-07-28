@@ -2,6 +2,13 @@ let averageBlocktimeCanvas = document.getElementById('averageBlocktime').getCont
 let averageBlocktimeChart = new Chart(averageBlocktimeCanvas, {
     type: 'line',
     options: {
+        tooltips: {
+            mode: 'index',
+            axis: 'y',
+        },
+        time: {
+            round: 'day'
+        },
         scales: {
             xAxes: [{
                 type: 'time'
@@ -13,6 +20,14 @@ let averageBlocktimeChart = new Chart(averageBlocktimeCanvas, {
                 ticks: {
                     min: 100,
                     max: 200,
+                }
+            }, {
+                id: 'Blocks per day',
+                type: 'linear',
+                position: 'right',
+                ticks: {
+                    min: 500,
+                    max: 700,
                 }
             }]
         }

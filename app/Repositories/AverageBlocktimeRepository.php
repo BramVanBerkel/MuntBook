@@ -29,5 +29,21 @@ class AverageBlocktimeRepository
                 ->get();
         });
     }
+
+    public function getBlocksPerDay()
+    {
+        return Cache::remember('blocks-per-day', now()->addHour(), function() {
+            return DB::table('blocks')
+                ->select([
+                    DB::raw('DATE_TRUNC(\'day\', created_at) AS day'),
+                    DB::raw('COUNT(*) AS blocks')
+                ])
+                ->where('created_at', '>', now()->subYear()->endOfDay())
+                ->where('created_at', '<', now()->startOfDay())
+                ->groupBy('day')
+                ->orderByDesc('day')
+                ->get();
+        });
+    }
 }
 

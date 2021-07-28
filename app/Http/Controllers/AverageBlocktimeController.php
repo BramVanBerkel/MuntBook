@@ -25,6 +25,13 @@ class AverageBlocktimeController extends Controller
             ];
         });
 
+        $blocksPerDay = $this->averageBlocktimeRepository->getBlocksPerDay()->map(function($blocksPerDay) {
+            return [
+                'x' => $blocksPerDay->day,
+                'y' => $blocksPerDay->blocks,
+            ];
+        });
+
         return response()->json([
             'datasets' => [
                 [
@@ -34,7 +41,14 @@ class AverageBlocktimeController extends Controller
                     'fill' => false,
                     'data' => $averageBlocktime,
                 ],
-            ]
+                [
+                    'label' => 'Blocks per day',
+                    'yAxisID' => 'Blocks per day',
+                    'borderColor' => 'rgb(255, 99, 132)',
+                    'fill' => false,
+                    'data' => $blocksPerDay,
+                ],
+            ],
         ]);
     }
 }
