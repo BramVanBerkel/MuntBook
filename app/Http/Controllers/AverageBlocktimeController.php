@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\AverageBlocktimeRepository;
+use App\Services\AverageBlocktimeService;
 use Illuminate\Http\Request;
 
 class AverageBlocktimeController extends Controller
 {
     public function __construct(
-        private AverageBlocktimeRepository $averageBlocktimeRepository
+        private AverageBlocktimeService $averageBlocktimeService
     ) {}
 
     public function index()
@@ -18,19 +19,9 @@ class AverageBlocktimeController extends Controller
 
     public function data()
     {
-        $averageBlocktime = $this->averageBlocktimeRepository->getAverageBlocktime()->map(function($averageBlocktime) {
-            return [
-                'x' => $averageBlocktime->day,
-                'y' => $averageBlocktime->seconds,
-            ];
-        });
+        $averageBlocktime = $this->averageBlocktimeService->getAverageBlocktime();
 
-        $blocksPerDay = $this->averageBlocktimeRepository->getBlocksPerDay()->map(function($blocksPerDay) {
-            return [
-                'x' => $blocksPerDay->day,
-                'y' => $blocksPerDay->blocks,
-            ];
-        });
+        $blocksPerDay = $this->averageBlocktimeService->getAverageBlocksPerDay();
 
         return response()->json([
             'datasets' => [
