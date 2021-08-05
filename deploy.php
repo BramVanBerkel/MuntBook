@@ -7,10 +7,7 @@ require 'recipe/laravel.php';
 set('application', 'Guldenbook');
 
 // Project repository
-set('repository', 'https://github.com/BramVanBerkel/GuldenBook.git');
-
-// [Optional] Allocate tty for git clone. Default value is false.
-set('git_tty', true);
+set('repository', 'git@github.com:BramVanBerkel/GuldenBook.git');
 
 // [Optional] Set gulden_url to download and install a new version of the binaries.
 set('gulden_url', null);
