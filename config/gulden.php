@@ -96,4 +96,15 @@ return [
     |
     */
     'maxconnections' => env('GULDEN_MAXCONNECTIONS'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | First phase 5 block
+    |--------------------------------------------------------------------------
+    |
+    | The block phase 5 of the witnessing system became active
+    | From this block on historic witness information is available
+    |
+    */
+    'first_phase_5_block' => 1140958,
 ];
