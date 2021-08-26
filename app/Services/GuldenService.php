@@ -125,7 +125,11 @@ class GuldenService
      */
     public function getWitnessInfo(string $blockSpecifier = 'tip', bool $verbose = false): Collection
     {
-        return collect($this->getData('getwitnessinfo', [$blockSpecifier, $verbose])->result)->recursive();
+        $data = collect($this->getData('getwitnessinfo', [$blockSpecifier, $verbose])->result)->recursive();
+
+        return ($data->count() === 1) ?
+            $data->first() :
+            $data;
     }
 
     /**

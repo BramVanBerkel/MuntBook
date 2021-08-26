@@ -4,7 +4,7 @@
 namespace App\Repositories;
 
 
-use App\Models\Address;
+use App\Models\Address\Address;
 use Illuminate\Support\Collection;
 
 class WitnessAddressRepository

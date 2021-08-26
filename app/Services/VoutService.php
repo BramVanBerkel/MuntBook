@@ -5,7 +5,7 @@ namespace App\Services;
 
 
 use App\Enums\AddressTypeEnum;
-use App\Models\Address;
+use App\Models\Address\Address;
 use App\Models\Transaction;
 use App\Models\Vout;
 use Illuminate\Support\Arr;
