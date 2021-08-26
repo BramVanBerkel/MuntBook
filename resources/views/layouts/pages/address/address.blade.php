@@ -31,7 +31,9 @@
             <div class="table-responsive">
                 @includeWhen($address->type->equals(\App\Enums\AddressTypeEnum::ADDRESS()), 'layouts.pages.address.details.address_details')
                 @includeWhen($address->type->equals(\App\Enums\AddressTypeEnum::MINING()), 'layouts.pages.address.details.mining_details')
-                @includeWhen($address->type->equals(\App\Enums\AddressTypeEnum::WITNESS()), 'layouts.pages.address.details.witness_details')
+                @includeWhen($address->type->equals(\App\Enums\AddressTypeEnum::WITNESS()) &&
+                                $address->witnessAddressParts()->count() > 0,
+                                'layouts.pages.address.details.witness_details')
             </div>
         </div>
     </div>
