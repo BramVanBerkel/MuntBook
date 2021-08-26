@@ -41,7 +41,16 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="center-heading">
-                <h2 class="section-title">Transactions</h2>
+                @switch($address->type->value)
+                    @case(\App\Enums\AddressTypeEnum::MINING()->value)
+                        <h2 class="section-title">Mined blocks</h2>
+                    @break
+                    @case(\App\Enums\AddressTypeEnum::WITNESS()->value)
+                        <h2 class="section-title">Rewards</h2>
+                    @break
+                    @default
+                        <h2 class="section-title">Transactions</h2>
+                @endswitch
             </div>
         </div>
     </div>

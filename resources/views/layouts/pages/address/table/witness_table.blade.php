@@ -1,7 +1,7 @@
 <table class="table table-striped table-latests table-detail">
     <thead>
     <tr>
-        <th>Date witness</th>
+        <th>Date</th>
         <th>Amount</th>
     </tr>
     </thead>
