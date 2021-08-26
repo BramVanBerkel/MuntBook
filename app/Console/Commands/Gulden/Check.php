@@ -3,6 +3,7 @@
 namespace App\Console\Commands\Gulden;
 
 use App\Jobs\ProcessBlock;
+use App\Jobs\UpdateWitnessInfo;
 use App\Models\Block;
 use App\Services\GuldenService;
 use Illuminate\Console\Command;
@@ -59,6 +60,9 @@ class Check extends Command
             $progress = ($height / $guldenHeight) * 100;
             Log::info(sprintf("Processing block %d/%d Progress: %f", $height, $guldenHeight, $progress));
             dispatch((new ProcessBlock($height))->onConnection('sync'));
+            if($height >= config('gulden.first_phase_5_block')) {
+                dispatch(new UpdateWitnessInfo());
+            }
         }
     }
 }
