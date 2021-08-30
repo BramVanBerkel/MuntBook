@@ -49,16 +49,19 @@ class Check extends Command
         $guldenHeight = $guldenService->getBlockCount();
         $dbHeight = Block::max('height') ?? 1;
 
-        Log::info("Checking for new blocks. DB height: {$dbHeight}, Gulden height: {$guldenHeight}");
+        Log::channel('daily')
+            ->info("Checking for new blocks. DB height: {$dbHeight}, Gulden height: {$guldenHeight}");
 
         if($dbHeight === $guldenHeight) {
             return;
         }
 
-        Log::info(sprintf("Blockcount: %d/%d", $dbHeight, $guldenHeight));
+        Log::channel('daily')
+            ->info(sprintf("Blockcount: %d/%d", $dbHeight, $guldenHeight));
+
         foreach(range($dbHeight, $guldenHeight) as $height) {
             $progress = ($height / $guldenHeight) * 100;
-            Log::info(sprintf("Processing block %d/%d Progress: %f", $height, $guldenHeight, $progress));
+            Log::channel('daily')->info(sprintf("Processing block %d/%d Progress: %f", $height, $guldenHeight, $progress));
             dispatch((new ProcessBlock($height))->onConnection('sync'));
             if($height >= config('gulden.first_phase_5_block')) {
                 dispatch(new UpdateWitnessInfo());
