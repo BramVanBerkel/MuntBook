@@ -1,6 +1,14 @@
 <table class="table table-striped table-latests table-detail">
     <tbody>
     <tr>
+        <td><strong>Address</strong></td>
+        <td>{{ $address->address }}
+            <span style="cursor: pointer" onclick="navigator.clipboard.writeText('{{ $address->address }}')">
+                <i class="fa fa-clipboard"></i>
+            </span>
+        </td>
+    </tr>
+    <tr>
         <td><strong>First seen</strong></td>
         <td>{{ $address->vouts()->first()->transaction->block->created_at }}</td>
     </tr>

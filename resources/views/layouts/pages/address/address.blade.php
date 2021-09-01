@@ -6,13 +6,13 @@
             <div class="center-heading">
                 @switch($address->type->value)
                     @case(\App\Enums\AddressTypeEnum::MINING()->value)
-                        <h2 class="section-title">Details for mining address {{ $address->address }}</h2>
+                        <h2 class="section-title">Details for mining address {{ Str::limit($address->address, 12) }}</h2>
                     @break
                     @case(\App\Enums\AddressTypeEnum::WITNESS()->value)
-                        <h2 class="section-title">Details for witness address {{ $address->address }}</h2>
+                        <h2 class="section-title">Details for witness address {{ Str::limit($address->address, 12) }}</h2>
                     @break
                     @default
-                        <h2 class="section-title">Details for address {{ $address->address }}</h2>
+                        <h2 class="section-title">Details for address {{ Str::limit($address->address, 12) }}</h2>
                 @endswitch
             </div>
         </div>
