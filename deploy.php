@@ -57,6 +57,9 @@ task('composer-install', function() {
     run('cd {{release_path}} && composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev');
 });
 
+desc('Restart workers');
+task('restart-workers', 'artisan:queue:restart');
+
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
 
