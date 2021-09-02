@@ -41,10 +41,6 @@ class ProcessBlock implements ShouldQueue
 
         $block = $blockService->saveBlock($blockData);
 
-        if($block->hashps === null) {
-            dispatch(new SetHashrate($block->height));
-        }
-
         $block->transactions()->delete();
 
         foreach ($blockData->get('tx') as $txid) {

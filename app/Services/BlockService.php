@@ -10,6 +10,8 @@ use Illuminate\Support\Collection;
 
 class BlockService
 {
+    public function __construct(private GuldenService $guldenService) {}
+
     public function saveBlock(Collection $data): Block
     {
         $witness_time = $data->get('witness_time') !== 0 ? new Carbon($data->get('witness_time')) : null;
@@ -20,6 +22,7 @@ class BlockService
         $medianTime = $this->getInCurrentTimezone($data->get('mediantime'));
         $time = $this->getInCurrentTimezone($data->get('time'));
         $powTime = $this->getInCurrentTimezone($data->get('pow_time'));
+        $hashRate = $this->guldenService->getNetworkHashrate(height: $data->get('height'));
 
         return Block::updateOrCreate([
             'height' => $data->get('height'),
@@ -42,6 +45,7 @@ class BlockService
             'post_nonce' => $data->get('post_nonce'),
             'bits' => $data->get('bits'),
             'difficulty' => $data->get('difficulty'),
+            'hashrate' => $hashRate,
             'chainwork' => $this->getChainWork($data->get('chainwork')),
             'previousblockhash' => $data->get('previousblockhash'),
             'created_at' => $medianTime,
