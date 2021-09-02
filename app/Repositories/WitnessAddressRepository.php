@@ -5,18 +5,26 @@ namespace App\Repositories;
 
 
 use App\Models\Address\Address;
+use App\Models\WitnessAddressPart;
 use Illuminate\Support\Collection;
 
 class WitnessAddressRepository
 {
-    public static function syncParts(Collection $parts)
-    {
-        $address = Address::firstWhere('address', '=', $parts->first()->get('address'));
+    public function __construct(private AddressRepository $addressRepository) {}
 
-        $parts->each(function(Collection $part) use($address) {
-            $address->witnessAddressParts()->updateOrCreate([
-                'action_nonce' => $part->get('action_nonce'),
-            ], [
+    public function syncParts(Collection $parts)
+    {
+        $address = $this->addressRepository->findAddress($parts->first()->get('address'));
+
+        if(!$address instanceof Address) {
+            return;
+        }
+
+        $address->witnessAddressParts()->delete();
+
+        foreach ($parts as $part) {
+            WitnessAddressPart::create([
+                'address_id' => $address->id,
                 'type' => $part->get('type'),
                 'age' => $part->get('age'),
                 'amount' => $part->get('amount'),
@@ -33,7 +41,8 @@ class WitnessAddressRepository
                 'eligible_to_witness' => $part->get('eligible_to_witness'),
                 'expired_from_inactivity' => $part->get('expired_from_inactivity'),
                 'fail_count' => $part->get('fail_count'),
+                'action_nonce' => $part->get('action_nonce'),
             ]);
-        });
+        }
     }
 }

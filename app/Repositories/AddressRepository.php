@@ -11,7 +11,7 @@ use App\Models\Address\WitnessAddress;
 
 class AddressRepository
 {
-    public function getAddress(string $address): ?Address
+    public function findAddress(string $address): ?Address
     {
         $type = $this->getType($address);
 

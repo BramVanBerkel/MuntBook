@@ -14,7 +14,7 @@ class AddressController extends Controller
 
     public function index(string $address)
     {
-        $address = $this->addressRepository->getAddress($address);
+        $address = $this->addressRepository->findAddress($address);
 
         return view('layouts.pages.address.address', [
             'address' => $address,
