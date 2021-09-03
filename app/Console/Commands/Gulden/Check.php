@@ -64,7 +64,7 @@ class Check extends Command
             Log::channel('daily')->info(sprintf("Processing block %d/%d Progress: %f", $height, $guldenHeight, $progress));
             dispatch((new ProcessBlock($height))->onConnection('sync'));
             if($height >= config('gulden.first_phase_5_block')) {
-                dispatch(new UpdateWitnessInfo());
+                dispatch(new UpdateWitnessInfo);
             }
         }
     }

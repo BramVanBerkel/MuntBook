@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Models\Address\Address;
 use App\Models\WitnessAddressPart;
+use App\Repositories\AddressRepository;
 use App\Repositories\WitnessAddressRepository;
 use App\Services\GuldenService;
 use Illuminate\Bus\Queueable;
@@ -19,28 +20,21 @@ class UpdateWitnessInfo implements ShouldQueue, ShouldBeUnique
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function __construct(
-        private GuldenService $guldenService,
-        private WitnessAddressRepository $witnessAddressRepository
-    ) {}
-
-    public function handle()
+    public function handle(GuldenService            $guldenService,
+                           WitnessAddressRepository $witnessAddressRepository,
+                           AddressRepository        $addressRepository)
     {
-        $witnessInfo = $this->guldenService->getWitnessInfo(verbose:  true);
+        $witnessInfo = $guldenService->getWitnessInfo(verbose: true);
 
-        $witnessInfo->groupBy('address')
-            ->each(function(Collection $parts) {
-                $this->witnessAddressRepository->syncParts($parts);
+        $witnessInfo->get('witness_address_list')->groupBy('address')
+            ->each(function (Collection $parts, string $address) use ($witnessAddressRepository, $addressRepository) {
+                $address = $addressRepository->findAddress($address);
+
+                if(!$address instanceof Address) {
+                    return;
+                }
+
+                $witnessAddressRepository->syncParts($address, $parts);
             });
-
-        $addressList = $witnessInfo->get('witness_address_list')->groupBy('address');
-
-        DB::beginTransaction();
-
-        foreach ($addressList as $address => $parts) {
-
-        }
-
-        DB::commit();
     }
 }

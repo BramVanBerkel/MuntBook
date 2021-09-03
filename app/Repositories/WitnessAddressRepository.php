@@ -10,16 +10,8 @@ use Illuminate\Support\Collection;
 
 class WitnessAddressRepository
 {
-    public function __construct(private AddressRepository $addressRepository) {}
-
-    public function syncParts(Collection $parts)
+    public function syncParts(Address $address, Collection $parts)
     {
-        $address = $this->addressRepository->findAddress($parts->first()->get('address'));
-
-        if(!$address instanceof Address) {
-            return;
-        }
-
         $address->witnessAddressParts()->delete();
 
         foreach ($parts as $part) {
