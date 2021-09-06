@@ -32,6 +32,8 @@ class Kernel extends ConsoleKernel
          $schedule->job(new UpdateDifficulty)->everyMinute();
 
          $schedule->job(new UpdateBittrexPrices)->everyMinute();
+
+         $schedule->command('horizon:snapshot')->everyFiveMinutes();
     }
 
     /**

@@ -17,5 +17,6 @@ yarn-error.log
 /public/css
 /public/images
 /public/fonts
+/public/vendor
 /public/mix-manifest.json
 /public/site.webmanifest

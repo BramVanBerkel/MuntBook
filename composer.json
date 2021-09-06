@@ -19,6 +19,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "illuminated/console-mutex": "^8.0",
         "laravel/framework": "^8.0",
+        "laravel/horizon": "^5.7",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
         "spatie/laravel-enum": "^2.4"
