@@ -191,4 +191,6 @@ return [
             ],
         ],
     ],
+
+    'remote_addresses' => env('REMOTE_ADDRESSES')
 ];
