@@ -22,14 +22,13 @@
         @include('layouts.navigation')
     </div>
 
-    <main class="-mt-96">
-        <x-search />
-
+    <main class="-mt-64 md:-mt-50">
         <header class="py-5">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h1 class="text-3xl font-bold text-white">
+            <div class="md:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex sm:items-center flex-col sm:flex-row">
+                <h1 class="text-3xl font-bold text-white mr-auto mb-2 md:mb-0">
                     Dashboard
                 </h1>
+                <x-search />
             </div>
         </header>
         <div class="max-w-7xl mx-auto pb-12 px-4 sm:px-6 lg:px-8">
