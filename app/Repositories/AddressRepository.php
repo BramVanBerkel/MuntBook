@@ -25,6 +25,7 @@ class AddressRepository
 
     private function getType(string $address): AddressTypeEnum
     {
-        return Address::firstWhere('address', '=', $address)->type;
+        dd($address);
+        return Address::firstWhere('address', '=', $address)?->type;
     }
 }

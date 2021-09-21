@@ -20,3 +20,4 @@ yarn-error.log
 /public/vendor
 /public/mix-manifest.json
 /public/site.webmanifest
+/binaries

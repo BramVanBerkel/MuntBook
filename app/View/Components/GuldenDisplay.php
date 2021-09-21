@@ -14,8 +14,8 @@ class GuldenDisplay extends Component
     {
         if($colored) {
             $this->class = match(true) {
-                $value < 0 => 'text-danger',
-                $value > 0 => 'text-success',
+                $value < 0 => 'text-red-600',
+                $value > 0 => 'text-green-600',
                 default => '',
             };
         }
@@ -29,11 +29,12 @@ class GuldenDisplay extends Component
         //and remove those 6 digits from the value
         $this->integer = substr_replace($value, '', -6);
 
+        //add a plus if we want to show the sign, a - is automatically added
         if($colored && $value > 0 && $showSign) {
             $this->integer = "+$this->integer";
         }
     }
-    
+
     public function render()
     {
         return view('components.gulden-display');
