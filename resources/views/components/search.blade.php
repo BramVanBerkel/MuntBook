@@ -2,7 +2,7 @@
     @csrf
     <input type="text"
            placeholder="Search for blocks, transactions or addresses"
-           class="outline-none focus:ring ring-0 w-full placeholder-gray-300 border-none rounded-full px-8 py-2 bg-white">
+           class="outline-none focus:ring ring-0 placeholder-gray-300 border-none rounded-lg px-8 py-2 bg-white w-96">
 
     <div class="absolute top-1/2 left-2 transform -translate-y-1/2 text-xs text-gray-300">
         <svg xmlns="http://www.w3.org/2000/svg"
