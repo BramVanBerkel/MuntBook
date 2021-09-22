@@ -26,7 +26,7 @@
         <header class="py-5">
             <div class="md:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex sm:items-center flex-col sm:flex-row">
                 <h1 class="text-3xl font-bold text-white mr-auto mb-2 md:mb-0">
-                    Dashboard
+                    @yield('title')
                 </h1>
                 <x-search />
             </div>

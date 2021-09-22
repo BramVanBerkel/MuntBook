@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
-@section('content')
+@section('title', 'Dashboard')
 
+@section('content')
     <x-stats>
         <x-stats-item>
             <x-slot name="title">
