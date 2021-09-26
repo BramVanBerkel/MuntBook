@@ -6,22 +6,20 @@ use App\Models\Transaction;
 use App\Models\Vin;
 use App\Models\Vout;
 use App\Services\GuldenService;
+use App\Transformers\TransactionOutputTransformer;
 use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
     public function __construct(
-        private GuldenService $guldenService
+        private GuldenService $guldenService,
+        private TransactionOutputTransformer $transactionOutputTransformer
     )
     {}
 
     public function index(string $txid)
     {
-        $transaction = Transaction::firstWhere('txid', '=', $txid);
-
-        if ($transaction === null) {
-            abort(404);
-        }
+        $transaction = Transaction::where('txid', '=', $txid)->firstOrFail();
 
         $vins = Vin::select(['addresses.address', DB::raw('sum(vouts.value) as value')])
             ->leftJoin('vouts', 'vins.vout_id', '=', 'vouts.id')
@@ -46,10 +44,9 @@ class TransactionController extends Controller
             $fee = $input_total !== 0 ? $input_total - $output_total : 0;
         }
 
-        return view('layouts.pages.transaction')->with([
+        return view('pages.transaction')->with([
             'transaction' => $transaction,
-            'vouts' => $vouts,
-            'vins' => $vins,
+            'outputs' => $this->transactionOutputTransformer->transform($vins->concat($vouts)),
             'fee' => $fee,
             'witness_address' => $witness_address ?? null,
         ]);

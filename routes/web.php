@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\BlockController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +20,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::post('/search', SearchController::class)->name('search');
+
+Route::get('block/{block}', [BlockController::class, 'index'])->name('block')->where('block', '[0-9]{1,10}+');
+
+Route::get('/transaction/{txid}', [TransactionController::class, 'index'])->name('transaction');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -1,6 +1,7 @@
 <form method="POST" action="{{ route('search') }}" class="relative">
     @csrf
-    <input type="text"
+    <input name="query"
+           type="text"
            placeholder="Search for blocks, transactions or addresses"
            class="outline-none focus:ring ring-0 placeholder-gray-300 border-none rounded-lg px-8 py-2 bg-white w-96">
 
