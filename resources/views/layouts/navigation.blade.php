@@ -6,7 +6,6 @@
                     <a href="{{ route('home') }}">
                         <img class="block h-8" src="{{ asset('images/logos/white.svg') }}" alt="GuldenBook logo"/>
                     </a>
-{{--                    <img class="block h-8 w-8" src="https://tailwindui.com/img/logos/workflow-mark-indigo-300.svg" alt="Workflow">--}}
                 </div>
                 <div class="hidden lg:block lg:ml-10">
                     <div class="flex space-x-4">

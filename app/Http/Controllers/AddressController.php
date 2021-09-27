@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Address\Address;
+use App\Enums\AddressTypeEnum;
 use App\Repositories\AddressRepository;
-use Illuminate\Support\Facades\DB;
 
 class AddressController extends Controller
 {
@@ -16,8 +15,15 @@ class AddressController extends Controller
     {
         $address = $this->addressRepository->findAddress($address);
 
-        return view('layouts.pages.address.address', [
+        $view = match($address->type) {
+            AddressTypeEnum::ADDRESS() => view('pages.address'),
+            AddressTypeEnum::MINING() => view('pages.mining-address'),
+            AddressTypeEnum::WITNESS() => view('pages.witness-address'),
+        };
+
+        return $view->with([
             'address' => $address,
+            'transactions' => $address->transactions->paginate(),
         ]);
     }
 }

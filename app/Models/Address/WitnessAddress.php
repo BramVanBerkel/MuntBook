@@ -12,9 +12,9 @@ use Illuminate\Support\Carbon;
 
 class WitnessAddress extends Address
 {
-    public function transactions(): Paginator
+    public function getTransactionsAttribute()
     {
-        return $this->vouts()->where('type', '=', Vout::TYPE_WITNESS)->orderByDesc('created_at')->paginate();
+        return $this->vouts()->where('type', '=', Vout::TYPE_WITNESS)->orderByDesc('created_at');
     }
 
     public function getFirstSeenAttribute(): Carbon
@@ -73,6 +73,10 @@ class WitnessAddress extends Address
         return $this->cooldown < 100;
     }
 
+    /**
+     * Get the amount of blocks that the address is in cooldown
+     * @return int
+     */
     public function getCooldownAttribute(): int
     {
         return Block::max('height') - $this->witnessAddressParts()->max('last_active_block');

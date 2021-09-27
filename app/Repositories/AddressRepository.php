@@ -15,17 +15,16 @@ class AddressRepository
     {
         $type = $this->getType($address);
 
-        return match ($type->label) {
-            AddressTypeEnum::ADDRESS()->label => Address::firstWhere('address', '=', $address),
-            AddressTypeEnum::MINING()->label => MiningAddress::firstWhere('address', '=', $address),
-            AddressTypeEnum::WITNESS()->label => WitnessAddress::firstWhere('address', '=', $address),
+        return match ($type) {
+            AddressTypeEnum::ADDRESS() => Address::firstWhere('address', '=', $address),
+            AddressTypeEnum::MINING() => MiningAddress::firstWhere('address', '=', $address),
+            AddressTypeEnum::WITNESS() => WitnessAddress::firstWhere('address', '=', $address),
             default => null,
         };
     }
 
     private function getType(string $address): AddressTypeEnum
     {
-        dd($address);
-        return Address::firstWhere('address', '=', $address)?->type;
+        return Address::where('address', '=', $address)->firstOrFail()->type;
     }
 }

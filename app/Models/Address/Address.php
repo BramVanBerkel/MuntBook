@@ -55,7 +55,7 @@ class Address extends Model
     public function transactionVins(): Builder
     {
         return DB::table('vins')->select([
-            'transactions.txid', 'blocks.created_at', DB::raw('sum(vouts.value) as value'), DB::raw("'vin' as type")
+            'transactions.txid', 'blocks.created_at', DB::raw('-sum(vouts.value) as value'), DB::raw("'vin' as type")
         ])->join('vouts', 'vins.vout_id', '=', 'vouts.id')
             ->join('transactions', 'vins.transaction_id', '=', 'transactions.id')
             ->join('blocks', 'transactions.block_height', '=', 'blocks.height')
@@ -73,27 +73,27 @@ class Address extends Model
             ->groupBy('vouts.transaction_id', 'transactions.txid', 'blocks.created_at');
     }
 
-    public function transactions(): Paginator
+    public function getTransactionsAttribute()
     {
         $transactions = ($this->address !== Address::DEVELOPMENT_ADDRESS) ?
             $this->transactionVouts()->union($this->transactionVins()) :
             $this->transactionVins();
 
-        return $transactions->orderByDesc('created_at')->paginate();
+        return $transactions->orderByDesc('created_at');
     }
 
     public function getTotalValueInAttribute(): float
     {
-        return (float)DB::query()->fromSub($this->transactionVins(), 'vins')->sum('value');
+        return (float)DB::query()->fromSub($this->transactionVouts(), 'vouts')->sum('value');
     }
 
     public function getTotalValueOutAttribute(): float
     {
-        return (float)DB::query()->fromSub($this->transactionVouts(), 'vouts')->sum('value');
+        return (float)DB::query()->fromSub($this->transactionVins(), 'vins')->sum('value');
     }
 
     public function getTotalValueAttribute(): float
     {
-        return $this->total_value_out - $this->total_value_in;
+        return $this->total_value_out + $this->total_value_in;
     }
 }

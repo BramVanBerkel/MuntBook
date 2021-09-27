@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\BlockController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SearchController;
@@ -24,6 +25,8 @@ Route::post('/search', SearchController::class)->name('search');
 Route::get('block/{block}', [BlockController::class, 'index'])->name('block')->where('block', '[0-9]{1,10}+');
 
 Route::get('/transaction/{txid}', [TransactionController::class, 'index'])->name('transaction');
+
+Route::get('/address/{address}', [AddressController::class, 'index'])->name('address');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

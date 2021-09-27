@@ -26,7 +26,6 @@ class SearchController extends Controller
 
         //query is a (witness)address
         if(strlen($query) === config('gulden.address_length') || strlen($query) === config('gulden.witness_address_length')) {
-            dd('address');
             return redirect()->route('address', ['address' => $query]);
         }
 
@@ -35,7 +34,6 @@ class SearchController extends Controller
             return redirect()->route('block', ['block' => $query]);
         }
 
-        dd('not found');
         //query was not found
         return redirect()->route('home');
     }
