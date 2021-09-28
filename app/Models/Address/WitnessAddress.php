@@ -4,10 +4,8 @@
 namespace App\Models\Address;
 
 
-
 use App\Models\Block;
 use App\Models\Vout;
-use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Carbon;
 
 class WitnessAddress extends Address
@@ -19,7 +17,7 @@ class WitnessAddress extends Address
 
     public function getFirstSeenAttribute(): Carbon
     {
-        return now();
+        return $this->transactions->first()->created_at;
     }
 
     public function getTotalAmountLockedAttribute(): int

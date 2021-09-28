@@ -3,13 +3,12 @@
 namespace App\Repositories;
 
 use App\Models\Block;
-use Illuminate\Contracts\Pagination\Paginator;
 
 class BlockRepository
 {
-    public function index(): Paginator
+    public function index()
     {
-        return Block::orderBy('height', 'desc')->simplePaginate(10);
+        return Block::orderBy('height', 'desc');
     }
 
     public function getCurrentHeight(): int

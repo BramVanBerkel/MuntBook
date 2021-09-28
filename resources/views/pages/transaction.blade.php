@@ -35,7 +35,9 @@
             @foreach($outputs as $output)
                 <x-table-row color="{{ ($loop->index % 2 !== 0) ? 'bg-gray-50' : 'bg-white' }}">
                     <x-table-data-item>
-                        {{ $output->get('address') }}
+                        <x-link href="{{ route('address', ['address' => $output->get('address')]) }}">
+                            {{ $output->get('address') }}
+                        </x-link>
                     </x-table-data-item>
                     <x-table-data-item>
                         <x-gulden-display value="{{ $output->get('value') }}"  colored="true"/>

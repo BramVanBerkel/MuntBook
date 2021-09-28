@@ -30,7 +30,9 @@
             @foreach($transactions as $transaction)
                 <x-table-row color="{{ ($loop->index % 2 !== 0) ? 'bg-gray-50' : 'bg-white' }}">
                     <x-table-data-item>
-                        {{ $transaction->transaction->block->height }}
+                        <x-link href="{{ route('block', ['block' => $transaction->transaction->block->height]) }}">
+                            {{ $transaction->transaction->block->height }}
+                        </x-link>
                     </x-table-data-item>
                     <x-table-data-item>
                         <x-gulden-display value="{{ $transaction->value }}" colored="true" />

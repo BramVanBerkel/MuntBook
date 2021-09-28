@@ -16,7 +16,7 @@ class HomeController extends Controller
     public function index()
     {
         return view('pages.home', [
-            'blocks' => $this->blockRepository->index(),
+            'blocks' => $this->blockRepository->index()->simplePaginate(),
             'blockHeight' => $this->blockRepository->getCurrentHeight(),
             'hashrate' => Cache::get('hashrate') ?? 'unknown',
             'difficulty' => Cache::get('difficulty') ?? 'unknown',
