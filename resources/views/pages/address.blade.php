@@ -4,7 +4,7 @@
 
 @section('content')
     <x-information-block title="Address {{ $address->address }}">
-        <x-information-block-item name="Address">
+        <x-information-block-item name="Address" :copyable="$address->address">
             {{ $address->address }}
         </x-information-block-item>
         <x-information-block-item name="First seen">

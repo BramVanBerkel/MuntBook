@@ -4,7 +4,7 @@
 
 @section('content')
     <x-information-block title="Block {{ $block->height }}">
-        <x-information-block-item name="Hash">
+        <x-information-block-item name="Hash" :copyable="$block->hash">
             {{ $block->hash }}
         </x-information-block-item>
         <x-information-block-item name="Timestamp">

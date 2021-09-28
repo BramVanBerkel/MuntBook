@@ -4,14 +4,20 @@
 
 @section('content')
     <x-information-block title="Address {{ $address->address }}">
-        <x-information-block-item name="Address">
+        <x-information-block-item name="Address" :copyable="$address->address">
             {{ $address->address }}
         </x-information-block-item>
         <x-information-block-item name="First block found">
             {{ $address->first_block->height }}
+            <small>
+                {{ $address->first_block->created_at }}
+            </small>
         </x-information-block-item>
         <x-information-block-item name="Last block found">
             {{ $address->last_block->height }}
+            <small>
+                {{ $address->last_block->created_at }}
+            </small>
         </x-information-block-item>
         <x-information-block-item name="Rewards found">
             <x-gulden-display value="{{ $address->minedVouts()->sum('value') }}" /> out of {{ $address->minedVouts()->count() }} blocks
