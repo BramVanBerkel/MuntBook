@@ -10,13 +10,13 @@
         <x-information-block-item name="First block found">
             {{ $address->first_block->height }}
             <small>
-                {{ $address->first_block->created_at }}
+                <x-date :date="$address->first_block->created_at" />
             </small>
         </x-information-block-item>
         <x-information-block-item name="Last block found">
             {{ $address->last_block->height }}
             <small>
-                {{ $address->last_block->created_at }}
+                <x-date :date="$address->last_block->created_at" />
             </small>
         </x-information-block-item>
         <x-information-block-item name="Rewards found">

@@ -10,7 +10,7 @@
                 <div class="hidden lg:block lg:ml-10">
                     <div class="flex space-x-4">
                         <!-- Current: "bg-indigo-700 text-white", Default: "text-white hover:bg-indigo-500 hover:bg-opacity-75" -->
-                        <a href="#" class="bg-blue-700 text-white rounded-md py-2 px-3 text-sm font-medium" aria-current="page">
+                        <a href="#" class="bg-black bg-opacity-20 text-white rounded-md py-2 px-3 text-sm font-medium" aria-current="page">
                             Dashboard
                         </a>
 
@@ -56,6 +56,8 @@
                     </svg>
                 </button>
             </div>
+
+            @auth
             <div class="hidden lg:block lg:ml-4">
                 <div class="flex items-center">
                     <!-- Profile dropdown -->
@@ -76,8 +78,9 @@
                              x-transition:leave="transition ease-in duration-75"
                              x-transition:leave-start="opacity-100 scale-100"
                              x-transition:leave-end="opacity-0 scale-95"
-                             class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                             class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                             <!-- Active: "bg-gray-100", Not Active: "" -->
+
                             <a href="#" class="block py-2 px-4 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">
                                 Your Profile
                             </a>
@@ -86,21 +89,23 @@
                                 Settings
                             </a>
 
-                            <a href="#" class="block py-2 px-4 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">
-                                Sign out
-                            </a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="block py-2 px-4 text-sm text-gray-700">Sign out</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        @endauth
     </div>
 
     <!-- Mobile menu, show/hide based on menu state. -->
     <div x-show="mobileMenuOpen" class="lg:hidden" id="mobile-menu">
         <div class="px-2 pt-2 pb-3 space-y-1">
             <!-- Current: "bg-blue-700 text-white", Default: "text-white hover:bg-blue-500 hover:bg-opacity-75" -->
-            <a href="#" class="bg-blue-700 text-white block rounded-md py-2 px-3 text-base font-medium" aria-current="page">
+            <a href="#" class="bg-black bg-opacity-20 text-white block rounded-md py-2 px-3 text-base font-medium" aria-current="page">
                 Dashboard
             </a>
 

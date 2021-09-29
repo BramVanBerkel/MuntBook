@@ -8,7 +8,7 @@
             {{ $address->address }}
         </x-information-block-item>
         <x-information-block-item name="First seen">
-            {{ $address->first_seen }}
+            <x-date :date="$address->first_seen" />
         </x-information-block-item>
         @if($address->witnessAddressParts()->exists())
         <x-information-block-item x-data="{ open: false }" name="Total amount locked">
@@ -37,10 +37,10 @@
             </x-gulden-display>
         </x-information-block-item>
         <x-information-block-item name="Locked from block">
-            {{ $address->locked_from_block }} <small>({{ $address->locked_from_block_timestamp }})</small>
+            {{ $address->locked_from_block }} <small>(<x-date :date="$address->locked_from_block_timestamp" />)</small>
         </x-information-block-item>
         <x-information-block-item name="Locked until block">
-            {{ $address->locked_until_block }} <small>(~{{ $address->locked_until_block_timestamp->toDateString() }})</small>
+            {{ $address->locked_until_block }} <small>(~<x-date :date="$address->locked_until_block_timestamp" />)</small>
         </x-information-block-item>
         <x-information-block-item name="Weight">
             {{ number_format($address->adjusted_weight) }}
@@ -77,7 +77,7 @@
                 <x-table-row color="{{ ($loop->index % 2 !== 0) ? 'bg-gray-50' : 'bg-white' }}">
                     <x-table-data-item>
                         <x-link href="{{ route('transaction', ['txid' => $transaction->transaction->txid]) }}">
-                            {{ $transaction->transaction->created_at }}
+                            <x-date :date="$transaction->transaction->created_at" />
                         </x-link>
                     </x-table-data-item>
                     <x-table-data-item>
