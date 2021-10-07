@@ -58,6 +58,7 @@ class VinService
             return $query->select('id')
                 ->from((new Transaction)->getTable())
                 ->where('block_height', '=', $vin->get('tx_height'))
+                ->orderBy('id')
                 ->skip($vin->get('tx_index'))
                 ->take(1);
         })->firstWhere('n', '=', $vin->get('vout'));
