@@ -3,17 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Enums\AddressTypeEnum;
-use App\Repositories\AddressRepository;
+use App\Models\Address\Address;
 
 class AddressController extends Controller
 {
-    public function __construct(
-        private AddressRepository $addressRepository
-    ) {}
-
     public function index(string $address)
     {
-        $address = $this->addressRepository->findAddress($address);
+        $address = Address::firstWhere('address', '=', $address);
 
         $view = match($address->type) {
             AddressTypeEnum::ADDRESS() => view('pages.address'),

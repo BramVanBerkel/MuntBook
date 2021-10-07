@@ -37,6 +37,23 @@ class Address extends Model
      */
     const DEVELOPMENT_ADDRESS = 'GPk2TdvW1bjPAaPL72PXhVfYvyqEHKGrDA';
 
+    public function newFromBuilder($attributes = [], $connection = null): MiningAddress|WitnessAddress|Address
+    {
+        $instance = match($attributes->type) {
+            'mining' => new MiningAddress(),
+            'witness' => new WitnessAddress(),
+            default => new Address(),
+        };
+
+        $instance->setRawAttributes((array)$attributes, true);
+
+        $instance->setConnection($connection ?: $this->getConnectionName());
+
+        $instance->fireModelEvent('retrieved', false);
+
+        return $instance;
+    }
+
     public function vouts(): HasMany
     {
         return $this->hasMany(Vout::class, 'address_id');
@@ -55,12 +72,14 @@ class Address extends Model
     public function transactionVins(): Builder
     {
         return DB::table('vins')->select([
-            'transactions.txid', 'blocks.created_at', DB::raw('-sum(vouts.value) as value'), DB::raw("'vin' as type")
-        ])->join('vouts', 'vins.vout_id', '=', 'vouts.id')
+            'transactions.txid', 'transactions.created_at', DB::raw('-sum(vouts.value) as value'), DB::raw("'vin' as type")
+        ])->join('vouts', function($join) {
+            $join->on('vins.vout_id', '=', 'vouts.id')
+                ->where('vouts.address_id', '=', $this->id);
+        })
             ->join('transactions', 'vins.transaction_id', '=', 'transactions.id')
-            ->join('blocks', 'transactions.block_height', '=', 'blocks.height')
             ->where('vouts.address_id', '=', $this->id)
-            ->groupBy(['vins.transaction_id', 'transactions.txid', 'blocks.created_at']);
+            ->groupBy(['vins.transaction_id', 'transactions.txid', 'transactions.created_at']);
     }
 
     public function transactionVouts(): Builder
@@ -75,11 +94,11 @@ class Address extends Model
 
     public function getTransactionsAttribute()
     {
-        $transactions = ($this->address !== Address::DEVELOPMENT_ADDRESS) ?
-            $this->transactionVouts()->union($this->transactionVins()) :
-            $this->transactionVins();
+        if($this->address === Address::DEVELOPMENT_ADDRESS) {
+            return $this->transactionVins()->orderByDesc('created_at');
+        }
 
-        return $transactions->orderByDesc('created_at');
+        return $this->transactionVouts()->union($this->transactionVins())->orderByDesc('created_at');
     }
 
     public function getTotalValueInAttribute(): float
