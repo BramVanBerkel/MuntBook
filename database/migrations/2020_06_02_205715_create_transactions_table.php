@@ -31,6 +31,8 @@ class CreateTransactionsTable extends Migration
             $table->enum('type', Transaction::TYPES);
 
             $table->timestamps();
+
+            $table->index('created_at');
         });
     }
 
