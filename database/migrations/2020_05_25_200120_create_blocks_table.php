@@ -39,6 +39,8 @@ class CreateBlocksTable extends Migration
             $table->string('previousblockhash')->nullable();
 
             $table->timestamps();
+
+            $table->index('created_at');
         });
     }
 
