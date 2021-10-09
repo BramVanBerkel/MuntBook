@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
-    public function search(Request $request)
+    public function __invoke(Request $request)
     {
         $query = $request->get('query');
 

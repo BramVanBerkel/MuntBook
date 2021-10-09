@@ -147,7 +147,7 @@ class VoutService
         }
 
         if($transaction->type === Transaction::TYPE_MINING) {
-            if($address?->address === Address::DEVELOPMENT_ADDRESS) {
+            if($address->isDevelopmentAddress) {
                 return Vout::TYPE_DEVELOPMENT_REWARD;
             }
 

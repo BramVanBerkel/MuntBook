@@ -8,6 +8,7 @@ use App\Models\Block;
 use App\Models\Vout;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 class MiningAddress extends Address
 {
@@ -35,10 +36,9 @@ class MiningAddress extends Address
             ->block;
     }
 
-    public function transactions(): Paginator
+    public function getTransactionsAttribute()
     {
         return $this->minedVouts()
-            ->orderByDesc('created_at')
-            ->paginate();
+            ->orderByDesc('created_at');
     }
 }

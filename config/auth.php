@@ -31,7 +31,7 @@ return [
     | users are actually retrieved out of your database or other storage
     | mechanisms used by this application to persist your user's data.
     |
-    | Supported: "session", "token"
+    | Supported: "session"
     |
     */
 
@@ -39,12 +39,6 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
-        ],
-
-        'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
-            'hash' => false,
         ],
     ],
 
@@ -68,7 +62,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => App\Models\User::class,
         ],
 
         // 'users' => [
@@ -114,4 +108,13 @@ return [
 
     'password_timeout' => 10800,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Password
+    |--------------------------------------------------------------------------
+    |
+    | The password of the admin user, to be used for seeding
+    |
+    */
+    'admin_password' => env('ADMIN_PASSWORD'),
 ];

@@ -2,22 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\AddressTypeEnum;
 use App\Models\Address\Address;
-use App\Repositories\AddressRepository;
-use Illuminate\Support\Facades\DB;
 
 class AddressController extends Controller
 {
-    public function __construct(
-        private AddressRepository $addressRepository
-    ) {}
-
     public function index(string $address)
     {
-        $address = $this->addressRepository->findAddress($address);
+        $address = Address::where('address', '=', $address)->firstOrFail();
 
-        return view('layouts.pages.address.address', [
+        $view = match ($address->type) {
+            AddressTypeEnum::ADDRESS() => view('pages.address'),
+            AddressTypeEnum::MINING() => view('pages.mining-address'),
+            AddressTypeEnum::WITNESS() => view('pages.witness-address'),
+        };
+
+        $transactions = (!$address->isDevelopmentAddress) ? $address->transactions->paginate() : $address->transactions->simplePaginate();
+
+        return $view->with([
             'address' => $address,
+            'transactions' => $transactions,
         ]);
     }
 }
