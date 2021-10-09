@@ -3,7 +3,7 @@
 @section('title', 'Mining address ' . Str::limit($address->address, 10))
 
 @section('content')
-    <x-information-block title="Address {{ $address->address }}">
+    <x-information-block>
         <x-information-block-item name="Address" :copyable="$address->address">
             {{ $address->address }}
         </x-information-block-item>
@@ -36,10 +36,24 @@
             </x-gulden-display>
         </x-information-block-item>
         <x-information-block-item name="Locked from block">
-            {{ $address->locked_from_block }} <small>(<x-date date="{{ $address->locked_from_block_timestamp }}" />)</small>
+            <span>
+                <x-link href="{{ route('block', ['block' => $address->locked_from_block]) }}" :styled="false">
+                    {{ $address->locked_from_block }}
+                </x-link>
+                <small class="text-xs">
+                    <x-date date="{{ $address->locked_from_block_timestamp }}" />
+                </small>
+            </span>
         </x-information-block-item>
         <x-information-block-item name="Locked until block">
-            {{ $address->locked_until_block }} <small>(~<x-date date="{{ $address->locked_until_block_timestamp }}" />)</small>
+            <span>
+                <x-link href="{{ route('block', ['block' => $address->locked_until_block]) }}" :styled="false">
+                    {{ $address->locked_until_block }}
+                </x-link>
+                <small class="text-xs">
+                    ~<x-date date="{{ $address->locked_until_block_timestamp }}" />
+                </small>
+            </span>
         </x-information-block-item>
         <x-information-block-item name="Weight">
             {{ number_format($address->adjusted_weight) }}

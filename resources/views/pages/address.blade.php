@@ -3,7 +3,15 @@
 @section('title', 'Address ' . Str::limit($address->address, 10))
 
 @section('content')
-    <x-information-block title="Address {{ $address->address }}">
+    <x-information-block>
+        @if($address->isDevelopmentAddress)
+            <x-slot name="description">
+                This is the address for Gulden development. From block number 1030000 this address will receive 40 Gulden for each block and from block 1226652 80 Gulden, this is why we don't show the inputs.
+                <br>
+                To support Gulden development directly by buying Guldens, please visit <x-link href="https://blockhut.com/">Blockhut</x-link>
+            </x-slot>
+        @endif
+
         <x-information-block-item name="Address" :copyable="$address->address">
             {{ $address->address }}
         </x-information-block-item>

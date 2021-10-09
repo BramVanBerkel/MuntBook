@@ -3,21 +3,29 @@
 @section('title', 'Mining address ' . Str::limit($address->address, 10))
 
 @section('content')
-    <x-information-block title="Address {{ $address->address }}">
+    <x-information-block>
         <x-information-block-item name="Address" :copyable="$address->address">
             {{ $address->address }}
         </x-information-block-item>
         <x-information-block-item name="First block found">
-            {{ $address->first_block->height }}
-            <small>
-                <x-date date="{{ $address->first_block->created_at }}" />
-            </small>
+            <span>
+                <x-link href="{{ route('block', ['block' => $address->first_block->height]) }}" :styled="false">
+                    {{ $address->first_block->height }}
+                </x-link>
+                <small class="text-xs">
+                    <x-date date="{{ $address->first_block->created_at }}" />
+                </small>
+            </span>
         </x-information-block-item>
         <x-information-block-item name="Last block found">
-            {{ $address->last_block->height }}
-            <small>
-                <x-date date="{{ $address->last_block->created_at}}" />
-            </small>
+            <span>
+                <x-link href="{{ route('block', ['block' => $address->last_block->height]) }}" :styled="false">
+                    {{ $address->last_block->height }}
+                </x-link>
+                <small class="text-xs">
+                    <x-date date="{{ $address->last_block->created_at}}" />
+                </small>
+            </span>
         </x-information-block-item>
         <x-information-block-item name="Rewards found">
             <x-gulden-display value="{{ $address->minedVouts()->sum('value') }}" /> out of {{ $address->minedVouts()->count() }} blocks

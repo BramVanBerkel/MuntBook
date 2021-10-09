@@ -3,7 +3,7 @@
 @section('title', 'Transaction ' . Str::limit($transaction->txid, 25))
 
 @section('content')
-    <x-information-block title="Transaction {{ Str::limit($transaction->txid, 25) }}">
+    <x-information-block>
         <x-information-block-item name="Transaction id" :copyable="$transaction->txid">
             {{ $transaction->txid }}
         </x-information-block-item>

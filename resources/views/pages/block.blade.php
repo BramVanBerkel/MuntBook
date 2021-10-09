@@ -3,7 +3,7 @@
 @section('title', "Block $block->height")
 
 @section('content')
-    <x-information-block title="Block {{ $block->height }}">
+    <x-information-block>
         <x-information-block-item name="Hash" :copyable="$block->hash">
             {{ $block->hash }}
         </x-information-block-item>
