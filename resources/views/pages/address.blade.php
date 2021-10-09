@@ -46,4 +46,6 @@
             @endforeach
         </x-table-body>
     </x-table>
+
+    {{ $transactions->links() }}
 @endsection

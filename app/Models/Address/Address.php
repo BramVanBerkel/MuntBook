@@ -95,7 +95,7 @@ class Address extends Model
     public function getTransactionsAttribute()
     {
         if($this->address === Address::DEVELOPMENT_ADDRESS) {
-            return $this->transactionVins()->orderByDesc('created_at');
+            return $this->transactionVins()->orderByDesc('transactions.created_at');
         }
 
         return $this->transactionVouts()->union($this->transactionVins())->orderByDesc('created_at');
@@ -114,5 +114,10 @@ class Address extends Model
     public function getTotalValueAttribute(): float
     {
         return $this->total_value_out + $this->total_value_in;
+    }
+
+    public function getIsDevelopmentAddressAttribute(): bool
+    {
+        return $this->address === self::DEVELOPMENT_ADDRESS;
     }
 }
