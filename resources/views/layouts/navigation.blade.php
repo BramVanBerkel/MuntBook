@@ -7,32 +7,32 @@
                         <img class="block h-8" src="{{ asset('images/logos/white.svg') }}" alt="GuldenBook logo"/>
                     </a>
                 </div>
-                <div class="hidden lg:block lg:ml-10">
-                    <div class="flex space-x-4">
-                        <!-- Current: "bg-indigo-700 text-white", Default: "text-white hover:bg-indigo-500 hover:bg-opacity-75" -->
-                        <a href="#" class="bg-black bg-opacity-20 text-white rounded-md py-2 px-3 text-sm font-medium" aria-current="page">
-                            Dashboard
-                        </a>
+{{--                <div class="hidden lg:block lg:ml-10">--}}
+{{--                    <div class="flex space-x-4">--}}
+{{--                        <!-- Current: "bg-indigo-700 text-white", Default: "text-white hover:bg-indigo-500 hover:bg-opacity-75" -->--}}
+{{--                        <a href="#" class="bg-black bg-opacity-20 text-white rounded-md py-2 px-3 text-sm font-medium" aria-current="page">--}}
+{{--                            Dashboard--}}
+{{--                        </a>--}}
 
-                        <x-nav-item item="test1">
-                            <div class="hidden absolute mt-12 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-                                <div class="py-1" role="none">
-                                    <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-                                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Account settings</a>
-                                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Support</a>
-                                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">License</a>
-                                    <form method="POST" action="#" role="none">
-                                        <button type="submit" class="text-gray-700 block w-full text-left px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-3">
-                                            Sign out
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </x-nav-item>
-                        <x-nav-item item="test2" />
-                        <x-nav-item item="test3" />
-                    </div>
-                </div>
+{{--                        <x-nav-item item="test1">--}}
+{{--                            <div class="hidden absolute mt-12 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">--}}
+{{--                                <div class="py-1" role="none">--}}
+{{--                                    <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->--}}
+{{--                                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Account settings</a>--}}
+{{--                                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Support</a>--}}
+{{--                                    <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">License</a>--}}
+{{--                                    <form method="POST" action="#" role="none">--}}
+{{--                                        <button type="submit" class="text-gray-700 block w-full text-left px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-3">--}}
+{{--                                            Sign out--}}
+{{--                                        </button>--}}
+{{--                                    </form>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </x-nav-item>--}}
+{{--                        <x-nav-item item="test2" />--}}
+{{--                        <x-nav-item item="test3" />--}}
+{{--                    </div>--}}
+{{--                </div>--}}
             </div>
             <div class="flex lg:hidden">
                 <!-- Mobile menu button -->
