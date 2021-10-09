@@ -108,4 +108,13 @@ return [
 
     'password_timeout' => 10800,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Password
+    |--------------------------------------------------------------------------
+    |
+    | The password of the admin user, to be used for seeding
+    |
+    */
+    'admin_password' => env('ADMIN_PASSWORD'),
 ];
