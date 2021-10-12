@@ -49,7 +49,7 @@
                 <x-table-row color="{{ ($loop->index % 2 !== 0) ? 'bg-gray-50' : 'bg-white' }}">
                     <x-table-data-item><x-link href="{{ route('block', ['block' => $block->height]) }}">{{$block->height}}</x-link></x-table-data-item>
                     <x-table-data-item>
-                        <x-date date="{{ $block->created_at }}" />
+                        <x-date :date="$block->created_at" />
                     </x-table-data-item>
                     <x-table-data-item>{{ $block->transactions()->count() }}</x-table-data-item>
                     <x-table-data-item><x-gulden-display value="{{ $block->total_value_out }}"/></x-table-data-item>

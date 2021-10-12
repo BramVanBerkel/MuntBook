@@ -13,7 +13,7 @@
             </x-link>
         </x-information-block-item>
         <x-information-block-item name="Timestamp">
-            <x-date date="{{ $transaction->created_at }}" />
+            <x-date :date="$transaction->created_at" />
         </x-information-block-item>
         <x-information-block-item name="Total value out">
             <x-gulden-display value="{{ $transaction->total_value_out }}" />

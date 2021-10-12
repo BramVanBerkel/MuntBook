@@ -13,7 +13,7 @@
                     {{ $address->first_block->height }}
                 </x-link>
                 <small class="text-xs">
-                    <x-date date="{{ $address->first_block->created_at }}" />
+                    <x-date :date="$address->first_block->created_at" />
                 </small>
             </span>
         </x-information-block-item>
@@ -23,7 +23,7 @@
                     {{ $address->last_block->height }}
                 </x-link>
                 <small class="text-xs">
-                    <x-date date="{{ $address->last_block->created_at}}" />
+                    <x-date :date="$address->last_block->created_at" />
                 </small>
             </span>
         </x-information-block-item>
