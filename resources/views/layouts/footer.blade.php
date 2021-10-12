@@ -7,6 +7,10 @@
                 <br>
                 Please note that GuldenBook is an initiative by the volunteers of the Gulden community.
                 The data may be inaccurate. If you spot any discrepancies, please email to: <x-link href="mailto:contact@guldenbook.com">contact@guldenbook.com</x-link>
+                <br>
+                If you wish to support GuldenBook, please donate to <x-link href="gulden://GctjYr3Ns3orpjSZNFZUWvVn3cGNT81zzL">GctjYr3Ns3orpjSZNFZUWvVn3cGNT81zzL</x-link>
+                <br>
+                Made with ♥ by <x-link href="linkedin.com/in/bram-van-berkel-66365916a/">Bram van Berkel</x-link>
             </p>
         </div>
     </div>
