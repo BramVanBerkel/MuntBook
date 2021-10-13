@@ -10,7 +10,7 @@
                 <br>
                 If you wish to support GuldenBook, please donate to <x-link href="gulden://GctjYr3Ns3orpjSZNFZUWvVn3cGNT81zzL">GctjYr3Ns3orpjSZNFZUWvVn3cGNT81zzL</x-link>
                 <br>
-                Made with ♥ by <x-link href="https://linkedin.com/in/bram-van-berkel-66365916a/">Bram van Berkel</x-link>
+                Made with ♥ by <x-link href="https://linkedin.com/in/bram-van-berkel-66365916a/" target="_blank">Bram van Berkel</x-link>
             </p>
         </div>
     </div>
