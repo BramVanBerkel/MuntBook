@@ -34,6 +34,7 @@
 {{--                    </div>--}}
 {{--                </div>--}}
             </div>
+            @auth
             <div class="flex lg:hidden">
                 <!-- Mobile menu button -->
                 <button @click="mobileMenuOpen = !mobileMenuOpen" type="button" class="bg-blue-600 p-2 rounded-md inline-flex items-center justify-center text-indigo-200 hover:text-white hover:bg-indigo-500 hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
@@ -57,7 +58,6 @@
                 </button>
             </div>
 
-            @auth
             <div class="hidden lg:block lg:ml-4">
                 <div class="flex items-center">
                     <!-- Profile dropdown -->
@@ -97,8 +97,8 @@
                     </div>
                 </div>
             </div>
+            @endauth
         </div>
-        @endauth
     </div>
 
     <!-- Mobile menu, show/hide based on menu state. -->
