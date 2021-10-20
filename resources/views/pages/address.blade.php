@@ -44,7 +44,7 @@
                 <x-table-row color="{{ ($loop->index % 2 !== 0) ? 'bg-gray-50' : 'bg-white' }}">
                     <x-table-data-item>
                         <x-link href="{{ route('transaction', ['txid' => $transaction->txid]) }}">
-                            <x-date :date="$transaction->created_at" />
+                            <x-date :date="\Carbon\Carbon::make($transaction->created_at)" />
                         </x-link>
                     </x-table-data-item>
                     <x-table-data-item>
