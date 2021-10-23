@@ -58,7 +58,7 @@ task('composer-install', function() {
 });
 
 desc('Restart workers');
-task('restart-workers', 'artisan:queue:restart'););
+task('restart-workers', 'artisan:queue:restart');
 
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
