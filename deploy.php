@@ -61,7 +61,7 @@ desc('Restart workers');
 task('restart-workers', 'artisan:queue:restart');
 
 desc('Publish horizon assets');
-task('restart-workers', 'artisan:horizon:publish');
+task('horizon-publish', 'artisan:horizon:publish');
 
 
 // [Optional] if deploy fails automatically unlock.
