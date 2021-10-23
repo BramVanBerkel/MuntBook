@@ -71,7 +71,7 @@ class Address extends Model
 
     public function transactionVins(): Builder
     {
-        return DB::table('vins')->select([
+        return DB::table('vins')->select([ //todo: refacor to use model
             'transactions.txid', 'transactions.created_at', DB::raw('-sum(vouts.value) as value'), DB::raw("'vin' as type")
         ])->join('vouts', function($join) {
             $join->on('vins.vout_id', '=', 'vouts.id')
@@ -84,7 +84,7 @@ class Address extends Model
 
     public function transactionVouts(): Builder
     {
-        return DB::table('vouts')->select([
+        return DB::table('vouts')->select([ //todo: refacor to use model
             'transactions.txid', 'blocks.created_at', DB::raw('sum(vouts.value) as value'), DB::raw("'vout' as type")
         ])->join('transactions', 'vouts.transaction_id', '=', 'transactions.id')
             ->join('blocks', 'transactions.block_height', '=', 'blocks.height')
