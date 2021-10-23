@@ -15,9 +15,9 @@ class WitnessAddress extends Address
         return $this->vouts()->where('type', '=', Vout::TYPE_WITNESS)->orderByDesc('created_at');
     }
 
-    public function getFirstSeenAttribute(): Carbon
+    public function getFirstSeenAttribute(): ?Carbon
     {
-        return $this->transactions->first()->created_at;
+        return $this->transactions->first()?->created_at;
     }
 
     public function getTotalAmountLockedAttribute(): int
