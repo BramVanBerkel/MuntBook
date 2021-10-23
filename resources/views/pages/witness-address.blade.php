@@ -69,7 +69,7 @@
             @endif
         </x-information-block-item>
         <x-information-block-item name="Expired from inactivity">
-            @if($address->eligible_to_witness)
+            @if($address->expired_from_inactivity)
                 <span class="text-red-600">Address is expired from inactivity</span>
             @else
                 <span class="text-green-600">Address is not expired from inactivity</span>
