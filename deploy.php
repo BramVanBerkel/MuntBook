@@ -58,12 +58,7 @@ task('composer-install', function() {
 });
 
 desc('Restart workers');
-task('restart-workers', 'artisan:queue:restart');
-
-desc('Publish horizon assets', function() {
-    run("cd {{release_path}} && php artisan horizon:publish");
-});
-
+task('restart-workers', 'artisan:queue:restart'););
 
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
