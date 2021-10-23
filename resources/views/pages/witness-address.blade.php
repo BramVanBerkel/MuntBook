@@ -87,7 +87,7 @@
         </x-table-head>
         <x-table-body>
             @foreach($transactions as $transaction)
-                <x-table-row color="{{ ($loop->index % 2 !== 0) ? 'bg-gray-50' : 'bg-white' }}">
+                <x-table-row color="{{ ($loop->even) ? 'bg-gray-50' : 'bg-white' }}">
                     <x-table-data-item>
                         <x-link href="{{ route('transaction', ['txid' => $transaction->transaction->txid]) }}">
                             <x-date :date="$transaction->transaction->created_at" />

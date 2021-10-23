@@ -35,7 +35,7 @@
         </x-table-head>
         <x-table-body>
             @foreach($outputs as $output)
-                <x-table-row color="{{ ($loop->index % 2 !== 0) ? 'bg-gray-50' : 'bg-white' }}">
+                <x-table-row color="{{ ($loop->even) ? 'bg-gray-50' : 'bg-white' }}">
                     <x-table-data-item>
                         <x-link href="{{ route('address', ['address' => $output->get('address')]) }}">
                             {{ $output->get('address') }}
