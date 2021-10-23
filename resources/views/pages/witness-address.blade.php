@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Mining address ' . Str::limit($address->address, 10))
+@section('title', 'Witness address ' . Str::limit($address->address, 10))
 
 @section('content')
     <x-information-block>
@@ -8,7 +8,7 @@
             {{ $address->address }}
         </x-information-block-item>
         <x-information-block-item name="First seen">
-            <x-date :date="$address->first_seen" />
+            <x-date :date="$address->first_seen ?? now()" />
         </x-information-block-item>
         @if($address->witnessAddressParts()->exists())
         <x-information-block-item x-data="{ open: false }" name="Total amount locked">
