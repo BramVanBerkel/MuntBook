@@ -17,7 +17,7 @@
                     split in {{ $address->witnessAddressParts()->count() }} parts
                     <button @click='open = !open' type="button" id="menu-button" class="h-4" aria-expanded="true" aria-haspopup="true">
                         <span class="sr-only">Open options</span>
-                        {{-- Heroicon name: chevron-down --}}
+
                         <svg xmlns="http://www.w3.org/2000/svg" :class="{'rotate-180': open}" class="h-4 w-4 inline-block transform"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
@@ -29,7 +29,30 @@
                          x-transition:leave="transition ease-in duration-200"
                          x-transition:leave-end="opacity-0 transform -translate-y-3">
                         @foreach($address->witnessAddressParts as $part)
-                            <p>Part {{ $loop->index + 1 }}: <x-gulden-display value="{{ $part->amount }}"></x-gulden-display></p>
+                            <p>
+                                Part {{ $loop->index + 1 }}: <x-gulden-display value="{{ $part->amount }}"></x-gulden-display>
+                                @if($part->lock_period_expired)
+                                    <x-badge type="secondary">
+                                        Lock period expired
+                                    </x-badge>
+                                @else
+                                    @if($part->eligible_to_witness)
+                                        <x-badge type="success">
+                                            Part is eligible to witness
+                                        </x-badge>
+                                    @else
+                                        @if($part->expired_from_inactivity)
+                                            <x-badge type="danger">
+                                                Part is expired from inactivity
+                                            </x-badge>
+                                        @else
+                                            <x-badge type="danger">
+                                                Part is not eligible to witness
+                                            </x-badge>
+                                        @endif
+                                    @endif
+                                @endif
+                            </p>
                         @endforeach
                     </div>
                 @endif
@@ -57,16 +80,6 @@
         </x-information-block-item>
         <x-information-block-item name="Weight">
             {{ number_format($address->adjusted_weight) }}
-        </x-information-block-item>
-        <x-information-block-item name="Eligible to witness">
-            @if($address->eligible_to_witness)
-                <span class="text-green-600">Address is eligible to witness</span>
-            @else
-                <span class="text-red-600">Address is not eligible to witness</span>
-                @if($address->in_cooldown)
-                    <span class="text-gray-500"> (cooldown {{ $address->cooldown }} / 100)</span>
-                @endif
-            @endif
         </x-information-block-item>
         <x-information-block-item name="Expired from inactivity">
             @if($address->expired_from_inactivity)
