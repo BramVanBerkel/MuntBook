@@ -37,7 +37,6 @@ class TransactionController extends Controller
 
         if($transaction->type === Transaction::TYPE_WITNESS) {
             $fee = $vouts->sum('value') - $this->guldenService->getWitnessReward($transaction->block_height);
-            $witness_address = $transaction->vouts()->first()->address;
         } else {
             $input_total = $vins->sum('value');
             $output_total = $vouts->sum('value');
@@ -48,7 +47,7 @@ class TransactionController extends Controller
             'transaction' => $transaction,
             'outputs' => $this->transactionOutputTransformer->transform($vins->concat($vouts)),
             'fee' => $fee,
-            'witness_address' => $witness_address ?? null,
+            'rewarded_witness_address' => $transaction->rewarded_witness_address,
         ]);
     }
 }

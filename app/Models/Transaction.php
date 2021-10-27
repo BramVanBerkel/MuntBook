@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Address\WitnessAddress;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -86,5 +87,14 @@ class Transaction extends Model
     public function getIconNameAttribute(): string
     {
         return Str::ucfirst(str_replace('_', ' ', $this->type));
+    }
+
+    public function getRewardedWitnessAddressAttribute(): ?WitnessAddress
+    {
+        if($this->type !== Transaction::TYPE_WITNESS) {
+            return null;
+        }
+
+        return $this->vouts()->first()->address;
     }
 }

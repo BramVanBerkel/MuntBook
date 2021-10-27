@@ -24,6 +24,11 @@
         <x-information-block-item name="{{ $transaction->type === \App\Models\Transaction::TYPE_WITNESS ? 'Witness fee' : 'Transaction fee' }}">
             <x-gulden-display value="{{ $fee }}" />
         </x-information-block-item>
+        @if(isset($rewarded_witness_address))
+            <x-information-block-item name="Rewarded witness address">
+                <x-link :href="route('address', ['address' => $rewarded_witness_address->address])">{{ $rewarded_witness_address->address }}</x-link>
+            </x-information-block-item>
+        @endif
     </x-information-block>
 
     <x-divider title="Output" />
