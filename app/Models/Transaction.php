@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Address\Address;
 use App\Models\Address\WitnessAddress;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -89,7 +90,7 @@ class Transaction extends Model
         return Str::ucfirst(str_replace('_', ' ', $this->type));
     }
 
-    public function getRewardedWitnessAddressAttribute(): ?WitnessAddress
+    public function getRewardedWitnessAddressAttribute(): WitnessAddress|Address|null
     {
         if($this->type !== Transaction::TYPE_WITNESS) {
             return null;
