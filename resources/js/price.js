@@ -15,6 +15,7 @@ const chart = new Chart(ctx, {
             x: {
                 type: 'timeseries',
             },
+            y: {},
         },
     }
 });
