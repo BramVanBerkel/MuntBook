@@ -13,31 +13,8 @@ use Spatie\Enum\Laravel\Rules\EnumRule;
  */
 class PriceController extends Controller
 {
-
-    public function __construct(private PriceRepository $priceRepository)
-    {
-        //
-    }
-
     public function index()
     {
-        return view('layouts.pages.prices');
-    }
-
-    public function data(Request $request)
-    {
-        $request->validate([
-            'timeframe' => [
-                'required',
-                'string',
-                new EnumRule(PriceTimeframeEnum::class),
-            ],
-        ]);
-
-        $request->transformEnums([
-            'timeframe' => PriceTimeframeEnum::class,
-        ]);
-
-        return $this->priceRepository->getPrices($request->get('timeframe'), 'BITTREX');
+        return view('pages.price');
     }
 }

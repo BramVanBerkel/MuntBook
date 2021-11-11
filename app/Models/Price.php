@@ -12,11 +12,7 @@ class Price extends Model
 
     protected $fillable = [
         'timestamp',
-        'open',
-        'high',
-        'low',
-        'close',
-        'volume',
+        'price',
         'source',
     ];
 

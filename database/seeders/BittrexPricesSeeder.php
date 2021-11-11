@@ -20,38 +20,27 @@ class BittrexPricesSeeder extends Seeder
             return;
         }
 
-        //unzip
-        $zipPath = realpath('database/seeds/bittrex.csv.zip');
+        $zipPath = realpath('database/seeders/bittrex.csv.zip');
         $zipArchive = new \ZipArchive();
 
-        \Log::channel('stderr')->info('Opening bittrex.csv.zip...');
-        $opened = $zipArchive->open($zipPath);
-        if (!$opened) {
-            \Log::channel('stderr')->info('Failed opening bittrex.csv.zip!');
-            die();
-        }
+        \Log::channel('stderr')->info('Unzipping bittrex.csv.zip');
+        $zipArchive->open($zipPath);
 
-        \Log::channel('stderr')->info('Unzipping bittrex.csv.zip...');
-        $extracted = $zipArchive->extractTo('database/seeds');
-        if (!$extracted) {
-            \Log::channel('stderr')->info('Failed extracting bittrex.csv.zip!');
-            die();
-        }
+        $zipArchive->extractTo('database/seeders');
 
-        $path = realpath('database/seeds/bittrex.csv');
+        $path = realpath('database/seeders/bittrex.csv');
 
-        //import
-        \Log::channel('stderr')->info('Importing bittrex.csv.zip...');
+        \Log::channel('stderr')->info('Importing bittrex.csv...');
         DB::statement(<<<SQL
-            COPY prices(timestamp, open, high, low, close, volume, source)
-            FROM '{$path}'
+            COPY prices(timestamp, price, source)
+            FROM '$path'
             DELIMITER ','
             CSV HEADER;
         SQL
         );
 
         //cleanup
-        \Log::channel('stderr')->info('Removing bittrex.csv.zip...');
+        \Log::channel('stderr')->info('Removing bittrex.csv...');
         unlink($path);
     }
 }

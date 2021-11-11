@@ -18,11 +18,7 @@ class CreatePricesTable extends Migration
             $table->id();
 
             $table->timestamp('timestamp')->index();
-            $table->unsignedInteger('open');
-            $table->unsignedInteger('high');
-            $table->unsignedInteger('low');
-            $table->unsignedInteger('close');
-            $table->decimal('volume', 16, 8);
+            $table->unsignedFloat('price');
             $table->enum('source', Price::SOURCES);
         });
     }

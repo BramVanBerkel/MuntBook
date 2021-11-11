@@ -3,6 +3,7 @@
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\BlockController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PriceController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
@@ -27,5 +28,7 @@ Route::get('block/{block}', [BlockController::class, 'index'])->name('block')->w
 Route::get('/transaction/{txid}', [TransactionController::class, 'index'])->name('transaction');
 
 Route::get('/address/{address}', [AddressController::class, 'index'])->name('address');
+
+Route::get('price', [PriceController::class, 'index'])->name('price');
 
 require __DIR__.'/auth.php';

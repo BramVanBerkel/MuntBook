@@ -23,7 +23,9 @@ class UpdateBittrexPrices implements ShouldQueue
         PriceTransformer $priceTransformer,
         BittrexService $bittrexService)
     {
-        $lastDate = Price::where('source', '=', Price::SOURCE_BITTREX)->max('timestamp');
+        $lastDate = Price::query()
+            ->where('source', '=', Price::SOURCE_BITTREX)
+            ->max('timestamp') ?? Carbon::create(2015, 11, 22);
 
         foreach (CarbonPeriod::create($lastDate, now())->floorDays() as $date) {
             \Log::channel('stderr')->info((string)$date);

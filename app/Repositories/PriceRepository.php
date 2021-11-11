@@ -20,11 +20,7 @@ class PriceRepository
                 'timestamp' => $price->get('timestamp'),
                 'source' => $source,
             ], [
-                'open' => $price->get('open'),
-                'high' => $price->get('high'),
-                'low' => $price->get('low'),
-                'close' => $price->get('close'),
-                'volume' => $price->get('volume'),
+                'price' => $price->get('price'),
             ]);
         }
     }
