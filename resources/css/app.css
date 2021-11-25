@@ -1,6 +1,9 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+/* State Helpers */
+@import "./hover.css";
+/* Tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 .gulden-icon {
     background-image: url('../images/gulden.svg');
