@@ -13,8 +13,14 @@ use Spatie\Enum\Laravel\Rules\EnumRule;
  */
 class PriceController extends Controller
 {
+    public function __construct(
+        private PriceRepository $priceRepository
+    ) { }
+
     public function index()
     {
-        return view('pages.price');
+        return view('pages.price', [
+            'currentPrice' => $this->priceRepository->getCurrentPrice(),
+        ]);
     }
 }
