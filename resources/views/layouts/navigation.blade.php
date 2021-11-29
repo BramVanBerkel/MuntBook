@@ -1,4 +1,4 @@
-<nav x-data="{ mobileMenuOpen: false }" class="border-b border-indigo-300 border-opacity-25 lg:border-none">
+<nav x-data="{ mobileMenuOpen: false }" class="border-b border-blue border-opacity-25 lg:border-none">
     <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
         <div
             class="relative h-16 flex items-center justify-between lg:border-b lg:border-indigo-400 lg:border-opacity-25">
@@ -12,16 +12,15 @@
                     <div class="flex space-x-4">
 
                         <x-nav-item
-                            :route="route('home')"
-                            :children="[(object)['route' => '#', 'label' => 'test']]">
-                            Home
+                            :route="route('price')">
+                            Price
                         </x-nav-item>
 
-                        <x-nav-item
-                            :route="route('block', 1)">
-                            Blocks
-                        </x-nav-item>
-
+{{--                        <x-nav-item--}}
+{{--                            :route="route('price')"--}}
+{{--                            :children="[(object)['route' => '#', 'label' => 'test']]">--}}
+{{--                            Home--}}
+{{--                        </x-nav-item>--}}
                     </div>
                 </div>
             </div>

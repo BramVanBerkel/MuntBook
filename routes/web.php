@@ -23,12 +23,12 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::post('/search', SearchController::class)->name('search');
 
-Route::get('block/{block}', [BlockController::class, 'index'])->name('block')->where('block', '[0-9]{1,10}+');
+Route::get('/block/{block}', [BlockController::class, 'index'])->name('block')->where('block', '[0-9]{1,10}+');
 
 Route::get('/transaction/{txid}', [TransactionController::class, 'index'])->name('transaction');
 
 Route::get('/address/{address}', [AddressController::class, 'index'])->name('address');
 
-Route::get('price', [PriceController::class, 'index'])->name('price');
+Route::get('/price', [PriceController::class, 'index'])->name('price');
 
 require __DIR__.'/auth.php';

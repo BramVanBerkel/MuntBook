@@ -3,44 +3,46 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\PriceResource;
+use App\Http\Resources\PriceCollection;
 use App\Models\Price;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PriceController extends Controller
 {
     public function index(string $timeframe)
     {
+        //todo: refactor to enums in php 8.1
         $since = match($timeframe) {
             '1d' => now()->subDay(),
             '7d' => now()->subDays(7),
             '1m' => now()->subMonth(),
             '3m' => now()->subMonths(3),
+            '1y' => now()->subYear(),
             'ytd' => now()->startOfYear(),
             'all' => null,
         };
 
         $groupBy = match($timeframe) {
-            '1d' => 300,
-            '7d' => 600,
-            '1m' => 60,
-            '3m' => 3600,
-            'ytd' => 28800,
-            'all' => null,
+            '1d' => 60,
+            '7d' => 300,
+            '1m' => 3600,
+            '3m' => 43200,
+            '1y', 'all' => 86400,
+            'ytd' => now()->startOfYear()->diffInSeconds(now()) / 1440,
         };
 
-        $since = Carbon::create(2021, 10, 30);
-
-        return Price::query()
-            ->whereDate('timestamp', '=', $since)
+        $prices = Price::query()
             ->select([
-                DB::raw("TIMESTAMP 'epoch' + INTERVAL '1 second' * round(extract('epoch' from timestamp) / $groupBy) * $groupBy as x"),
-                DB::raw("avg(price)::integer as y"),
+                DB::raw("TIMESTAMP 'epoch' + INTERVAL '1 second' * ROUND(EXTRACT('epoch' FROM timestamp) / $groupBy) * $groupBy as time"),
+                DB::raw("AVG(price) AS price"),
             ])
-            ->groupBy('x')
-            ->orderBy('x')
-            ->get();
+            ->groupBy('time')
+            ->orderBy('time');
+
+        if($since !== null) {
+            $prices->whereDate('timestamp', '>=', $since);
+        }
+
+        return PriceCollection::make($prices->get());
     }
 }

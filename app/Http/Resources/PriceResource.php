@@ -9,7 +9,7 @@ class PriceResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'x' => $this->timestamp,
+            'x' => $this->time,
             'y' => $this->price,
         ];
     }

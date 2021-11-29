@@ -1,8 +1,6 @@
 <?php
 
 use App\Http\Controllers\Api\PriceController;
-use App\Http\Resources\PriceResource;
-use App\Models\Price;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

@@ -7,6 +7,7 @@ namespace App\Services;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use GuzzleHttp\Client;
+use Illuminate\Support\Collection;
 
 class BittrexService
 {
@@ -19,17 +20,17 @@ class BittrexService
         ]);
     }
 
-    public function getPrices(CarbonInterface $date)
+    public function getPrices(CarbonInterface $date, string $symbol): Collection
     {
         if ($date->isToday()) {
             /** /recent returns all candles of the last 24hrs  */
-            $request = $this->client->get('/v3/markets/NLG-BTC/candles/MINUTE_1/recent');
+            $request = $this->client->get(sprintf('/v3/markets/%s/candles/MINUTE_1/recent', $symbol));
         } else {
-            $request = $this->client->get(sprintf('/v3/markets/NLG-BTC/candles/MINUTE_1/historical/%s', $date->format('Y/m/d')));
+            $request = $this->client->get(sprintf('/v3/markets/%s/candles/MINUTE_1/historical/%s', $symbol, $date->format('Y/m/d')));
         }
 
         $response = $request->getBody()->getContents();
 
-        return collect(json_decode($response));
+        return collect(json_decode($response))->recursive();
     }
 }
