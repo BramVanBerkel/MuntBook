@@ -1,7 +1,7 @@
 <nav x-data="{ mobileMenuOpen: false }" class="border-b border-blue border-opacity-25 lg:border-none">
     <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
         <div
-            class="relative h-16 flex items-center justify-between lg:border-b lg:border-indigo-400 lg:border-opacity-25">
+            class="relative h-16 flex items-center justify-between lg:border-b lg:border-blue-400 lg:border-opacity-25">
             <div class="px-2 flex items-center lg:px-0">
                 <div class="flex-shrink-0">
                     <a href="{{ route('home') }}">
@@ -28,7 +28,7 @@
                 <div class="flex lg:hidden">
                     <!-- Mobile menu button -->
                     <button @click="mobileMenuOpen = !mobileMenuOpen" type="button"
-                            class="bg-blue-600 p-2 rounded-md inline-flex items-center justify-center text-indigo-200 hover:text-white hover:bg-indigo-500 hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white"
+                            class="bg-blue-600 p-2 rounded-md inline-flex items-center justify-center text-blue-200 hover:text-white hover:bg-indigo-500 hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white"
                             aria-controls="mobile-menu" aria-expanded="false">
                         <span class="sr-only">Open main menu</span>
                         <!--
