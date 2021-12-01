@@ -40,7 +40,7 @@ class UpdateBittrexPrices implements ShouldQueue
                 $avgBitcoinPrice = $this->calculateAverage($bitcoinPrices[$index]);
 
                 Price::updateOrCreate([
-                    'timestamp' => $guldenPrices[$index]['startsAt'],
+                    'timestamp' => Carbon::parse($guldenPrices[$index]['startsAt']),
                 ], [
                     'price' => $avgBitcoinPrice * $avgGuldenPrice,
                     'source' => Price::SOURCE_BITTREX,
