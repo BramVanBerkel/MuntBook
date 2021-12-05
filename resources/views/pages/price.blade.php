@@ -14,7 +14,7 @@
         </div>
         <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
             <div class="py-4 px-6">
-                <canvas id="priceChart" width="400" height="400"></canvas>
+                <div id="price"></div>
             </div>
         </div>
     </div>

@@ -24,6 +24,7 @@
         "acorn": "^8.6.0",
         "chart.js": "^3.6.0",
         "chartjs-adapter-moment": "^1.0.0",
+        "lightweight-charts": "^3.7.0",
         "moment": "^2.29.1"
     }
 }

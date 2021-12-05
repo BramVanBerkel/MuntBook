@@ -23,18 +23,18 @@ class PriceController extends Controller
         };
 
         $groupBy = match($timeframe) {
-            '1d' => 60,
-            '7d' => 300,
+            '1d' => 300,
+            '7d' => 600,
             '1m' => 3600,
             '3m' => 43200,
             '1y', 'all' => 86400,
             'ytd' => now()->startOfYear()->diffInSeconds(now()) / 1440,
         };
 
-        $prices = Price::query()
+        $prices = DB::table('prices')
             ->select([
                 DB::raw("TIMESTAMP 'epoch' + INTERVAL '1 second' * ROUND(EXTRACT('epoch' FROM timestamp) / $groupBy) * $groupBy as time"),
-                DB::raw("AVG(price) AS price"),
+                DB::raw("AVG(price) AS value"),
             ])
             ->groupBy('time')
             ->orderBy('time');

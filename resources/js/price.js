@@ -1,68 +1,47 @@
-import Chart from 'chart.js/auto';
-import 'chartjs-adapter-moment';
+import { createChart } from "lightweight-charts";
 
 window.data = function () {
     return {
         selectedTimeframe: '1d',
         timeframes: ['1d', '7d', '1m', '3m', '1y', 'ytd', 'all'],
-        ctx: document.getElementById('priceChart').getContext('2d'),
         chart: null,
+        areaSeries: null,
         selectedIndex: 0,
         updateChart(timeframe) {
+            const areaSeries = this.areaSeries;
             const chart = this.chart;
-
-            chart.data.datasets.pop();
 
             fetch('/api/prices/' + timeframe)
                 .then(response => response.json())
                 .then(function (data) {
-                    chart.data.datasets.push({
-                        borderColor: 'rgb(59, 130, 246)',
-                        label: 'price',
-                        data: data,
-                        pointRadius: 0,
-                        tension: 1,
-                    });
-
-                    chart.update();
+                    areaSeries.setData(data);
+                    chart.timeScale().fitContent();
                 });
         },
         init() {
-            this.chart = new Chart(this.ctx, {
-                type: 'line',
-                responsive: true,
-                options: {
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function (context) {
-                                    return '€' + Number(context.parsed.y).toFixed(5);
-                                }
-                            }
-                        }
-                    },
-                    interaction: {
-                        intersect: false,
-                    },
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            type: 'time',
-                            time: {
-                                displayFormats: {
-                                    hour: 'HH:SS'
-                                },
-                            },
-                        },
-                        y: {
-                            ticks: {
-                                callback: function (value) {
-                                    return '€' + Number(value).toFixed(5);
-                                },
-                            },
-                        },
-                    },
-                }
+            this.chart = createChart(document.getElementById('price'), {
+                height: 500,
+                layout: {
+                    fontFamily: 'Nunito',
+                },
+                timeScale: {
+                    timeVisible: true,
+                    secondsVisible: false,
+                },
+                rightPriceScale: {
+                    visible: true,
+                },
+            });
+
+            this.areaSeries = this.chart.addAreaSeries({
+                topColor: 'rgba(33, 150, 243, 0.4)',
+                bottomColor: 'rgba(33, 150, 243, 0.05)',
+                lineColor: 'rgb(59, 130, 246)',
+                priceFormat: {
+                    type: 'price',
+                    precision: 6,
+                    minMove: 0.000001,
+                },
             });
 
             this.updateChart('1d');
