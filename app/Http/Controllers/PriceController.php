@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\PriceTimeframeEnum;
 use App\Repositories\PriceRepository;
-use Illuminate\Http\Request;
-use Spatie\Enum\Laravel\Rules\EnumRule;
 
 /**
  * Class PriceController
