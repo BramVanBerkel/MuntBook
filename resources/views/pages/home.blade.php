@@ -47,7 +47,7 @@
         <x-table-body>
             @foreach($blocks as $block)
                 <x-table-row color="{{ ($loop->even) ? 'bg-gray-50' : 'bg-white' }}">
-                    <x-table-data-item><x-link href="{{ route('block', ['block' => $block->height]) }}">{{$block->height}}</x-link></x-table-data-item>
+                    <x-table-data-item><x-link rel="nofollow" href="{{ route('block', ['block' => $block->height]) }}">{{$block->height}}</x-link></x-table-data-item>
                     <x-table-data-item>
                         <x-date :date="$block->created_at" />
                     </x-table-data-item>

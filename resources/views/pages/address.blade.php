@@ -43,7 +43,7 @@
             @foreach($transactions as $transaction)
                 <x-table-row color="{{ ($loop->even) ? 'bg-gray-50' : 'bg-white' }}">
                     <x-table-data-item>
-                        <x-link href="{{ route('transaction', ['txid' => $transaction->txid]) }}">
+                        <x-link rel="nofollow" href="{{ route('transaction', ['txid' => $transaction->txid]) }}">
                             <x-date :date="\Carbon\Carbon::make($transaction->created_at)" />
                         </x-link>
                     </x-table-data-item>

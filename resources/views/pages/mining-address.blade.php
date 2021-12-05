@@ -44,7 +44,7 @@
             @foreach($transactions as $transaction)
                 <x-table-row color="{{ ($loop->even) ? 'bg-gray-50' : 'bg-white' }}">
                     <x-table-data-item>
-                        <x-link href="{{ route('block', ['block' => $transaction->transaction->block->height]) }}">
+                        <x-link rel="nofollow" href="{{ route('block', ['block' => $transaction->transaction->block->height]) }}">
                             {{ $transaction->transaction->block->height }}
                         </x-link>
                     </x-table-data-item>

@@ -42,7 +42,7 @@
             @foreach($outputs as $output)
                 <x-table-row color="{{ ($loop->even) ? 'bg-gray-50' : 'bg-white' }}">
                     <x-table-data-item>
-                        <x-link href="{{ route('address', ['address' => $output->get('address')]) }}">
+                        <x-link rel="nofollow" href="{{ route('address', ['address' => $output->get('address')]) }}">
                             {{ $output->get('address') }}
                         </x-link>
                     </x-table-data-item>
