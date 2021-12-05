@@ -41,7 +41,7 @@
             </p>
         </div>
 
-        <div class="p-4 flex items-center space-x-4">
+        <div class="border-t border-gray-200 p-4 flex items-center space-x-4">
             <div>
                 <label for="nlg-price" class="sr-only">Price</label>
                 <div class="mt-1 relative rounded-md shadow-sm">
