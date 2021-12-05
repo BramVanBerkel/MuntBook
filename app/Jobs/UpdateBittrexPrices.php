@@ -14,6 +14,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Collection;
+use Log;
 
 class UpdateBittrexPrices implements ShouldQueue
 {
@@ -30,7 +31,7 @@ class UpdateBittrexPrices implements ShouldQueue
                 ->max('timestamp') ?? Carbon::create(2020, 3, 31);
 
         foreach (CarbonPeriod::create($lastDate, now())->floorDays() as $date) {
-            \Log::channel('stderr')->info($date);
+            Log::channel('stderr')->info($date);
 
             $guldenPrices = $bittrexService->getPrices($date, 'NLG-BTC');
             $bitcoinPrices = $bittrexService->getPrices($date, 'BTC-EUR');
