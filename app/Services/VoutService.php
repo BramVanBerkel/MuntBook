@@ -153,7 +153,7 @@ class VoutService
 
             if($address) {
                 $address->update([
-                    'type' => AddressTypeEnum::MINING(),
+                    'type' => AddressTypeEnum::MINING,
                 ]);
             }
 

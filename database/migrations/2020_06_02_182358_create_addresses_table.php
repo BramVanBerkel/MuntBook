@@ -18,7 +18,7 @@ class CreateAddressesTable extends Migration
             $table->id();
 
             $table->string('address')->unique();
-            $table->enum('type', AddressTypeEnum::toValues());
+            $table->enum('type', array_map(fn(AddressTypeEnum $enum): string => $enum->value, AddressTypeEnum::cases()));
 
             $table->timestamps();
         });

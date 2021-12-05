@@ -18,12 +18,12 @@ class AddressService
         );
     }
 
-    private function getType(string $address): ?string
+    private function getType(string $address): AddressTypeEnum
     {
         return match (Str::length($address)) {
-            config('gulden.address_length') => AddressTypeEnum::ADDRESS(),
-            config('gulden.witness_address_length') => AddressTypeEnum::WITNESS(),
-            default => null,
+            config('gulden.address_length') => AddressTypeEnum::ADDRESS,
+            config('gulden.witness_address_length') => AddressTypeEnum::WITNESS,
+            default => AddressTypeEnum::ADDRESS,
         };
     }
 }

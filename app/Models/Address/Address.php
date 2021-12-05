@@ -6,11 +6,9 @@ use App\Enums\AddressTypeEnum;
 use App\Models\Vin;
 use App\Models\Vout;
 use App\Models\WitnessAddressPart;
-use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 
@@ -28,7 +26,7 @@ class Address extends Model
     ];
 
     protected $casts = [
-        'type' => AddressTypeEnum::class
+        'type' => AddressTypeEnum::class,
     ];
 
     /**
