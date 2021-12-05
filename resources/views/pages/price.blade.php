@@ -19,7 +19,7 @@
         </div>
     </div>
 
-    <x-button-group x-data="data()" x-init="init()">
+    <x-button-group x-data="priceChart()" x-init="init()">
         <template x-for="(timeframe, index) in timeframes">
             <x-button-group-button
                 x-on:click="if(timeframe !== 0) updateChart(timeframe); selectedTimeframe = timeframe;"
