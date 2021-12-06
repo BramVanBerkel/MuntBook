@@ -5,7 +5,7 @@
             <div class="px-2 flex items-center lg:px-0">
                 <div class="flex-shrink-0">
                     <a href="{{ route('home') }}">
-                        <img class="block h-8" src="{{ asset('images/logos/white.svg') }}" alt="GuldenBook logo"/>
+                        <img class="block h-8 pointer-events-none" src="{{ asset('images/logos/white.svg') }}" alt="GuldenBook logo"/>
                     </a>
                 </div>
                 <div class="hidden lg:block lg:ml-10">
