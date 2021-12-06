@@ -77,5 +77,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/price.js') }}"></script>
+    <script src="{{ asset('js/priceChart.js') }}"></script>
 @endsection
