@@ -38,8 +38,8 @@ class Address extends Model
     public function newFromBuilder($attributes = [], $connection = null): MiningAddress|WitnessAddress|Address
     {
         $instance = match($attributes->type) {
-            'mining' => new MiningAddress(),
-            'witness' => new WitnessAddress(),
+            AddressTypeEnum::MINING->name => new MiningAddress(),
+            AddressTypeEnum::WITNESS->name => new WitnessAddress(),
             default => new Address(),
         };
 
