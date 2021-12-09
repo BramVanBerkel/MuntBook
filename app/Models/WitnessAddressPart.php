@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\WitnessAddressPartStatusEnum;
+use App\Repositories\BlockRepository;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -39,4 +41,30 @@ class WitnessAddressPart extends Model
         self::TYPE_SCRIPT,
         self::TYPE_POW2WITNESS,
     ];
+
+    public function getStatusAttribute(): WitnessAddressPartStatusEnum
+    {
+        if($this->lock_period_expired) {
+            return WitnessAddressPartStatusEnum::LOCK_PERIOD_EXPIRED;
+        }
+
+        if($this->eligible_to_witness) {
+            return WitnessAddressPartStatusEnum::NOT_ELIGIBLE_TO_WITNESS;
+        }
+
+        if($this->expired_from_inactivity) {
+            return WitnessAddressPartStatusEnum::EXPIRED_FROM_INACTIVITY;
+        }
+
+        if((app(BlockRepository::class)->getCurrentHeight() - $this->last_active_block) < 100) {
+            return WitnessAddressPartStatusEnum::COOLDOWN;
+        }
+
+        return WitnessAddressPartStatusEnum::ELIGIBLE_TO_WITNESS;
+    }
+
+    public function getCooldownAttribute()
+    {
+        return (app(BlockRepository::class)->getCurrentHeight() - $this->last_active_block);
+    }
 }
