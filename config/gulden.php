@@ -107,4 +107,14 @@ return [
     |
     */
     'first_phase_5_block' => 1140958,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Witness cooldown period
+    |--------------------------------------------------------------------------
+    |
+    | The amount of blocks a witness address part is in cooldown
+    |
+    */
+    'witness_cooldown_period' => 100,
 ];
