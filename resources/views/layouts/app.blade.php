@@ -16,7 +16,9 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
-    <script src="https://type-welcome.guldenbook.com/script.js" data-site="JBVDRBZA" defer></script>
+    @production
+        <script src="https://type-welcome.guldenbook.com/script.js" data-site="JBVDRBZA" defer></script>
+    @endproduction
 </head>
 <body class="font-sans antialiased">
 <div class="min-h-screen bg-gray-100">
