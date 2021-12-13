@@ -3,16 +3,15 @@
 namespace App\Repositories;
 
 use App\DataObjects\BlockData;
-use App\Models\Block;
 use App\Models\Vout;
 use Illuminate\Database\Query\JoinClause;
+use Illuminate\Pagination\CursorPaginator;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class BlockRepository
 {
-    public function index()
+    public function index(): CursorPaginator
     {
         $blocks = DB::table('blocks')
             ->select([
