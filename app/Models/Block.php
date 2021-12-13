@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Query\JoinClause;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class Block
@@ -48,25 +51,9 @@ class Block extends Model
     ];
 
     const EMPTY_WITNESS_MERLKEROOT = '0000000000000000000000000000000000000000000000000000000000000000';
-
     public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class);
-    }
-
-    public function getTotalValueOutAttribute(): int
-    {
-        $value = 0;
-
-        $this->transactions()->each(function(Transaction $transaction) use (&$value){
-            $transaction->vouts()->each(function(Vout $vout) use (&$value){
-                if(!$vout->isWitness()){
-                    $value += $vout->value;
-                }
-            });
-        });
-
-        return $value;
     }
 
     public function isWitness(): bool
