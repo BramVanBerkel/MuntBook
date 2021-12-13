@@ -45,6 +45,7 @@ class BlockRepository
 
     public function getCurrentHeight(): int
     {
-        return Block::max('height') ?? 0;
+        return DB::table('blocks')
+            ->max('height') ?? 0;
     }
 }
