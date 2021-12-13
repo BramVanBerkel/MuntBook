@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Repositories\BlockRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Builder;
@@ -60,4 +61,15 @@ class Block extends Model
     {
         return $this->witness_version !== null;
     }
+
+    public function getPreviousAttribute(): ?Block
+    {
+        return $this->where('height', '<', $this->height)->orderBy('height')->first();
+    }
+
+    public function getNextAttribute(): ?Block
+    {
+        return $this->where('height', '>', $this->height)->orderBy('height')->first();
+    }
+
 }

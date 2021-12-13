@@ -10,6 +10,12 @@ class BlockData extends DataTransferObject
 {
     public int $height;
 
+    public string $hash;
+
+    public string $version;
+
+    public string $merkleRoot;
+
     public Carbon $date;
 
     public float $totalValueOut;

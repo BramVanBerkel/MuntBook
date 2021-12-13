@@ -41,7 +41,7 @@ class Transaction extends Model
     const TYPE_WITNESS = 'witness';
     const TYPE_MINING = 'mining';
 
-    const TYPES = [
+    const TYPES = [ //todo: convert to enum
         self::TYPE_TRANSACTION,
         self::TYPE_WITNESS_FUNDING,
         self::TYPE_WITNESS,

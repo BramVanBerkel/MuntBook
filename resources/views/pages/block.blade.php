@@ -8,19 +8,19 @@
             {{ $block->hash }}
         </x-information-block-item>
         <x-information-block-item name="Timestamp">
-            {{ $block->created_at }}
+            {{ $block->date }}
         </x-information-block-item>
         <x-information-block-item name="Total value out">
-            <x-gulden-display value="{{ $block->total_value_out }}"/>
+            <x-gulden-display value="{{ $block->totalValueOut }}"/>
         </x-information-block-item>
         <x-information-block-item name="No. of transactions">
-            {{ $block->transactions()->count() }}
+            {{ $block->numTransactions }}
         </x-information-block-item>
         <x-information-block-item name="Version">
             {{ $block->version }}
         </x-information-block-item>
         <x-information-block-item name="Merkle root">
-            {{ $block->merkleroot }}
+            {{ $block->merkleRoot }}
         </x-information-block-item>
     </x-information-block>
 
@@ -41,7 +41,7 @@
                         </x-link>
                     </x-table-data-item>
                     <x-table-data-item>
-                        <x-gulden-display value="{{ $transaction->total_value_out }}"/>
+                        <x-gulden-display value="{{ $transaction->amount }}"/>
                     </x-table-data-item>
                     <x-table-data-item>
                         @switch($transaction->type)
