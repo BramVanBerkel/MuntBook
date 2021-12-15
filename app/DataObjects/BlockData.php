@@ -21,6 +21,4 @@ class BlockData extends DataTransferObject
     public float $totalValueOut;
 
     public int $numTransactions;
-
-    public ?Collection $transactions;
 }

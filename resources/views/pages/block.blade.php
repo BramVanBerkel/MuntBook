@@ -33,7 +33,7 @@
             <x-table-head-item>Type</x-table-head-item>
         </x-table-head>
         <x-table-body>
-            @foreach($block->transactions as $transaction)
+            @foreach($transactions as $transaction)
                 <x-table-row color="{{ ($loop->even) ? 'bg-gray-50' : 'bg-white' }}">
                     <x-table-data-item>
                         <x-link rel="nofollow" href="{{ route('transaction', ['txid' => $transaction->txid]) }}">

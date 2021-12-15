@@ -10,14 +10,12 @@ use Illuminate\Pagination\CursorPaginator;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class BlockRepository
 {
-    public function __construct(
-        private TransactionRepository $transactionRepository
-    ) { }
-
-    public function getBlock(int $height)
+    public function getBlock(int $height): BlockData
     {
         $block = DB::table('blocks')
             ->select($this->select())
@@ -31,7 +29,7 @@ class BlockRepository
             ->groupBy('blocks.height')
             ->first();
 
-        return $this->transformBlock($block, $this->transactionRepository->getTransactions($height));
+        return $this->transformBlock($block);
     }
 
     public function index(): CursorPaginator
@@ -55,16 +53,19 @@ class BlockRepository
 
     private function transformBlock(object $block, ?Collection $transactions = null): BlockData
     {
-        return new BlockData(
-            height: $block->height,
-            hash: $block->hash,
-            version: $block->version,
-            merkleRoot: $block->merkleroot,
-            date: Carbon::make($block->created_at),
-            totalValueOut: $block->total_value_out,
-            numTransactions: $block->num_transactions,
-            transactions: $transactions,
-        );
+        try {
+            return new BlockData(
+                height: $block->height,
+                hash: $block->hash,
+                version: $block->version,
+                merkleRoot: $block->merkleroot,
+                date: Carbon::make($block->created_at),
+                totalValueOut: $block->total_value_out,
+                numTransactions: $block->num_transactions,
+            );
+        } catch (UnknownProperties $e) {
+            Log::error($e);
+        }
     }
 
     private function select(): array
@@ -80,7 +81,7 @@ class BlockRepository
         ];
     }
 
-    public function getCurrentHeight(): int
+    public function currentHeight(): int
     {
         return DB::table('blocks')
             ->max('height') ?? 0;
