@@ -15,7 +15,7 @@ class VoutService
 {
     public function __construct(
         private AddressService $addressService,
-        private GuldenService $guldenService
+        private BlockService $blockService,
     ) {}
 
     public function saveVouts(Collection $vouts, Transaction $transaction): void
@@ -69,6 +69,7 @@ class VoutService
     private function checkWitnessVout(Collection $vouts, Collection $voutData, Transaction $transaction)
     {
         $compound = $this->isCompounding($vouts, $transaction->block_height);
+
         $witnessAddress = $this->addressService->getAddress(Arr::get($voutData, 'PoW²-witness.address'));
 
         $compoundingVout = null;
@@ -76,9 +77,9 @@ class VoutService
             //fully compounding
             /** @var Vout $compoundingVout */
             $compoundingVout = $transaction->vouts()->create([
-                'value' => $this->guldenService->getWitnessReward($transaction->block_height),
+                'value' => $this->blockService->getBlockSubsidy($transaction->block_height)->witness,
                 'n' => 1,
-                'type' => Vout::TYPE_WITNESS_COMPOUND
+                'type' => Vout::TYPE_WITNESS_REWARD
             ]);
         }
 
@@ -86,15 +87,13 @@ class VoutService
             //partially compounding
             /** @var Vout $compoundingVout */
             $compoundingVout = $transaction->vouts()->create([
-                'value' => $this->guldenService->getWitnessReward($transaction->block_height) - $compound,
+                'value' => $this->blockService->getBlockSubsidy($transaction->block_height)->witness - $compound,
                 'n' => 2,
-                'type' => Vout::TYPE_WITNESS_COMPOUND
+                'type' => Vout::TYPE_WITNESS_REWARD
             ]);
         }
 
-        if($compoundingVout !== null) {
-            $compoundingVout->address()->associate($witnessAddress)->save();
-        }
+        $compoundingVout?->address()->associate($witnessAddress)->save();
     }
 
     private function isWitnessVout(Collection $vout): bool
@@ -123,7 +122,7 @@ class VoutService
         })->pluck('value')
             ->sum();
 
-        $witnessReward = $this->guldenService->getWitnessReward($blockHeight);
+        $witnessReward = $this->blockService->getBlockSubsidy($blockHeight)->witness;
 
         if (floor($reward) === $witnessReward) {
             return false;
@@ -142,8 +141,14 @@ class VoutService
                 $transaction->update(['type' => Transaction::TYPE_WITNESS_FUNDING]);
                 return Vout::TYPE_WITNESS_FUNDING;
             }
+        }
 
-            return Vout::TYPE_WITNESS;
+        if($transaction->type === Transaction::TYPE_WITNESS) {
+            if($vout->get('n') === 0) {
+                return Vout::TYPE_WITNESS;
+            } else {
+                return Vout::TYPE_WITNESS_REWARD;
+            }
         }
 
         if($transaction->type === Transaction::TYPE_MINING) {
@@ -151,11 +156,9 @@ class VoutService
                 return Vout::TYPE_DEVELOPMENT_REWARD;
             }
 
-            if($address) {
-                $address->update([
-                    'type' => AddressTypeEnum::MINING,
-                ]);
-            }
+            $address?->update([
+                'type' => AddressTypeEnum::MINING,
+            ]);
 
             return Vout::TYPE_MINING;
         }
