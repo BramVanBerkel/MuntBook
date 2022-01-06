@@ -35,3 +35,4 @@ if (process.env.MIX_TESTNET === 'true') {
         .copy('resources/webmanifest/mainnet.webmanifest', 'public/site.webmanifest');
 }
 mix.copy('resources/images/favicon.ico', 'public/images')
+    .copy('resources/images/og_image.png', 'public/images')

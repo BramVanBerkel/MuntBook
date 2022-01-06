@@ -16,7 +16,13 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
-    @production
+    <meta property="og:title" content="GuldenBook @yield('title')" />
+    <meta property="og:type" content="website"/>
+    <meta property="og:site_name" content="GuldenBook.com"/>
+    <meta property="og:description" content="GuldenBook - The Gulden blockchain explorer"/>
+    <meta property="og:image" content="{{ asset('images/og_image.png') }}" />
+
+@production
         <script src="https://type-welcome.guldenbook.com/script.js" data-site="JBVDRBZA" defer></script>
     @endproduction
 </head>
