@@ -1,7 +1,0 @@
-.navigation-item > .navigation-item-children {
-    display: none;
-}
-
-.navigation-item:hover > .navigation-item-children {
-    display: block;
-}

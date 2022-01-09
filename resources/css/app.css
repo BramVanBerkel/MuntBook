@@ -1,5 +1,3 @@
-/* State Helpers */
-@import "./hover.css";
 /* Tailwind */
 @tailwind base;
 @tailwind components;
@@ -14,3 +12,5 @@
     background-repeat: no-repeat;
     background-size: contain;
 }
+
+[x-cloak] { display: none !important; }
