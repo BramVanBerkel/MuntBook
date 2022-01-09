@@ -17,21 +17,20 @@
                 <div id="price"></div>
             </div>
         </div>
+
+        <x-button-group class="ml-4" x-data="priceChart()" x-init="init()">
+            <template x-for="(timeframe, index) in timeframes">
+                <x-button-group-button
+                    x-on:click="if(timeframe !== 0) updateChart(timeframe); selectedTimeframe = timeframe;"
+                    x-bind:class="{'rounded-l-md': index === 0, 'rounded-r-md': index === timeframes.length-1, 'bg-blue-400': selectedTimeframe === timeframe}">
+                    <span x-text="timeframe"></span>
+                </x-button-group-button>
+            </template>
+        </x-button-group>
     </div>
 
-    <x-button-group x-data="priceChart()" x-init="init()">
-        <template x-for="(timeframe, index) in timeframes">
-            <x-button-group-button
-                x-on:click="if(timeframe !== 0) updateChart(timeframe); selectedTimeframe = timeframe;"
-                x-bind:class="{'rounded-l-md': index === 0, 'rounded-r-md': index === timeframes.length-1, 'bg-blue-400': selectedTimeframe === timeframe}">
-                <span x-text="timeframe"></span>
-            </x-button-group-button>
-        </template>
-    </x-button-group>
-
-    <div
-        x-data="@js(['nlg' => 1, 'eur' => round($currentPrice->price, 5), 'nlgPrice' => round($currentPrice->price, 5)])"
-        class="bg-white shadow overflow-hidden sm:rounded-lg">
+    <div x-data="@js(['nlg' => 1, 'eur' => round($currentPrice->price, 5), 'nlgPrice' => round($currentPrice->price, 5)])"
+        class="bg-white shadow overflow-hidden mt-4 sm:rounded-lg">
         <div class="px-4 py-5 sm:px-6">
             <h3 class="text-lg leading-6 font-medium text-gray-900">
                 Gulden converter
