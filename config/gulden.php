@@ -117,4 +117,18 @@ return [
     |
     */
     'witness_cooldown_period' => 100,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Consensus blocks
+    |--------------------------------------------------------------------------
+    | 
+    | Notable blocks on the blockchain
+    |
+    */
+    'fixed_reward_reduction_height' => 250001,
+    'dev_block_subsidy_activation_height' => 1030001,
+    'pow2_phase_4_first_block_height' => 1131652,
+    'halving_introduction_height' => 1400000,
+    'final_subsidy_block' => 17727500,
 ];
