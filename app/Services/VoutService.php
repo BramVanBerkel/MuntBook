@@ -117,7 +117,7 @@ class VoutService
             return true;
         }
 
-        $reward = $vouts->filter(function ($vout) {
+        $reward = (float)$vouts->filter(function ($vout) {
             return !$vout->has('PoW²-witness');
         })->pluck('value')
             ->sum();
@@ -127,7 +127,7 @@ class VoutService
         if (floor($reward) === $witnessReward) {
             return false;
         }
-
+        
         return $reward;
     }
 
