@@ -7,11 +7,12 @@
 
     <title>GuldenBook @yield('title')</title>
 
-    <!-- Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
-
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+    <!-- Fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap"></noscript>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
