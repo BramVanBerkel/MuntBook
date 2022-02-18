@@ -145,11 +145,6 @@ class VoutService
 
         if($transaction->type === Transaction::TYPE_WITNESS) {
             return Vout::TYPE_WITNESS;
-            if($vout->get('n') === 0) {
-                return Vout::TYPE_WITNESS;
-            } else {
-                return Vout::TYPE_WITNESS_COMPOUND;
-            }
         }
 
         if($transaction->type === Transaction::TYPE_MINING) {
