@@ -10,7 +10,7 @@
         @if($address->parts->isNotEmpty())
             <x-information-block-item x-data="{ open: false }" name="Total amount locked">
                 <x-gulden-display value="{{ $address->totalAmountLocked }}">
-                    split in {{ $address->parts->count() }} parts
+                    split in {{ $address->parts->count() }} {{ Str::of('part')->plural($address->parts->count()) }}
                     <button @click='open = !open' type="button" id="menu-button" class="h-4" aria-expanded="true"
                             aria-haspopup="true">
                         <span class="sr-only">Open options</span>
