@@ -2,9 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Repositories\BlockRepository;
-use App\Repositories\TransactionRepository;
-use App\Repositories\VinRepository;
 use App\Services\BlockService;
 use App\Services\GuldenService;
 use App\Services\TransactionService;

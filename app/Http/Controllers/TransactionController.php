@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use App\Models\Vin;
 use App\Models\Vout;
+use App\Repositories\TransactionRepository;
 use App\Services\GuldenService;
 use App\Transformers\TransactionOutputTransformer;
 use Illuminate\Support\Facades\DB;
@@ -13,41 +14,32 @@ class TransactionController extends Controller
 {
     public function __construct(
         private GuldenService $guldenService,
-        private TransactionOutputTransformer $transactionOutputTransformer
+        private TransactionRepository $transactionRepository,
     )
     {}
 
     public function index(string $txid)
     {
-        $transaction = Transaction::where('txid', '=', $txid)->firstOrFail();
+        $transaction = $this->transactionRepository->getTransaction($txid);
 
-        $vins = Vin::select(['addresses.address', DB::raw('sum(vouts.value) as value')])
-            ->leftJoin('vouts', 'vins.vout_id', '=', 'vouts.id')
-            ->leftJoin('addresses', 'addresses.id', '=', 'vouts.address_id')
-            ->where('vouts.type', '<>', Vout::TYPE_WITNESS)
-            ->where('vins.transaction_id', '=', $transaction->id)
-            ->whereNotNull('vins.vout_id')
-            ->groupBy('addresses.address')
-            ->get();
+        if($transaction === null) {
+            abort(404);
+        }
 
-        $vouts = $transaction->vouts()
-            ->whereHas('address')
-            ->where('type', '<>', Vout::TYPE_WITNESS)
-            ->get();
+        $outputs = $this->transactionRepository->getOutputs($txid);
 
-        if($transaction->type === Transaction::TYPE_WITNESS) {
-            $fee = $vouts->sum('value') - $this->guldenService->getWitnessReward($transaction->block_height);
+        if($transaction->type === Transaction::TYPE_WITNESS) { //todo: refactor the fee to the repo
+            $fee = $outputs->sum('amount') -
+                $this->guldenService->getWitnessReward($transaction->height);
         } else {
-            $input_total = $vins->sum('value');
-            $output_total = $vouts->sum('value');
-            $fee = $input_total !== 0 ? $input_total - $output_total : 0;
+            $fee = abs($outputs->where('type', '=', 'input')->sum('value')) -
+                $outputs->where('type', '=', 'output')->sum('value');
         }
 
         return view('pages.transaction')->with([
             'transaction' => $transaction,
-            'outputs' => $this->transactionOutputTransformer->transform($vins->concat($vouts)),
+            'outputs' => $outputs,
             'fee' => $fee,
-            'rewarded_witness_address' => $transaction->rewarded_witness_address,
         ]);
     }
 }

@@ -2,35 +2,99 @@
 
 namespace App\Repositories;
 
+use App\DataObjects\Address\AddressTransactionData;
+use App\DataObjects\BlocksOverviewData;
 use App\DataObjects\TransactionData;
+use App\DataObjects\TransactionOutputsData;
+use App\Enums\AddressTypeEnum;
+use App\Enums\TransactionTypeEnum;
 use App\Models\Transaction;
 use App\Models\Vout;
+use App\Transformers\TransactionOutputTransformer;
+use Carbon\Carbon;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\DB;
 
 class TransactionRepository
 {
-    public function getTransactions(int $blockHeight)
+    public function getTransaction(string $txid)
     {
-        return DB::table('transactions')
+        $transaction = DB::table('transactions')
             ->select([
                 'transactions.txid',
-                'transactions.type',
+                'transactions.block_height as height',
+                'transactions.created_at as timestamp',
                 DB::raw('sum(vouts.value) as amount'),
+                'transactions.version',
+                'addresses.address as rewarded_witness_address',
+                'transactions.type',
             ])
-            ->where('block_height', '=', $blockHeight)
             ->leftJoin('vouts', function(JoinClause $join) {
-                $join->on('vouts.transaction_id', '=', 'transactions.id')
-                    ->where('vouts.type', '<>', Vout::TYPE_WITNESS)
-                    ->where('vouts.scriptpubkey_type', 'is distinct from', 'nonstandard');
+                return $join->on('vouts.transaction_id', '=', 'transactions.id')
+                    ->where('vouts.type', '<>', Vout::TYPE_WITNESS);
             })
-            ->groupBy('transactions.txid', 'transactions.type')
+            ->leftJoin('addresses', 'vouts.address_id', '=', 'addresses.id')
+            ->where('txid', '=', $txid)
+            ->groupBy(
+                'transactions.txid',
+                'transactions.block_height',
+                'transactions.created_at',
+                'transactions.version',
+                'addresses.address',
+                'transactions.type',
+            )
+            ->first();
+
+        return new TransactionData(
+            txid: $transaction->txid,
+            height: (int)$transaction->height,
+            timestamp: Carbon::make($transaction->timestamp),
+            amount: (float)$transaction->amount,
+            version: (int)$transaction->version,
+            rewardedWitnessAddress: $transaction->rewarded_witness_address,
+            type: $transaction->type,
+        );
+    }
+
+    public function getOutputs(string $txid)
+    {
+        $inputs = DB::table('transactions')
+            ->select([
+                'addresses.address',
+                DB::raw('-sum(vouts.value) as value'),
+                DB::raw("'input' as type"),
+            ])
+            ->join('vins', function(JoinClause $join) {
+                return $join->on('vins.transaction_id', '=', 'transactions.id')
+                    ->whereNotNull('vout_id');
+            })
+            ->join('vouts', function(JoinClause $join) {
+                return $join->on('vins.vout_id', '=', 'vouts.id')
+                    ->where('vouts.type', '<>', Vout::TYPE_WITNESS);
+            })
+            ->join('addresses', 'vouts.address_id', '=', 'addresses.id')
+            ->where('transactions.txid', '=', $txid)
+            ->groupBy('addresses.address', 'vins.id');
+
+        $outputs = DB::table('transactions')
+            ->select([
+                'addresses.address',
+                DB::raw('sum(vouts.value) as value'),
+                DB::raw("'output' as type"),
+            ])
+            ->join('vouts', 'vouts.transaction_id', '=', 'transactions.id')
+            ->join('addresses', 'vouts.address_id', '=', 'addresses.id')
+            ->where('transactions.txid', '=', $txid)
+            ->where('vouts.type', '<>', Vout::TYPE_WITNESS)
+            ->groupBy('addresses.address');
+
+        return $inputs->union($outputs)
+            ->orderBy('type')
             ->get()
-            ->map(function(object $transaction) {
-                return new TransactionData(
-                    txid: $transaction->txid,
-                    amount: $transaction->amount,
-                    type: $transaction->type,
+            ->map(function($output) {
+                return new TransactionOutputsData(
+                    address: $output->address,
+                    amount: (float)$output->value,
                 );
             });
     }

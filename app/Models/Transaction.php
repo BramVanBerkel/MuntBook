@@ -28,7 +28,7 @@ class Transaction extends Model
         'blockhash',
         'confirmations',
         'blocktime',
-        'type',
+        'type', // todo: refactor type to uppercase
         'created_at',
     ];
 

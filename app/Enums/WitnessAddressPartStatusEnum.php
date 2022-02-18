@@ -4,13 +4,13 @@ namespace App\Enums;
 
 use App\Models\WitnessAddressPart;
 
-enum WitnessAddressPartStatusEnum
+enum WitnessAddressPartStatusEnum: string
 {
-    case LOCK_PERIOD_EXPIRED;
-    case EXPIRED_FROM_INACTIVITY;
-    case NOT_ELIGIBLE_TO_WITNESS;
-    case COOLDOWN;
-    case ELIGIBLE_TO_WITNESS;
+    case LOCK_PERIOD_EXPIRED = 'lock_period_expired';
+    case EXPIRED_FROM_INACTIVITY = 'expired_from_inactivity';
+    case NOT_ELIGIBLE_TO_WITNESS = 'not_eligible_to_witness';
+    case COOLDOWN = 'cooldown';
+    case ELIGIBLE_TO_WITNESS = 'eligible_to_witness';
 
     public function label(): string
     {

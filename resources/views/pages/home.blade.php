@@ -48,12 +48,12 @@
         <x-table-body>
             @foreach($blocks as $block)
                 <x-table-row color="{{ ($loop->even) ? 'bg-gray-50' : 'bg-white' }}">
-                    <x-table-data-item><x-link rel="nofollow" href="{{ route('block', ['block' => $block->height]) }}">{{$block->height}}</x-link></x-table-data-item>
+                    <x-table-data-item><x-link rel="nofollow" href="{{ route('block', ['block' => $block->height]) }}">{{ $block->height }}</x-link></x-table-data-item>
                     <x-table-data-item>
-                        <x-date :date="$block->date" />
+                        <x-date :date="$block->timestamp" />
                     </x-table-data-item>
-                    <x-table-data-item>{{ $block->numTransactions }}</x-table-data-item>
-                    <x-table-data-item><x-gulden-display value="{{ $block->totalValueOut }}"/></x-table-data-item>
+                    <x-table-data-item>{{ $block->transactions }}</x-table-data-item>
+                    <x-table-data-item><x-gulden-display value="{{ $block->value }}"/></x-table-data-item>
                 </x-table-row>
             @endforeach
         </x-table-body>

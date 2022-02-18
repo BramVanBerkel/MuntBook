@@ -2,23 +2,17 @@
 
 namespace App\DataObjects;
 
+use App\Enums\TransactionTypeEnum;
 use Carbon\Carbon;
-use Illuminate\Support\Collection;
 use Spatie\DataTransferObject\DataTransferObject;
 
-class BlockData extends DataTransferObject
+class BlocksOverviewData extends DataTransferObject
 {
     public int $height;
 
-    public string $hash;
-
     public Carbon $timestamp;
-
-    public float $value;
 
     public int $transactions;
 
-    public int $version;
-
-    public string $merkleRoot;
+    public float $value;
 }
