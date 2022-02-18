@@ -63,7 +63,7 @@ class Vout extends Model
 
     public function witnessAddress(): HasOne
     {
-        $this->hasOne(Address::class, 'id', 'witness_address_id');
+        return $this->hasOne(Address::class, 'id', 'witness_address_id');
     }
 
     public function isWitness(): bool
