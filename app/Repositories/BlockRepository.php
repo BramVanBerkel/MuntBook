@@ -97,8 +97,7 @@ class BlockRepository
             ->where('block_height', '=', $blockHeight)
             ->leftJoin('vouts', function(JoinClause $join) {
                 $join->on('vouts.transaction_id', '=', 'transactions.id')
-                    ->where('vouts.type', '<>', Vout::TYPE_WITNESS)
-                    ->where('vouts.scriptpubkey_type', 'is distinct from', 'nonstandard');
+                    ->whereNull('witness_hex');
             })
             ->groupBy('transactions.txid', 'transactions.type')
             ->paginate()
