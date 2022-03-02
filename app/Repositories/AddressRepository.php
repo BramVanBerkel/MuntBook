@@ -40,8 +40,8 @@ class AddressRepository
                 DB::raw('count(inputs.*) + count(outputs.*) as total_transactions'),
                 DB::raw('min(blocks.created_at) as first_seen'),
                 DB::raw('sum(inputs.value) as total_received'),
-                DB::raw('sum(outputs.value) as total_spent'),
-                DB::raw('sum(inputs.value) - sum(outputs.value) as unspent')
+                DB::raw('coalesce(sum(outputs.value), 0) as total_spent'),
+                DB::raw('coalesce(sum(inputs.value) - sum(outputs.value), 0) as unspent')
             ])
             ->where('addresses.address', '=', $address)
             ->leftJoin('vouts as inputs', 'inputs.address_id', '=', 'addresses.id')
