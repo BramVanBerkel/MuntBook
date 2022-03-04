@@ -22,8 +22,7 @@
     <meta property="og:site_name" content="GuldenBook.com"/>
     <meta property="og:description" content="GuldenBook - The Gulden blockchain explorer"/>
     <meta property="og:image" content="{{ asset('images/og_image.png') }}" />
-
-@production
+    @production
         <script src="https://type-welcome.guldenbook.com/script.js" data-site="JBVDRBZA" defer></script>
     @endproduction
 </head>
