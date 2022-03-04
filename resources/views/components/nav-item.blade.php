@@ -21,6 +21,6 @@
         "focus:outline-none",
         "focus:shadow-outline",
         "bg-blue-600" => request()->is($route)
-   ]) href="{{ route($route) }}">
+   ]) href="{{ $route }}">
     {{ $slot }}
 </a>

@@ -32,6 +32,6 @@ Route::get('/address/{address}', [AddressController::class, 'index'])->name('add
 
 Route::get('/price', [PriceController::class, 'index'])->name('price');
 
-Route::get('/node-information', [NodeInformationController::class, 'index']);
+Route::get('/node-information', [NodeInformationController::class, 'index'])->name('node-information');
 
 require __DIR__.'/auth.php';
