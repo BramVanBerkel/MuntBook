@@ -144,6 +144,7 @@ class GuldenService
      * Returns the total uptime of the server (in seconds).
      *
      * @return integer
+     * @throws GuzzleException
      */
     public function getUptime(): int
     {
