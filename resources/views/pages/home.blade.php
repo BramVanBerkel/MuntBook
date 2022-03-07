@@ -30,6 +30,14 @@
             </x-slot>
             {{ $transactions24hr }}
         </x-stats-item>
+        <x-stats-item>
+            <x-slot name="title">
+                Price
+            </x-slot>
+            <x-link href="{{ route('price') }}" :styled="false">
+                €{{ round($price->price, 5) }}
+            </x-link>
+        </x-stats-item>
     </x-stats>
 
     <x-divider title="Latest Blocks"/>
