@@ -8,6 +8,7 @@ use App\DataObjects\BlockTransactionsData;
 use App\Enums\TransactionTypeEnum;
 use App\Models\Block;
 use App\Models\Vout;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Pagination\CursorPaginator;
 use Illuminate\Support\Carbon;
@@ -50,7 +51,7 @@ class BlockRepository
     }
 
     /**
-     * @throws UnknownProperties
+     * @throws UnknownProperties|ModelNotFoundException
      */
     public function getBlock(int $height): BlockData
     {
@@ -74,6 +75,10 @@ class BlockRepository
             ->orderByDesc('height')
             ->groupBy('blocks.height')
             ->first();
+
+        if($block === null) {
+            throw new ModelNotFoundException();
+        }
 
         return new BlockData(
             height: (int)$block->height,
