@@ -31,7 +31,7 @@ class BlockRepository
             ->leftJoin('transactions', 'transactions.block_height', '=', 'blocks.height')
             ->leftJoin('vouts', function (JoinClause $join) {
                 $join->on('vouts.transaction_id', '=', 'transactions.id')
-                    ->where('vouts.type', '<>', Vout::TYPE_WITNESS);
+                    ->whereNull('witness_hex');
             })
             ->orderByDesc('height')
             ->groupBy('blocks.height')
