@@ -7,6 +7,7 @@
         'py-2',
         'mt-2',
         'text-sm',
+        'flex',
         'font-semibold',
         'text-gray-100',
         'rounded-lg',
