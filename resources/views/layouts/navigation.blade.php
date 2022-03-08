@@ -12,17 +12,17 @@
             </button>
         </div>
         <nav :class="{hidden: !open}" class="flex-col flex-grow pb-4 gap-x-2 md:pb-0 hidden md:flex md:justify-end md:flex-row">
-            <x-nav-item route="price">
+            <x-navigation.nav-item route="price">
                 Price
-            </x-nav-item>
-            <x-nav-group name="Network status">
-                <x-nav-group-item route="node-information">
+            </x-navigation.nav-item>
+            <x-navigation.nav-group name="Network status">
+                <x-navigation.nav-group-item route="node-information">
                     Node information
-                </x-nav-group-item>
-                <x-nav-group-item route="nonce-distribution">
+                </x-navigation.nav-group-item>
+                <x-navigation.nav-group-item route="nonce-distribution">
                     Nonce distribution
-                </x-nav-group-item>
-            </x-nav-group>
+                </x-navigation.nav-group-item>
+            </x-navigation.nav-group>
         </nav>
     </div>
 </div>
