@@ -97,13 +97,16 @@ class BlockRepository
         return DB::table('transactions')
             ->select([
                 'transactions.txid',
-                DB::raw('sum(vouts.value) as amount'),
+                DB::raw("CASE WHEN transactions.type = 'witness' THEN
+                        sum(vouts.value) FILTER (WHERE vouts.witness_hex IS NULL)
+                    ELSE
+                        sum(vouts.value)
+                    END AS amount"),
                 DB::raw('upper(transactions.type) as type'),
             ])
             ->where('block_height', '=', $blockHeight)
             ->leftJoin('vouts', function(JoinClause $join) {
-                $join->on('vouts.transaction_id', '=', 'transactions.id')
-                    ->whereNull('witness_hex');
+                $join->on('vouts.transaction_id', '=', 'transactions.id');
             })
             ->groupBy('transactions.txid', 'transactions.type')
             ->paginate()

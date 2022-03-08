@@ -42,7 +42,11 @@ class TransactionService
         })->first();
 
         if ($witnessVout !== null) {
-            return Transaction::TYPE_WITNESS;
+            if($transaction->get('vin')->first()->has('pow2_coinbase')) {
+                return Transaction::TYPE_WITNESS;
+            } else {
+                return Transaction::TYPE_WITNESS_FUNDING;
+            }
         }
 
         return Transaction::TYPE_TRANSACTION;
