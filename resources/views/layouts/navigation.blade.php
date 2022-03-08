@@ -15,7 +15,7 @@
             <x-navigation.nav-item route="price">
                 Price
             </x-navigation.nav-item>
-            <x-navigation.nav-group name="Network status">
+            <x-navigation.nav-group name="Network">
                 <x-navigation.nav-group-item route="node-information">
                     Node information
                 </x-navigation.nav-group-item>
