@@ -4,6 +4,7 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\BlockController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NodeInformationController;
+use App\Http\Controllers\NonceDistributionController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TransactionController;
@@ -33,5 +34,6 @@ Route::get('/address/{address}', [AddressController::class, 'index'])->name('add
 Route::get('/price', [PriceController::class, 'index'])->name('price');
 
 Route::get('/node-information', [NodeInformationController::class, 'index'])->name('node-information');
+Route::get('/nonce-distribution', NonceDistributionController::class)->name('nonce-distribution');
 
 require __DIR__.'/auth.php';

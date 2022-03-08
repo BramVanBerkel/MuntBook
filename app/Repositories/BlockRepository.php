@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\DataObjects\BlockData;
 use App\DataObjects\BlocksOverviewData;
 use App\DataObjects\BlockTransactionsData;
+use App\DataObjects\NonceData;
 use App\Enums\TransactionTypeEnum;
 use App\Models\Block;
 use App\Models\Vout;
@@ -119,5 +120,24 @@ class BlockRepository
     {
         return DB::table('blocks')
             ->max('height') ?? 0;
+    }
+
+    public function getLatestNonces()
+    {
+        return DB::table('blocks')
+            ->select([
+                'height',
+                'pre_nonce',
+                'post_nonce',
+            ])->orderByDesc('height')
+            ->limit(2000)
+            ->get()
+            ->map(function(object $nonce) {
+                return new NonceData(
+                    height: $nonce->height,
+                    preNonce: $nonce->pre_nonce,
+                    postNonce: $nonce->post_nonce,
+                );
+            });
     }
 }
