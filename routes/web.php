@@ -21,19 +21,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', HomeController::class)->name('home');
 
 Route::post('/search', SearchController::class)->name('search');
 
-Route::get('/block/{block}', [BlockController::class, 'index'])->name('block')->where('block', '[0-9]{1,10}+');
+Route::get('/block/{block}', BlockController::class)->name('block')->where('block', '[0-9]{1,10}+');
 
-Route::get('/transaction/{txid}', [TransactionController::class, 'index'])->name('transaction');
+Route::get('/transaction/{txid}', TransactionController::class)->name('transaction');
 
-Route::get('/address/{address}', [AddressController::class, 'index'])->name('address');
+Route::get('/address/{address}', AddressController::class)->name('address');
 
-Route::get('/price', [PriceController::class, 'index'])->name('price');
+Route::get('/price', PriceController::class)->name('price');
 
-Route::get('/node-information', [NodeInformationController::class, 'index'])->name('node-information');
+Route::get('/node-information', NodeInformationController::class)->name('node-information');
 Route::get('/nonce-distribution', NonceDistributionController::class)->name('nonce-distribution');
 
 require __DIR__.'/auth.php';

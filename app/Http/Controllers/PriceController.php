@@ -14,7 +14,7 @@ class PriceController extends Controller
         private PriceRepository $priceRepository
     ) { }
 
-    public function index()
+    public function __invoke()
     {
         return view('pages.price', [
             'currentPrice' => $this->priceRepository->getCurrentPrice(),

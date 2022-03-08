@@ -16,7 +16,7 @@ class HomeController extends Controller
         private PriceRepository $priceRepository,
     ) {}
 
-    public function index(): View
+    public function __invoke(): View
     {
         return view('pages.home', [
             'blocks' => $this->blockRepository->index(),

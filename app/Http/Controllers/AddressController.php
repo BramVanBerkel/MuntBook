@@ -11,7 +11,7 @@ class AddressController extends Controller
         private AddressRepository $addressRepository
     ) {}
 
-    public function index(string $address)
+    public function __invoke(string $address)
     {
         $type = $this->addressRepository->getType($address);
 

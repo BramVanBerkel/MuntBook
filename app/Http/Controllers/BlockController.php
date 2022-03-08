@@ -15,7 +15,7 @@ class BlockController extends Controller
         private BlockRepository $blockRepository,
     ) { }
 
-    public function index(int $height): View
+    public function __invoke(int $height): View
     {
         try {
             $block = $this->blockRepository->getBlock($height);

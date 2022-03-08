@@ -8,7 +8,7 @@ use Carbon\Carbon;
 
 class NodeInformationController extends Controller
 {
-    public function index(GuldenService $guldenService, GeoIPService $geoIPService)
+    public function __invoke(GuldenService $guldenService, GeoIPService $geoIPService)
     {
         if (!$guldenService->running()) {
             return view('pages.node-information', [

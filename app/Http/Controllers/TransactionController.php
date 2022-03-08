@@ -18,7 +18,7 @@ class TransactionController extends Controller
     )
     {}
 
-    public function index(string $txid)
+    public function __invoke(string $txid)
     {
         $transaction = $this->transactionRepository->getTransaction($txid);
 
