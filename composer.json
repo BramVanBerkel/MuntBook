@@ -20,7 +20,6 @@
         "laravel/tinker": "^2.5",
         "pestphp/pest": "^1.16",
         "pestphp/pest-plugin-laravel": "^1.1",
-        "spatie/data-transfer-object": "^3.7",
         "spatie/laravel-enum": "^2.5"
     },
     "require-dev": {
