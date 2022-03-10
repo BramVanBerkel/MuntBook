@@ -3,7 +3,6 @@
 namespace App\DataObjects;
 
 use Carbon\Carbon;
-use Spatie\DataTransferObject\DataTransferObject;
 
 class TransactionData
 {

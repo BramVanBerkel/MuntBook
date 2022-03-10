@@ -3,7 +3,6 @@
 namespace App\DataObjects\Address;
 
 use Carbon\Carbon;
-use Spatie\DataTransferObject\DataTransferObject;
 
 class WitnessAddressTransactionsData
 {

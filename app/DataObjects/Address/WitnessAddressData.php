@@ -5,7 +5,6 @@ namespace App\DataObjects\Address;
 use App\Enums\WitnessAddressPartStatusEnum;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
-use Spatie\DataTransferObject\DataTransferObject;
 
 class WitnessAddressData
 {
