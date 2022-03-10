@@ -5,11 +5,11 @@ namespace App\DataObjects;
 use App\Enums\TransactionTypeEnum;
 use Spatie\DataTransferObject\DataTransferObject;
 
-class BlockTransactionsData extends DataTransferObject
+class BlockTransactionsData
 {
-    public string $txid;
-
-    public string $amount;
-
-    public TransactionTypeEnum $type;
+    public function __construct(
+        public string $txid,
+        public string $amount,
+        public TransactionTypeEnum $type,
+    ) {}
 }

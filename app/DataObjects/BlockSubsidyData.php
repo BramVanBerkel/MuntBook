@@ -2,8 +2,6 @@
 
 namespace App\DataObjects;
 
-use Spatie\DataTransferObject\DataTransferObject;
-
 class BlockSubsidyData
 {
     public function __construct(

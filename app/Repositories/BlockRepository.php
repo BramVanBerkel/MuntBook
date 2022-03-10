@@ -52,7 +52,7 @@ class BlockRepository
     }
 
     /**
-     * @throws UnknownProperties|ModelNotFoundException
+     * @throws ModelNotFoundException
      */
     public function getBlock(int $height): BlockData
     {

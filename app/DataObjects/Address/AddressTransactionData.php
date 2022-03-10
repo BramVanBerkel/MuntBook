@@ -5,11 +5,11 @@ namespace App\DataObjects\Address;
 use Carbon\Carbon;
 use Spatie\DataTransferObject\DataTransferObject;
 
-class AddressTransactionData extends DataTransferObject
+class AddressTransactionData
 {
-    public string $txid;
-
-    public Carbon $timestamp;
-
-    public float $amount;
+    public function __construct(
+        public string $txid,
+        public Carbon $timestamp,
+        public float $amount,
+    ) {}
 }

@@ -4,9 +4,10 @@ namespace App\DataObjects;
 
 use Spatie\DataTransferObject\DataTransferObject;
 
-class TransactionOutputsData extends DataTransferObject
+class TransactionOutputsData
 {
-    public string $address;
-
-    public float $amount;
+    public function __construct(
+        public string $address,
+        public float $amount,
+    ) {}
 }

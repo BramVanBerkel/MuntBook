@@ -5,13 +5,12 @@ namespace App\DataObjects\Address;
 use Carbon\Carbon;
 use Spatie\DataTransferObject\DataTransferObject;
 
-class MiningAddressTransactionData extends DataTransferObject
+class MiningAddressTransactionData
 {
-    public int $height;
-
-    public Carbon $date;
-
-    public float $reward;
-
-    public int $difficulty;
+    public function __construct(
+        public int $height,
+        public Carbon $date,
+        public float $reward,
+        public int $difficulty,
+    ) {}
 }
