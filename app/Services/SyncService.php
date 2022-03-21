@@ -34,13 +34,13 @@ class SyncService
         $block->transactions()->delete();
 
         foreach ($blockData->get('tx') as $txid) {
-            $tx = $this->guldenService->getTransaction($txid, true);
+            $transactionData = $this->guldenService->getTransaction($txid, true);
 
-            $transaction = $this->saveTransaction($tx, $block);
+            $transaction = $this->saveTransaction($transactionData, $block);
 
-            $this->saveVins($tx->get('vin'), $transaction);
+            $this->saveVins($transactionData->get('vin'), $transaction);
 
-            $this->saveVouts($tx->get('vout'), $transaction);
+            $this->saveVouts($transactionData->get('vout'), $transaction);
         }
 
         DB::commit();
@@ -124,17 +124,12 @@ class SyncService
             return Transaction::TYPE_MINING;
         }
 
-        // todo: we probably only have to check the first vout, and do not have to filter
-        $witnessVout = $transaction->get('vout')->filter(function ($vout) {
-            return $vout->has('PoW²-witness');
-        })->first();
-
-        if ($witnessVout !== null) {
+        if ($transaction->get('vout')->first()->has('PoW²-witness')) {
             if($transaction->get('vin')->first()->has('pow2_coinbase')) {
                 return Transaction::TYPE_WITNESS;
-            } else {
-                return Transaction::TYPE_WITNESS_FUNDING;
             }
+
+            return Transaction::TYPE_WITNESS_FUNDING;
         }
 
         return Transaction::TYPE_TRANSACTION;
@@ -175,9 +170,12 @@ class SyncService
     {
         if ($vin->get('prevout_type') === Vin::PREVOUT_TYPE_INDEX) {
             return $this->getIndexVout($vin);
-        } elseif ($vin->get('prevout_type') === Vin::PREVOUT_TYPE_HASH) {
+        }
+
+        if ($vin->get('prevout_type') === Vin::PREVOUT_TYPE_HASH) {
             return $this->getHashVout($vin);
         }
+
         return null;
     }
 
