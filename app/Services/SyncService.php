@@ -212,7 +212,7 @@ class SyncService
                 'n' => $vout->get('n'),
             ], [
                 'address_id' => $address?->id,
-                'type' => $this->getType($vout, $transaction, $address),
+                'type' => $this->getVoutType($vout, $transaction, $address),
                 'value' => $vout->get('value'),
                 'standard_key_hash_hex' => optional($vout->get('standard-key-hash'))->get('hex'),
                 'standard_key_hash_address' => optional($vout->get('standard-key-hash'))->get('address'),
@@ -257,6 +257,7 @@ class SyncService
         $witnessAddress = $this->addressService->getAddress(Arr::get($voutData, 'PoW²-witness.address'));
 
         $compoundingVout = null;
+
         if ($compound === true) {
             //fully compounding
             /** @var Vout $compoundingVout */
@@ -315,7 +316,7 @@ class SyncService
         return $reward;
     }
 
-    private function getType(Collection $vout, Transaction $transaction, ?Address $address): string
+    private function getVoutType(Collection $vout, Transaction $transaction, ?Address $address): string
     {
         if ($vout->has('PoW²-witness') || optional($vout->get('scriptPubKey'))->get('type') === 'pow2_witness') {
             if($transaction->vins()->first()->vout?->scriptpubkey_type === Vout::NONSTANDARD_SCRIPTPUBKEY_TYPE ||
@@ -327,7 +328,11 @@ class SyncService
         }
 
         if($transaction->type === Transaction::TYPE_WITNESS) {
-            return Vout::TYPE_WITNESS;
+            if($vout->has('PoW²-witness')) {
+                return Vout::TYPE_WITNESS;
+            }
+
+            return Vout::TYPE_WITNESS_REWARD;
         }
 
         if($transaction->type === Transaction::TYPE_MINING) {
