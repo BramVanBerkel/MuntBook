@@ -56,7 +56,7 @@ class SyncService
      * @param Collection $data
      * @return Block
      */
-    public function saveBlock(Collection $data): Block
+    private function saveBlock(Collection $data): Block
     {
         // Convert empty values to null
         $witnessTime = ($data->get('witness_time') === 0) ? null : new Carbon($data->get('witness_time'));
@@ -99,7 +99,7 @@ class SyncService
         ]);
     }
 
-    public function saveTransaction(Collection $transaction, Block $block): Transaction
+    private function saveTransaction(Collection $transaction, Block $block): Transaction
     {
         return Transaction::updateOrCreate([
             'txid' => $transaction->get('txid'),
@@ -135,7 +135,7 @@ class SyncService
         return Transaction::TYPE_TRANSACTION;
     }
 
-    public function saveVins(Collection $vins, Transaction $transaction): void
+    private function saveVins(Collection $vins, Transaction $transaction): void
     {
         $vins->each(function(Collection $vin) use($transaction) {
             //convert empty strings to null, to prevent inserting empty values in the DB
@@ -202,7 +202,7 @@ class SyncService
             ->get($vin->get('vout'));
     }
 
-    public function saveVouts(Collection $vouts, Transaction $transaction): void
+    private function saveVouts(Collection $vouts, Transaction $transaction): void
     {
         $vouts->each(function(Collection $vout) use($transaction, $vouts) {
             $address = $this->getAddress($vout);
