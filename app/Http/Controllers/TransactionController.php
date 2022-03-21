@@ -28,7 +28,7 @@ class TransactionController extends Controller
 
         $outputs = $this->transactionRepository->getOutputs($txid);
 
-        if($transaction->type === Transaction::TYPE_WITNESS) { //todo: refactor the fee to the repo
+        if($transaction->type === Transaction::TYPE_WITNESS) {
             $fee = $outputs->sum('amount') -
                 $this->guldenService->getWitnessReward($transaction->height);
         } else {
