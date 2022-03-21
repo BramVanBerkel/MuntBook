@@ -320,8 +320,7 @@ class SyncService
     private function getType(Collection $vout, Transaction $transaction, ?Address $address): string
     {
         if ($vout->has('PoW²-witness') || optional($vout->get('scriptPubKey'))->get('type') === 'pow2_witness') {
-            //TODO refactor "nonstandard" to enum
-            if($transaction->vins()->first()->vout?->scriptpubkey_type === 'nonstandard' ||
+            if($transaction->vins()->first()->vout?->scriptpubkey_type === Vout::NONSTANDARD_SCRIPTPUBKEY_TYPE ||
                 $vout->get('PoW²-witness')->get('lock_from_block') === 0) {
                 //TODO: ugly
                 $transaction->update(['type' => Transaction::TYPE_WITNESS_FUNDING]);

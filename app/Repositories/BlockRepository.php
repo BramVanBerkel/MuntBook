@@ -70,7 +70,7 @@ class BlockRepository
             ->leftJoin('vouts', function (JoinClause $join) {
                 $join->on('vouts.transaction_id', '=', 'transactions.id')
                     ->where('vouts.type', '<>', Vout::TYPE_WITNESS)
-                    ->where('scriptpubkey_type', '<>', 'nonstandard');
+                    ->where('scriptpubkey_type', '<>', Vout::NONSTANDARD_SCRIPTPUBKEY_TYPE);
             })
             ->orderByDesc('height')
             ->groupBy('blocks.height')
