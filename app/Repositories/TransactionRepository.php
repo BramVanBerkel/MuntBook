@@ -33,7 +33,11 @@ class TransactionRepository
                 return $join->on('vouts.transaction_id', '=', 'transactions.id')
                     ->where('vouts.type', '<>', Vout::TYPE_WITNESS);
             })
-            ->leftJoin('addresses', 'vouts.address_id', '=', 'addresses.id')
+            ->leftJoin('vouts as reward_vout', function(JoinClause $join) {
+                $join->on('reward_vout.transaction_id', '=', 'transactions.id')
+                    ->where('reward_vout.type', '=', Vout::TYPE_WITNESS);
+            })
+            ->leftJoin('addresses', 'reward_vout.address_id', '=', 'addresses.id')
             ->where('txid', '=', $txid)
             ->groupBy(
                 'transactions.txid',
