@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\AddressTypeEnum;
-use App\Repositories\AddressRepository;
+use App\Repositories\Address\AddressRepository;
 
 class AddressController extends Controller
 {
@@ -19,22 +19,15 @@ class AddressController extends Controller
             abort(404);
         }
 
-        $transactions = match ($type) {
-            AddressTypeEnum::ADDRESS => $this->addressRepository->getAddressTransactions($address),
-            AddressTypeEnum::MINING => $this->addressRepository->getMiningAddressTransactions($address),
-            AddressTypeEnum::WITNESS => $this->addressRepository->getWitnessAddressTransactions($address),
-        };
+        $repository = $type->getRepository();
 
-        $address = match ($type) {
-            AddressTypeEnum::ADDRESS => $this->addressRepository->getAddress($address),
-            AddressTypeEnum::MINING => $this->addressRepository->getMiningAddress($address),
-            AddressTypeEnum::WITNESS => $this->addressRepository->getWitnessAddress($address),
-        };
+        $transactions = $repository->getTransactions($address);
 
-        return match ($type) {
-            AddressTypeEnum::ADDRESS => view('pages.address', ['address' => $address, 'transactions' => $transactions]),
-            AddressTypeEnum::MINING => view('pages.mining-address', ['address' => $address, 'transactions' => $transactions]),
-            AddressTypeEnum::WITNESS => view('pages.witness-address', ['address' => $address, 'transactions' => $transactions]),
-        };
+        $address = $repository->getAddress($address);
+
+        return $type->getView()->with([
+            'address' => $address,
+            'transactions' => $transactions,
+        ]);
     }
 }
