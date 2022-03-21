@@ -20,7 +20,7 @@ class HashrateRepository
 
         return DB::table(function (Builder $query) use ($from) {
             $query->select(DB::raw("date_trunc('day', created_at) AS date"),
-                DB::raw("avg(hashrate) as hashrate"))
+                DB::raw('avg(hashrate) as hashrate'))
                 ->from('blocks')
                 ->whereBetween('created_at', [$from, now()])
                 ->groupBy('date')

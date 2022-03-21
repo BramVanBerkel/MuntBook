@@ -9,9 +9,9 @@ use Illuminate\Validation\Rule;
 
 class DifficultyHashrateController extends Controller
 {
-    const TIMEFRAMES = [30, 60, 180, 365];
+    public const TIMEFRAMES = [30, 60, 180, 365];
 
-    const AVERAGES = [1, 7, 30];
+    public const AVERAGES = [1, 7, 30];
 
     public function index()
     {

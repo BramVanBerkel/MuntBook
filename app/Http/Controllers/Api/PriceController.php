@@ -34,7 +34,7 @@ class PriceController extends Controller
         $prices = DB::table('prices')
             ->select([
                 DB::raw("TIMESTAMP 'epoch' + INTERVAL '1 second' * ROUND(EXTRACT('epoch' FROM timestamp) / $groupBy) * $groupBy as time"),
-                DB::raw("AVG(price) AS value"),
+                DB::raw('AVG(price) AS value'),
             ])
             ->groupBy('time')
             ->orderBy('time');

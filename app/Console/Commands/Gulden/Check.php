@@ -57,17 +57,17 @@ class Check extends Command
             return;
         }
 
-        Log::info(sprintf("Blockcount: %d/%d", $dbHeight, $guldenHeight));
+        Log::info(sprintf('Blockcount: %d/%d', $dbHeight, $guldenHeight));
 
         foreach(range($dbHeight, $guldenHeight) as $height) {
             $progress = ($height / $guldenHeight) * 100;
 
-            Log::info(sprintf("Processing block %d/%d Progress: %f", $height, $guldenHeight, $progress));
+            Log::info(sprintf('Processing block %d/%d Progress: %f', $height, $guldenHeight, $progress));
 
             $syncService->syncBlock($height);
 
             if($height >= config('gulden.first_phase_5_block')) {
-                dispatch(new UpdateWitnessInfo);
+                dispatch(new UpdateWitnessInfo());
             }
         }
     }

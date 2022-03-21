@@ -27,10 +27,10 @@ class Vin extends Model
         'vout_id',
     ];
 
-    const PREVOUT_TYPE_INDEX = 'index';
-    const PREVOUT_TYPE_HASH = 'hash';
+    public const PREVOUT_TYPE_INDEX = 'index';
+    public const PREVOUT_TYPE_HASH = 'hash';
 
-    const PREVOUT_TYPES = [
+    public const PREVOUT_TYPES = [
         self::PREVOUT_TYPE_INDEX,
         self::PREVOUT_TYPE_HASH,
     ];

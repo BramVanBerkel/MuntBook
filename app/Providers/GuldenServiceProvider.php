@@ -16,9 +16,9 @@ class GuldenServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(GuldenService::class, function() {
-            $rpcUser = config("gulden.rpc_user");
-            $rpcPassword = config("gulden.rpc_password");
-            $rpcHost = config('gulden.rpc_host') . ":" . config('gulden.rpc_port');
+            $rpcUser = config('gulden.rpc_user');
+            $rpcPassword = config('gulden.rpc_password');
+            $rpcHost = config('gulden.rpc_host') . ':' . config('gulden.rpc_port');
 
             $client = new Client([
                 'base_uri' => $rpcHost,

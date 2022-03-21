@@ -18,7 +18,10 @@ use Illuminate\Support\Facades\DB;
 
 class UpdateWitnessInfo implements ShouldQueue, ShouldBeUnique
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     public function handle(GuldenService            $guldenService,
                            WitnessAddressRepository $witnessAddressRepository)

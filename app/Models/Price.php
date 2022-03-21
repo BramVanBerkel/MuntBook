@@ -16,9 +16,9 @@ class Price extends Model
         'source',
     ];
 
-    const SOURCE_BITTREX = 'BITTREX';
+    public const SOURCE_BITTREX = 'BITTREX';
 
-    const SOURCES = [
+    public const SOURCES = [
         self::SOURCE_BITTREX,
     ];
 }

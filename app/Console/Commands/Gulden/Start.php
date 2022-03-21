@@ -38,28 +38,28 @@ class Start extends Command
      */
     public function handle()
     {
-        if (!file_exists("binaries")) {
+        if (!file_exists('binaries')) {
             Log::error('binaries folder not found!');
             exit();
         }
 
-        if (!file_exists("binaries/datadir")) {
-            mkdir("binaries/datadir");
+        if (!file_exists('binaries/datadir')) {
+            mkdir('binaries/datadir');
         }
 
         $config = "txindex=1\n";
         $config .= "server=1\n";
-        $config .= "blocknotify=" . config('gulden.blocknotify') . "\n";
-        $config .= "rpcuser=" . config('gulden.rpc_user') . "\n";
-        $config .= "rpcpassword=" . config('gulden.rpc_password') . "\n";
-        $config .= "port=" . config('gulden.port') . "\n";
+        $config .= 'blocknotify=' . config('gulden.blocknotify') . "\n";
+        $config .= 'rpcuser=' . config('gulden.rpc_user') . "\n";
+        $config .= 'rpcpassword=' . config('gulden.rpc_password') . "\n";
+        $config .= 'port=' . config('gulden.port') . "\n";
 
         if(config('gulden.maxconnections')) {
-            $config .= "maxconnections=" . config('gulden.maxconnections') . "\n";
+            $config .= 'maxconnections=' . config('gulden.maxconnections') . "\n";
         }
 
         if (!empty(config('gulden.testnet'))) {
-            $config .= "testnet=" . config('gulden.testnet') . "\n";
+            $config .= 'testnet=' . config('gulden.testnet') . "\n";
         }
 
         if (!empty(config('gulden.addnode'))) {
@@ -69,11 +69,11 @@ class Start extends Command
             }
         }
 
-        file_put_contents("binaries/datadir/Gulden.conf", $config);
+        file_put_contents('binaries/datadir/Gulden.conf', $config);
 
-        if ($binary = $this->option("binary")) {
-            if (!in_array($binary, ["Gulden", "GuldenD"])) {
-                Log::error("Invalid binary given");
+        if ($binary = $this->option('binary')) {
+            if (!in_array($binary, ['Gulden', 'GuldenD'])) {
+                Log::error('Invalid binary given');
                 exit();
             }
         } else {

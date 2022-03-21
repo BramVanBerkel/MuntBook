@@ -23,7 +23,7 @@ class NodeInformationController extends Controller
 
         $ips = $peerInfo->pluck('addr')->map(function (string $addr) {
             //remove port from end of string
-            $addr = substr($addr, 0, strrpos($addr, ":"));
+            $addr = substr($addr, 0, strrpos($addr, ':'));
 
             //remove brackets from ipv6 notation
             return str_replace(['[', ']'], '', $addr);

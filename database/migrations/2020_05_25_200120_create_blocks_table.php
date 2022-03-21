@@ -35,7 +35,7 @@ class CreateBlocksTable extends Migration
             $table->string('bits');
             $table->double('difficulty');
             $table->double('hashrate')->nullable();
-            $table->unsignedBigInteger('chainwork')->comment("Stored in gigahashes (number / 1.000.000.000)");
+            $table->unsignedBigInteger('chainwork')->comment('Stored in gigahashes (number / 1.000.000.000)');
             $table->string('previousblockhash')->nullable();
 
             $table->timestamps();

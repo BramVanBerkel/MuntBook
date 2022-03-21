@@ -20,7 +20,7 @@ class DifficultyRepository
 
         return DB::table(function (Builder $query) use ($from) {
             $query->select(DB::raw("date_trunc('day', created_at) AS date"),
-                DB::raw("AVG(difficulty) AS difficulty"))
+                DB::raw('AVG(difficulty) AS difficulty'))
                 ->from('blocks')
                 ->whereBetween('created_at', [$from, now()])
                 ->groupBy('date')

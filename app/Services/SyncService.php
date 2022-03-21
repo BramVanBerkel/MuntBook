@@ -120,7 +120,7 @@ class SyncService
     private function getTransactionType(Collection $transaction): string
     {
         // Transactions with empty inputs generate new coins
-        if($transaction->get('vin')->first()->get('coinbase') === "") {
+        if($transaction->get('vin')->first()->get('coinbase') === '') {
             return Transaction::TYPE_MINING;
         }
 
@@ -139,7 +139,7 @@ class SyncService
     {
         $vins->each(function(Collection $vin) use($transaction) {
             //convert empty strings to null, to prevent inserting empty values in the DB
-            $vin = $vin->map(fn($item) => $item === "" ? null : $item);
+            $vin = $vin->map(fn($item) => $item === '' ? null : $item);
 
             $referencingVout = $this->getReferencingVout($vin);
 
@@ -183,7 +183,7 @@ class SyncService
     {
         return Vout::where('transaction_id', function ($query) use ($vin) {
             return $query->select('id')
-                ->from((new Transaction)->getTable())
+                ->from((new Transaction())->getTable())
                 ->where('block_height', '=', $vin->get('tx_height'))
                 ->orderBy('id')
                 ->skip($vin->get('tx_index'))

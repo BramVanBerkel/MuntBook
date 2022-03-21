@@ -24,7 +24,7 @@ class Transaction extends Model
         'vsize',
         'version',
         'locktime',
-        "block_height",
+        'block_height',
         'blockhash',
         'confirmations',
         'blocktime',
@@ -36,26 +36,26 @@ class Transaction extends Model
         'total_value_out'
     ];
 
-    const TYPE_TRANSACTION = 'transaction';
-    const TYPE_WITNESS_FUNDING = 'witness_funding';
-    const TYPE_WITNESS = 'witness';
-    const TYPE_MINING = 'mining';
+    public const TYPE_TRANSACTION = 'transaction';
+    public const TYPE_WITNESS_FUNDING = 'witness_funding';
+    public const TYPE_WITNESS = 'witness';
+    public const TYPE_MINING = 'mining';
 
-    const TYPES = [ //todo: convert to enum
+    public const TYPES = [ //todo: convert to enum
         self::TYPE_TRANSACTION,
         self::TYPE_WITNESS_FUNDING,
         self::TYPE_WITNESS,
         self::TYPE_MINING,
     ];
 
-    const ICONS = [
+    public const ICONS = [
         self::TYPE_TRANSACTION => 'exchange-alt',
         self::TYPE_WITNESS_FUNDING => 'piggy-bank',
         self::TYPE_WITNESS => 'glasses',
         self::TYPE_MINING => 'calculator',
     ];
 
-    const EMPTY_TXID = '0000000000000000000000000000000000000000000000000000000000000000';
+    public const EMPTY_TXID = '0000000000000000000000000000000000000000000000000000000000000000';
 
     public function block(): BelongsTo
     {

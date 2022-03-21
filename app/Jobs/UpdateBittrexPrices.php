@@ -18,7 +18,10 @@ use Log;
 
 class UpdateBittrexPrices implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     /**
      * Fetch the current NLG-BTC and BTC-EUR prices, and calculate the NLG-EUR price, by comparing it to the current BTC-EUR price.
