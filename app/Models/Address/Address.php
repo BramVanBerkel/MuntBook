@@ -37,6 +37,7 @@ class Address extends Model
 
     public function newFromBuilder($attributes = [], $connection = null): MiningAddress|WitnessAddress|Address
     {
+        //todo: refactor to enum
         $instance = match($attributes->type) {
             AddressTypeEnum::MINING->name => new MiningAddress(),
             AddressTypeEnum::WITNESS->name => new WitnessAddress(),
@@ -67,53 +68,7 @@ class Address extends Model
         return $this->hasMany(WitnessAddressPart::class, 'address_id');
     }
 
-    public function transactionVins(): Builder
-    {
-        return DB::table('vins')->select([ //todo: refacor to use model
-            'transactions.txid', 'transactions.created_at', DB::raw('-sum(vouts.value) as value'), DB::raw("'vin' as type")
-        ])->join('vouts', function($join) {
-            $join->on('vins.vout_id', '=', 'vouts.id')
-                ->where('vouts.address_id', '=', $this->id);
-        })
-            ->join('transactions', 'vins.transaction_id', '=', 'transactions.id')
-            ->where('vouts.address_id', '=', $this->id)
-            ->groupBy(['vins.transaction_id', 'transactions.txid', 'transactions.created_at']);
-    }
-
-    public function transactionVouts(): Builder
-    {
-        return DB::table('vouts')->select([ //todo: refacor to use model
-            'transactions.txid', 'blocks.created_at', DB::raw('sum(vouts.value) as value'), DB::raw("'vout' as type")
-        ])->join('transactions', 'vouts.transaction_id', '=', 'transactions.id')
-            ->join('blocks', 'transactions.block_height', '=', 'blocks.height')
-            ->where('vouts.address_id', '=', $this->id)
-            ->groupBy('vouts.transaction_id', 'transactions.txid', 'blocks.created_at');
-    }
-
-    public function getTransactionsAttribute()
-    {
-        if($this->address === Address::DEVELOPMENT_ADDRESS) {
-            return $this->transactionVins()->orderByDesc('transactions.created_at');
-        }
-
-        return $this->transactionVouts()->union($this->transactionVins())->orderByDesc('created_at');
-    }
-
-    public function getTotalValueInAttribute(): float
-    {
-        return (float)DB::query()->fromSub($this->transactionVouts(), 'vouts')->sum('value');
-    }
-
-    public function getTotalValueOutAttribute(): float
-    {
-        return (float)DB::query()->fromSub($this->transactionVins(), 'vins')->sum('value');
-    }
-
-    public function getTotalValueAttribute(): float
-    {
-        return $this->total_value_out + $this->total_value_in;
-    }
-
+    //todo: refactor to new laravel 9 attributes
     public function getIsDevelopmentAddressAttribute(): bool
     {
         return $this->address === self::DEVELOPMENT_ADDRESS;

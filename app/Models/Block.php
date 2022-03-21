@@ -52,6 +52,7 @@ class Block extends Model
     ];
 
     const EMPTY_WITNESS_MERLKEROOT = '0000000000000000000000000000000000000000000000000000000000000000';
+
     public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class);
