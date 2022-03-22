@@ -11,25 +11,6 @@ class NonceDistributionController extends Controller
 {
     public function __invoke(BlockRepository $blockRepository)
     {
-
-
-//        return response()->json([
-//            'datasets' => [
-//                [
-//                    'label' => 'Pre-nonce distribution',
-//                    'borderColor' => 'rgb(255, 99, 132)',
-//                    'backgroundColor' => 'rgba(255, 99, 132, 0.2)',
-//                    'data' => $preNonceData,
-//                ],
-//                [
-//                    'label' => 'Post-nonce distribution',
-//                    'borderColor' => 'rgb(54, 162, 235)',
-//                    'backgroundColor' => 'rgba(54, 162, 235, 0.2)',
-//                    'data' => $postNonceData,
-//                ]
-//            ]
-//        ]);
-
         return view('pages.nonce-distribution');
     }
 }

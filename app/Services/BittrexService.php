@@ -16,7 +16,7 @@ class BittrexService
     public function __construct()
     {
         $this->client = new Client([
-            'base_uri' => sprintf('https://api.bittrex.com'),
+            'base_uri' => 'https://api.bittrex.com',
         ]);
     }
 
