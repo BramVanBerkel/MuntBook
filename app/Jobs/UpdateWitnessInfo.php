@@ -5,7 +5,7 @@ namespace App\Jobs;
 use App\Models\Address\Address;
 use App\Models\Address\WitnessAddress;
 use App\Models\WitnessAddressPart;
-use App\Repositories\WitnessAddressRepository;
+use App\Repositories\Address\WitnessAddressRepository;
 use App\Services\GuldenService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;

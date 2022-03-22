@@ -5,7 +5,7 @@ namespace App\Enums;
 use App\Interfaces\AddressRepositoryInterface;
 use App\Repositories\Address\AddressRepository;
 use App\Repositories\Address\MiningAddressRepository;
-use App\Repositories\WitnessAddressRepository;
+use App\Repositories\Address\WitnessAddressRepository;
 use Illuminate\View\View;
 
 enum AddressTypeEnum: string
@@ -17,8 +17,8 @@ enum AddressTypeEnum: string
     public function getRepository(): AddressRepositoryInterface
     {
         return match($this) {
-            self::WITNESS => app(WitnessAddressRepository::class),
             self::MINING => app(MiningAddressRepository::class),
+            self::WITNESS => app(WitnessAddressRepository::class),
             default => app(AddressRepository::class),
         };
     }
