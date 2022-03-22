@@ -57,18 +57,20 @@ class Check extends Command
             return;
         }
 
+        $progress = $this->output->createProgressBar($guldenHeight - $dbHeight);
+
         Log::info(sprintf('Blockcount: %d/%d', $dbHeight, $guldenHeight));
 
         foreach(range($dbHeight, $guldenHeight) as $height) {
-            $progress = ($height / $guldenHeight) * 100;
-
-            Log::info(sprintf('Processing block %d/%d Progress: %f', $height, $guldenHeight, $progress));
-
             $syncService->syncBlock($height);
 
             if($height >= config('gulden.first_phase_5_block')) {
                 dispatch(new UpdateWitnessInfo());
             }
+
+            $progress->advance();
         }
+
+        $progress->finish();
     }
 }
