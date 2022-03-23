@@ -6,7 +6,7 @@ use App\Interfaces\AddressRepositoryInterface;
 use App\Repositories\Address\AddressRepository;
 use App\Repositories\Address\MiningAddressRepository;
 use App\Repositories\Address\WitnessAddressRepository;
-use Illuminate\View\View;
+use Illuminate\Contracts\View\View;
 
 enum AddressTypeEnum: string
 {

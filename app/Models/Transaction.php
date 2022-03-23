@@ -13,6 +13,45 @@ use Illuminate\Support\Str;
  * Class Transaction
  *
  * @package App\Models
+ * @property int $id
+ * @property int $block_height
+ * @property string $txid
+ * @property int $size
+ * @property int $vsize
+ * @property int $version
+ * @property int $locktime
+ * @property string $blockhash
+ * @property int $confirmations
+ * @property string $blocktime
+ * @property string $type
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Block $block
+ * @property-read string $icon
+ * @property-read string $icon_name
+ * @property-read \App\Models\Address\WitnessAddress|\App\Models\Address\Address|null $rewarded_witness_address
+ * @property-read float $total_value_out
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Vin[] $vins
+ * @property-read int|null $vins_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Vout[] $vouts
+ * @property-read int|null $vouts_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereBlockHeight($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereBlockhash($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereBlocktime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereConfirmations($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereLocktime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereSize($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereTxid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereVersion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Transaction whereVsize($value)
+ * @mixin \Eloquent
  */
 class Transaction extends Model
 {

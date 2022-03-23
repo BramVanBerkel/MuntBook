@@ -13,10 +13,11 @@ class DifficultyHashrateController extends Controller
 
     public const AVERAGES = [1, 7, 30];
 
-    public function index()
-    {
-        return view('layouts.pages.difficulty-hashrate');
-    }
+    //todo: fix
+//    public function index()
+//    {
+//        return view('layouts.pages.difficulty-hashrate');
+//    }
 
     public function data(Request $request, DifficultyRepository $difficultyRepository, HashrateRepository $hashrateRepository)
     {
@@ -74,7 +75,5 @@ class DifficultyHashrateController extends Controller
                 ],
             ]
         ]);
-
-
     }
 }

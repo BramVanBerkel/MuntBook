@@ -7,6 +7,7 @@ use Carbon\Carbon;
 
 class MissingBlockController extends Controller
 {
+    // todo: fix controller
     public function index(int $block)
     {
         $lastBlock = Block::max('height');
@@ -15,9 +16,9 @@ class MissingBlockController extends Controller
 
         $seconds = $difference * config('gulden.blocktime');
 
-        return view('layouts.pages.block-missing', [
-            'block' => $block,
-            'time' => now()->addSeconds($seconds),
-        ]);
+//        return view('layouts.pages.block-missing', [
+//            'block' => $block,
+//            'time' => now()->addSeconds($seconds),
+//        ]);
     }
 }

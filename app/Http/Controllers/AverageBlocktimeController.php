@@ -12,10 +12,11 @@ class AverageBlocktimeController extends Controller
         private AverageBlocktimeService $averageBlocktimeService
     ) {}
 
-    public function index()
-    {
-        return view('layouts.pages.average-blocktime');
-    }
+    // todo: fix
+//    public function index()
+//    {
+//        return view('layouts.pages.average-blocktime');
+//    }
 
     public function data()
     {

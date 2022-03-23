@@ -8,6 +8,42 @@ use App\Models\Block;
 use App\Models\Vout;
 use Illuminate\Support\Carbon;
 
+/**
+ * App\Models\Address\WitnessAddress
+ *
+ * @property int $id
+ * @property string $address
+ * @property \App\Enums\AddressTypeEnum $type
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read int $adjusted_weight
+ * @property-read int $cooldown
+ * @property-read bool $eligible_to_witness
+ * @property-read bool $expired_from_inactivity
+ * @property-read \Illuminate\Support\Carbon|null $first_seen
+ * @property-read bool $in_cooldown
+ * @property-read int $locked_from_block
+ * @property-read Carbon $locked_from_block_timestamp
+ * @property-read int $locked_until_block
+ * @property-read Carbon $locked_until_block_timestamp
+ * @property-read int $total_amount_locked
+ * @property-read mixed $transactions
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Vin[] $vins
+ * @property-read int|null $vins_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|Vout[] $vouts
+ * @property-read int|null $vouts_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\WitnessAddressPart[] $witnessAddressParts
+ * @property-read int|null $witness_address_parts_count
+ * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddress newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddress newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddress query()
+ * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddress whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddress whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddress whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddress whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddress whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class WitnessAddress extends Address
 {
     public function getTransactionsAttribute()

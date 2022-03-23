@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\DataObjects\PriceData;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PriceCollection;
 use App\Models\Price;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class PriceController extends Controller
@@ -19,7 +21,7 @@ class PriceController extends Controller
             '3m' => now()->subMonths(3),
             '1y' => now()->subYear(),
             'ytd' => now()->startOfYear(),
-            'all' => null,
+            default => null,
         };
 
         $groupBy = match($timeframe) {
@@ -29,6 +31,7 @@ class PriceController extends Controller
             '3m' => 43200,
             '1y', 'all' => 86400,
             'ytd' => now()->startOfYear()->diffInSeconds(now()) / 1440,
+            default => null,
         };
 
         $prices = DB::table('prices')
@@ -43,6 +46,13 @@ class PriceController extends Controller
             $prices->whereDate('timestamp', '>=', $since);
         }
 
-        return PriceCollection::make($prices->get());
+        $prices = $prices
+            ->get()
+            ->map(fn(object $price): PriceData => new PriceData(
+                timestamp: new Carbon($price->time),
+                value: $price->value,
+            ));
+
+        return PriceCollection::make($prices);
     }
 }

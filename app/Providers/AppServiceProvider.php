@@ -27,15 +27,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        try {
-            View::share('lastBlock', Block::latest()->first());
-        } catch (PDOException $e) {}
-
         Collection::macro('recursive', function () {
+            /** @var Collection $this */
             return $this->map(function ($value) {
                 if (is_array($value) || is_object($value)) {
                     return collect($value)->recursive();
                 }
+
                 return $value;
             });
         });

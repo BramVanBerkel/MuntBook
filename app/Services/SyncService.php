@@ -336,7 +336,7 @@ class SyncService
         }
 
         if($transaction->type === Transaction::TYPE_MINING) {
-            if($address->isDevelopmentAddress) {
+            if($address->isDevelopmentAddress()) {
                 return Vout::TYPE_DEVELOPMENT_REWARD;
             }
 

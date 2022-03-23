@@ -9,9 +9,10 @@ use App\DataObjects\NonceData;
 use App\Enums\TransactionTypeEnum;
 use App\Models\Block;
 use App\Models\Vout;
+use Illuminate\Contracts\Pagination\CursorPaginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Query\JoinClause;
-use Illuminate\Pagination\CursorPaginator;
+use Illuminate\Pagination\AbstractCursorPaginator;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +22,9 @@ class BlockRepository
 {
     public function index(): CursorPaginator
     {
-        $blocks = DB::table('blocks')
+        // todo: remove phpstan-ignore-next-line when https://github.com/nunomaduro/larastan/issues/1197 is fixed
+        /** @phpstan-ignore-next-line */
+        return DB::table('blocks')
             ->select([
                 'blocks.height',
                 'blocks.created_at as timestamp',
@@ -35,19 +38,13 @@ class BlockRepository
             })
             ->orderByDesc('height')
             ->groupBy('blocks.height')
-            ->cursorPaginate();
-
-        $blocks->getCollection()
-            ->transform(function(object $block) {
-                return new BlocksOverviewData(
-                    height: (int)$block->height,
-                    timestamp: Carbon::make($block->timestamp),
-                    transactions: (int)$block->transactions,
-                    value: (float)$block->value
-                );
-            });
-
-        return $blocks;
+            ->cursorPaginate()
+            ->through(fn(object $block): BlocksOverviewData => new BlocksOverviewData(
+                height: (int)$block->height,
+                timestamp: Carbon::make($block->timestamp),
+                transactions: (int)$block->transactions,
+                value: (float)$block->value
+            ));
     }
 
     /**
