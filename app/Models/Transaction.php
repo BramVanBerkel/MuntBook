@@ -67,7 +67,7 @@ class Transaction extends Model
         'blockhash',
         'confirmations',
         'blocktime',
-        'type', // todo: refactor type to uppercase
+        'type',
         'created_at',
     ];
 
@@ -75,10 +75,10 @@ class Transaction extends Model
         'total_value_out'
     ];
 
-    public const TYPE_TRANSACTION = 'transaction';
-    public const TYPE_WITNESS_FUNDING = 'witness_funding';
-    public const TYPE_WITNESS = 'witness';
-    public const TYPE_MINING = 'mining';
+    public const TYPE_TRANSACTION = 'TRANSACTION';
+    public const TYPE_WITNESS_FUNDING = 'WITNESS_FUNDING';
+    public const TYPE_WITNESS = 'WITNESS';
+    public const TYPE_MINING = 'MINING';
 
     public const TYPES = [ //todo: convert to enum
         self::TYPE_TRANSACTION,
