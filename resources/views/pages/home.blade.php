@@ -35,7 +35,7 @@
                 Price
             </x-slot>
             <x-link href="{{ route('price') }}" :styled="false">
-                €{{ round($price->price, 5) }}
+                €{{ round($price?->price, 5) }}
             </x-link>
         </x-stats-item>
     </x-stats>
