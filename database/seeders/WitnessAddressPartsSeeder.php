@@ -18,7 +18,7 @@ class WitnessAddressPartsSeeder extends Seeder
         $addresses = json_decode(file_get_contents('zip://database/seeders/addresses.json.zip#addresses.json'), true);
 
         foreach ($addresses as $address => $parts) {
-            $address = Address::firstWhere('address', '=', $address);
+            $address = Address::where('address', '=', $address)->firstOrFail();
 
             foreach ($parts as $part) {
                 WitnessAddressPart::create([
