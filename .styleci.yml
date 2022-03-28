@@ -1,6 +1,2 @@
-php:
-  preset: laravel
-  finder:
-    not-name:
-      - index.php
-      - server.php
+preset: laravel
+version: 8.1
