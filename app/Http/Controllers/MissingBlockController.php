@@ -10,8 +10,7 @@ class MissingBlockController extends Controller
     public function __construct(
         private BlockRepository $blockRepository,
     ) {}
-
-    // todo: fix controller
+    
     public function __invoke(int $block)
     {
         $difference = ($block - $this->blockRepository->currentHeight()) * config('gulden.blocktime');
