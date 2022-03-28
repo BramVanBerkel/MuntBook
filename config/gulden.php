@@ -33,7 +33,7 @@ return [
     | Optionally configure gulden to run on a testnet
     |
     */
-    'testnet' => env('GULDEN_TESTNET'),
+    'testnet' => env('GULDEN_TESTNET', false),
 
     /*
     |--------------------------------------------------------------------------
