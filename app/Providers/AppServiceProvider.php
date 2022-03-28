@@ -2,11 +2,8 @@
 
 namespace App\Providers;
 
-use App\Models\Block;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-use PDOException;
 
 class AppServiceProvider extends ServiceProvider
 {

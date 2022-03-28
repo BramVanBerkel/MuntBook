@@ -1,15 +1,13 @@
 <?php
 
-
 namespace App\Models\Address;
-
 
 use App\Models\Block;
 use App\Models\Vout;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Address\WitnessAddress
+ * App\Models\Address\WitnessAddress.
  *
  * @property int $id
  * @property string $address
@@ -34,6 +32,7 @@ use Illuminate\Support\Carbon;
  * @property-read int|null $vouts_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\WitnessAddressPart[] $witnessAddressParts
  * @property-read int|null $witness_address_parts_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddress newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddress newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddress query()
@@ -99,7 +98,8 @@ class WitnessAddress extends Address
     }
 
     /**
-     * Check if address was active in the last 100 blocks
+     * Check if address was active in the last 100 blocks.
+     *
      * @return bool
      */
     public function getInCooldownAttribute(): bool
@@ -108,7 +108,8 @@ class WitnessAddress extends Address
     }
 
     /**
-     * Get the amount of blocks that the address is in cooldown
+     * Get the amount of blocks that the address is in cooldown.
+     *
      * @return int
      */
     public function getCooldownAttribute(): int

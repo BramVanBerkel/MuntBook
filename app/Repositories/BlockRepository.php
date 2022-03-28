@@ -7,16 +7,12 @@ use App\DataObjects\BlocksOverviewData;
 use App\DataObjects\BlockTransactionsData;
 use App\DataObjects\NonceData;
 use App\Enums\TransactionTypeEnum;
-use App\Models\Block;
 use App\Models\Vout;
 use Illuminate\Contracts\Pagination\CursorPaginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Query\JoinClause;
-use Illuminate\Pagination\AbstractCursorPaginator;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class BlockRepository
 {
@@ -39,11 +35,11 @@ class BlockRepository
             ->orderByDesc('height')
             ->groupBy('blocks.height')
             ->cursorPaginate()
-            ->through(fn(object $block): BlocksOverviewData => new BlocksOverviewData(
-                height: (int)$block->height,
+            ->through(fn (object $block): BlocksOverviewData => new BlocksOverviewData(
+                height: (int) $block->height,
                 timestamp: Carbon::make($block->timestamp),
-                transactions: (int)$block->transactions,
-                value: (float)$block->value
+                transactions: (int) $block->transactions,
+                value: (float) $block->value
             ));
     }
 
@@ -60,7 +56,7 @@ class BlockRepository
                 DB::raw('sum(vouts.value) as value'),
                 DB::raw('count(distinct transactions) as transactions'),
                 'blocks.version',
-                'blocks.merkleroot'
+                'blocks.merkleroot',
             ])
             ->where('blocks.height', '=', $height)
             ->leftJoin('transactions', 'transactions.block_height', '=', 'blocks.height')
@@ -73,17 +69,17 @@ class BlockRepository
             ->groupBy('blocks.height')
             ->first();
 
-        if($block === null) {
+        if ($block === null) {
             throw new ModelNotFoundException();
         }
 
         return new BlockData(
-            height: (int)$block->height,
+            height: (int) $block->height,
             hash: $block->hash,
             timestamp: Carbon::make($block->timestamp),
-            value: (float)$block->value,
-            transactions: (int)$block->transactions,
-            version: (int)$block->version,
+            value: (float) $block->value,
+            transactions: (int) $block->transactions,
+            version: (int) $block->version,
             merkleRoot: $block->merkleroot,
         );
     }
@@ -101,12 +97,12 @@ class BlockRepository
                 DB::raw('upper(transactions.type) as type'),
             ])
             ->where('block_height', '=', $blockHeight)
-            ->leftJoin('vouts', function(JoinClause $join) {
+            ->leftJoin('vouts', function (JoinClause $join) {
                 $join->on('vouts.transaction_id', '=', 'transactions.id');
             })
             ->groupBy('transactions.txid', 'transactions.type')
             ->paginate()
-            ->through(function(object $transaction) {
+            ->through(function (object $transaction) {
                 return new BlockTransactionsData(
                     txid: $transaction->txid,
                     amount: $transaction->amount,
@@ -131,7 +127,7 @@ class BlockRepository
             ])->orderByDesc('height')
             ->limit(2000)
             ->get()
-            ->map(function(object $nonce) {
+            ->map(function (object $nonce) {
                 return new NonceData(
                     height: $nonce->height,
                     preNonce: $nonce->pre_nonce,

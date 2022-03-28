@@ -6,9 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Class Vin
+ * Class Vin.
  *
- * @package App\Models
  * @property int $id
  * @property int $transaction_id
  * @property int|null $vout_id
@@ -23,6 +22,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Transaction $transaction
  * @property-read \App\Models\Vout|null $vout
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Vin newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Vin newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Vin query()

@@ -14,5 +14,6 @@ class MiningAddressData
         public Carbon $lastBlockDate,
         public int $totalRewards,
         public float $totalRewardsValue,
-    ) {}
+    ) {
+    }
 }

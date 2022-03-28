@@ -38,31 +38,31 @@ class Start extends Command
      */
     public function handle()
     {
-        if (!file_exists('binaries')) {
+        if (! file_exists('binaries')) {
             Log::error('binaries folder not found!');
             exit();
         }
 
-        if (!file_exists('binaries/datadir')) {
+        if (! file_exists('binaries/datadir')) {
             mkdir('binaries/datadir');
         }
 
         $config = "txindex=1\n";
         $config .= "server=1\n";
-        $config .= 'blocknotify=' . config('gulden.blocknotify') . "\n";
-        $config .= 'rpcuser=' . config('gulden.rpc_user') . "\n";
-        $config .= 'rpcpassword=' . config('gulden.rpc_password') . "\n";
-        $config .= 'port=' . config('gulden.port') . "\n";
+        $config .= 'blocknotify='.config('gulden.blocknotify')."\n";
+        $config .= 'rpcuser='.config('gulden.rpc_user')."\n";
+        $config .= 'rpcpassword='.config('gulden.rpc_password')."\n";
+        $config .= 'port='.config('gulden.port')."\n";
 
-        if(config('gulden.maxconnections')) {
-            $config .= 'maxconnections=' . config('gulden.maxconnections') . "\n";
+        if (config('gulden.maxconnections')) {
+            $config .= 'maxconnections='.config('gulden.maxconnections')."\n";
         }
 
-        if (!empty(config('gulden.testnet'))) {
-            $config .= 'testnet=' . config('gulden.testnet') . "\n";
+        if (! empty(config('gulden.testnet'))) {
+            $config .= 'testnet='.config('gulden.testnet')."\n";
         }
 
-        if (!empty(config('gulden.addnode'))) {
+        if (! empty(config('gulden.addnode'))) {
             $nodes = explode(',', config('gulden.addnode'));
             foreach ($nodes as $node) {
                 $config .= "addnode={$node}\n";
@@ -72,7 +72,7 @@ class Start extends Command
         file_put_contents('binaries/datadir/Gulden.conf', $config);
 
         if ($binary = $this->option('binary')) {
-            if (!in_array($binary, ['Gulden', 'GuldenD'])) {
+            if (! in_array($binary, ['Gulden', 'GuldenD'])) {
                 Log::error('Invalid binary given');
                 exit();
             }
@@ -82,7 +82,9 @@ class Start extends Command
 
         $command = "./binaries/{$binary} -datadir=binaries/datadir";
 
-        if (!empty(config('gulden.testnet'))) $command = sprintf("{$command} -testnet=%s", config('gulden.testnet'));
+        if (! empty(config('gulden.testnet'))) {
+            $command = sprintf("{$command} -testnet=%s", config('gulden.testnet'));
+        }
 
         exec($command);
     }

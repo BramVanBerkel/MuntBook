@@ -4,19 +4,11 @@ namespace App\Repositories\Address;
 
 use App\DataObjects\Address\AddressData;
 use App\DataObjects\Address\AddressTransactionData;
-use App\DataObjects\Address\MiningAddressData;
-use App\DataObjects\Address\MiningAddressTransactionData;
-use App\DataObjects\Address\WitnessAddressData;
-use App\DataObjects\Address\WitnessAddressPartData;
-use App\DataObjects\Address\WitnessAddressTransactionsData;
 use App\Enums\AddressTypeEnum;
-use App\Enums\WitnessAddressPartStatusEnum;
 use App\Interfaces\AddressRepositoryInterface;
 use App\Models\Address\Address;
-use App\Models\Vout;
 use Carbon\Carbon;
 use Illuminate\Contracts\Pagination\Paginator;
-use Illuminate\Database\Query\JoinClause;
 use Illuminate\Pagination\CursorPaginator;
 use Illuminate\Support\Facades\DB;
 
@@ -42,7 +34,7 @@ class AddressRepository implements AddressRepositoryInterface
                 DB::raw('min(blocks.created_at) as first_seen'),
                 DB::raw('sum(inputs.value) as total_received'),
                 DB::raw('coalesce(sum(outputs.value), 0) as total_spent'),
-                DB::raw('coalesce(sum(inputs.value) - sum(outputs.value), 0) as unspent')
+                DB::raw('coalesce(sum(inputs.value) - sum(outputs.value), 0) as unspent'),
             ])
             ->where('addresses.address', '=', $address)
             ->leftJoin('vouts as inputs', 'inputs.address_id', '=', 'addresses.id')

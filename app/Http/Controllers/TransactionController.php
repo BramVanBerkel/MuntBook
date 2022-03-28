@@ -3,32 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
-use App\Models\Vin;
-use App\Models\Vout;
 use App\Repositories\TransactionRepository;
 use App\Services\GuldenService;
-use App\Transformers\TransactionOutputTransformer;
-use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
     public function __construct(
         private GuldenService $guldenService,
         private TransactionRepository $transactionRepository,
-    )
-    {}
+    ) {
+    }
 
     public function __invoke(string $txid)
     {
         $transaction = $this->transactionRepository->getTransaction($txid);
 
-        if($transaction === null) {
+        if ($transaction === null) {
             abort(404);
         }
 
         $outputs = $this->transactionRepository->getOutputs($txid);
 
-        if($transaction->type === Transaction::TYPE_WITNESS) {
+        if ($transaction->type === Transaction::TYPE_WITNESS) {
             $fee = $outputs->sum('amount') -
                 $this->guldenService->getWitnessReward($transaction->height);
         } else {

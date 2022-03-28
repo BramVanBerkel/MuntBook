@@ -94,7 +94,7 @@ return [
 
         'none' => [
             'driver' => 'null',
-        ]
+        ],
     ],
 
     /*

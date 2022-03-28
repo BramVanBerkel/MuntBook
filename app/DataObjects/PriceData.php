@@ -9,5 +9,6 @@ class PriceData
     public function __construct(
         public Carbon $timestamp,
         public float $value,
-    ) {}
+    ) {
+    }
 }

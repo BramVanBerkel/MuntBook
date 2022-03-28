@@ -11,5 +11,6 @@ class BlocksOverviewData
         public Carbon $timestamp,
         public int $transactions,
         public float $value,
-    ) {}
+    ) {
+    }
 }

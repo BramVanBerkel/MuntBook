@@ -10,7 +10,7 @@ class NodeInformationController extends Controller
 {
     public function __invoke(GuldenService $guldenService, GeoIPService $geoIPService)
     {
-        if (!$guldenService->running()) {
+        if (! $guldenService->running()) {
             return view('pages.node-information', [
                 'running' => false,
             ]);
@@ -33,7 +33,7 @@ class NodeInformationController extends Controller
 
         $versions = $peerInfo
             ->groupBy('subver')
-            ->mapWithKeys(fn($group, $version) => [$version => $group->count()])
+            ->mapWithKeys(fn ($group, $version) => [$version => $group->count()])
             ->sortDesc();
 
         return view('pages.node-information', [

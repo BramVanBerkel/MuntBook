@@ -4,7 +4,6 @@ namespace App\Jobs;
 
 use App\Models\Address\Address;
 use App\Models\Address\WitnessAddress;
-use App\Models\WitnessAddressPart;
 use App\Repositories\Address\WitnessAddressRepository;
 use App\Services\GuldenService;
 use Illuminate\Bus\Queueable;
@@ -14,7 +13,6 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 
 class UpdateWitnessInfo implements ShouldQueue, ShouldBeUnique
 {
@@ -23,7 +21,7 @@ class UpdateWitnessInfo implements ShouldQueue, ShouldBeUnique
     use Queueable;
     use SerializesModels;
 
-    public function handle(GuldenService            $guldenService,
+    public function handle(GuldenService $guldenService,
                            WitnessAddressRepository $witnessAddressRepository)
     {
         $witnessInfo = $guldenService->getWitnessInfo(verbose: true);
@@ -32,7 +30,7 @@ class UpdateWitnessInfo implements ShouldQueue, ShouldBeUnique
             ->each(function (Collection $parts, string $address) use ($witnessAddressRepository) {
                 $address = Address::firstWhere('address', '=', $address);
 
-                if(!$address instanceof WitnessAddress) {
+                if (! $address instanceof WitnessAddress) {
                     return;
                 }
 

@@ -11,5 +11,6 @@ class MiningAddressTransactionData
         public Carbon $date,
         public float $reward,
         public int $difficulty,
-    ) {}
+    ) {
+    }
 }

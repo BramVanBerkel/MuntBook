@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\AddressTypeEnum;
 use App\Repositories\Address\AddressRepository;
 
 class AddressController extends Controller
 {
     public function __construct(
         private AddressRepository $addressRepository
-    ) {}
+    ) {
+    }
 
     public function __invoke(string $address)
     {
         $type = $this->addressRepository->getType($address);
 
-        if($type === null) {
+        if ($type === null) {
             abort(404);
         }
 

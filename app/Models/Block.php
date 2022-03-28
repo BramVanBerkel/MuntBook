@@ -2,17 +2,12 @@
 
 namespace App\Models;
 
-use App\Repositories\BlockRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Query\Builder;
-use Illuminate\Database\Query\JoinClause;
-use Illuminate\Support\Facades\DB;
 
 /**
- * Class Block
+ * Class Block.
  *
- * @package App\Models
  * @property int $height
  * @property string $hash
  * @property int $confirmations
@@ -41,6 +36,7 @@ use Illuminate\Support\Facades\DB;
  * @property-read \App\Models\Block|null $previous
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Transaction[] $transactions
  * @property-read int|null $transactions_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Block newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Block newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Block query()
@@ -100,11 +96,11 @@ class Block extends Model
         'hashrate',
         'chainwork',
         'previousblockhash',
-        'created_at'
+        'created_at',
     ];
 
     protected $appends = [
-        'total_value_out'
+        'total_value_out',
     ];
 
     public const EMPTY_WITNESS_MERLKEROOT = '0000000000000000000000000000000000000000000000000000000000000000';
@@ -128,5 +124,4 @@ class Block extends Model
     {
         return $this->where('height', '>', $this->height)->orderBy('height')->first();
     }
-
 }

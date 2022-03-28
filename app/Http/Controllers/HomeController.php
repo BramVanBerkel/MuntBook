@@ -14,7 +14,8 @@ class HomeController extends Controller
         private BlockRepository $blockRepository,
         private TransactionRepository $transactionRepository,
         private PriceRepository $priceRepository,
-    ) {}
+    ) {
+    }
 
     public function __invoke(): View
     {
@@ -22,7 +23,7 @@ class HomeController extends Controller
             'blocks' => $this->blockRepository->index(),
             'blockHeight' => $this->blockRepository->currentHeight(),
             'hashrate' => Cache::get('hashrate', 'unknown'),
-            'difficulty' => Cache::get('difficulty','unknown'),
+            'difficulty' => Cache::get('difficulty', 'unknown'),
             'transactions24hr' => $this->transactionRepository->countLastTransactions(),
             'price' => $this->priceRepository->getCurrentPrice(),
         ]);

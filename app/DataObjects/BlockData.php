@@ -14,5 +14,6 @@ class BlockData
         public int $transactions,
         public int $version,
         public string $merkleRoot,
-    ) {}
+    ) {
+    }
 }

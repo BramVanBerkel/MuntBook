@@ -14,5 +14,6 @@ class TransactionData
         public int $version,
         public ?string $rewardedWitnessAddress,
         public string $type,
-    ) {}
+    ) {
+    }
 }

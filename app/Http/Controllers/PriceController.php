@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use App\Repositories\PriceRepository;
 
 /**
- * Class PriceController
- * @package App\Http\Controllers
+ * Class PriceController.
  */
 class PriceController extends Controller
 {
     public function __construct(
         private PriceRepository $priceRepository
-    ) { }
+    ) {
+    }
 
     public function __invoke()
     {

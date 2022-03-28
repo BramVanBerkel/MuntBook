@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\WitnessAddressPart
+ * App\Models\WitnessAddressPart.
  *
  * @property int $id
  * @property int $address_id
@@ -33,6 +33,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read mixed $cooldown
  * @property-read WitnessAddressPartStatusEnum $status
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddressPart newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddressPart newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddressPart query()
@@ -96,19 +97,19 @@ class WitnessAddressPart extends Model
 
     public function getStatusAttribute(): WitnessAddressPartStatusEnum
     {
-        if($this->lock_period_expired) {
+        if ($this->lock_period_expired) {
             return WitnessAddressPartStatusEnum::LOCK_PERIOD_EXPIRED;
         }
 
-        if($this->eligible_to_witness) {
+        if ($this->eligible_to_witness) {
             return WitnessAddressPartStatusEnum::NOT_ELIGIBLE_TO_WITNESS;
         }
 
-        if($this->expired_from_inactivity) {
+        if ($this->expired_from_inactivity) {
             return WitnessAddressPartStatusEnum::EXPIRED_FROM_INACTIVITY;
         }
 
-        if((app(BlockRepository::class)->currentHeight() - $this->last_active_block) < config('gulden.witness_cooldown_period')) {
+        if ((app(BlockRepository::class)->currentHeight() - $this->last_active_block) < config('gulden.witness_cooldown_period')) {
             return WitnessAddressPartStatusEnum::COOLDOWN;
         }
 
@@ -117,6 +118,6 @@ class WitnessAddressPart extends Model
 
     public function getCooldownAttribute()
     {
-        return (app(BlockRepository::class)->currentHeight() - $this->last_active_block);
+        return app(BlockRepository::class)->currentHeight() - $this->last_active_block;
     }
 }

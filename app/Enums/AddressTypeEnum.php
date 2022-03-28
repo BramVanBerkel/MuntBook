@@ -16,7 +16,7 @@ enum AddressTypeEnum: string
 
     public function getRepository(): AddressRepositoryInterface
     {
-        return match($this) {
+        return match ($this) {
             self::MINING => app(MiningAddressRepository::class),
             self::WITNESS => app(WitnessAddressRepository::class),
             default => app(AddressRepository::class),
@@ -25,7 +25,7 @@ enum AddressTypeEnum: string
 
     public function getView(): View
     {
-        return match($this) {
+        return match ($this) {
             self::WITNESS => view('pages.witness-address'),
             self::MINING => view('pages.mining-address'),
             default => view('pages.address'),

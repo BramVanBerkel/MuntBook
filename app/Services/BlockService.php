@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Services;
-
 
 use App\DataObjects\BlockSubsidyData;
 
@@ -10,19 +8,19 @@ class BlockService
 {
     public function getBlockSubsidy(int $height): BlockSubsidyData
     {
-        if($height === 1) {
+        if ($height === 1) {
             return new BlockSubsidyData(170000000, 0, 0); // First block (premine)
-        } else if($height < config('gulden.fixed_reward_reduction_height')) {
+        } elseif ($height < config('gulden.fixed_reward_reduction_height')) {
             return new BlockSubsidyData(1000, 0, 0); // 1000 Gulden per block for first 250k blocks
-        } else if($height < config('gulden.dev_block_subsidy_activation_height')) {
+        } elseif ($height < config('gulden.dev_block_subsidy_activation_height')) {
             return new BlockSubsidyData(100, 0, 0); // 100 Gulden per block (fixed reward/no halving)
-        } else if($height < config('gulden.pow2_phase_4_first_block_height') + 1) {
+        } elseif ($height < config('gulden.pow2_phase_4_first_block_height') + 1) {
             return new BlockSubsidyData(50, 20, 40); // 110 Gulden per block (fixed reward/no halving) - 50 mining, 40 development, 20 witness.
-        } else if($height <= 1226651) {
+        } elseif ($height <= 1226651) {
             return new BlockSubsidyData(50, 30, 40); // 120 Gulden per block (fixed reward/no halving) - 50 mining, 40 development, 30 witness.
-        } else if($height <= 1228003) {
+        } elseif ($height <= 1228003) {
             return new BlockSubsidyData(90, 30, 80); // 200 Gulden per block (fixed reward/no halving) - 90 mining, 80 development, 30 witness.
-        } else if($height <= config('gulden.halving_introduction_height')) {
+        } elseif ($height <= config('gulden.halving_introduction_height')) {
             return new BlockSubsidyData(50, 30, 80); // 160 Gulden per block (fixed reward/no halving) - 50 mining, 80 development, 30 witness.
         } else {
             // From this point on reward is as follows:
@@ -53,9 +51,9 @@ class BlockService
             // 0.0001 mining, 0.0002 witness, 0.0012 development
             // NB! We could use some bit shifts and other tricks here to do the halving calculations (the specific truncation rounding we are using makes it a bit difficult)
             // However we opt instead for this simple human readable "table" layout so that it is easier for humans to inspect/verify this.
-            $halvings = (int)floor(($height - 1 - config('gulden.halving_introduction_height')) / 842500);
+            $halvings = (int) floor(($height - 1 - config('gulden.halving_introduction_height')) / 842500);
 
-            return match($halvings) {
+            return match ($halvings) {
                 0 => new BlockSubsidyData(10, 15, 65),
                 1 => new BlockSubsidyData(5, 7.5, 32.5),
                 2 => new BlockSubsidyData(2.5, 3.75, 16.25),

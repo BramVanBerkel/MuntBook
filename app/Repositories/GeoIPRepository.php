@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Repositories;
-
 
 use Exception;
 use GeoIp2\Database\Reader;
@@ -27,7 +25,7 @@ class GeoIPRepository
 
     public function findCity(string $ip)
     {
-        if($this->reader === null) {
+        if ($this->reader === null) {
             return self::UNKNOWN;
         }
 
@@ -35,6 +33,7 @@ class GeoIPRepository
             return $this->reader->country($ip)->country->name;
         } catch (Exception $e) {
             Log::error($e);
+
             return self::UNKNOWN;
         }
     }
