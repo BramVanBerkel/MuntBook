@@ -15,14 +15,8 @@ class BlockController extends Controller
 
     public function __invoke(int $height): View
     {
-        try {
-            $block = $this->blockRepository->getBlock($height);
-        } catch (ModelNotFoundException) {
-            abort(404);
-        }
-
         return view('pages.block')->with([
-            'block' => $block,
+            'block' => $this->blockRepository->getBlock($height),
             'transactions' => $this->blockRepository->getTransactions($height),
         ]);
     }
