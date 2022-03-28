@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\BlockRepository;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\View\View;
 
 class BlockController extends Controller

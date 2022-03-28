@@ -45,7 +45,7 @@ class TransactionRepository
             )
             ->first();
 
-        if($transaction === null) {
+        if ($transaction === null) {
             throw new ModelNotFoundException();
         }
 
