@@ -3,49 +3,28 @@
 namespace App\Http\Controllers\Api;
 
 use App\DataObjects\PriceData;
+use App\Enums\PriceTimeframeEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PriceCollection;
-use App\Models\Price;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class PriceController extends Controller
 {
-    public function index(string $timeframe)
+    public function index(PriceTimeframeEnum $timeframe)
     {
-        //todo: refactor to enums in php 8.1
-        $since = match($timeframe) {
-            '1d' => now()->subDay(),
-            '7d' => now()->subDays(7),
-            '1m' => now()->subMonth(),
-            '3m' => now()->subMonths(3),
-            '1y' => now()->subYear(),
-            'ytd' => now()->startOfYear(),
-            default => null,
-        };
-
-        $groupBy = (int)match($timeframe) {
-            '1d' => 300,
-            '7d' => 600,
-            '1m' => 3600,
-            '3m' => 43200,
-            '1y', 'all' => 86400,
-            'ytd' => now()->startOfYear()->diffInSeconds(now()) / 1440,
-            default => null,
-        };
-        
-        $prices = Cache::remember("prices-$timeframe", $groupBy, function() use($since, $groupBy) {
+        $prices = Cache::remember("prices-{$timeframe->value}", $timeframe->since(), function() use($timeframe) {
             $query = DB::table('prices')
                 ->select([
-                    DB::raw("TIMESTAMP 'epoch' + INTERVAL '1 second' * ROUND(EXTRACT('epoch' FROM timestamp) / $groupBy) * $groupBy as time"),
+                    DB::raw("TIMESTAMP 'epoch' + INTERVAL '1 second' * ROUND(EXTRACT('epoch' FROM timestamp) / {$timeframe->tickSize()}) * {$timeframe->tickSize()} as time"),
                     DB::raw('AVG(price) AS value'),
                 ])
                 ->groupBy('time')
                 ->orderBy('time');
 
-            if($since !== null) {
-                $query->whereDate('timestamp', '>=', $since);
+            if($timeframe->since() !== null) {
+                $query->whereDate('timestamp', '>=', $timeframe->since());
             }
 
             return $query
