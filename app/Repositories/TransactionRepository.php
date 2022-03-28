@@ -2,15 +2,10 @@
 
 namespace App\Repositories;
 
-use App\DataObjects\Address\AddressTransactionData;
-use App\DataObjects\BlocksOverviewData;
 use App\DataObjects\TransactionData;
 use App\DataObjects\TransactionOutputsData;
-use App\Enums\AddressTypeEnum;
-use App\Enums\TransactionTypeEnum;
 use App\Models\Transaction;
 use App\Models\Vout;
-use App\Transformers\TransactionOutputTransformer;
 use Carbon\Carbon;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\DB;
@@ -29,11 +24,11 @@ class TransactionRepository
                 'addresses.address as rewarded_witness_address',
                 'transactions.type',
             ])
-            ->leftJoin('vouts', function(JoinClause $join) {
+            ->leftJoin('vouts', function (JoinClause $join) {
                 return $join->on('vouts.transaction_id', '=', 'transactions.id')
                     ->where('vouts.type', '<>', Vout::TYPE_WITNESS);
             })
-            ->leftJoin('vouts as reward_vout', function(JoinClause $join) {
+            ->leftJoin('vouts as reward_vout', function (JoinClause $join) {
                 $join->on('reward_vout.transaction_id', '=', 'transactions.id')
                     ->where('reward_vout.type', '=', Vout::TYPE_WITNESS);
             })
@@ -51,10 +46,10 @@ class TransactionRepository
 
         return new TransactionData(
             txid: $transaction->txid,
-            height: (int)$transaction->height,
+            height: (int) $transaction->height,
             timestamp: Carbon::make($transaction->timestamp),
-            amount: (float)$transaction->amount,
-            version: (int)$transaction->version,
+            amount: (float) $transaction->amount,
+            version: (int) $transaction->version,
             rewardedWitnessAddress: $transaction->rewarded_witness_address,
             type: $transaction->type,
         );
@@ -68,11 +63,11 @@ class TransactionRepository
                 DB::raw('-sum(vouts.value) as value'),
                 DB::raw("'input' as type"),
             ])
-            ->join('vins', function(JoinClause $join) {
+            ->join('vins', function (JoinClause $join) {
                 return $join->on('vins.transaction_id', '=', 'transactions.id')
                     ->whereNotNull('vout_id');
             })
-            ->join('vouts', function(JoinClause $join) {
+            ->join('vouts', function (JoinClause $join) {
                 return $join->on('vins.vout_id', '=', 'vouts.id')
                     ->where('vouts.type', '<>', Vout::TYPE_WITNESS);
             })
@@ -95,17 +90,17 @@ class TransactionRepository
         return $inputs->union($outputs)
             ->orderBy('type')
             ->get()
-            ->map(function($output) {
+            ->map(function ($output) {
                 return new TransactionOutputsData(
                     address: $output->address,
-                    amount: (float)$output->value,
+                    amount: (float) $output->value,
                 );
             });
     }
 
     /**
      * @return int
-     * Returns the amount of transactions in the last 24 hrs
+     *             Returns the amount of transactions in the last 24 hrs
      */
     public function countLastTransactions(): int
     {

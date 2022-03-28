@@ -10,9 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 /**
- * Class Transaction
+ * Class Transaction.
  *
- * @package App\Models
  * @property int $id
  * @property int $block_height
  * @property string $txid
@@ -35,6 +34,7 @@ use Illuminate\Support\Str;
  * @property-read int|null $vins_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Vout[] $vouts
  * @property-read int|null $vouts_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Transaction newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Transaction newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Transaction query()
@@ -72,7 +72,7 @@ class Transaction extends Model
     ];
 
     protected $appends = [
-        'total_value_out'
+        'total_value_out',
     ];
 
     public const TYPE_TRANSACTION = 'TRANSACTION';
@@ -113,7 +113,7 @@ class Transaction extends Model
 
     public function getTotalValueOutAttribute(): float
     {
-        return (float)$this->vouts()
+        return (float) $this->vouts()
             ->where('type', '<>', Vout::TYPE_WITNESS)
             ->where('scriptpubkey_type', 'is distinct from', Vout::NONSTANDARD_SCRIPTPUBKEY_TYPE)
             ->sum('value');
@@ -131,7 +131,7 @@ class Transaction extends Model
 
     public function getRewardedWitnessAddressAttribute(): WitnessAddress|Address|null
     {
-        if($this->type !== Transaction::TYPE_WITNESS) {
+        if ($this->type !== Transaction::TYPE_WITNESS) {
             return null;
         }
 

@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Api;
 use App\DataObjects\NonceData;
 use App\Http\Controllers\Controller;
 use App\Repositories\BlockRepository;
-use Illuminate\Http\Request;
 
 class NonceDistributionController extends Controller
 {
     public function __construct(
         private BlockRepository $blockRepository,
-    ) {}
+    ) {
+    }
 
     public function __invoke()
     {

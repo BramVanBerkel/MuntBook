@@ -1,10 +1,10 @@
 <?php
 
-if (!function_exists('gmp_hexdec')) {
+if (! function_exists('gmp_hexdec')) {
     /**
-     * Converts a hex value to an arbitrarily long number
+     * Converts a hex value to an arbitrarily long number.
      *
-     * @param string $n
+     * @param  string  $n
      * @return GMP
      */
     function gmp_hexdec(string $n): GMP
@@ -14,6 +14,7 @@ if (!function_exists('gmp_hexdec')) {
         for ($i = strlen($n) - 1; $i >= 0; $i--, $mult = gmp_mul($mult, 16)) {
             $gmp = gmp_add($gmp, gmp_mul($mult, hexdec($n[$i])));
         }
+
         return $gmp;
     }
 }

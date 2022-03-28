@@ -2,7 +2,6 @@
 
 namespace App\DataObjects\Address;
 
-use App\Enums\WitnessAddressPartStatusEnum;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 
@@ -19,5 +18,6 @@ class WitnessAddressData
         public ?Collection $parts,
         public int $totalRewards,
         public float $totalRewardsValue,
-    ) {}
+    ) {
+    }
 }

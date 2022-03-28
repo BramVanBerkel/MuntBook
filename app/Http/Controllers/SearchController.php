@@ -11,13 +11,13 @@ class SearchController extends Controller
     {
         $query = $request->get('query');
 
-        if($query === null) {
+        if ($query === null) {
             return redirect()->route('home');
         }
 
         //query is either a transaction or a block hash
-        if(strlen($query) === config('gulden.transaction_or_block_hash_length')) {
-            if($block = Block::select('height')->firstWhere('hash', '=', $query)) {
+        if (strlen($query) === config('gulden.transaction_or_block_hash_length')) {
+            if ($block = Block::select('height')->firstWhere('hash', '=', $query)) {
                 return redirect()->route('block', ['block' => $block->height]);
             }
 
@@ -25,12 +25,12 @@ class SearchController extends Controller
         }
 
         //query is a (witness)address
-        if(strlen($query) === config('gulden.address_length') || strlen($query) === config('gulden.witness_address_length')) {
+        if (strlen($query) === config('gulden.address_length') || strlen($query) === config('gulden.witness_address_length')) {
             return redirect()->route('address', ['address' => $query]);
         }
 
         //query is a block number
-        if(is_numeric($query)) {
+        if (is_numeric($query)) {
             return redirect()->route('block', ['block' => $query]);
         }
 

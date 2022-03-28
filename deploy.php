@@ -1,4 +1,5 @@
 <?php
+
 namespace Deployer;
 
 require 'recipe/laravel.php';
@@ -42,23 +43,23 @@ task('build', [
 ]);
 
 desc('Publish latest vendor assets');
-task('publish_assets', "{{bin/php}} {{release_path}}/artisan vendor:publish --tag=horizon-assets --force");
+task('publish_assets', '{{bin/php}} {{release_path}}/artisan vendor:publish --tag=horizon-assets --force');
 
 after('deploy:vendors', 'publish_assets');
 
 desc('Run npm ci');
-task('npm-ci', function() {
+task('npm-ci', function () {
     run('cd {{release_path}} && npm ci');
 });
 
 desc('Run npm run production');
-task('npm-build', function() {
+task('npm-build', function () {
     $testnet = (get('testnet')) ? 'true' : 'false';
     run("cd {{release_path}} && MIX_TESTNET=$testnet npm run production");
 });
 
 desc('Run composer install');
-task('composer-install', function() {
+task('composer-install', function () {
     run('cd {{release_path}} && composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev');
 });
 

@@ -16,11 +16,12 @@ enum PriceTimeframeEnum: string
 
     /**
      * Returns the size one tick on the graph should be in seconds.
+     *
      * @return int
      */
     public function tickSize(): int
     {
-        return match($this) {
+        return match ($this) {
             self::ONE_DAY => 300, // 5 minutes
             self::SEVEN_DAYS => 600, // 10 minutes
             self::ONE_MONTH => 3600, // 1 hour
@@ -32,11 +33,12 @@ enum PriceTimeframeEnum: string
 
     /**
      * Returns the date from which prices can be selected, or null if all prices can be selected.
+     *
      * @return Carbon|null
      */
     public function since(): ?Carbon
     {
-        return match($this) {
+        return match ($this) {
             self::ONE_DAY => now()->subDay(),
             self::SEVEN_DAYS => now()->subDays(7),
             self::ONE_MONTH => now()->subMonth(),

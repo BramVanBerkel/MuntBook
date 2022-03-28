@@ -7,9 +7,9 @@ use App\DataObjects\Address\MiningAddressTransactionData;
 use App\Interfaces\AddressRepositoryInterface;
 use App\Models\Vout;
 use Carbon\Carbon;
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Contracts\Pagination\Paginator;
 
 class MiningAddressRepository implements AddressRepositoryInterface
 {
@@ -52,9 +52,9 @@ class MiningAddressRepository implements AddressRepositoryInterface
                 'blocks.height',
                 'blocks.created_at as date',
                 'vouts.value as reward',
-                'blocks.difficulty'
+                'blocks.difficulty',
             ])
-            ->leftJoin('vouts', function(JoinClause $join) {
+            ->leftJoin('vouts', function (JoinClause $join) {
                 $join->on('vouts.address_id', '=', 'addresses.id')
                     ->where('vouts.type', '=', Vout::TYPE_MINING);
             })
@@ -63,7 +63,7 @@ class MiningAddressRepository implements AddressRepositoryInterface
             ->where('addresses.address', '=', $address)
             ->orderByDesc('transactions.created_at')
             ->paginate()
-            ->through(function(object $transaction) {
+            ->through(function (object $transaction) {
                 return new MiningAddressTransactionData(
                     height: $transaction->height,
                     date: Carbon::parse($transaction->date),

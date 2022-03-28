@@ -9,13 +9,10 @@ use App\Models\WitnessAddressPart;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Illuminate\Database\Query\Builder;
-use Illuminate\Support\Facades\DB;
 
 /**
- * Class Address
+ * Class Address.
  *
- * @package App\Models
  * @property int $id
  * @property string $address
  * @property AddressTypeEnum $type
@@ -27,6 +24,7 @@ use Illuminate\Support\Facades\DB;
  * @property-read int|null $vouts_count
  * @property-read \Illuminate\Database\Eloquent\Collection|WitnessAddressPart[] $witnessAddressParts
  * @property-read int|null $witness_address_parts_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Address newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Address newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Address query()
@@ -43,7 +41,7 @@ class Address extends Model
 
     protected $fillable = [
         'address',
-        'type'
+        'type',
     ];
 
     protected $casts = [
@@ -60,16 +58,16 @@ class Address extends Model
     {
         // Although the $attributes = [] above says $attributes should be an array, it accually is an object,
         // so we have to manually convert it to an array
-        $attributes = (array)$attributes;
+        $attributes = (array) $attributes;
 
         //todo: refactor to enum
-        $instance = match($attributes['type']) {
+        $instance = match ($attributes['type']) {
             AddressTypeEnum::MINING->name => new MiningAddress(),
             AddressTypeEnum::WITNESS->name => new WitnessAddress(),
             default => new Address(),
         };
 
-        $instance->setRawAttributes((array)$attributes, true);
+        $instance->setRawAttributes((array) $attributes, true);
 
         $instance->setConnection($connection ?: $this->getConnectionName());
 

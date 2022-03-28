@@ -19,7 +19,8 @@ class UpdateDifficulty implements ShouldQueue
     use SerializesModels;
 
     /**
-     * @param GuldenService $guldenService
+     * @param  GuldenService  $guldenService
+     *
      * @throws GuzzleException
      */
     public function handle(GuldenService $guldenService)

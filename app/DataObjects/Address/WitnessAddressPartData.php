@@ -11,5 +11,6 @@ class WitnessAddressPartData
         public float $weight,
         public WitnessAddressPartStatusEnum $status,
         public int $blocksSinceLastActive,
-    ) {}
+    ) {
+    }
 }

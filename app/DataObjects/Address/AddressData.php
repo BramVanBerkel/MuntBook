@@ -13,5 +13,6 @@ class AddressData
         public float $totalReceived,
         public float $totalSpent,
         public float $unspent,
-    ) {}
+    ) {
+    }
 }

@@ -10,5 +10,6 @@ class BlockTransactionsData
         public string $txid,
         public string $amount,
         public TransactionTypeEnum $type,
-    ) {}
+    ) {
+    }
 }

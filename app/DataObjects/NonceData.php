@@ -8,5 +8,6 @@ class NonceData
         public int $height,
         public int $preNonce,
         public int $postNonce,
-    ) {}
+    ) {
+    }
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Services;
-
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
@@ -11,7 +9,9 @@ use Illuminate\Support\Facades\Log;
 
 class GuldenService
 {
-    public function __construct(private Client $client) {}
+    public function __construct(private Client $client)
+    {
+    }
 
     /**
      * @throws GuzzleException
@@ -23,7 +23,7 @@ class GuldenService
                 'json' => [
                     'method' => $method,
                     'params' => $params,
-                ]
+                ],
             ])->getBody());
         } catch (GuzzleException $e) {
             Log::error($e->getMessage());
@@ -32,7 +32,7 @@ class GuldenService
     }
 
     /**
-     * Checks if the GuldenD process is running
+     * Checks if the GuldenD process is running.
      *
      * @return bool
      */
@@ -49,19 +49,21 @@ class GuldenService
 
     /**
      * Returns the number of blocks in the longest blockchain.
+     *
      * @return int
      */
     public function getBlockCount(): int
     {
-        return (int)$this->getData('getblockcount')->result;
+        return (int) $this->getData('getblockcount')->result;
     }
 
     /**
      * If verbosity is 0, returns a string that is serialized, hex-encoded data for block 'hash'.
      * If verbosity is 1, returns an Object with information about block <hash>.
      * If verbosity is 2, returns an Object with information about block <hash> and information about each transaction.
-     * @param string $hash
-     * @param int $verbosity
+     *
+     * @param  string  $hash
+     * @param  int  $verbosity
      * @return Collection
      */
     public function getBlock(string $hash, int $verbosity = 0): Collection
@@ -72,7 +74,7 @@ class GuldenService
     /**
      * Returns hash of block in best-block-chain at height provided.
      *
-     * @param int $height
+     * @param  int  $height
      * @return string
      */
     public function getBlockHash(int $height): string
@@ -84,8 +86,9 @@ class GuldenService
      * Return the raw transaction data.
      * If verbose is 'true', returns an Object with information about 'txid'.
      * If verbose is 'false' or omitted, returns a string that is serialized, hex-encoded data for 'txid'.
-     * @param string $txid
-     * @param bool $verbose
+     *
+     * @param  string  $txid
+     * @param  bool  $verbose
      * @return Collection
      */
     public function getTransaction(string $txid, bool $verbose = false): Collection
@@ -97,8 +100,9 @@ class GuldenService
      * Returns the estimated network hashes per second based on the last n blocks.
      * Pass in $blocks to override # of blocks.
      * Pass in $height to estimate the network speed at the time when a certain block was found.
-     * @param int $blocks
-     * @param int $height
+     *
+     * @param  int  $blocks
+     * @param  int  $height
      * @return float
      */
     public function getNetworkHashrate(int $blocks = 120, int $height = -1): float
@@ -108,6 +112,7 @@ class GuldenService
 
     /**
      * Returns the proof-of-work difficulty as a multiple of the minimum difficulty.
+     *
      * @return float
      */
     public function getDifficulty(): float
@@ -119,8 +124,8 @@ class GuldenService
      * Returns witness related network info for a given block.
      * When verbose is enabled returns additional statistics.
      *
-     * @param string $blockSpecifier
-     * @param bool $verbose
+     * @param  string  $blockSpecifier
+     * @param  bool  $verbose
      * @return Collection
      */
     public function getWitnessInfo(string $blockSpecifier = 'tip', bool $verbose = false): Collection
@@ -144,11 +149,12 @@ class GuldenService
      * Returns the total uptime of the server (in seconds).
      *
      * @return int
+     *
      * @throws GuzzleException
      */
     public function getUptime(): int
     {
-        return (int)$this->getData('uptime')->result;
+        return (int) $this->getData('uptime')->result;
     }
 
     public function getPeerInfo(): Collection
@@ -157,13 +163,13 @@ class GuldenService
     }
 
     /**
-     * @param int $blockHeight
+     * @param  int  $blockHeight
      * @return float
-     * TODO: implement reward halving every 4 (or so) years
+     *               TODO: implement reward halving every 4 (or so) years
      */
     public function getWitnessReward(int $blockHeight): float
     {
-        if(config('gulden.testnet') !== null) {
+        if (config('gulden.testnet') !== null) {
             // testnet
             return ($blockHeight < 352200) ? 20.0 : 10.0;
         }

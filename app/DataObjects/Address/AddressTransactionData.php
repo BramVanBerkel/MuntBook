@@ -10,5 +10,6 @@ class AddressTransactionData
         public string $txid,
         public Carbon $timestamp,
         public float $amount,
-    ) {}
+    ) {
+    }
 }

@@ -20,7 +20,8 @@ class SyncService
         private GuldenService $guldenService,
         private AddressService $addressService,
         private BlockService $blockService,
-    ) {}
+    ) {
+    }
 
     public function syncBlock(int $height)
     {
@@ -45,15 +46,15 @@ class SyncService
 
         DB::commit();
 
-        if($block->isWitness() && $block->transactions()->count() < 2) {
+        if ($block->isWitness() && $block->transactions()->count() < 2) {
             dispatch(new SyncBlock($height))->delay(now()->addSeconds(config('gulden.sync_delay')));
         }
     }
 
     /**
-     * Saves a block to the database
+     * Saves a block to the database.
      *
-     * @param Collection $data
+     * @param  Collection  $data
      * @return Block
      */
     private function saveBlock(Collection $data): Block
@@ -73,7 +74,7 @@ class SyncService
 
         return Block::updateOrCreate([
             'height' => $data->get('height'),
-        ],[
+        ], [
             'hash' => $data->get('hash'),
             'confirmations' => $data->get('confirmations'),
             'strippedsize' => $data->get('strippedsize'),
@@ -120,12 +121,12 @@ class SyncService
     private function getTransactionType(Collection $transaction): string
     {
         // Transactions with empty inputs generate new coins
-        if($transaction->get('vin')->first()->get('coinbase') === '') {
+        if ($transaction->get('vin')->first()->get('coinbase') === '') {
             return Transaction::TYPE_MINING;
         }
 
         if ($transaction->get('vout')->first()->has('PoW²-witness')) {
-            if($transaction->get('vin')->first()->has('pow2_coinbase')) {
+            if ($transaction->get('vin')->first()->has('pow2_coinbase')) {
                 return Transaction::TYPE_WITNESS;
             }
 
@@ -137,9 +138,9 @@ class SyncService
 
     private function saveVins(Collection $vins, Transaction $transaction): void
     {
-        $vins->each(function(Collection $vin) use($transaction) {
+        $vins->each(function (Collection $vin) use ($transaction) {
             //convert empty strings to null, to prevent inserting empty values in the DB
-            $vin = $vin->map(fn($item) => $item === '' ? null : $item);
+            $vin = $vin->map(fn ($item) => $item === '' ? null : $item);
 
             $referencingVout = $this->getReferencingVout($vin);
 
@@ -204,7 +205,7 @@ class SyncService
 
     private function saveVouts(Collection $vouts, Transaction $transaction): void
     {
-        $vouts->each(function(Collection $vout) use($transaction, $vouts) {
+        $vouts->each(function (Collection $vout) use ($transaction, $vouts) {
             $address = $this->getAddress($vout);
 
             $voutModel = Vout::updateOrCreate([
@@ -264,7 +265,7 @@ class SyncService
             $compoundingVout = $transaction->vouts()->create([
                 'value' => $this->blockService->getBlockSubsidy($transaction->block_height)->witness,
                 'n' => 1,
-                'type' => Vout::TYPE_WITNESS_REWARD
+                'type' => Vout::TYPE_WITNESS_REWARD,
             ]);
         }
 
@@ -274,7 +275,7 @@ class SyncService
             $compoundingVout = $transaction->vouts()->create([
                 'value' => $this->blockService->getBlockSubsidy($transaction->block_height)->witness - $compound,
                 'n' => 2,
-                'type' => Vout::TYPE_WITNESS_REWARD
+                'type' => Vout::TYPE_WITNESS_REWARD,
             ]);
         }
 
@@ -288,8 +289,8 @@ class SyncService
     }
 
     /**
-     * @param Collection $vouts
-     * @param int $blockHeight
+     * @param  Collection  $vouts
+     * @param  int  $blockHeight
      * @return bool|float
      *
      * Returns true if witness is fully compounding
@@ -302,8 +303,8 @@ class SyncService
             return true;
         }
 
-        $reward = (float)$vouts->filter(function ($vout) {
-            return !$vout->has('PoW²-witness');
+        $reward = (float) $vouts->filter(function ($vout) {
+            return ! $vout->has('PoW²-witness');
         })->pluck('value')
             ->sum();
 
@@ -319,24 +320,25 @@ class SyncService
     private function getVoutType(Collection $vout, Transaction $transaction, ?Address $address): string
     {
         if ($vout->has('PoW²-witness') || optional($vout->get('scriptPubKey'))->get('type') === 'pow2_witness') {
-            if($transaction->vins()->first()->vout?->scriptpubkey_type === Vout::NONSTANDARD_SCRIPTPUBKEY_TYPE ||
+            if ($transaction->vins()->first()->vout?->scriptpubkey_type === Vout::NONSTANDARD_SCRIPTPUBKEY_TYPE ||
                 $vout->get('PoW²-witness')->get('lock_from_block') === 0) {
                 //TODO: ugly
                 $transaction->update(['type' => Transaction::TYPE_WITNESS_FUNDING]);
+
                 return Vout::TYPE_WITNESS_FUNDING;
             }
         }
 
-        if($transaction->type === Transaction::TYPE_WITNESS) {
-            if($vout->has('PoW²-witness')) {
+        if ($transaction->type === Transaction::TYPE_WITNESS) {
+            if ($vout->has('PoW²-witness')) {
                 return Vout::TYPE_WITNESS;
             }
 
             return Vout::TYPE_WITNESS_REWARD;
         }
 
-        if($transaction->type === Transaction::TYPE_MINING) {
-            if($address->isDevelopmentAddress()) {
+        if ($transaction->type === Transaction::TYPE_MINING) {
+            if ($address->isDevelopmentAddress()) {
                 return Vout::TYPE_DEVELOPMENT_REWARD;
             }
 

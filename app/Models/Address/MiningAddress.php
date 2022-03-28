@@ -1,17 +1,13 @@
 <?php
 
-
 namespace App\Models\Address;
-
 
 use App\Models\Block;
 use App\Models\Vout;
-use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Collection;
 
 /**
- * App\Models\Address\MiningAddress
+ * App\Models\Address\MiningAddress.
  *
  * @property int $id
  * @property string $address
@@ -29,6 +25,7 @@ use Illuminate\Support\Collection;
  * @property-read int|null $vouts_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\WitnessAddressPart[] $witnessAddressParts
  * @property-read int|null $witness_address_parts_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|MiningAddress newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|MiningAddress newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|MiningAddress query()

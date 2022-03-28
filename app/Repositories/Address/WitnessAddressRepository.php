@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\DB;
 class WitnessAddressRepository implements AddressRepositoryInterface
 {
     /**
-     * @param string $address
+     * @param  string  $address
      * @return Collection<WitnessAddressPartData>
      */
     public function getWitnessAddressParts(string $address): Collection
@@ -35,7 +35,7 @@ class WitnessAddressRepository implements AddressRepositoryInterface
                     when (select max(height) from blocks) - witness_address_parts.last_active_block < 100 then \'cooldown\'
                     else \'eligible_to_witness\'
 	            end as status'),
-                DB::raw('(select max(height) from blocks) - witness_address_parts.last_active_block as blocks_since_last_active')
+                DB::raw('(select max(height) from blocks) - witness_address_parts.last_active_block as blocks_since_last_active'),
             ])
             ->join('addresses', 'addresses.id', '=', 'witness_address_parts.address_id')
             ->where('addresses.address', '=', $address)
@@ -74,7 +74,7 @@ class WitnessAddressRepository implements AddressRepositoryInterface
                     )
                   ) * %d) * interval '1 second' as lock_until_timestamp", config('gulden.blocktime'))),
                 DB::raw('count(reward_vouts.*) as total_rewards'),
-                DB::raw('sum(reward_vouts.value) as total_rewards_value')
+                DB::raw('sum(reward_vouts.value) as total_rewards_value'),
             ])
             ->distinct('witness_address_parts.address_id')
             ->leftJoin('witness_address_parts', 'witness_address_parts.address_id', '=', 'addresses.id')
@@ -108,7 +108,7 @@ class WitnessAddressRepository implements AddressRepositoryInterface
             lockedUntilTimestamp: ($address->lock_until_timestamp) ? Carbon::parse($address->lock_until_timestamp) : null,
             parts: $parts,
             totalRewards: $address->total_rewards,
-            totalRewardsValue: (float)$address->total_rewards_value,
+            totalRewardsValue: (float) $address->total_rewards_value,
         );
     }
 
@@ -127,11 +127,11 @@ class WitnessAddressRepository implements AddressRepositoryInterface
             })
             ->join('transactions', 'vouts.transaction_id', '=', 'transactions.id')
             ->join('blocks', 'transactions.block_height', '=', 'blocks.height')
-            ->join('vouts as rewards', function(JoinClause $join) {
+            ->join('vouts as rewards', function (JoinClause $join) {
                 $join->on('rewards.transaction_id', '=', 'transactions.id')
                     ->where('rewards.type', '=', Vout::TYPE_WITNESS_REWARD);
             })
-            ->leftJoin('vouts as compounds', function(JoinClause $join) {
+            ->leftJoin('vouts as compounds', function (JoinClause $join) {
                 $join->on('compounds.transaction_id', '=', 'transactions.id')
                     ->where('compounds.address_id', '=', DB::raw('addresses.id'))
                     ->where('compounds.type', '<>', Vout::TYPE_WITNESS);

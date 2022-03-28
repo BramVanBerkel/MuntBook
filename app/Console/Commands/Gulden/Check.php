@@ -2,10 +2,8 @@
 
 namespace App\Console\Commands\Gulden;
 
-use App\Jobs\ProcessBlock;
 use App\Jobs\UpdateWitnessInfo;
 use App\Models\Block;
-use App\Services\BlockService;
 use App\Services\GuldenService;
 use App\Services\SyncService;
 use Illuminate\Console\Command;
@@ -43,7 +41,7 @@ class Check extends Command
     /**
      * Execute the console command.
      *
-     * @param GuldenService $guldenService
+     * @param  GuldenService  $guldenService
      * @return void
      */
     public function handle(GuldenService $guldenService, SyncService $syncService)
@@ -53,7 +51,7 @@ class Check extends Command
 
         Log::info("Checking for new blocks. DB height: {$dbHeight}, Gulden height: {$guldenHeight}");
 
-        if($dbHeight === $guldenHeight) {
+        if ($dbHeight === $guldenHeight) {
             return;
         }
 
@@ -61,10 +59,10 @@ class Check extends Command
 
         Log::info(sprintf('Blockcount: %d/%d', $dbHeight, $guldenHeight));
 
-        foreach(range($dbHeight, $guldenHeight) as $height) {
+        foreach (range($dbHeight, $guldenHeight) as $height) {
             $syncService->syncBlock($height);
 
-            if($height >= config('gulden.first_phase_5_block')) {
+            if ($height >= config('gulden.first_phase_5_block')) {
                 dispatch(new UpdateWitnessInfo());
             }
 

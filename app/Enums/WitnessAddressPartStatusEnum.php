@@ -2,8 +2,6 @@
 
 namespace App\Enums;
 
-use App\Models\WitnessAddressPart;
-
 enum WitnessAddressPartStatusEnum: string
 {
     case LOCK_PERIOD_EXPIRED = 'lock_period_expired';
@@ -14,7 +12,7 @@ enum WitnessAddressPartStatusEnum: string
 
     public function label(): string
     {
-        return match($this) {
+        return match ($this) {
             self::LOCK_PERIOD_EXPIRED => 'Lock period expired',
             self::EXPIRED_FROM_INACTIVITY => 'Expired from inactivity',
             self::NOT_ELIGIBLE_TO_WITNESS => 'Not eligible to witness',
@@ -25,7 +23,7 @@ enum WitnessAddressPartStatusEnum: string
 
     public function type(): string
     {
-        return match ($this){
+        return match ($this) {
             self::LOCK_PERIOD_EXPIRED, self::EXPIRED_FROM_INACTIVITY, self::NOT_ELIGIBLE_TO_WITNESS => 'danger',
             self::COOLDOWN => 'warning',
             self::ELIGIBLE_TO_WITNESS => 'success',

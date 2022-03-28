@@ -8,9 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
- * Class Vout
+ * Class Vout.
  *
- * @package App\Models
  * @property int $id
  * @property int $transaction_id
  * @property int|null $address_id
@@ -32,6 +31,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property-read Address|null $address
  * @property-read \App\Models\Transaction $transaction
  * @property-read Address|null $witnessAddress
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Vout newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Vout newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Vout query()
@@ -94,7 +94,6 @@ class Vout extends Model
         self::TYPE_WITNESS_FUNDING,
         self::TYPE_DEVELOPMENT_REWARD,
     ];
-
 
     public function address(): BelongsTo
     {

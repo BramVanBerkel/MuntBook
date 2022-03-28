@@ -12,8 +12,8 @@ class GuldenDisplay extends Component
 
     public function __construct(float $value, bool $colored = false, bool $showSign = true)
     {
-        if($colored) {
-            $this->class = match(true) {
+        if ($colored) {
+            $this->class = match (true) {
                 $value < 0 => 'text-red-600',
                 $value > 0 => 'text-green-600',
                 default => '',
@@ -30,7 +30,7 @@ class GuldenDisplay extends Component
         $this->integer = substr_replace($value, '', -6);
 
         //add a plus if we want to show the sign, a - is automatically added
-        if($colored && $value > 0 && $showSign) {
+        if ($colored && $value > 0 && $showSign) {
             $this->integer = "+$this->integer";
         }
     }

@@ -8,7 +8,8 @@ class BlockSubsidyData
         public float $mining,
         public float $witness,
         public float $development,
-    ) {}
+    ) {
+    }
 
     public function total(): float|int
     {
