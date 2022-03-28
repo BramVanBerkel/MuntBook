@@ -4,7 +4,7 @@
 
 @section('content')
     <x-information-block>
-        @if($address->address === \App\Models\Address\Address::DEVELOPMENT_ADDRESS)
+        @if($address->address === \App\Models\Address::DEVELOPMENT_ADDRESS)
             <x-slot name="description">
                 This is the address for Gulden development. From block number 1030000 this address will receive 40 Gulden for each block and from block 1226652 80 Gulden, this is why we don't show the inputs.
                 <br>

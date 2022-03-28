@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Address\Address;
+use App\Models\Address;
 use App\Models\WitnessAddressPart;
 use Illuminate\Database\Seeder;
 

@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Enums\AddressTypeEnum;
 use App\Jobs\SyncBlock;
-use App\Models\Address\Address;
+use App\Models\Address;
 use App\Models\Block;
 use App\Models\Transaction;
 use App\Models\Vin;

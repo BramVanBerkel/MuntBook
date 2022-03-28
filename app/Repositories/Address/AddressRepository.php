@@ -6,7 +6,7 @@ use App\DataObjects\Address\AddressData;
 use App\DataObjects\Address\AddressTransactionData;
 use App\Enums\AddressTypeEnum;
 use App\Interfaces\AddressRepositoryInterface;
-use App\Models\Address\Address;
+use App\Models\Address;
 use Carbon\Carbon;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Pagination\CursorPaginator;

@@ -2,8 +2,8 @@
 
 namespace App\Jobs;
 
-use App\Models\Address\Address;
-use App\Models\Address\WitnessAddress;
+use App\Enums\AddressTypeEnum;
+use App\Models\Address;
 use App\Repositories\Address\WitnessAddressRepository;
 use App\Services\GuldenService;
 use Illuminate\Bus\Queueable;
@@ -28,11 +28,10 @@ class UpdateWitnessInfo implements ShouldQueue, ShouldBeUnique
 
         $witnessInfo->get('witness_address_list')->groupBy('address')
             ->each(function (Collection $parts, string $address) use ($witnessAddressRepository) {
-                $address = Address::firstWhere('address', '=', $address);
-
-                if (! $address instanceof WitnessAddress) {
-                    return;
-                }
+                $address = Address::query()
+                    ->where('address', '=', $address)
+                    ->where('type', '=', AddressTypeEnum::WITNESS)
+                    ->firstOrFail();
 
                 $witnessAddressRepository->syncParts($address, $parts);
             });

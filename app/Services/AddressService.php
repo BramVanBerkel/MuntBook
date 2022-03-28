@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Enums\AddressTypeEnum;
-use App\Models\Address\Address;
+use App\Models\Address;
 use Illuminate\Support\Str;
 
 class AddressService

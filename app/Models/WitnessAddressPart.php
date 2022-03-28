@@ -7,59 +7,6 @@ use App\Repositories\BlockRepository;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * App\Models\WitnessAddressPart.
- *
- * @property int $id
- * @property int $address_id
- * @property string $type
- * @property int $age
- * @property float $amount
- * @property int $raw_weight
- * @property int $adjusted_weight
- * @property int $adjusted_weight_final
- * @property int $expected_witness_period
- * @property int $estimated_witness_period
- * @property int $last_active_block
- * @property int $lock_from_block
- * @property int $lock_until_block
- * @property int $lock_period
- * @property bool $lock_period_expired
- * @property bool $eligible_to_witness
- * @property bool $expired_from_inactivity
- * @property int $fail_count
- * @property int $action_nonce
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read mixed $cooldown
- * @property-read WitnessAddressPartStatusEnum $status
- *
- * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddressPart newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddressPart newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddressPart query()
- * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddressPart whereActionNonce($value)
- * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddressPart whereAddressId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddressPart whereAdjustedWeight($value)
- * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddressPart whereAdjustedWeightFinal($value)
- * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddressPart whereAge($value)
- * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddressPart whereAmount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddressPart whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddressPart whereEligibleToWitness($value)
- * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddressPart whereEstimatedWitnessPeriod($value)
- * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddressPart whereExpectedWitnessPeriod($value)
- * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddressPart whereExpiredFromInactivity($value)
- * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddressPart whereFailCount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddressPart whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddressPart whereLastActiveBlock($value)
- * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddressPart whereLockFromBlock($value)
- * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddressPart whereLockPeriod($value)
- * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddressPart whereLockPeriodExpired($value)
- * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddressPart whereLockUntilBlock($value)
- * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddressPart whereRawWeight($value)
- * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddressPart whereType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|WitnessAddressPart whereUpdatedAt($value)
- * @mixin \Eloquent
- */
 class WitnessAddressPart extends Model
 {
     use HasFactory;

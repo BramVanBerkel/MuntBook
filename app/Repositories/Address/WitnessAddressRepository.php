@@ -7,7 +7,7 @@ use App\DataObjects\Address\WitnessAddressPartData;
 use App\DataObjects\Address\WitnessAddressTransactionsData;
 use App\Enums\WitnessAddressPartStatusEnum;
 use App\Interfaces\AddressRepositoryInterface;
-use App\Models\Address\Address;
+use App\Models\Address;
 use App\Models\Vout;
 use App\Models\WitnessAddressPart;
 use Carbon\Carbon;

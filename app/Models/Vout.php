@@ -2,59 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\Address\Address;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-/**
- * Class Vout.
- *
- * @property int $id
- * @property int $transaction_id
- * @property int|null $address_id
- * @property string $type
- * @property float $value
- * @property int $n
- * @property string|null $standard_key_hash_hex
- * @property string|null $standard_key_hash_address
- * @property string|null $scriptpubkey_type
- * @property string|null $witness_hex
- * @property int|null $witness_lock_from_block
- * @property int|null $witness_lock_until_block
- * @property int|null $witness_fail_count
- * @property int|null $witness_action_nonce
- * @property string|null $witness_pubkey_spend
- * @property string|null $witness_pubkey_witness
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read Address|null $address
- * @property-read \App\Models\Transaction $transaction
- * @property-read Address|null $witnessAddress
- *
- * @method static \Illuminate\Database\Eloquent\Builder|Vout newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Vout newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Vout query()
- * @method static \Illuminate\Database\Eloquent\Builder|Vout whereAddressId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Vout whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Vout whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Vout whereN($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Vout whereScriptpubkeyType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Vout whereStandardKeyHashAddress($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Vout whereStandardKeyHashHex($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Vout whereTransactionId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Vout whereType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Vout whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Vout whereValue($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Vout whereWitnessActionNonce($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Vout whereWitnessFailCount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Vout whereWitnessHex($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Vout whereWitnessLockFromBlock($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Vout whereWitnessLockUntilBlock($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Vout whereWitnessPubkeySpend($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Vout whereWitnessPubkeyWitness($value)
- * @mixin \Eloquent
- */
 class Vout extends Model
 {
     protected $table = 'vouts';
