@@ -3,13 +3,14 @@
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\BlockController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MissingBlockController;
 use App\Http\Controllers\NodeInformationController;
 use App\Http\Controllers\NonceDistributionController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,7 +26,16 @@ Route::get('/', HomeController::class)->name('home');
 
 Route::post('/search', SearchController::class)->name('search');
 
-Route::get('/block/{block}', BlockController::class)->name('block')->where('block', '[0-9]{1,10}+');
+Route::get('/block/{block}', BlockController::class)
+    ->where('block', '[0-9]{1,10}+')
+    ->name('block')
+    ->missing(function(Request $request) {
+        return Redirect::route('missing-block', [
+            'block' => $request->route('block'),
+        ]);
+    });
+
+Route::get('missing-block/{block}', MissingBlockController::class)->name('missing-block');
 
 Route::get('/transaction/{txid}', TransactionController::class)->name('transaction');
 
