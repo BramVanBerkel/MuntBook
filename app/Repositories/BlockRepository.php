@@ -98,7 +98,8 @@ class BlockRepository
             ])
             ->where('block_height', '=', $blockHeight)
             ->leftJoin('vouts', function (JoinClause $join) {
-                $join->on('vouts.transaction_id', '=', 'transactions.id');
+                $join->on('vouts.transaction_id', '=', 'transactions.id')
+                    ->where('vouts.type', '<>', Vout::TYPE_WITNESS);
             })
             ->groupBy('transactions.txid', 'transactions.type')
             ->paginate()
