@@ -7,6 +7,7 @@ use App\DataObjects\TransactionOutputsData;
 use App\Models\Transaction;
 use App\Models\Vout;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\DB;
 
@@ -43,6 +44,10 @@ class TransactionRepository
                 'transactions.type',
             )
             ->first();
+
+        if ($transaction === null) {
+            throw new ModelNotFoundException();
+        }
 
         return new TransactionData(
             txid: $transaction->txid,

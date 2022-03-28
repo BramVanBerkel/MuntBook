@@ -18,10 +18,6 @@ class TransactionController extends Controller
     {
         $transaction = $this->transactionRepository->getTransaction($txid);
 
-        if ($transaction === null) {
-            abort(404);
-        }
-
         $outputs = $this->transactionRepository->getOutputs($txid);
 
         if ($transaction->type === Transaction::TYPE_WITNESS) {
