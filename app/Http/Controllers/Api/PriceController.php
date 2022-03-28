@@ -9,6 +9,7 @@ use App\Http\Resources\PriceCollection;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Query\Builder;
 
 class PriceController extends Controller
 {
@@ -20,12 +21,11 @@ class PriceController extends Controller
                     DB::raw("TIMESTAMP 'epoch' + INTERVAL '1 second' * ROUND(EXTRACT('epoch' FROM timestamp) / {$timeframe->tickSize()}) * {$timeframe->tickSize()} as time"),
                     DB::raw('AVG(price) AS value'),
                 ])
+                ->when($timeframe->since() !== null, function(Builder $query) use($timeframe) {
+                    $query->whereDate('timestamp', '>=', $timeframe->since());
+                })
                 ->groupBy('time')
                 ->orderBy('time');
-
-            if($timeframe->since() !== null) {
-                $query->whereDate('timestamp', '>=', $timeframe->since());
-            }
 
             return $query
                 ->get()
