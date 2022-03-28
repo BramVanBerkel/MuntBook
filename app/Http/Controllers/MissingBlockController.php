@@ -3,21 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Block;
+use App\Repositories\BlockRepository;
 
 class MissingBlockController extends Controller
 {
-    // todo: fix controller
-    public function index(int $block)
+    public function __construct(
+        private BlockRepository $blockRepository,
+    ) {}
+    
+    public function __invoke(int $block)
     {
-        $lastBlock = Block::max('height');
+        $difference = ($block - $this->blockRepository->currentHeight()) * config('gulden.blocktime');
 
-        $difference = $block - $lastBlock;
-
-        $seconds = $difference * config('gulden.blocktime');
-
-//        return view('layouts.pages.block-missing', [
-//            'block' => $block,
-//            'time' => now()->addSeconds($seconds),
-//        ]);
+        return view('pages.missing-block', [
+            'block' => $block,
+            'date' => now()->addSeconds($difference),
+        ]);
     }
 }

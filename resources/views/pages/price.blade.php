@@ -9,7 +9,7 @@
                 Gulden price
             </h3>
             <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                In sats
+                In euros
             </p>
         </div>
         <div class="border-t border-gray-200 px-4 py-5 sm:p-0">

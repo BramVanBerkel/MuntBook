@@ -12,9 +12,11 @@
             </button>
         </div>
         <nav :class="{hidden: !open}" class="flex-col flex-grow pb-4 gap-x-2 md:pb-0 hidden md:flex md:justify-end md:flex-row">
-            <x-navigation.nav-item route="price">
-                Price
-            </x-navigation.nav-item>
+            @if(!config('gulden.testnet'))
+                <x-navigation.nav-item route="price">
+                    Price
+                </x-navigation.nav-item>
+            @endif
             <x-navigation.nav-group name="Network">
                 <x-navigation.nav-group-item route="node-information">
                     Node information

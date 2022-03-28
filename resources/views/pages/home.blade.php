@@ -30,6 +30,7 @@
             </x-slot>
             {{ $transactions24hr }}
         </x-stats-item>
+        @if(!config('gulden.testnet'))
         <x-stats-item>
             <x-slot name="title">
                 Price
@@ -38,6 +39,7 @@
                 €{{ round($price?->price, 5) }}
             </x-link>
         </x-stats-item>
+        @endif
     </x-stats>
 
     <x-divider title="Latest Blocks"/>
