@@ -41,6 +41,11 @@ task('build', [
     'composer-install',
 ]);
 
+desc('Publish latest vendor assets');
+task('publish_assets', "{{bin/php}} {{release_path}}/artisan vendor:publish --tag=horizon-assets --force");
+
+after('deploy:vendors', 'publish_assets');
+
 desc('Run npm ci');
 task('npm-ci', function() {
     run('cd {{release_path}} && npm ci');
@@ -56,12 +61,6 @@ desc('Run composer install');
 task('composer-install', function() {
     run('cd {{release_path}} && composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev');
 });
-
-desc('Restart workers');
-task('restart-workers', 'artisan:queue:restart');
-
-desc('Terminate horizon');
-task('terminate-horizon', 'artisan:horizon:terminate');
 
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
