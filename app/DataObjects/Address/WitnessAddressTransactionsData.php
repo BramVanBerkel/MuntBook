@@ -11,6 +11,5 @@ class WitnessAddressTransactionsData
         public Carbon $timestamp,
         public float $reward,
         public float $compound,
-    ) {
-    }
+    ) {}
 }
