@@ -51,11 +51,8 @@ class UpdateBittrexPrices implements ShouldQueue
 
     private function calculateAverage(Collection $prices): float
     {
-        return array_sum([
-            $prices['open'],
-            $prices['high'],
-            $prices['low'],
-            $prices['close'],
-        ]) / 4;
+        return $prices->only([
+            'open', 'high', 'low', 'close',
+        ])->average();
     }
 }
