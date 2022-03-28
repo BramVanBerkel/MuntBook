@@ -1,5 +1,5 @@
 <div class="w-full text-gray-700">
-    <div x-data="{ open: false }" class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
+    <div x-data="{ open: false }" x-cloak class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
         <div class="p-4 flex flex-row items-center justify-between">
             <a href="{{ route('home') }}" class="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg focus:outline-none focus:shadow-outline">
                 <img class="block h-5 pointer-events-none" src="{{ asset('images/logos/white.svg') }}" alt="Guldenbook logo" />
