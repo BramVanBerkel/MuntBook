@@ -22,8 +22,10 @@
     },
     "dependencies": {
         "chart.js": "^3.7.1",
+        "chartjs-adapter-luxon": "^1.1.0",
         "chartjs-adapter-moment": "^1.0.0",
         "lightweight-charts": "^3.7.0",
+        "luxon": "^2.3.1",
         "moment": "^2.29.1"
     }
 }
