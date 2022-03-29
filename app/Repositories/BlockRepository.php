@@ -2,8 +2,10 @@
 
 namespace App\Repositories;
 
+use App\DataObjects\AverageBlocktimeData;
 use App\DataObjects\BlockData;
 use App\DataObjects\BlocksOverviewData;
+use App\DataObjects\BlocksPerDayData;
 use App\DataObjects\BlockTransactionsData;
 use App\DataObjects\NonceData;
 use App\Enums\TransactionTypeEnum;
@@ -12,6 +14,8 @@ use Illuminate\Contracts\Pagination\CursorPaginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class BlockRepository
@@ -35,11 +39,11 @@ class BlockRepository
             ->orderByDesc('height')
             ->groupBy('blocks.height')
             ->cursorPaginate()
-            ->through(fn (object $block): BlocksOverviewData => new BlocksOverviewData(
-                height: (int) $block->height,
+            ->through(fn(object $block): BlocksOverviewData => new BlocksOverviewData(
+                height: (int)$block->height,
                 timestamp: Carbon::make($block->timestamp),
-                transactions: (int) $block->transactions,
-                value: (float) $block->value
+                transactions: (int)$block->transactions,
+                value: (float)$block->value
             ));
     }
 
@@ -74,12 +78,12 @@ class BlockRepository
         }
 
         return new BlockData(
-            height: (int) $block->height,
+            height: (int)$block->height,
             hash: $block->hash,
             timestamp: Carbon::make($block->timestamp),
-            value: (float) $block->value,
-            transactions: (int) $block->transactions,
-            version: (int) $block->version,
+            value: (float)$block->value,
+            transactions: (int)$block->transactions,
+            version: (int)$block->version,
             merkleRoot: $block->merkleroot,
         );
     }
@@ -115,7 +119,7 @@ class BlockRepository
     public function currentHeight(): int
     {
         return DB::table('blocks')
-            ->max('height') ?? 0;
+                ->max('height') ?? 0;
     }
 
     public function getLatestNonces()
@@ -135,5 +139,51 @@ class BlockRepository
                     postNonce: $nonce->post_nonce,
                 );
             });
+    }
+
+    /**
+     * @return Collection<AverageBlocktimeData>
+     */
+    public function getAverageBlocktimes(): Collection
+    {
+        return DB::query()
+            ->select([
+                'date',
+                DB::raw('LEAST(EXTRACT(EPOCH FROM avg(delta)), 200) as seconds'),
+            ])->fromSub(DB::table('blocks')
+                ->select([
+                    DB::raw('DATE_TRUNC(\'day\', created_at) AS "date"'),
+                    DB::raw('created_at - LAG(created_at, 1) OVER (ORDER BY created_at) AS "delta"'),
+                ])
+                ->where('created_at', '>', now()->subYear())
+                ->groupBy([
+                    'date',
+                    'created_at',
+                ]), 'groups')
+            ->groupBy('groups.date')
+            ->orderBy('groups.date')
+            ->get()
+            ->map(fn(object $averageBlocktime) => new AverageBlocktimeData(
+                date: new Carbon($averageBlocktime->date),
+                seconds: $averageBlocktime->seconds,
+            ));
+    }
+
+    public function getBlocksPerDay(): Collection
+    {
+        return DB::query()
+            ->select([
+                DB::raw("date_trunc('day', created_at) as date"),
+                DB::raw('count(blocks.*) as blocks'),
+            ])
+            ->from('blocks')
+            ->whereBetween('created_at', [now()->subYear()->startOfDay(), now()->startOfDay()])
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get()
+            ->map(fn(object $blocksPerDay) => new BlocksPerDayData(
+                date: new Carbon($blocksPerDay->date),
+                blocks: $blocksPerDay->blocks,
+            ));
     }
 }

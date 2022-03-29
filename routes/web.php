@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\AverageBlocktimeController;
 use App\Http\Controllers\BlockController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MissingBlockController;
@@ -45,5 +46,6 @@ Route::get('/price', PriceController::class)->name('price');
 
 Route::get('/node-information', NodeInformationController::class)->name('node-information');
 Route::get('/nonce-distribution', NonceDistributionController::class)->name('nonce-distribution');
+Route::get('/average-blocktime', AverageBlocktimeController::class)->name('average-blocktime');
 
 require __DIR__.'/auth.php';
