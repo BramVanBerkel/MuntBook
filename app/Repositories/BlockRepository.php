@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class BlockRepository
@@ -39,11 +38,11 @@ class BlockRepository
             ->orderByDesc('height')
             ->groupBy('blocks.height')
             ->cursorPaginate()
-            ->through(fn(object $block): BlocksOverviewData => new BlocksOverviewData(
-                height: (int)$block->height,
+            ->through(fn (object $block): BlocksOverviewData => new BlocksOverviewData(
+                height: (int) $block->height,
                 timestamp: Carbon::make($block->timestamp),
-                transactions: (int)$block->transactions,
-                value: (float)$block->value
+                transactions: (int) $block->transactions,
+                value: (float) $block->value
             ));
     }
 
@@ -78,12 +77,12 @@ class BlockRepository
         }
 
         return new BlockData(
-            height: (int)$block->height,
+            height: (int) $block->height,
             hash: $block->hash,
             timestamp: Carbon::make($block->timestamp),
-            value: (float)$block->value,
-            transactions: (int)$block->transactions,
-            version: (int)$block->version,
+            value: (float) $block->value,
+            transactions: (int) $block->transactions,
+            version: (int) $block->version,
             merkleRoot: $block->merkleroot,
         );
     }
@@ -163,7 +162,7 @@ class BlockRepository
             ->groupBy('groups.date')
             ->orderBy('groups.date')
             ->get()
-            ->map(fn(object $averageBlocktime) => new AverageBlocktimeData(
+            ->map(fn (object $averageBlocktime) => new AverageBlocktimeData(
                 date: new Carbon($averageBlocktime->date),
                 seconds: $averageBlocktime->seconds,
             ));
@@ -181,7 +180,7 @@ class BlockRepository
             ->groupBy('date')
             ->orderBy('date')
             ->get()
-            ->map(fn(object $blocksPerDay) => new BlocksPerDayData(
+            ->map(fn (object $blocksPerDay) => new BlocksPerDayData(
                 date: new Carbon($blocksPerDay->date),
                 blocks: $blocksPerDay->blocks,
             ));
