@@ -24,6 +24,9 @@
                 <x-navigation.nav-group-item route="nonce-distribution">
                     Nonce distribution
                 </x-navigation.nav-group-item>
+                <x-navigation.nav-group-item route="average-blocktime">
+                    Average blocktime
+                </x-navigation.nav-group-item>
             </x-navigation.nav-group>
         </nav>
     </div>
