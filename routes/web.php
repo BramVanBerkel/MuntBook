@@ -10,8 +10,9 @@ use App\Http\Controllers\NonceDistributionController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TransactionController;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,7 +31,7 @@ Route::post('/search', SearchController::class)->name('search');
 Route::get('/block/{block}', BlockController::class)
     ->where('block', '[0-9]{1,10}+')
     ->name('block')
-    ->missing(function(Request $request) {
+    ->missing(function (Request $request) {
         return Redirect::route('missing-block', [
             'block' => $request->route('block'),
         ]);
