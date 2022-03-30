@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\GeoIPService;
 use App\Services\GuldenService;
 use Carbon\Carbon;
+use Carbon\CarbonInterface;
 
 class NodeInformationController extends Controller
 {
@@ -16,7 +17,7 @@ class NodeInformationController extends Controller
             ]);
         }
 
-        $uptime = now()->subSeconds($guldenService->getUptime())->toNow(Carbon::DIFF_ABSOLUTE, parts: 3);
+        $uptime = now()->subSeconds($guldenService->getUptime())->toNow(CarbonInterface::DIFF_ABSOLUTE, parts: 3);
         $networkInfo = $guldenService->getNetworkInfo();
 
         $peerInfo = $guldenService->getPeerInfo();
