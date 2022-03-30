@@ -131,4 +131,14 @@ return [
     'pow2_phase_4_first_block_height' => 1131652,
     'halving_introduction_height' => 1400000,
     'final_subsidy_block' => 17727500,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Total supply
+    |--------------------------------------------------------------------------
+    |
+    | The total amount of guldens that will ever be mined
+    |
+    */
+    'total_supply' => 700_000_000,
 ];
