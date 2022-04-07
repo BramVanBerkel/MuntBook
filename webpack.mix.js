@@ -16,6 +16,7 @@ mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/priceChart.js', 'public/js')
     .js('resources/js/nonceDistribution.js', 'public/js')
     .js('resources/js/averageBlocktime.js', 'public/js')
+    .js('resources/js/witnessYieldCalculator.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         require('postcss-import'),
         require('tailwindcss'),

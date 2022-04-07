@@ -3,6 +3,7 @@
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AverageBlocktimeController;
 use App\Http\Controllers\BlockController;
+use App\Http\Controllers\CalulatorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MissingBlockController;
 use App\Http\Controllers\NodeInformationController;
@@ -48,5 +49,9 @@ Route::get('/price', PriceController::class)->name('price');
 Route::get('/node-information', NodeInformationController::class)->name('node-information');
 Route::get('/nonce-distribution', NonceDistributionController::class)->name('nonce-distribution');
 Route::get('/average-blocktime', AverageBlocktimeController::class)->name('average-blocktime');
+
+Route::prefix('/calculators')->group(function() {
+    Route::get('/witness', [CalulatorController::class, 'witnessYieldCalculator']);
+});
 
 require __DIR__.'/auth.php';
