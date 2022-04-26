@@ -185,4 +185,18 @@ class BlockRepository
                 blocks: $blocksPerDay->blocks,
             ));
     }
+
+    /**
+     * Returns the average difficulty over the last 24hrs
+     *
+     * @return float
+     */
+    public function getAverageDifficulty(): float
+    {
+        return DB::table('blocks')
+            ->selectRaw('AVG(difficulty)')
+            ->where('created_at', '>', now()->subDay())
+            ->first()
+            ->avg;
+    }
 }
