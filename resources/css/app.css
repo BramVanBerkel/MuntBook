@@ -13,17 +13,19 @@
     background-size: contain;
 }
 
-[x-cloak] { display: none !important; }
+[x-cloak] {
+    display: none !important;
+}
 
 /* Hide input type="number" arrows */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-     /*display: none; !* <- Crashes Chrome on hover *!*/
+    /*display: none; !* <- Crashes Chrome on hover *!*/
     -webkit-appearance: none;
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
 /* Hide input type="number" arrows on Firefox */
 input[type=number] {
-    -moz-appearance:textfield;
+    -moz-appearance: textfield;
 }
