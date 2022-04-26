@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Services\GeoIPService;
 use App\Services\GuldenService;
-use Carbon\Carbon;
 use Carbon\CarbonInterface;
 
 class NodeInformationController extends Controller

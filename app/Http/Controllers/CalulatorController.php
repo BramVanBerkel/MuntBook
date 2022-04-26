@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Repositories\BlockRepository;
 use App\Repositories\PriceRepository;
 use App\Services\GuldenService;
-use Illuminate\Support\Facades\Cache;
 
 class CalulatorController extends Controller
 {
@@ -13,7 +12,8 @@ class CalulatorController extends Controller
         private GuldenService $guldenService,
         private PriceRepository $priceRepository,
         private BlockRepository $blockRepository,
-    ) {}
+    ) {
+    }
 
     public function witnessYieldCalculator()
     {
@@ -29,7 +29,7 @@ class CalulatorController extends Controller
     {
         $price = $this->priceRepository->getCurrentPrice();
         $hashrate = $this->guldenService->getNetworkHashrate();
-        $difficulty = (int)$this->blockRepository->getAverageDifficulty();
+        $difficulty = (int) $this->blockRepository->getAverageDifficulty();
 
         return view('pages.calculators.mining', [
             'price' => $price,

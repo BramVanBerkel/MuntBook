@@ -187,7 +187,7 @@ class BlockRepository
     }
 
     /**
-     * Returns the average difficulty over the last 24hrs
+     * Returns the average difficulty over the last 24hrs.
      *
      * @return float
      */
