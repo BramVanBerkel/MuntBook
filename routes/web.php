@@ -50,7 +50,7 @@ Route::get('/node-information', NodeInformationController::class)->name('node-in
 Route::get('/nonce-distribution', NonceDistributionController::class)->name('nonce-distribution');
 Route::get('/average-blocktime', AverageBlocktimeController::class)->name('average-blocktime');
 
-Route::prefix('/calculator')->group(function() {
+Route::prefix('/calculator')->group(function () {
     Route::get('/witness', [CalulatorController::class, 'witnessYieldCalculator']);
     Route::get('/mining', [CalulatorController::class, 'miningYieldCalculator']);
 });
