@@ -15,7 +15,7 @@
 
         <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
             <div class="sm:py-4 sm:px-6" x-data="miningYieldCalculator()" x-init="calculate()">
-                <div class="flex gap-6">
+                <div class="flex gap-6 flex-wrap">
                     <div>
                         <x-label for="hashrate">
                             Hashrate
@@ -91,9 +91,7 @@
                                 x-text="euroFormat(costPerDay)"></span>
                         </div>
 
-
                         {{-- Week --}}
-
                         <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
                             <dt class="text-sm font-medium text-gray-500">Yield per week</dt>
                             <dd class="mt-1 text-3xl font-semibold text-gray-900">
@@ -113,9 +111,7 @@
                                 x-text="euroFormat(costPerWeek)"></span>
                         </div>
 
-
                         {{-- Month --}}
-
                         <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
                             <dt class="text-sm font-medium text-gray-500">Yield per month</dt>
                             <dd class="mt-1 text-3xl font-semibold text-gray-900">
@@ -135,9 +131,7 @@
                                 x-text="euroFormat(costPerMonth)"></span>
                         </div>
 
-
                         {{-- Year --}}
-
                         <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
                             <dt class="text-sm font-medium text-gray-500">Yield per year</dt>
                             <dd class="mt-1 text-3xl font-semibold text-gray-900">
