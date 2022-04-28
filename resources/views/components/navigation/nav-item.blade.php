@@ -1,8 +1,10 @@
 @props([
     'route',
+    'showTestnet' => false
 ])
 
-<a @class([
+@if(empty(config('gulden.testnet')) || $showTestnet)
+    <a @class([
         'px-4',
         'py-2',
         'mt-2',
@@ -17,6 +19,7 @@
         'focus:outline-none',
         'focus:shadow-outline',
         'bg-blue-600' => request()->is($route),
-]) href="{{ route($route) }}">
-    {{ $slot }}
-</a>
+    ]) href="{{ route($route) }}">
+        {{ $slot }}
+    </a>
+@endif
