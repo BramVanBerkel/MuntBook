@@ -13,6 +13,7 @@
     background-size: contain;
 }
 
+/* Alpine hidden elements */
 [x-cloak] {
     display: none !important;
 }
