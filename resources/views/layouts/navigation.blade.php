@@ -34,6 +34,14 @@
                     Average blocktime
                 </x-navigation.nav-group-item>
             </x-navigation.nav-group>
+            <x-navigation.nav-group name="Calculators">
+                <x-navigation.nav-group-item route="calculator.mining">
+                    Mining
+                </x-navigation.nav-group-item>
+                <x-navigation.nav-group-item route="calculator.witness">
+                    Witness
+                </x-navigation.nav-group-item>
+            </x-navigation.nav-group>
         </nav>
     </div>
 </div>
