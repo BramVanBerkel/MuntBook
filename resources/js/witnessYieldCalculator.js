@@ -12,10 +12,18 @@ window.witnessYieldCalculator = function() {
 
 
         calculate() {
-            let weight = Math.round((this.amount + (this.amount * this.amount / 100000)) * (1 + (576 * this.days / 210240)));
+            // 86.400 seconds per day
+            let blocksPerDay = 86_400 / 150;
+
+            let blocksPerYear = blocksPerDay * 365;
+
+            // calculate the weight
+            let weight = Math.round((this.amount + (this.amount * this.amount / 100000)) * (1 + (blocksPerDay * this.days / blocksPerYear)));
+
+            // weight can be no more than 1% of the total network weight
             if (weight > (this.networkWeight / 100)) weight = (this.networkWeight / 100);
 
-            let interest = (109500000 * (576 / (1 / (weight / this.networkWeightAdjusted) + 100))) / this.amount;
+            let interest = (109_500_000 * (576 / (1 / (weight / this.networkWeightAdjusted) + 100))) / this.amount;
             let interestPeriod = (this.days * (interest / 365));
 
             this.yieldPerYear = Math.round(interest * this.amount / 10000);
