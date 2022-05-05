@@ -35,16 +35,16 @@ class DifficultyHashrateController extends Controller
 
         $difficulty = cache()->remember("average-difficulty-{$timeframe}-{$average}",
             now()->addHour(),
-            fn() => $difficultyRepository->getDifficulty($timeframe, $average)
-                ->map(fn($difficulty) => [
+            fn () => $difficultyRepository->getDifficulty($timeframe, $average)
+                ->map(fn ($difficulty) => [
                     'x' => $difficulty->date,
                     'y' => $difficulty->average_difficulty,
                 ]));
 
         $hashrate = cache()->remember("average-hashrate-{$timeframe}-{$average}",
             now()->addHour(),
-            fn() => $hashrateRepository->getHashrate($timeframe, $average)
-                ->map(fn($hashRate) => [
+            fn () => $hashrateRepository->getHashrate($timeframe, $average)
+                ->map(fn ($hashRate) => [
                     'x' => $hashRate->date,
                     'y' => $hashRate->average_hashrate,
                 ]));

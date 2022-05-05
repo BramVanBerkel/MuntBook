@@ -135,7 +135,7 @@ class GuldenService
 
     /**
      * @param  int  $blockHeight
-     *               TODO: implement reward halving every 4 (or so) years
+     *                            TODO: implement reward halving every 4 (or so) years
      */
     public function getWitnessReward(int $blockHeight): float
     {

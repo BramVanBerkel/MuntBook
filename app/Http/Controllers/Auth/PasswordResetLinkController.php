@@ -25,6 +25,7 @@ class PasswordResetLinkController extends Controller
      * Handle an incoming password reset link request.
      *
      * @return RedirectResponse
+     *
      * @throws ValidationException
      */
     public function store(Request $request)

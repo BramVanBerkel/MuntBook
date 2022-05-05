@@ -17,12 +17,12 @@ class NonceDistributionController extends Controller
     {
         $nonces = $this->blockRepository->getLatestNonces();
 
-        $preNonceData = $nonces->map(fn(NonceData $nonce) => [
+        $preNonceData = $nonces->map(fn (NonceData $nonce) => [
             'x' => $nonce->height,
             'y' => $nonce->preNonce,
         ]);
 
-        $postNonceData = $nonces->map(fn(NonceData $nonce) => [
+        $postNonceData = $nonces->map(fn (NonceData $nonce) => [
             'x' => $nonce->height,
             'y' => $nonce->postNonce,
         ]);

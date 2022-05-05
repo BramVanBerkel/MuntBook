@@ -144,7 +144,7 @@ class WitnessAddressRepository implements AddressRepositoryInterface
             ->orderByDesc('timestamp')
             ->paginate();
 
-        return $transactions->through(fn(object $transaction) => new WitnessAddressTransactionsData(
+        return $transactions->through(fn (object $transaction) => new WitnessAddressTransactionsData(
             height: $transaction->height,
             timestamp: Carbon::parse($transaction->timestamp),
             reward: $transaction->reward,

@@ -15,7 +15,7 @@ class AddressController extends Controller
     {
         $type = $this->addressRepository->getType($address);
 
-        if (!$type instanceof \App\Enums\AddressTypeEnum) {
+        if (! $type instanceof \App\Enums\AddressTypeEnum) {
             abort(404);
         }
 

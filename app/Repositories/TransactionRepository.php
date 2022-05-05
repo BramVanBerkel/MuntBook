@@ -25,7 +25,7 @@ class TransactionRepository
                 'addresses.address as rewarded_witness_address',
                 'transactions.type',
             ])
-            ->leftJoin('vouts', fn(JoinClause $join) => $join->on('vouts.transaction_id', '=', 'transactions.id')
+            ->leftJoin('vouts', fn (JoinClause $join) => $join->on('vouts.transaction_id', '=', 'transactions.id')
                 ->where('vouts.type', '<>', Vout::TYPE_WITNESS))
             ->leftJoin('vouts as reward_vout', function (JoinClause $join) {
                 $join->on('reward_vout.transaction_id', '=', 'transactions.id')
@@ -66,9 +66,9 @@ class TransactionRepository
                 DB::raw('-sum(vouts.value) as value'),
                 DB::raw("'input' as type"),
             ])
-            ->join('vins', fn(JoinClause $join) => $join->on('vins.transaction_id', '=', 'transactions.id')
+            ->join('vins', fn (JoinClause $join) => $join->on('vins.transaction_id', '=', 'transactions.id')
                 ->whereNotNull('vout_id'))
-            ->join('vouts', fn(JoinClause $join) => $join->on('vins.vout_id', '=', 'vouts.id')
+            ->join('vouts', fn (JoinClause $join) => $join->on('vins.vout_id', '=', 'vouts.id')
                 ->where('vouts.type', '<>', Vout::TYPE_WITNESS))
             ->join('addresses', 'vouts.address_id', '=', 'addresses.id')
             ->where('transactions.txid', '=', $txid)
@@ -89,13 +89,13 @@ class TransactionRepository
         return $inputs->union($outputs)
             ->orderBy('type')
             ->get()
-            ->map(fn($output) => new TransactionOutputsData(
+            ->map(fn ($output) => new TransactionOutputsData(
                 address: $output->address,
                 amount: (float) $output->value,
             ));
     }
 
-    /**            Returns the amount of transactions in the last 24 hrs
+    /**            Returns the amount of transactions in the last 24 hrs.
      */
     public function countLastTransactions(): int
     {

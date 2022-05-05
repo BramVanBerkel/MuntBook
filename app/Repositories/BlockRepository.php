@@ -106,7 +106,7 @@ class BlockRepository
             })
             ->groupBy('transactions.txid', 'transactions.type')
             ->paginate()
-            ->through(fn(object $transaction) => new BlockTransactionsData(
+            ->through(fn (object $transaction) => new BlockTransactionsData(
                 txid: $transaction->txid,
                 amount: $transaction->amount,
                 type: TransactionTypeEnum::from($transaction->type),
@@ -129,7 +129,7 @@ class BlockRepository
             ])->orderByDesc('height')
             ->limit(2000)
             ->get()
-            ->map(fn(object $nonce) => new NonceData(
+            ->map(fn (object $nonce) => new NonceData(
                 height: $nonce->height,
                 preNonce: $nonce->pre_nonce,
                 postNonce: $nonce->post_nonce,

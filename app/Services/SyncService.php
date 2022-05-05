@@ -179,7 +179,7 @@ class SyncService
 
     private function getIndexVout(Collection $vin): ?Vout
     {
-        return Vout::where('transaction_id', fn($query) => $query->select('id')
+        return Vout::where('transaction_id', fn ($query) => $query->select('id')
             ->from((new Transaction())->getTable())
             ->where('block_height', '=', $vin->get('tx_height'))
             ->orderBy('id')
@@ -296,7 +296,7 @@ class SyncService
             return true;
         }
 
-        $reward = (float) $vouts->filter(fn($vout) => ! $vout->has('PoW²-witness'))->pluck('value')
+        $reward = (float) $vouts->filter(fn ($vout) => ! $vout->has('PoW²-witness'))->pluck('value')
             ->sum();
 
         $witnessReward = $this->blockService->getBlockSubsidy($blockHeight)->witness;
@@ -314,6 +314,7 @@ class SyncService
             $vout->get('PoW²-witness')->get('lock_from_block') === 0)) {
             //TODO: ugly
             $transaction->update(['type' => Transaction::TYPE_WITNESS_FUNDING]);
+
             return Vout::TYPE_WITNESS_FUNDING;
         }
 

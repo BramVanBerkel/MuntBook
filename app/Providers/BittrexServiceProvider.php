@@ -9,6 +9,6 @@ class BittrexServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->app->singleton(BittrexService::class, fn() => new BittrexService());
+        $this->app->singleton(BittrexService::class, fn () => new BittrexService());
     }
 }
