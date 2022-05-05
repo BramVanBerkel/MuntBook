@@ -8,7 +8,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 /** @mixin PriceData */
 class PriceCollection extends ResourceCollection
 {
-    public static $wrap = null;
+    public static $wrap;
 
     public function toArray($request)
     {

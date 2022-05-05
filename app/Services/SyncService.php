@@ -310,14 +310,11 @@ class SyncService
 
     private function getVoutType(Collection $vout, Transaction $transaction, ?Address $address): string
     {
-        if ($vout->has('PoW²-witness') || optional($vout->get('scriptPubKey'))->get('type') === 'pow2_witness') {
-            if ($transaction->vins()->first()->vout?->scriptpubkey_type === Vout::NONSTANDARD_SCRIPTPUBKEY_TYPE ||
-                $vout->get('PoW²-witness')->get('lock_from_block') === 0) {
-                //TODO: ugly
-                $transaction->update(['type' => Transaction::TYPE_WITNESS_FUNDING]);
-
-                return Vout::TYPE_WITNESS_FUNDING;
-            }
+        if (($vout->has('PoW²-witness') || optional($vout->get('scriptPubKey'))->get('type') === 'pow2_witness') && ($transaction->vins()->first()->vout?->scriptpubkey_type === Vout::NONSTANDARD_SCRIPTPUBKEY_TYPE ||
+            $vout->get('PoW²-witness')->get('lock_from_block') === 0)) {
+            //TODO: ugly
+            $transaction->update(['type' => Transaction::TYPE_WITNESS_FUNDING]);
+            return Vout::TYPE_WITNESS_FUNDING;
         }
 
         if ($transaction->type === Transaction::TYPE_WITNESS) {

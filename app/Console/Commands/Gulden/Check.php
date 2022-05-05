@@ -29,19 +29,8 @@ class Check extends Command
     protected $description = 'Checks if new blocks are available and syncs them to the database.';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
-     * @param  GuldenService  $guldenService
      * @return void
      */
     public function handle(GuldenService $guldenService, SyncService $syncService)
