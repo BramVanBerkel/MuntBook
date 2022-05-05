@@ -7,7 +7,7 @@ use App\Repositories\Address\AddressRepository;
 class AddressController extends Controller
 {
     public function __construct(
-        private AddressRepository $addressRepository
+        private readonly AddressRepository $addressRepository
     ) {
     }
 

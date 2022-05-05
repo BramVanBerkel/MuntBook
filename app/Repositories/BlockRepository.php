@@ -106,13 +106,11 @@ class BlockRepository
             })
             ->groupBy('transactions.txid', 'transactions.type')
             ->paginate()
-            ->through(function (object $transaction) {
-                return new BlockTransactionsData(
-                    txid: $transaction->txid,
-                    amount: $transaction->amount,
-                    type: TransactionTypeEnum::from($transaction->type),
-                );
-            });
+            ->through(fn(object $transaction) => new BlockTransactionsData(
+                txid: $transaction->txid,
+                amount: $transaction->amount,
+                type: TransactionTypeEnum::from($transaction->type),
+            ));
     }
 
     public function currentHeight(): int
@@ -131,13 +129,11 @@ class BlockRepository
             ])->orderByDesc('height')
             ->limit(2000)
             ->get()
-            ->map(function (object $nonce) {
-                return new NonceData(
-                    height: $nonce->height,
-                    preNonce: $nonce->pre_nonce,
-                    postNonce: $nonce->post_nonce,
-                );
-            });
+            ->map(fn(object $nonce) => new NonceData(
+                height: $nonce->height,
+                preNonce: $nonce->pre_nonce,
+                postNonce: $nonce->post_nonce,
+            ));
     }
 
     /**
@@ -188,8 +184,6 @@ class BlockRepository
 
     /**
      * Returns the average difficulty over the last 24hrs.
-     *
-     * @return float
      */
     public function getAverageDifficulty(): float
     {

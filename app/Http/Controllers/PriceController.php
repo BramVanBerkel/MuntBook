@@ -10,7 +10,7 @@ use App\Repositories\PriceRepository;
 class PriceController extends Controller
 {
     public function __construct(
-        private PriceRepository $priceRepository
+        private readonly PriceRepository $priceRepository
     ) {
     }
 

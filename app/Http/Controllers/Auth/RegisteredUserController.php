@@ -29,9 +29,7 @@ class RegisteredUserController extends Controller
     /**
      * Handle an incoming registration request.
      *
-     * @param  Request  $request
      * @return RedirectResponse
-     *
      * @throws ValidationException
      */
     public function store(Request $request)

@@ -9,8 +9,8 @@ use App\Services\BlockService;
 class SupplyController extends Controller
 {
     public function __construct(
-        private BlockService $blockService,
-        private BlockRepository $blockRepository,
+        private readonly BlockService $blockService,
+        private readonly BlockRepository $blockRepository,
     ) {
     }
 

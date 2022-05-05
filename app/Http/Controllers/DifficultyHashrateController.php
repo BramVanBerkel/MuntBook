@@ -9,9 +9,9 @@ use Illuminate\Validation\Rule;
 
 class DifficultyHashrateController extends Controller
 {
-    public const TIMEFRAMES = [30, 60, 180, 365];
+    public final const TIMEFRAMES = [30, 60, 180, 365];
 
-    public const AVERAGES = [1, 7, 30];
+    public final const AVERAGES = [1, 7, 30];
 
     //todo: fix
 //    public function index()
@@ -35,27 +35,19 @@ class DifficultyHashrateController extends Controller
 
         $difficulty = cache()->remember("average-difficulty-{$timeframe}-{$average}",
             now()->addHour(),
-            function () use ($difficultyRepository, $timeframe, $average) {
-                return $difficultyRepository->getDifficulty($timeframe, $average)
-                    ->map(function ($difficulty) {
-                        return [
-                            'x' => $difficulty->date,
-                            'y' => $difficulty->average_difficulty,
-                        ];
-                    });
-            });
+            fn() => $difficultyRepository->getDifficulty($timeframe, $average)
+                ->map(fn($difficulty) => [
+                    'x' => $difficulty->date,
+                    'y' => $difficulty->average_difficulty,
+                ]));
 
         $hashrate = cache()->remember("average-hashrate-{$timeframe}-{$average}",
             now()->addHour(),
-            function () use ($hashrateRepository, $timeframe, $average) {
-                return $hashrateRepository->getHashrate($timeframe, $average)
-                    ->map(function ($hashRate) {
-                        return [
-                            'x' => $hashRate->date,
-                            'y' => $hashRate->average_hashrate,
-                        ];
-                    });
-            });
+            fn() => $hashrateRepository->getHashrate($timeframe, $average)
+                ->map(fn($hashRate) => [
+                    'x' => $hashRate->date,
+                    'y' => $hashRate->average_hashrate,
+                ]));
 
         return response()->json([
             'datasets' => [

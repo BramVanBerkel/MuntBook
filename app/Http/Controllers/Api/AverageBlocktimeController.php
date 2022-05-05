@@ -7,7 +7,7 @@ use App\Repositories\BlockRepository;
 
 class AverageBlocktimeController extends Controller
 {
-    public function __construct(private BlockRepository $blockRepository)
+    public function __construct(private readonly BlockRepository $blockRepository)
     {
     }
 

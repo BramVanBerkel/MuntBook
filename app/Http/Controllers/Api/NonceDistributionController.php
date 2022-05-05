@@ -9,7 +9,7 @@ use App\Repositories\BlockRepository;
 class NonceDistributionController extends Controller
 {
     public function __construct(
-        private BlockRepository $blockRepository,
+        private readonly BlockRepository $blockRepository,
     ) {
     }
 
@@ -17,19 +17,15 @@ class NonceDistributionController extends Controller
     {
         $nonces = $this->blockRepository->getLatestNonces();
 
-        $preNonceData = $nonces->map(function (NonceData $nonce) {
-            return [
-                'x' => $nonce->height,
-                'y' => $nonce->preNonce,
-            ];
-        });
+        $preNonceData = $nonces->map(fn(NonceData $nonce) => [
+            'x' => $nonce->height,
+            'y' => $nonce->preNonce,
+        ]);
 
-        $postNonceData = $nonces->map(function (NonceData $nonce) {
-            return [
-                'x' => $nonce->height,
-                'y' => $nonce->postNonce,
-            ];
-        });
+        $postNonceData = $nonces->map(fn(NonceData $nonce) => [
+            'x' => $nonce->height,
+            'y' => $nonce->postNonce,
+        ]);
 
         return response()->json([
             'preNonceData' => $preNonceData,

@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Storage;
 
 class GeoIPRepository
 {
-    public const UNKNOWN = 'Unknown';
+    public final const UNKNOWN = 'Unknown';
 
-    private ?Reader $reader;
+    private ?Reader $reader = null;
 
     public function __construct()
     {

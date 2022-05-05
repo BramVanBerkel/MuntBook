@@ -11,9 +11,9 @@ use Illuminate\View\View;
 class HomeController extends Controller
 {
     public function __construct(
-        private BlockRepository $blockRepository,
-        private TransactionRepository $transactionRepository,
-        private PriceRepository $priceRepository,
+        private readonly BlockRepository $blockRepository,
+        private readonly TransactionRepository $transactionRepository,
+        private readonly PriceRepository $priceRepository,
     ) {
     }
 

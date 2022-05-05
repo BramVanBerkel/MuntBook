@@ -15,7 +15,7 @@ class WitnessAddressPartsSeeder extends Seeder
      */
     public function run()
     {
-        $addresses = json_decode(file_get_contents('zip://database/seeders/addresses.json.zip#addresses.json'), true);
+        $addresses = json_decode(file_get_contents('zip://database/seeders/addresses.json.zip#addresses.json'), true, 512, JSON_THROW_ON_ERROR);
 
         foreach ($addresses as $address => $parts) {
             $address = Address::where('address', '=', $address)->firstOrFail();
