@@ -63,7 +63,7 @@ class Start extends Command
         }
 
         if (! empty(config('gulden.addnode'))) {
-            $nodes = explode(',', config('gulden.addnode'));
+            $nodes = explode(',', (string) config('gulden.addnode'));
             foreach ($nodes as $node) {
                 $config .= "addnode={$node}\n";
             }
