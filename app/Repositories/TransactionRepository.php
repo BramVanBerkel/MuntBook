@@ -25,10 +25,8 @@ class TransactionRepository
                 'addresses.address as rewarded_witness_address',
                 'transactions.type',
             ])
-            ->leftJoin('vouts', function (JoinClause $join) {
-                return $join->on('vouts.transaction_id', '=', 'transactions.id')
-                    ->where('vouts.type', '<>', Vout::TYPE_WITNESS);
-            })
+            ->leftJoin('vouts', fn (JoinClause $join) => $join->on('vouts.transaction_id', '=', 'transactions.id')
+                ->where('vouts.type', '<>', Vout::TYPE_WITNESS))
             ->leftJoin('vouts as reward_vout', function (JoinClause $join) {
                 $join->on('reward_vout.transaction_id', '=', 'transactions.id')
                     ->where('reward_vout.type', '=', Vout::TYPE_WITNESS);
@@ -68,14 +66,10 @@ class TransactionRepository
                 DB::raw('-sum(vouts.value) as value'),
                 DB::raw("'input' as type"),
             ])
-            ->join('vins', function (JoinClause $join) {
-                return $join->on('vins.transaction_id', '=', 'transactions.id')
-                    ->whereNotNull('vout_id');
-            })
-            ->join('vouts', function (JoinClause $join) {
-                return $join->on('vins.vout_id', '=', 'vouts.id')
-                    ->where('vouts.type', '<>', Vout::TYPE_WITNESS);
-            })
+            ->join('vins', fn (JoinClause $join) => $join->on('vins.transaction_id', '=', 'transactions.id')
+                ->whereNotNull('vout_id'))
+            ->join('vouts', fn (JoinClause $join) => $join->on('vins.vout_id', '=', 'vouts.id')
+                ->where('vouts.type', '<>', Vout::TYPE_WITNESS))
             ->join('addresses', 'vouts.address_id', '=', 'addresses.id')
             ->where('transactions.txid', '=', $txid)
             ->groupBy('addresses.address', 'vins.id');
@@ -95,17 +89,13 @@ class TransactionRepository
         return $inputs->union($outputs)
             ->orderBy('type')
             ->get()
-            ->map(function ($output) {
-                return new TransactionOutputsData(
-                    address: $output->address,
-                    amount: (float) $output->value,
-                );
-            });
+            ->map(fn ($output) => new TransactionOutputsData(
+                address: $output->address,
+                amount: (float) $output->value,
+            ));
     }
 
-    /**
-     * @return int
-     *             Returns the amount of transactions in the last 24 hrs
+    /**            Returns the amount of transactions in the last 24 hrs.
      */
     public function countLastTransactions(): int
     {

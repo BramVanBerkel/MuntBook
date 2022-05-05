@@ -24,14 +24,13 @@ class ConfirmablePasswordController extends Controller
     /**
      * Confirm the user's password.
      *
-     * @param  Request  $request
      * @return mixed
      */
     public function store(Request $request)
     {
         if (! Auth::guard('web')->validate([
             'email' => $request->user()->email,
-            'password' => $request->password,
+            'password' => $request->getPassword(),
         ])) {
             throw ValidationException::withMessages([
                 'password' => __('auth.password'),

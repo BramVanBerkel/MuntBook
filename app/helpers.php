@@ -3,9 +3,6 @@
 if (! function_exists('gmp_hexdec')) {
     /**
      * Converts a hex value to an arbitrarily long number.
-     *
-     * @param  string  $n
-     * @return GMP
      */
     function gmp_hexdec(string $n): GMP
     {

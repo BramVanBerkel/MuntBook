@@ -7,7 +7,7 @@ use App\Repositories\Address\AddressRepository;
 class AddressController extends Controller
 {
     public function __construct(
-        private AddressRepository $addressRepository
+        private readonly AddressRepository $addressRepository
     ) {
     }
 
@@ -15,7 +15,7 @@ class AddressController extends Controller
     {
         $type = $this->addressRepository->getType($address);
 
-        if ($type === null) {
+        if (! $type instanceof \App\Enums\AddressTypeEnum) {
             abort(404);
         }
 

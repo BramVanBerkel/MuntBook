@@ -7,7 +7,7 @@ use App\Repositories\BlockRepository;
 class MissingBlockController extends Controller
 {
     public function __construct(
-        private BlockRepository $blockRepository,
+        private readonly BlockRepository $blockRepository,
     ) {
     }
 

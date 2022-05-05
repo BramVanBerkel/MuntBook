@@ -17,9 +17,9 @@ use Illuminate\Support\Facades\DB;
 class SyncService
 {
     public function __construct(
-        private GuldenService $guldenService,
-        private AddressService $addressService,
-        private BlockService $blockService,
+        private readonly GuldenService $guldenService,
+        private readonly AddressService $addressService,
+        private readonly BlockService $blockService,
     ) {
     }
 
@@ -53,9 +53,6 @@ class SyncService
 
     /**
      * Saves a block to the database.
-     *
-     * @param  Collection  $data
-     * @return Block
      */
     private function saveBlock(Collection $data): Block
     {
@@ -69,7 +66,7 @@ class SyncService
 
         // Convert chainwork to gigahashes using GMP because the chainwork decimal number is too long for php
         $chainwork = gmp_hexdec($data->get('chainwork'));
-        $chainwork = gmp_div($chainwork, gmp_init(1000000000));
+        $chainwork = gmp_div($chainwork, gmp_init(1_000_000_000));
         $chainwork = gmp_intval($chainwork);
 
         return Block::updateOrCreate([
@@ -182,14 +179,12 @@ class SyncService
 
     private function getIndexVout(Collection $vin): ?Vout
     {
-        return Vout::where('transaction_id', function ($query) use ($vin) {
-            return $query->select('id')
-                ->from((new Transaction())->getTable())
-                ->where('block_height', '=', $vin->get('tx_height'))
-                ->orderBy('id')
-                ->skip($vin->get('tx_index'))
-                ->take(1);
-        })->firstWhere('n', '=', $vin->get('vout'));
+        return Vout::where('transaction_id', fn ($query) => $query->select('id')
+            ->from((new Transaction())->getTable())
+            ->where('block_height', '=', $vin->get('tx_height'))
+            ->orderBy('id')
+            ->skip($vin->get('tx_index'))
+            ->take(1))->firstWhere('n', '=', $vin->get('vout'));
     }
 
     private function getHashVout(Collection $vin): ?Vout
@@ -289,9 +284,7 @@ class SyncService
     }
 
     /**
-     * @param  Collection  $vouts
      * @param  int  $blockHeight
-     * @return bool|float
      *
      * Returns true if witness is fully compounding
      * Returns float of value that witness is partially compounding
@@ -303,9 +296,7 @@ class SyncService
             return true;
         }
 
-        $reward = (float) $vouts->filter(function ($vout) {
-            return ! $vout->has('PoW²-witness');
-        })->pluck('value')
+        $reward = (float) $vouts->filter(fn ($vout) => ! $vout->has('PoW²-witness'))->pluck('value')
             ->sum();
 
         $witnessReward = $this->blockService->getBlockSubsidy($blockHeight)->witness;
@@ -319,14 +310,12 @@ class SyncService
 
     private function getVoutType(Collection $vout, Transaction $transaction, ?Address $address): string
     {
-        if ($vout->has('PoW²-witness') || optional($vout->get('scriptPubKey'))->get('type') === 'pow2_witness') {
-            if ($transaction->vins()->first()->vout?->scriptpubkey_type === Vout::NONSTANDARD_SCRIPTPUBKEY_TYPE ||
-                $vout->get('PoW²-witness')->get('lock_from_block') === 0) {
-                //TODO: ugly
-                $transaction->update(['type' => Transaction::TYPE_WITNESS_FUNDING]);
+        if (($vout->has('PoW²-witness') || optional($vout->get('scriptPubKey'))->get('type') === 'pow2_witness') && ($transaction->vins()->first()->vout?->scriptpubkey_type === Vout::NONSTANDARD_SCRIPTPUBKEY_TYPE ||
+            $vout->get('PoW²-witness')->get('lock_from_block') === 0)) {
+            //TODO: ugly
+            $transaction->update(['type' => Transaction::TYPE_WITNESS_FUNDING]);
 
-                return Vout::TYPE_WITNESS_FUNDING;
-            }
+            return Vout::TYPE_WITNESS_FUNDING;
         }
 
         if ($transaction->type === Transaction::TYPE_WITNESS) {

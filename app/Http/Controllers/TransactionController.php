@@ -9,8 +9,8 @@ use App\Services\GuldenService;
 class TransactionController extends Controller
 {
     public function __construct(
-        private GuldenService $guldenService,
-        private TransactionRepository $transactionRepository,
+        private readonly GuldenService $guldenService,
+        private readonly TransactionRepository $transactionRepository,
     ) {
     }
 

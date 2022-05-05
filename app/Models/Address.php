@@ -24,7 +24,7 @@ class Address extends Model
      * This is the address for Gulden Development.
      * From block number 1030000 this address will receive 40 Gulden for each block and from block 1226652 80 Gulden.
      */
-    public const DEVELOPMENT_ADDRESS = 'GPk2TdvW1bjPAaPL72PXhVfYvyqEHKGrDA';
+    public final const DEVELOPMENT_ADDRESS = 'GPk2TdvW1bjPAaPL72PXhVfYvyqEHKGrDA';
 
     public function vouts(): HasMany
     {

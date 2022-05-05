@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\DB;
 class WitnessAddressRepository implements AddressRepositoryInterface
 {
     /**
-     * @param  string  $address
      * @return Collection<WitnessAddressPartData>
      */
     public function getWitnessAddressParts(string $address): Collection
@@ -145,14 +144,12 @@ class WitnessAddressRepository implements AddressRepositoryInterface
             ->orderByDesc('timestamp')
             ->paginate();
 
-        return $transactions->through(function (object $transaction) {
-            return new WitnessAddressTransactionsData(
-                height: $transaction->height,
-                timestamp: Carbon::parse($transaction->timestamp),
-                reward: $transaction->reward,
-                compound: $transaction->compound,
-            );
-        });
+        return $transactions->through(fn (object $transaction) => new WitnessAddressTransactionsData(
+            height: $transaction->height,
+            timestamp: Carbon::parse($transaction->timestamp),
+            reward: $transaction->reward,
+            compound: $transaction->compound,
+        ));
     }
 
     public function syncParts(Address $address, Collection $parts)

@@ -29,26 +29,26 @@ class Transaction extends Model
         'total_value_out',
     ];
 
-    public const TYPE_TRANSACTION = 'TRANSACTION';
-    public const TYPE_WITNESS_FUNDING = 'WITNESS_FUNDING';
-    public const TYPE_WITNESS = 'WITNESS';
-    public const TYPE_MINING = 'MINING';
+    public final const TYPE_TRANSACTION = 'TRANSACTION';
+    public final const TYPE_WITNESS_FUNDING = 'WITNESS_FUNDING';
+    public final const TYPE_WITNESS = 'WITNESS';
+    public final const TYPE_MINING = 'MINING';
 
-    public const TYPES = [ //todo: convert to enum
+    public final const TYPES = [ //todo: convert to enum
         self::TYPE_TRANSACTION,
         self::TYPE_WITNESS_FUNDING,
         self::TYPE_WITNESS,
         self::TYPE_MINING,
     ];
 
-    public const ICONS = [
+    public final const ICONS = [
         self::TYPE_TRANSACTION => 'exchange-alt',
         self::TYPE_WITNESS_FUNDING => 'piggy-bank',
         self::TYPE_WITNESS => 'glasses',
         self::TYPE_MINING => 'calculator',
     ];
 
-    public const EMPTY_TXID = '0000000000000000000000000000000000000000000000000000000000000000';
+    public final const EMPTY_TXID = '0000000000000000000000000000000000000000000000000000000000000000';
 
     public function block(): BelongsTo
     {

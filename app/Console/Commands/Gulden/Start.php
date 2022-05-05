@@ -22,16 +22,6 @@ class Start extends Command
     protected $description = 'Starts Gulden service from binaries folder.';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return void
@@ -63,7 +53,7 @@ class Start extends Command
         }
 
         if (! empty(config('gulden.addnode'))) {
-            $nodes = explode(',', config('gulden.addnode'));
+            $nodes = explode(',', (string) config('gulden.addnode'));
             foreach ($nodes as $node) {
                 $config .= "addnode={$node}\n";
             }

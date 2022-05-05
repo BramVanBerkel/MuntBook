@@ -42,7 +42,7 @@ class Block extends Model
         'total_value_out',
     ];
 
-    public const EMPTY_WITNESS_MERLKEROOT = '0000000000000000000000000000000000000000000000000000000000000000';
+    public final const EMPTY_WITNESS_MERLKEROOT = '0000000000000000000000000000000000000000000000000000000000000000';
 
     public function transactions(): HasMany
     {

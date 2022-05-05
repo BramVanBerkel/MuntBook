@@ -16,8 +16,6 @@ enum PriceTimeframeEnum: string
 
     /**
      * Returns the size one tick on the graph should be in seconds.
-     *
-     * @return int
      */
     public function tickSize(): int
     {
@@ -33,8 +31,6 @@ enum PriceTimeframeEnum: string
 
     /**
      * Returns the date from which prices can be selected, or null if all prices can be selected.
-     *
-     * @return Carbon|null
      */
     public function since(): ?Carbon
     {

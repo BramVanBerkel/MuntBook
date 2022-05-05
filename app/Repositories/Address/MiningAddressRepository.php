@@ -63,13 +63,11 @@ class MiningAddressRepository implements AddressRepositoryInterface
             ->where('addresses.address', '=', $address)
             ->orderByDesc('transactions.created_at')
             ->paginate()
-            ->through(function (object $transaction) {
-                return new MiningAddressTransactionData(
-                    height: $transaction->height,
-                    date: Carbon::parse($transaction->date),
-                    reward: $transaction->reward,
-                    difficulty: $transaction->difficulty,
-                );
-            });
+            ->through(fn (object $transaction) => new MiningAddressTransactionData(
+                height: $transaction->height,
+                date: Carbon::parse($transaction->date),
+                reward: $transaction->reward,
+                difficulty: $transaction->difficulty,
+            ));
     }
 }
