@@ -5,7 +5,7 @@ namespace App\DataObjects;
 class BlockSubsidyData
 {
     public function __construct(
-        public float  $mining,
+        public float $mining,
         public float $witness,
         public float $development,
     ) {
