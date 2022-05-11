@@ -21,8 +21,6 @@ class BlockRepository
 {
     public function index(): CursorPaginator
     {
-        // todo: remove phpstan-ignore-next-line when https://github.com/nunomaduro/larastan/issues/1197 is fixed
-        /** @phpstan-ignore-next-line */
         return DB::table('blocks')
             ->select([
                 'blocks.height',

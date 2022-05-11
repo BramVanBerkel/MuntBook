@@ -35,6 +35,7 @@ class WitnessAddressPart extends Model
     ];
 
     public final const TYPE_SCRIPT = 'SCRIPT';
+
     public final const TYPE_POW2WITNESS = 'POW2WITNESS';
 
     public final const TYPES = [

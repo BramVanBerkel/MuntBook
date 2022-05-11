@@ -31,10 +31,15 @@ class Vout extends Model
     public final const NONSTANDARD_SCRIPTPUBKEY_TYPE = 'nonstandard';
 
     public final const TYPE_TRANSACTION = 'transaction';
+
     public final const TYPE_MINING = 'mining';
+
     public final const TYPE_WITNESS = 'witness';
+
     public final const TYPE_WITNESS_REWARD = 'witness_reward';
+
     public final const TYPE_WITNESS_FUNDING = 'witness_funding';
+
     public final const TYPE_DEVELOPMENT_REWARD = 'development_reward';
 
     public final const TYPES = [

@@ -21,6 +21,7 @@
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.10",
         "fakerphp/faker": "^1.9.1",
+        "friendsofphp/php-cs-fixer": "^3.8",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^6.1",
         "nunomaduro/larastan": "^2.0",
@@ -56,6 +57,15 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "rector": [
+            "@php vendor/bin/rector process"
+        ],
+        "phpcsfixer": [
+            "@php vendor/bin/php-cs-fixer fix -vvv"
+        ],
+        "phpstan": [
+            "@php vendor/bin/phpstan analyze"
         ]
     },
     "extra": {

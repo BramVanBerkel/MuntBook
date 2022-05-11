@@ -23,6 +23,7 @@ class Vin extends Model
     ];
 
     public final const PREVOUT_TYPE_INDEX = 'index';
+
     public final const PREVOUT_TYPE_HASH = 'hash';
 
     public final const PREVOUT_TYPES = [
