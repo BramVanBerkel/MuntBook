@@ -26,11 +26,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Collection::macro('recursive', fn () => $this->map(function ($value) {
-                if (is_array($value) || is_object($value)) {
-                    return collect($value)->recursive();
-                }
+            if (is_array($value) || is_object($value)) {
+                return collect($value)->recursive();
+            }
 
-                return $value;
-            }));
+            return $value;
+        }));
     }
 }
