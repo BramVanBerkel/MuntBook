@@ -7,7 +7,9 @@ use Illuminate\View\Component;
 class GuldenDisplay extends Component
 {
     public string $class = '';
+
     public string $integer = '';
+
     public string $fractional = '';
 
     public function __construct(float $value, bool $colored = false, bool $showSign = true)

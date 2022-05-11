@@ -54,12 +54,12 @@ class Block extends Model
         return $this->witness_version !== null;
     }
 
-    public function getPreviousAttribute(): ?Block
+    public function getPreviousAttribute(): ?self
     {
         return $this->where('height', '<', $this->height)->orderBy('height')->first();
     }
 
-    public function getNextAttribute(): ?Block
+    public function getNextAttribute(): ?self
     {
         return $this->where('height', '>', $this->height)->orderBy('height')->first();
     }

@@ -30,8 +30,11 @@ class Transaction extends Model
     ];
 
     public final const TYPE_TRANSACTION = 'TRANSACTION';
+
     public final const TYPE_WITNESS_FUNDING = 'WITNESS_FUNDING';
+
     public final const TYPE_WITNESS = 'WITNESS';
+
     public final const TYPE_MINING = 'MINING';
 
     public final const TYPES = [ //todo: convert to enum
@@ -75,7 +78,7 @@ class Transaction extends Model
 
     public function getIconAttribute(): string
     {
-        return Transaction::ICONS[$this->type];
+        return self::ICONS[$this->type];
     }
 
     public function getIconNameAttribute(): string
