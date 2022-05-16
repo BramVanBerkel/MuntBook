@@ -13,6 +13,9 @@ window.witnessYieldCalculator = function () {
 
 
         calculate() {
+            this.amount = this.clamp(this.amount, 5000, 1000000);
+            this.days = this.clamp(this.days, 30, 1095);
+
             // 150 seconds per block, 86.400 seconds per day
             let blocksPerDay = 86_400 / 150;
             let daysPerYear = 365;
@@ -38,6 +41,10 @@ window.witnessYieldCalculator = function () {
 
             this.yieldPerYearPercentage = ((yieldPerYear / this.amount) * 100).toFixed(2) + '%';
             this.totalYieldPercentage = ((totalYield / this.amount) * 100).toFixed(2) + '%';
+        },
+
+        clamp(value, min, max) {
+            return Math.min(Math.max(value, min), max);
         }
     }
 }
