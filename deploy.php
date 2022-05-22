@@ -1,4 +1,5 @@
 <?php
+
 namespace Deployer;
 
 require 'recipe/laravel.php';
@@ -7,7 +8,7 @@ require 'recipe/laravel.php';
 set('repository', 'https://bramvanberkel@github.com/BramVanBerkel/GuldenBook.git');
 
 add('shared_files', [
-    '.env'
+    '.env',
 ]);
 
 add('shared_dirs', [
