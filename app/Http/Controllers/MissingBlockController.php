@@ -9,7 +9,6 @@ use Illuminate\View\View;
 class MissingBlockController extends Controller
 {
     public function __construct(
-        private readonly BlockRepository $blockRepository,
         private readonly BlockService $blockService,
     ) {
     }
