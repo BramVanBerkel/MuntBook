@@ -3,9 +3,15 @@
 namespace App\Services;
 
 use App\DataObjects\BlockSubsidyData;
+use App\Repositories\BlockRepository;
+use Carbon\Carbon;
 
 class BlockService
 {
+    public function __construct(
+        private readonly BlockRepository $blockRepository
+    ) {}
+
     public function getBlockSubsidy(int $height): BlockSubsidyData
     {
         if ($height === 1) {
@@ -78,5 +84,15 @@ class BlockService
                     new BlockSubsidyData(0, 0, 0)
             };
         }
+    }
+
+    /**
+     * Calculates the approximate date the block will be mined
+     */
+    public function calculateMinedAtDate(int $height): Carbon
+    {
+        $seconds = ($height - $this->blockRepository->currentHeight()) * config('gulden.blocktime');
+
+        return now()->addSeconds($seconds);
     }
 }

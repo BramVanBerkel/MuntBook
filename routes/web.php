@@ -12,6 +12,7 @@ use App\Http\Controllers\PriceController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
 /*
