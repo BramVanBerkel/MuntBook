@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\BlockRepository;
 use App\Services\BlockService;
 use Illuminate\View\View;
 

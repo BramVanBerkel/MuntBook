@@ -10,7 +10,8 @@ class BlockService
 {
     public function __construct(
         private readonly BlockRepository $blockRepository
-    ) {}
+    ) {
+    }
 
     public function getBlockSubsidy(int $height): BlockSubsidyData
     {
@@ -87,7 +88,7 @@ class BlockService
     }
 
     /**
-     * Calculates the approximate date the block will be mined
+     * Calculates the approximate date the block will be mined.
      */
     public function calculateMinedAtDate(int $height): Carbon
     {
