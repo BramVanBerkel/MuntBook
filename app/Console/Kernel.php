@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\UpdateBittrexPrices;
 use App\Jobs\UpdateDifficulty;
 use App\Jobs\UpdateHashrate;
 use Illuminate\Console\Scheduling\Schedule;
