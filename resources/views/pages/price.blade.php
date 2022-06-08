@@ -3,9 +3,6 @@
 @section('title', 'Prices')
 
 @section('content')
-    <x-alert type="warning">
-        The prices are currently not working, I will fix this soon
-    </x-alert>
     <div class="bg-white shadow overflow-hidden sm:rounded-lg">
         <div class="px-4 py-5 sm:px-6">
             <h3 class="text-lg leading-6 font-medium text-gray-900">
