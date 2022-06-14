@@ -9,6 +9,7 @@ use App\Http\Controllers\MissingBlockController;
 use App\Http\Controllers\NodeInformationController;
 use App\Http\Controllers\NonceDistributionController;
 use App\Http\Controllers\PriceController;
+use App\Http\Controllers\RichListController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Http\Request;
@@ -55,5 +56,7 @@ Route::prefix('/calculator')->name('calculator.')->group(function () {
     Route::get('/witness', [CalulatorController::class, 'witnessYieldCalculator'])->name('witness');
     Route::get('/mining', [CalulatorController::class, 'miningYieldCalculator'])->name('mining');
 });
+
+Route::get('/richlist', RichListController::class)->name('richlist');
 
 require __DIR__.'/auth.php';
