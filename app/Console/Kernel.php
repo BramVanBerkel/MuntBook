@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\RefreshRichlist;
 use App\Jobs\UpdateBittrexPrices;
 use App\Jobs\UpdateDifficulty;
 use App\Jobs\UpdateHashrate;
@@ -33,6 +34,8 @@ class Kernel extends ConsoleKernel
         $schedule->job(new UpdateDifficulty())->everyMinute();
 
         $schedule->job(new UpdateBittrexPrices())->everyMinute()->when(fn () => ! config('gulden.testnet'));
+
+        $schedule->job(new RefreshRichlist())->hourly();
     }
 
     /**
