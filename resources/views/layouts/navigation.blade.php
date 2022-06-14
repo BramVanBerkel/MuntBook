@@ -23,7 +23,7 @@
             <x-navigation.nav-item route="price">
                 Price
             </x-navigation.nav-item>
-            <x-navigation.nav-item route="richlist">
+            <x-navigation.nav-item route="richlist" show-testnet>
                 Richlist
             </x-navigation.nav-item>
             <x-navigation.nav-group name="Network">
