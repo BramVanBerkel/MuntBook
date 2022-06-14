@@ -20,11 +20,15 @@
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.10",
+        "deployer/deployer": "7.0.0-rc.8",
         "fakerphp/faker": "^1.9.1",
+        "friendsofphp/php-cs-fixer": "^3.8",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^6.1",
         "nunomaduro/larastan": "^2.0",
+        "pestphp/pest": "^1.21",
         "phpunit/phpunit": "^9.3.3",
+        "rector/rector": "^0.12.23",
         "spatie/laravel-ignition": "^1.0"
     },
     "autoload": {
@@ -55,6 +59,15 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "rector": [
+            "@php vendor/bin/rector process"
+        ],
+        "phpcsfixer": [
+            "@php vendor/bin/php-cs-fixer fix -vvv"
+        ],
+        "phpstan": [
+            "@php vendor/bin/phpstan analyze"
         ]
     },
     "extra": {

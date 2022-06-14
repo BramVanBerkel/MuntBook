@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 
 class BittrexService
 {
-    private Client $client;
+    private readonly Client $client;
 
     public function __construct()
     {
@@ -28,6 +28,6 @@ class BittrexService
 
         $response = $request->getBody()->getContents();
 
-        return collect(json_decode($response))->recursive();
+        return collect(json_decode($response, null, 512, JSON_THROW_ON_ERROR))->recursive();
     }
 }

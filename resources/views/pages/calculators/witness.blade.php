@@ -67,6 +67,7 @@
     <script>
         const networkWeight = @js($networkWeight);
         const networkWeightAdjusted = @js($networkWeightAdjusted);
+        const witnessReward = @js($witnessReward);
     </script>
     <script src="{{ asset('js/witnessYieldCalculator.js') }}"></script>
 @endsection

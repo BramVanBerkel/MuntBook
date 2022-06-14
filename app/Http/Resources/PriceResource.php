@@ -13,7 +13,7 @@ class PriceResource extends JsonResource
         // $this->timestamp->timestamp looks a bit funky, but $this->timestamp is a Carbon instance,
         // and we want to return the timestamp (e.g. 1647820800) of that Carbon instance
         return [
-            'time' => $this->timestamp->timestamp,
+            'time' => $this->timestamp->getTimestamp(),
             'value' => $this->value,
         ];
     }

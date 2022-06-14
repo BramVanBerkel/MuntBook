@@ -28,16 +28,21 @@ class Vout extends Model
         'witness_pubkey_witness',
     ];
 
-    public const NONSTANDARD_SCRIPTPUBKEY_TYPE = 'nonstandard';
+    public final const NONSTANDARD_SCRIPTPUBKEY_TYPE = 'nonstandard';
 
-    public const TYPE_TRANSACTION = 'transaction';
-    public const TYPE_MINING = 'mining';
-    public const TYPE_WITNESS = 'witness';
-    public const TYPE_WITNESS_REWARD = 'witness_reward';
-    public const TYPE_WITNESS_FUNDING = 'witness_funding';
-    public const TYPE_DEVELOPMENT_REWARD = 'development_reward';
+    public final const TYPE_TRANSACTION = 'transaction';
 
-    public const TYPES = [
+    public final const TYPE_MINING = 'mining';
+
+    public final const TYPE_WITNESS = 'witness';
+
+    public final const TYPE_WITNESS_REWARD = 'witness_reward';
+
+    public final const TYPE_WITNESS_FUNDING = 'witness_funding';
+
+    public final const TYPE_DEVELOPMENT_REWARD = 'development_reward';
+
+    public final const TYPES = [
         self::TYPE_TRANSACTION,
         self::TYPE_MINING,
         self::TYPE_WITNESS,

@@ -34,10 +34,11 @@ class WitnessAddressPart extends Model
         'action_nonce',
     ];
 
-    public const TYPE_SCRIPT = 'SCRIPT';
-    public const TYPE_POW2WITNESS = 'POW2WITNESS';
+    public final const TYPE_SCRIPT = 'SCRIPT';
 
-    public const TYPES = [
+    public final const TYPE_POW2WITNESS = 'POW2WITNESS';
+
+    public final const TYPES = [
         self::TYPE_SCRIPT,
         self::TYPE_POW2WITNESS,
     ];

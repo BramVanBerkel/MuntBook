@@ -8,12 +8,7 @@ use Illuminate\Support\ServiceProvider;
 
 class GuldenServiceProvider extends ServiceProvider
 {
-    /**
-     * Register services.
-     *
-     * @return void
-     */
-    public function register()
+    public function register(): void
     {
         $this->app->singleton(GuldenService::class, function () {
             $rpcUser = config('gulden.rpc_user');

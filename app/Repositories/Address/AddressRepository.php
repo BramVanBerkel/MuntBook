@@ -95,13 +95,11 @@ class AddressRepository implements AddressRepositoryInterface
             $transactions = $outputs->union($inputs)->paginate();
         }
 
-        $transactions->through(function (object $transaction) {
-            return new AddressTransactionData(
-                txid: $transaction->txid,
-                timestamp: Carbon::parse($transaction->timestamp),
-                amount: $transaction->amount,
-            );
-        });
+        $transactions->through(fn (object $transaction) => new AddressTransactionData(
+            txid: $transaction->txid,
+            timestamp: Carbon::parse($transaction->timestamp),
+            amount: $transaction->amount,
+        ));
 
         return $transactions;
     }

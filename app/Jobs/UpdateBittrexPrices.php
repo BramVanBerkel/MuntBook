@@ -22,8 +22,6 @@ class UpdateBittrexPrices implements ShouldQueue
 
     /**
      * Fetch the current NLG-BTC and BTC-EUR prices, and calculate the NLG-EUR price, by comparing it to the current BTC-EUR price.
-     *
-     * @param  BittrexService  $bittrexService
      */
     public function handle(BittrexService $bittrexService)
     {

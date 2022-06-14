@@ -3,22 +3,29 @@
 namespace App\Services;
 
 use App\DataObjects\BlockSubsidyData;
+use App\Repositories\BlockRepository;
+use Carbon\Carbon;
 
 class BlockService
 {
+    public function __construct(
+        private readonly BlockRepository $blockRepository
+    ) {
+    }
+
     public function getBlockSubsidy(int $height): BlockSubsidyData
     {
         if ($height === 1) {
-            return new BlockSubsidyData(170000000, 0, 0); // First block (premine)
+            return new BlockSubsidyData(170_000_000, 0, 0); // First block (premine)
         } elseif ($height < config('gulden.fixed_reward_reduction_height')) {
             return new BlockSubsidyData(1000, 0, 0); // 1000 Gulden per block for first 250k blocks
         } elseif ($height < config('gulden.dev_block_subsidy_activation_height')) {
             return new BlockSubsidyData(100, 0, 0); // 100 Gulden per block (fixed reward/no halving)
         } elseif ($height < config('gulden.pow2_phase_4_first_block_height') + 1) {
             return new BlockSubsidyData(50, 20, 40); // 110 Gulden per block (fixed reward/no halving) - 50 mining, 40 development, 20 witness.
-        } elseif ($height <= 1226651) {
+        } elseif ($height <= 1_226_651) {
             return new BlockSubsidyData(50, 30, 40); // 120 Gulden per block (fixed reward/no halving) - 50 mining, 40 development, 30 witness.
-        } elseif ($height <= 1228003) {
+        } elseif ($height <= 1_228_003) {
             return new BlockSubsidyData(90, 30, 80); // 200 Gulden per block (fixed reward/no halving) - 90 mining, 80 development, 30 witness.
         } elseif ($height <= config('gulden.halving_introduction_height')) {
             return new BlockSubsidyData(50, 30, 80); // 160 Gulden per block (fixed reward/no halving) - 50 mining, 80 development, 30 witness.
@@ -78,5 +85,15 @@ class BlockService
                     new BlockSubsidyData(0, 0, 0)
             };
         }
+    }
+
+    /**
+     * Calculates the approximate date the block will be mined.
+     */
+    public function calculateMinedAtDate(int $height): Carbon
+    {
+        $seconds = ($height - $this->blockRepository->currentHeight()) * config('gulden.blocktime');
+
+        return now()->addSeconds($seconds);
     }
 }

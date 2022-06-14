@@ -11,10 +11,10 @@ class PriceTransformer
     {
         return $prices->map(function ($price) {
             $average = (int) array_sum([
-                (float) $price->open * 100000000,
-                (float) $price->high * 100000000,
-                (float) $price->low * 100000000,
-                (float) $price->close * 100000000,
+                (float) $price->open * 100_000_000,
+                (float) $price->high * 100_000_000,
+                (float) $price->low * 100_000_000,
+                (float) $price->close * 100_000_000,
             ]) / 4;
 
             return [

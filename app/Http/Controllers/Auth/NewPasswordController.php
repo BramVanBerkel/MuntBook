@@ -18,7 +18,6 @@ class NewPasswordController extends Controller
     /**
      * Display the password reset view.
      *
-     * @param  Request  $request
      * @return View
      */
     public function create(Request $request)
@@ -29,7 +28,6 @@ class NewPasswordController extends Controller
     /**
      * Handle an incoming new password request.
      *
-     * @param  Request  $request
      * @return RedirectResponse
      *
      * @throws ValidationException
@@ -49,7 +47,7 @@ class NewPasswordController extends Controller
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user) use ($request) {
                 $user->forceFill([
-                    'password' => Hash::make($request->password),
+                    'password' => Hash::make($request->getPassword()),
                     'remember_token' => Str::random(60),
                 ])->save();
 

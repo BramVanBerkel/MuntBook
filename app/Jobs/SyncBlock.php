@@ -17,7 +17,7 @@ class SyncBlock implements ShouldQueue
     use SerializesModels;
 
     public function __construct(
-        private int $height
+        private readonly int $height
     ) {
     }
 

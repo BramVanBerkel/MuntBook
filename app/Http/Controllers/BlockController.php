@@ -9,7 +9,7 @@ use Illuminate\View\View;
 class BlockController extends Controller
 {
     public function __construct(
-        private BlockRepository $blockRepository,
+        private readonly BlockRepository $blockRepository,
     ) {
     }
 
