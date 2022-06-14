@@ -15,7 +15,7 @@ class RefreshRichlist implements ShouldQueue
 
     public function handle()
     {
-        DB::statement(<<<SQL
+        DB::statement(<<<'SQL'
             REFRESH MATERIALIZED VIEW CONCURRENTLY richlist;
         SQL);
     }

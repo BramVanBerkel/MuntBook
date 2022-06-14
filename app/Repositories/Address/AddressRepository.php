@@ -112,7 +112,7 @@ class AddressRepository implements AddressRepositoryInterface
         return DB::table('richlist')
             ->select([
                 DB::raw('ROW_NUMBER() OVER(ORDER BY value DESC) AS index'),
-                '*'
+                '*',
             ])
             ->orderByDesc('value')
             ->limit(100)
