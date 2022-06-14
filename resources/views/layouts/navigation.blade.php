@@ -23,6 +23,9 @@
             <x-navigation.nav-item route="price">
                 Price
             </x-navigation.nav-item>
+            <x-navigation.nav-item route="richlist">
+                Richlist
+            </x-navigation.nav-item>
             <x-navigation.nav-group name="Network">
                 <x-navigation.nav-group-item route="node-information" show-testnet>
                     Node information
