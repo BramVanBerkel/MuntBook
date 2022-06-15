@@ -23,9 +23,6 @@
             <x-navigation.nav-item route="price">
                 Price
             </x-navigation.nav-item>
-            <x-navigation.nav-item route="richlist" show-testnet>
-                Richlist
-            </x-navigation.nav-item>
             <x-navigation.nav-group name="Network">
                 <x-navigation.nav-group-item route="node-information" show-testnet>
                     Node information
@@ -35,6 +32,9 @@
                 </x-navigation.nav-group-item>
                 <x-navigation.nav-group-item route="average-blocktime" show-testnet>
                     Average blocktime
+                </x-navigation.nav-group-item>
+                <x-navigation.nav-group-item route="richlist" show-testnet>
+                    Richlist
                 </x-navigation.nav-group-item>
             </x-navigation.nav-group>
             <x-navigation.nav-group name="Calculators">
