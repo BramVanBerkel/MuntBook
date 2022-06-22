@@ -4,6 +4,7 @@ namespace App\Repositories\Address;
 
 use App\DataObjects\Address\AddressData;
 use App\DataObjects\Address\AddressTransactionData;
+use App\DataObjects\RichListData;
 use App\Enums\AddressTypeEnum;
 use App\Interfaces\AddressRepositoryInterface;
 use App\Models\Address;
@@ -74,8 +75,7 @@ class AddressRepository implements AddressRepositoryInterface
             ->groupBy([
                 'transactions.txid',
                 'blocks.created_at',
-            ])
-            ->orderByDesc('timestamp');
+            ]);
 
         $inputs = DB::table('addresses')
             ->select([
@@ -86,13 +86,16 @@ class AddressRepository implements AddressRepositoryInterface
             ->join('vouts', 'vouts.address_id', '=', 'addresses.id')
             ->join('transactions', 'vouts.transaction_id', '=', 'transactions.id')
             ->join('blocks', 'transactions.block_height', '=', 'blocks.height')
-            ->where('addresses.address', '=', $address)
-            ->orderByDesc('timestamp');
+            ->where('addresses.address', '=', $address);
 
         if ($address === Address::DEVELOPMENT_ADDRESS) {
-            $transactions = $outputs->cursorPaginate();
+            $transactions = $outputs
+                ->orderByDesc('timestamp')
+                ->cursorPaginate();
         } else {
-            $transactions = $outputs->union($inputs)->paginate();
+            $transactions = $outputs->union($inputs)
+                ->orderByDesc('timestamp')
+                ->paginate();
         }
 
         $transactions->through(fn (object $transaction) => new AddressTransactionData(
@@ -102,5 +105,22 @@ class AddressRepository implements AddressRepositoryInterface
         ));
 
         return $transactions;
+    }
+
+    public function getRichList()
+    {
+        return DB::table('richlist')
+            ->select([
+                DB::raw('ROW_NUMBER() OVER(ORDER BY value DESC) AS index'),
+                '*',
+            ])
+            ->orderByDesc('value')
+            ->limit(100)
+            ->paginate()
+            ->through(fn (object $address): RichListData => new RichListData(
+                index: $address->index,
+                address: $address->address,
+                value: $address->value,
+            ));
     }
 }
