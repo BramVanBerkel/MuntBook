@@ -36,7 +36,7 @@ jobs:
           coverage: none
 
       - name: Install dependencies
-        run: composer install
+        run: composer install --no-scripts --ignore-platform-reqs --no-progress --optimize-autoloader --no-interaction
 
       - name: Execute tests
         run: vendor/bin/pest
