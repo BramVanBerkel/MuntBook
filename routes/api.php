@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::name('api.')
-    ->group(function() {
+    ->group(function () {
         Route::get('/prices/{timeframe}', [PriceController::class, 'index'])
             ->name('prices');
 
