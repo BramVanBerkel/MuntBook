@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 
-//uses(LazilyRefreshDatabase::class);
+uses(LazilyRefreshDatabase::class);
 
 test('it returns the correct format', function () {
     $timestamp = Carbon::create(2022, 1, 1, 12, 0);
