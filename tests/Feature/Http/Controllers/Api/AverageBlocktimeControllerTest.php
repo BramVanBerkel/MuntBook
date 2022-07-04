@@ -6,12 +6,11 @@ use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 
 uses(LazilyRefreshDatabase::class);
 
-test('it returns the correct format', closure: function () {
+test('it returns the correct average blocktimes', closure: function () {
     /**
      * Create 100 blocks evenly distributed over 10 days.
      * To do this we must space them apart by 8640 seconds.
      */
-
 
     $startDate = Carbon::create(2022, 01, 01);
 
