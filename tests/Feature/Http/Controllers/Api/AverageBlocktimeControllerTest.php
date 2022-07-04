@@ -11,8 +11,6 @@ test('it returns the correct format', closure: function () {
      * Create 100 blocks evenly distributed over 10 days.
      * To do this we must space them apart by 8640 seconds.
      */
-
-
     $startDate = Carbon::create(2022, 01, 01);
 
     // to make sure the first date is 2022-01-01 00:00:00
@@ -20,7 +18,7 @@ test('it returns the correct format', closure: function () {
 
     $blocks = Block::factory()
         ->count(100)
-        ->state(function() use($startDate) {
+        ->state(function () use ($startDate) {
             return [
                 'created_at' => $startDate->addSeconds(8640),
             ];
@@ -28,8 +26,8 @@ test('it returns the correct format', closure: function () {
         ->create();
 
     $dates = $blocks->pluck('created_at')
-        ->unique(fn(Carbon $date) => $date->startOfDay())
-        ->transform(fn(Carbon $date) => $date->toISOString())
+        ->unique(fn (Carbon $date) => $date->startOfDay())
+        ->transform(fn (Carbon $date) => $date->toISOString())
         ->values();
 
     $averageBlockTimeSeconds = collect()->pad(10, 8640);
