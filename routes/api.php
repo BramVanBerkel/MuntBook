@@ -18,12 +18,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/prices/{timeframe}', [PriceController::class, 'index']);
-Route::get('/nonce-distribution', NonceDistributionController::class);
-Route::get('/average-blocktime', AverageBlocktimeController::class);
+Route::name('api.')
+    ->group(function () {
+        Route::get('/prices/{timeframe}', [PriceController::class, 'index'])
+            ->name('prices');
 
-Route::get('/total-supply', [SupplyController::class, 'totalSupply']);
-Route::get('/circulating-supply', [SupplyController::class, 'circulatingSupply']);
+        Route::get('/nonce-distribution', NonceDistributionController::class)
+            ->name('nonce-distribution');
+
+        Route::get('/average-blocktime', AverageBlocktimeController::class)
+            ->name('average-blocktime');
+
+        Route::get('/total-supply', [SupplyController::class, 'totalSupply'])
+            ->name('total-supply');
+
+        Route::get('/circulating-supply', [SupplyController::class, 'circulatingSupply'])
+            ->name('circulating-supply');
+    });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
