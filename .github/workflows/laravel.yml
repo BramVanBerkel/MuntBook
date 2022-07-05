@@ -1,45 +1,81 @@
-name: Laravel
-
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main, develop ]
-
+# GitHub Action for Laravel with PostgreSQL
+name: Tests
+on: [push, pull_request]
 jobs:
-  laravel-tests:
-    runs-on: ubuntu-20.04
+  laravel:
+    name: Laravel (PHP ${{ matrix.php-versions }})
+    runs-on: ubuntu-latest
+    env:
+      BROADCAST_DRIVER: log
+      DB_CONNECTION: pgsql
+      DB_HOST: localhost
+      DB_PASSWORD: postgres
+      DB_USERNAME: postgres
+      DB_DATABASE: postgres
 
+    # Docs: https://docs.github.com/en/actions/using-containerized-services
     services:
-      postgresql:
+      postgres:
         image: postgres:14
         env:
-          POSTGRES_DB: guldenbook_test
-          POSTGRES_USER: guldenbook
-          POSTGRES_PASSWORD: password
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
         ports:
-          - 5432:5432
-        options: --health-cmd=pg_isready --health-interval=10s --health-timeout=5s --health-retries=3
+          - 5432/tcp
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
 
-    name: PostgreSQL 14
-
+    strategy:
+      fail-fast: false
+      matrix:
+        php-versions: ['8.1']
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
 
+      # Docs: https://github.com/shivammathur/setup-php
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, pdo_pgsql
-          tools: composer:v2
-          coverage: none
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring, dom, fileinfo, pgsql
+          coverage: xdebug
 
-      - name: Install dependencies
-        run: composer install --no-scripts --no-progress --optimize-autoloader --no-interaction
+      # Local PostgreSQL service in GitHub hosted environments is disabled by default.
+      # If you are using it instead of service containers, make sure you start it.
+      # - name: Start postgresql service
+      #   run: sudo systemctl start postgresql.service
 
-      - name: Execute tests
-        run: vendor/bin/pest
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          # Use composer.json for key, if composer.lock is not committed.
+          # key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install Composer dependencies
+        run: composer install --no-progress --prefer-dist --optimize-autoloader
+
+      - name: Prepare the application
+        run: |
+          php -r "file_exists('.env') || copy('.env.example', '.env');"
+          php artisan key:generate
+
+      - name: Clear Config
+        run: php artisan config:clear
+
+      - name: Run Migration
+        run: php artisan migrate -v
         env:
-          DB_CONNECTION: pgsql
-          DB_PASSWORD: password
+          DB_PORT: ${{ job.services.postgres.ports[5432] }}
+
+      - name: Test with phpunit
+        run: vendor/bin/pest --coverage-text
+        env:
+          DB_PORT: ${{ job.services.postgres.ports[5432] }}
