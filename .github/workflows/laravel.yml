@@ -1,6 +1,11 @@
 # GitHub Action for Laravel with PostgreSQL
 name: Tests
-on: [push, pull_request]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main, develop ]
+    
 jobs:
   laravel:
     name: Laravel (PHP ${{ matrix.php-versions }})
