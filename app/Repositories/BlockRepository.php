@@ -142,7 +142,7 @@ class BlockRepository
         return DB::query()
             ->select([
                 'date',
-                DB::raw('LEAST(EXTRACT(EPOCH FROM avg(delta)), 200) as seconds'),
+                DB::raw('EXTRACT(EPOCH FROM avg(delta)) as seconds'),
             ])->fromSub(DB::table('blocks')
                 ->select([
                     DB::raw('DATE_TRUNC(\'day\', created_at) AS "date"'),

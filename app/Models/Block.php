@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Block extends Model
 {
+    use HasFactory;
+
     protected $table = 'blocks';
 
     protected $primaryKey = 'height';
@@ -26,7 +29,6 @@ class Block extends Model
         'pow_time',
         'witness_merkleroot',
         'time',
-        'mediantime',
         'nonce',
         'pre_nonce',
         'post_nonce',
