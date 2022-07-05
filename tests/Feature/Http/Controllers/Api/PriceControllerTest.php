@@ -20,13 +20,13 @@ test('it returns the correct format', function () {
         ->create();
 
     $this->getJson(route('api.prices', [
-        'timeframe' => PriceTimeframeEnum::ONE_DAY->value
+        'timeframe' => PriceTimeframeEnum::ONE_DAY->value,
     ]))
         ->assertJsonPath('0.time', $timestamp->getTimestamp())
         ->assertJsonPath('0.value', 0.2);
 });
 
-test('it returns the average price', function() {
+test('it returns the average price', function () {
     $timestamp = Carbon::create(2022, 1, 1, 12, 0);
 
     Carbon::setTestNow($timestamp);
@@ -43,7 +43,7 @@ test('it returns the average price', function() {
         ->create();
 
     $this->getJson(route('api.prices', [
-        'timeframe' => PriceTimeframeEnum::ONE_DAY->value
+        'timeframe' => PriceTimeframeEnum::ONE_DAY->value,
     ]))
         ->assertJsonPath('0.time', $timestamp->getTimestamp())
         ->assertJsonPath('0.value', 0.52);
