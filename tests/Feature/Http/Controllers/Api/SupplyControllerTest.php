@@ -8,7 +8,7 @@ uses(LazilyRefreshDatabase::class);
 test('it returns the circulating supply', function () {
     Block::factory()
         ->create([
-            'height' => 1_550_100
+            'height' => 1_550_100,
         ]);
 
     $this->getJson(route('api.circulating-supply'))
