@@ -14,8 +14,8 @@ jobs:
       postgresql:
         image: postgres:14
         env:
-          POSTGRES_DB: forge
-          POSTGRES_USER: forge
+          POSTGRES_DB: guldenbook_test
+          POSTGRES_USER: guldenbook
           POSTGRES_PASSWORD: password
         ports:
           - 5432:5432
