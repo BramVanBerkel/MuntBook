@@ -14,25 +14,10 @@ class Check extends Command
 {
     use WithoutOverlapping;
 
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'gulden:check';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Checks if new blocks are available and syncs them to the database.';
 
-    /**
-     * Execute the console command.
-     *
-     * @return void
-     */
     public function handle(GuldenService $guldenService, SyncService $syncService)
     {
         $guldenHeight = $guldenService->getBlockCount();
@@ -49,10 +34,10 @@ class Check extends Command
         Log::info(sprintf('Blockcount: %d/%d', $dbHeight, $guldenHeight));
 
         foreach (range($dbHeight, $guldenHeight) as $height) {
-            $syncService->syncBlock($height);
+            //$syncService->syncBlock($height);
 
             if ($height >= config('gulden.first_phase_5_block')) {
-                dispatch(new UpdateWitnessInfo());
+                dispatch(new UpdateWitnessInfo($height));
             }
 
             $progress->advance();
