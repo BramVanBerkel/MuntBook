@@ -32,10 +32,17 @@
         </x-information-block-item>
     </x-information-block>
 
+    <x-divider title="Blocks calendar" />
+
+    <div id="calendar" class="flex justify-center"></div>
+
+    <div id="calendar-tooltip"></div>
+
     <x-divider title="Blocks found" />
 
     <x-table>
         <x-table-head>
+            <x-table-head-item>Block</x-table-head-item>
             <x-table-head-item>Date</x-table-head-item>
             <x-table-head-item>Reward</x-table-head-item>
             <x-table-head-item>Difficulty</x-table-head-item>
@@ -49,6 +56,9 @@
                         </x-link>
                     </x-table-data-item>
                     <x-table-data-item>
+                        {{ $transaction->date }}
+                    </x-table-data-item>
+                    <x-table-data-item>
                         <x-gulden-display value="{{ $transaction->reward }}" colored="true" />
                     </x-table-data-item>
                     <x-table-data-item>
@@ -60,4 +70,11 @@
     </x-table>
 
     {{ $transactions->links() }}
+@endsection
+
+@section('scripts')
+    <script>
+        const address = @js($address->address);
+    </script>
+    <script src="{{ asset('js/miningAddress.js') }}"></script>
 @endsection
