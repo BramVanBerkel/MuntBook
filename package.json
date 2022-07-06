@@ -28,6 +28,6 @@
         "chroma-js": "^2.4.2",
         "lightweight-charts": "^3.7.0",
         "luxon": "^2.3.1",
-        "moment": "^2.29.1"
+        "moment": "^2.29.4"
     }
 }
