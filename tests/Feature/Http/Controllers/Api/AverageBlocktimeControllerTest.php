@@ -18,11 +18,9 @@ test('it returns the correct average blocktimes', closure: function () {
 
     $blocks = Block::factory()
         ->count(100)
-        ->state(function () use ($startDate) {
-            return [
-                'created_at' => $startDate->addSeconds(8640),
-            ];
-        })
+        ->state(fn () => [
+            'created_at' => $startDate->addSeconds(8640),
+        ])
         ->create();
 
     $dates = $blocks->pluck('created_at')

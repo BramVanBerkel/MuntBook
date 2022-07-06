@@ -25,7 +25,7 @@ class GuldenDisplay extends Component
         //format the value to 8 decimal places
         $value = number_format($value, 8, ',', '.');
 
-        if (!$short) {
+        if (! $short) {
             //take the last 6 digits to display the fractionals
             $this->fractional = substr($value, -6);
         }

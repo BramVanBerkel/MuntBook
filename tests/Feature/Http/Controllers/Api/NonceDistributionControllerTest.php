@@ -12,22 +12,18 @@ test('it returns the correct nonce distribution', function () {
 
     $preNonceData = $blocks
         ->sortByDesc('height')
-        ->map(function (Block $block) {
-            return [
-                'x' => $block->height,
-                'y' => $block->pre_nonce,
-            ];
-        })
+        ->map(fn (Block $block) => [
+            'x' => $block->height,
+            'y' => $block->pre_nonce,
+        ])
         ->values();
 
     $postNonceData = $blocks
         ->sortByDesc('height')
-        ->map(function (Block $block) {
-            return [
-                'x' => $block->height,
-                'y' => $block->post_nonce,
-            ];
-        })
+        ->map(fn (Block $block) => [
+            'x' => $block->height,
+            'y' => $block->post_nonce,
+        ])
         ->values();
 
     $this->getJson('api/nonce-distribution')

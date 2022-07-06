@@ -15,7 +15,7 @@ class AddressController extends Controller
         return DB::table('addresses')
             ->select([
                 DB::raw("date_trunc('day', blocks.created_at) as date"),
-                DB::raw("count(*) as count"),
+                DB::raw('count(*) as count'),
             ])
             ->join('vouts', 'vouts.address_id', '=', 'addresses.id')
             ->join('transactions', 'vouts.transaction_id', '=', 'transactions.id')
@@ -24,7 +24,7 @@ class AddressController extends Controller
             ->where('vouts.type', '=', Vout::TYPE_MINING)
             ->groupBy('date')
             ->get()
-            ->transform(fn(object $calendarItem): CalendarItem => new CalendarItem(
+            ->transform(fn (object $calendarItem): CalendarItem => new CalendarItem(
                 date: Carbon::make($calendarItem->date)->toDateString(),
                 count: $calendarItem->count,
             ));
@@ -35,7 +35,7 @@ class AddressController extends Controller
         return DB::table('addresses')
             ->select([
                 DB::raw("date_trunc('day', blocks.created_at) as date"),
-                DB::raw("count(*) as count"),
+                DB::raw('count(*) as count'),
             ])
             ->join('vouts', 'vouts.address_id', '=', 'addresses.id')
             ->join('transactions', 'vouts.transaction_id', '=', 'transactions.id')
@@ -44,7 +44,7 @@ class AddressController extends Controller
             ->where('vouts.type', '=', Vout::TYPE_WITNESS_REWARD)
             ->groupBy('date')
             ->get()
-            ->transform(fn(object $calendarItem): CalendarItem => new CalendarItem(
+            ->transform(fn (object $calendarItem): CalendarItem => new CalendarItem(
                 date: Carbon::make($calendarItem->date)->toDateString(),
                 count: $calendarItem->count,
             ));

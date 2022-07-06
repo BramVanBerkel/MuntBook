@@ -21,7 +21,7 @@ class BlockFactory extends Factory
             'weight' => $this->faker->numberBetween(1, 100),
             'version' => $this->faker->numberBetween(2, 3),
             'merkleroot' => $this->faker->sha256(),
-            'witness_version' => $this->faker->randomElement([null, 536870912]),
+            'witness_version' => $this->faker->randomElement([null, 536_870_912]),
             'witness_time' => $this->faker->date(),
             'pow_time' => $this->faker->date(),
             'witness_merkleroot' => $this->faker->sha256(),
