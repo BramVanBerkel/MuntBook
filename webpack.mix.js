@@ -18,7 +18,7 @@ mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/averageBlocktime.js', 'public/js')
     .js('resources/js/witnessYieldCalculator.js', 'public/js')
     .js('resources/js/miningYieldCalculator.js', 'public/js')
-    .js('resources/js/miningAddress.js', 'public/js')
+    .js('resources/js/rewardCalendar.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         require('postcss-import'),
         require('tailwindcss'),

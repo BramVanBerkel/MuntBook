@@ -37,6 +37,7 @@ Route::name('api.')
             ->name('circulating-supply');
 
         Route::get('/addresses/{address}/mining-address-calendar', [AddressController::class, 'miningAddressCalendar']);
+        Route::get('/addresses/{address}/witness-address-calendar', [AddressController::class, 'witnessAddressCalendar']);
     });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

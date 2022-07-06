@@ -34,13 +34,11 @@
         </x-information-block-item>
     </x-information-block>
 
-    <x-divider title="Blocks calendar" />
+    <x-divider title="Blocks found" />
 
     <div id="calendar" class="flex justify-center"></div>
 
     <div id="calendar-tooltip"></div>
-
-    <x-divider title="Blocks found" />
 
     <x-table>
         <x-table-head>
@@ -77,6 +75,7 @@
 @section('scripts')
     <script>
         const address = @js($address->address);
+        const type = 'witness';
     </script>
-    <script src="{{ asset('js/miningAddress.js') }}"></script>
+    <script src="{{ asset('js/rewardCalendar.js') }}"></script>
 @endsection

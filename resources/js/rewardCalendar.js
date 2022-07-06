@@ -2,7 +2,20 @@ import { SVGGraph } from "calendar-graph";
 import chroma from "chroma-js";
 
 async function getCalendarData() {
-    const request = await fetch(`/api/addresses/${address}/mining-address-calendar`);
+    let url = ''
+    if(type === 'mining') {
+        url = `/api/addresses/${address}/mining-address-calendar`;
+    }
+
+    if(type === 'witness') {
+        url = `/api/addresses/${address}/witness-address-calendar`;
+    }
+
+    if(url === '') {
+        throw 'No type is specified';
+    }
+
+    const request = await fetch(url);
     return await request.json();
 }
 

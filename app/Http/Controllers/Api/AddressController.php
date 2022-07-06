@@ -29,4 +29,24 @@ class AddressController extends Controller
                 count: $calendarItem->count,
             ));
     }
+
+    public function witnessAddressCalendar(string $address)
+    {
+        return DB::table('addresses')
+            ->select([
+                DB::raw("date_trunc('day', blocks.created_at) as date"),
+                DB::raw("count(*) as count"),
+            ])
+            ->join('vouts', 'vouts.address_id', '=', 'addresses.id')
+            ->join('transactions', 'vouts.transaction_id', '=', 'transactions.id')
+            ->join('blocks', 'transactions.block_height', 'blocks.height')
+            ->where('addresses.address', '=', $address)
+            ->where('vouts.type', '=', Vout::TYPE_WITNESS_REWARD)
+            ->groupBy('date')
+            ->get()
+            ->transform(fn(object $calendarItem): CalendarItem => new CalendarItem(
+                date: Carbon::make($calendarItem->date)->toDateString(),
+                count: $calendarItem->count,
+            ));
+    }
 }
