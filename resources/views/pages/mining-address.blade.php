@@ -28,7 +28,9 @@
             </span>
         </x-information-block-item>
         <x-information-block-item name="Rewards found">
-            <x-gulden-display value="{{ $address->totalRewardsValue }}" /> out of {{ $address->totalRewards }} blocks
+            <p>
+                <x-gulden-display value="{{ $address->totalRewardsValue }}" :short="true" /> out of {{ $address->totalRewards }} blocks
+            </p>
         </x-information-block-item>
     </x-information-block>
 
