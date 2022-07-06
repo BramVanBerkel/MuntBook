@@ -92,7 +92,7 @@
                     </x-table-data-item>
                     <x-table-data-item>
                         <x-gulden-display
-                            value="{{ $transaction->reward }}"/>
+                            value="{{ $transaction->reward }}" :colored="true"/>
                     </x-table-data-item>
                     <x-table-data-item>
                         <x-gulden-display
