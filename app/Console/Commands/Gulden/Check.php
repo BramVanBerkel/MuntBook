@@ -34,7 +34,7 @@ class Check extends Command
         Log::info(sprintf('Blockcount: %d/%d', $dbHeight, $guldenHeight));
 
         foreach (range($dbHeight, $guldenHeight) as $height) {
-            //$syncService->syncBlock($height);
+            $syncService->syncBlock($height);
 
             if ($height >= config('gulden.first_phase_5_block')) {
                 dispatch(new UpdateWitnessInfo($height));
