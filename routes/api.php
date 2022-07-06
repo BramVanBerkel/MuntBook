@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AddressController;
 use App\Http\Controllers\Api\AverageBlocktimeController;
 use App\Http\Controllers\Api\NonceDistributionController;
 use App\Http\Controllers\Api\PriceController;
@@ -34,6 +35,9 @@ Route::name('api.')
 
         Route::get('/circulating-supply', [SupplyController::class, 'circulatingSupply'])
             ->name('circulating-supply');
+
+        Route::get('/addresses/{address}/mining-address-calendar', [AddressController::class, 'miningAddressCalendar']);
+        Route::get('/addresses/{address}/witness-address-calendar', [AddressController::class, 'witnessAddressCalendar']);
     });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

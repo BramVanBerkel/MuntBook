@@ -21,9 +21,15 @@ class UpdateWitnessInfo implements ShouldQueue, ShouldBeUnique
     use Queueable;
     use SerializesModels;
 
-    public function handle(GuldenService $guldenService,
-                           WitnessAddressRepository $witnessAddressRepository)
-    {
+    public function __construct(
+        private readonly int $height,
+    ) {
+    }
+
+    public function handle(
+        GuldenService $guldenService,
+        WitnessAddressRepository $witnessAddressRepository
+    ) {
         $witnessInfo = $guldenService->getWitnessInfo(verbose: true);
 
         $witnessInfo->get('witness_address_list')->groupBy('address')
@@ -35,5 +41,10 @@ class UpdateWitnessInfo implements ShouldQueue, ShouldBeUnique
 
                 $witnessAddressRepository->syncParts($address, $parts);
             });
+    }
+
+    public function uniqueId()
+    {
+        return $this->height;
     }
 }

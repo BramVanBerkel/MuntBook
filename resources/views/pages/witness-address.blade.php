@@ -72,6 +72,10 @@
 
     <x-divider title="Blocks witnessed"/>
 
+    <div id="calendar" class="flex justify-center"></div>
+
+    <div id="calendar-tooltip"></div>
+
     <x-table>
         <x-table-head>
             <x-table-head-item>Block</x-table-head-item>
@@ -92,7 +96,7 @@
                     </x-table-data-item>
                     <x-table-data-item>
                         <x-gulden-display
-                            value="{{ $transaction->reward }}"/>
+                            value="{{ $transaction->reward }}" :colored="true"/>
                     </x-table-data-item>
                     <x-table-data-item>
                         <x-gulden-display
@@ -107,4 +111,12 @@
         {{ $transactions->onEachSide(1)->links() }}
     </div>
 
+@endsection
+
+@section('scripts')
+    <script>
+        const address = @js($address->address);
+        const type = 'witness';
+    </script>
+    <script src="{{ asset('js/rewardCalendar.js') }}"></script>
 @endsection

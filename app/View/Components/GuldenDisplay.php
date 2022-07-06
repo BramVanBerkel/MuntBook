@@ -12,7 +12,7 @@ class GuldenDisplay extends Component
 
     public string $fractional = '';
 
-    public function __construct(float $value, bool $colored = false, bool $showSign = true)
+    public function __construct(float $value, bool $colored = false, bool $showSign = true, bool $short = false)
     {
         if ($colored) {
             $this->class = match (true) {
@@ -25,8 +25,10 @@ class GuldenDisplay extends Component
         //format the value to 8 decimal places
         $value = number_format($value, 8, ',', '.');
 
-        //take the last 6 digits to display the fractionals
-        $this->fractional = substr($value, -6);
+        if (! $short) {
+            //take the last 6 digits to display the fractionals
+            $this->fractional = substr($value, -6);
+        }
 
         //and remove those 6 digits from the value
         $this->integer = substr_replace($value, '', -6);

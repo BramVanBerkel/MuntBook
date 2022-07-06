@@ -12,10 +12,10 @@ test('it returns the circulating supply', function () {
         ]);
 
     $this->getJson(route('api.circulating-supply'))
-        ->assertSee(561879610);
+        ->assertSee(561_879_610);
 });
 
 test('it returns the total supply', function () {
     $this->getJson('api/total-supply')
-        ->assertSee(700000000);
+        ->assertSee(700_000_000);
 });
