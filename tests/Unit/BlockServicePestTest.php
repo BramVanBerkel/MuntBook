@@ -14,7 +14,7 @@ test('it calculates the correct block subsidies', function (int $height, float $
     [250001, 100, 'mining'],
     [1030001, 110, 'total'], // pow2_phase_4_first_block_height
     [1131652, 110, 'total'],
-    [1131652+1, 120, 'total'],
+    [1131652 + 1, 120, 'total'],
     [1226651, 120, 'total'],
     [1226652, 200, 'total'],
     [1226652, 90, 'mining'],
