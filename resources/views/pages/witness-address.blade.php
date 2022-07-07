@@ -34,7 +34,7 @@
 
                                 <x-badge type="{{ $part->status->type() }}">
                                     @if($part->status === \App\Enums\WitnessAddressPartStatusEnum::COOLDOWN)
-                                        {{ $part->status->label() }} ({{ $part->cooldown }} / {{ config('gulden.witness_cooldown_period') }})
+                                        {{ $part->status->label() }} ({{ $part->blocksSinceLastActive }} / {{ config('gulden.witness_cooldown_period') }})
                                     @else
                                         {{ $part->status->label() }}
                                     @endif

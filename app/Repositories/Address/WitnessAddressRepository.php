@@ -28,10 +28,10 @@ class WitnessAddressRepository implements AddressRepositoryInterface
                 'witness_address_parts.amount as value',
                 'witness_address_parts.adjusted_weight as weight',
                 DB::raw('case
+                    when (select max(height) from blocks) - witness_address_parts.last_active_block < 100 then \'cooldown\'
                     when witness_address_parts.lock_period_expired = true then \'lock_period_expired\'
                     when witness_address_parts.eligible_to_witness = false then \'not_eligible_to_witness\'
                     when witness_address_parts.expired_from_inactivity = true then \'expired_from_inactivity\'
-                    when (select max(height) from blocks) - witness_address_parts.last_active_block < 100 then \'cooldown\'
                     else \'eligible_to_witness\'
 	            end as status'),
                 DB::raw('(select max(height) from blocks) - witness_address_parts.last_active_block as blocks_since_last_active'),
