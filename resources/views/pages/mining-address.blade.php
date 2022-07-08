@@ -75,7 +75,7 @@
 @section('scripts')
     <script>
         const address = @js($address->address);
-        const type = 'witness';
+        const type = 'mining';
     </script>
     <script src="{{ asset('js/rewardCalendar.js') }}"></script>
 @endsection
