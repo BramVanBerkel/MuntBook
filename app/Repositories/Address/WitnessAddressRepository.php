@@ -132,7 +132,7 @@ class WitnessAddressRepository implements AddressRepositoryInterface
             })
             ->leftJoin('vouts as compounds', function (JoinClause $join) {
                 $join->on('compounds.transaction_id', '=', 'transactions.id')
-                    ->where('compounds.address_id', '=', DB::raw('addresses.id'))
+                    ->whereColumn('compounds.address_id', '=', 'addresses.id')
                     ->where('compounds.type', '<>', Vout::TYPE_WITNESS);
             })
             ->where('addresses.address', '=', $address)
