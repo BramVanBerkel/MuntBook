@@ -7,7 +7,6 @@ async function getAverageBlocktimes() {
 }
 
 getAverageBlocktimes().then(averageBlocktimes => {
-    console.log(averageBlocktimes);
     new Chart('average-blocktime', {
         type: 'line',
         data: {

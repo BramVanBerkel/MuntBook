@@ -37,7 +37,6 @@ getCalendarData().then(data => {
         let count = parseInt(e.target.getAttribute("data-count"));
         count = (count === 0) ? 'no' : count;
         const date = e.target.getAttribute("data-date");
-        console.log(e)
         tip.style.display = "block";
         tip.textContent = `${count} rewards found on ${date}`;
         const w = tip.getBoundingClientRect().width;
