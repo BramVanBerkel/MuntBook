@@ -33,7 +33,7 @@ task('build_frontend', function () {
     run("MIX_TESTNET=$testnet npm run prod");
 });
 
-task('restart_horizon', function() {
+task('restart_horizon', function () {
     cd('{{release_path}}');
 
     run('artisan:horizon:purge');
