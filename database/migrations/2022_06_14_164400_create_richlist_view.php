@@ -27,7 +27,7 @@ return new class extends Migration
                 WITH NO DATA;
         SQL);
 
-        DB::statement(<<<'SQL'
+        DB::statement(<<<SQL
             CREATE UNIQUE INDEX addresss ON richlist(address);
         SQL);
     }
