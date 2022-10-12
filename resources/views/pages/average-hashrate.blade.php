@@ -9,7 +9,7 @@
                 Average hashrate
             </h3>
             <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                aksdljcnlakjsdnc
+                Average network hashrate and difficulty
             </p>
         </div>
         <div class="border-t border-gray-200 px-4 py-5 sm:p-0">

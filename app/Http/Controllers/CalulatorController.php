@@ -33,7 +33,7 @@ class CalulatorController extends Controller
     {
         $price = $this->priceRepository->getCurrentPrice();
         $hashrate = $this->guldenService->getNetworkHashrate();
-        $difficulty = (int) $this->blockRepository->getAverageDifficulty();
+        $difficulty = (int) $this->blockRepository->getAverageDifficulty24hrs();
 
         return view('pages.calculators.mining', [
             'price' => $price,
