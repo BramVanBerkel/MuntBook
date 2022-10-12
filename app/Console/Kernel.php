@@ -33,8 +33,8 @@ class Kernel extends ConsoleKernel
 
         $schedule->job(new UpdateDifficulty())->everyMinute();
 
-        //$schedule->job(new UpdateBittrexPrices())->everyMinute()->when(fn () => ! config('gulden.testnet'));
-
+        $schedule->job(new UpdateBittrexPrices())->everyMinute()->when(fn () => ! config('gulden.testnet'));
+        
         $schedule->job(new RefreshRichlist())->hourly();
     }
 
