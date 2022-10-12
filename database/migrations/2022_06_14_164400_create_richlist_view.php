@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up()
     {
-        DB::statement(<<<SQL
+        DB::statement(<<<'SQL'
             CREATE MATERIALIZED VIEW richlist AS SELECT
                 addresses.address AS address,
                 coalesce(sum(inputs.value), 0) - coalesce(sum(outputs.value), 0) AS value
@@ -27,7 +27,7 @@ return new class extends Migration
                 WITH NO DATA;
         SQL);
 
-        DB::statement(<<<SQL
+        DB::statement(<<<'SQL'
             CREATE UNIQUE INDEX addresss ON richlist(address);
         SQL);
     }
@@ -39,7 +39,7 @@ return new class extends Migration
      */
     public function down()
     {
-        DB::statement(<<<SQL
+        DB::statement(<<<'SQL'
             DROP MATERIALIZED VIEW richlist;
         SQL);
     }
