@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up()
     {
-        DB::statement(<<<'SQL'
+        DB::statement(<<<SQL
             CREATE MATERIALIZED VIEW richlist AS SELECT
                 addresses.address AS address,
                 coalesce(sum(inputs.value), 0) - coalesce(sum(outputs.value), 0) AS value
@@ -23,6 +23,7 @@ return new class extends Migration
                 LEFT JOIN vouts AS outputs ON vins.vout_id = outputs.id
                 WHERE addresses.type = 'ADDRESS'
                 GROUP BY addresses.id
+                HAVING (sum(inputs.value) - sum(outputs.value)) > 0
                 WITH NO DATA;
         SQL);
 
@@ -38,7 +39,7 @@ return new class extends Migration
      */
     public function down()
     {
-        DB::statement(<<<'SQL'
+        DB::statement(<<<SQL
             DROP MATERIALIZED VIEW richlist;
         SQL);
     }
