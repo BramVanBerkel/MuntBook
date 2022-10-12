@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\DataObjects\AverageBlocktimeData;
+use App\DataObjects\AverageHashrateData;
 use App\DataObjects\BlockData;
 use App\DataObjects\BlocksOverviewData;
 use App\DataObjects\BlocksPerDayData;
@@ -183,12 +184,32 @@ class BlockRepository
     /**
      * Returns the average difficulty over the last 24hrs.
      */
-    public function getAverageDifficulty(): float
+    public function getAverageDifficulty24hrs(): float
     {
         return DB::table('blocks')
             ->selectRaw('AVG(difficulty)')
             ->where('created_at', '>', now()->subDay())
             ->first()
             ->avg;
+    }
+
+    public function getAverageHashrate(): Collection
+    {
+        return DB::query()
+            ->select([
+                DB::raw("date_trunc('day', created_at) as date"),
+                DB::raw('avg(hashrate) as hashrate'),
+                DB::raw('avg(difficulty) as difficulty'),
+            ])
+            ->from('blocks')
+            ->whereBetween('created_at', [now()->subYear()->startOfDay(), now()->startOfDay()])
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get()
+            ->map(fn (object $averageHashrate) => new AverageHashrateData(
+                date: new Carbon($averageHashrate->date),
+                hashrate: $averageHashrate->hashrate,
+                difficulty: $averageHashrate->difficulty,
+            ));
     }
 }

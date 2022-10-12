@@ -17,7 +17,6 @@
                     showSuccessText = true;
                     setTimeout(() => showSuccessText = false, 2000)
                 }, function(error) {
-                    console.log(error);
                     showErrorText = true;
                     setTimeout(() => showErrorText = false, 2000)
                 })"

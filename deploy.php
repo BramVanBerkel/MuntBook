@@ -26,13 +26,20 @@ host('testnet.guldenbook.com')
     ->set('tesnet', true);
 
 // Tasks
-task('build:frontend', function () {
+task('build_frontend', function () {
     $testnet = (get('testnet')) ? 'true' : 'false';
     cd('{{release_path}}');
     run('npm ci');
     run("MIX_TESTNET=$testnet npm run prod");
 });
 
-after('deploy:update_code', 'build:frontend');
+task('restart_horizon', function () {
+    cd('{{release_path}}');
+
+    run('artisan:horizon:purge');
+    run('artisan:horizon:terminate');
+});
+
+after('deploy:update_code', 'build_frontend');
 
 after('deploy:failed', 'deploy:unlock');
