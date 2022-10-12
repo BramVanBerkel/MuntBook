@@ -21,7 +21,7 @@ class UpdateBittrexPrices implements ShouldQueue
     use SerializesModels;
 
     /**
-     * Fetch the current NLG-BTC and BTC-EUR prices, and calculate the NLG-EUR price, by comparing it to the current BTC-EUR price.
+     * Fetch the current MUNT-BTC and BTC-EUR prices, and calculate the NLG-EUR price, by comparing it to the current BTC-EUR price.
      */
     public function handle(BittrexService $bittrexService)
     {
@@ -30,7 +30,7 @@ class UpdateBittrexPrices implements ShouldQueue
                 ->max('timestamp') ?? Carbon::create(2020, 3, 31);
 
         foreach (CarbonPeriod::create($lastDate, now())->floorDays() as $date) {
-            $guldenPrices = $bittrexService->getPrices($date, 'NLG-BTC');
+            $guldenPrices = $bittrexService->getPrices($date, 'MUNT-BTC');
             $bitcoinPrices = $bittrexService->getPrices($date, 'BTC-EUR');
 
             foreach (range(0, min($guldenPrices->count() - 1, $bitcoinPrices->count() - 1)) as $index) {
