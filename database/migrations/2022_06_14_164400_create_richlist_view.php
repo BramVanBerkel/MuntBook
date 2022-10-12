@@ -23,6 +23,7 @@ return new class extends Migration
                 LEFT JOIN vouts AS outputs ON vins.vout_id = outputs.id
                 WHERE addresses.type = 'ADDRESS'
                 GROUP BY addresses.id
+                HAVING (sum(inputs.value) - sum(outputs.value)) > 0
                 WITH NO DATA;
         SQL);
 

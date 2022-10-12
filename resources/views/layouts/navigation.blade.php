@@ -33,6 +33,9 @@
                 <x-navigation.nav-group-item route="average-blocktime" show-testnet>
                     Average blocktime
                 </x-navigation.nav-group-item>
+                <x-navigation.nav-group-item route="average-hashrate" show-testnet>
+                    Average hashrate
+                </x-navigation.nav-group-item>
                 <x-navigation.nav-group-item route="richlist" show-testnet>
                     Richlist
                 </x-navigation.nav-group-item>
