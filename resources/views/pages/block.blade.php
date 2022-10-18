@@ -11,7 +11,7 @@
             {{ $block->timestamp }}
         </x-information-block-item>
         <x-information-block-item name="Total value out">
-            <x-gulden-display value="{{ $block->value }}"/>
+            <x-munt-display value="{{ $block->value }}"/>
         </x-information-block-item>
         <x-information-block-item name="No. of transactions">
             {{ $block->transactions }}
@@ -41,7 +41,7 @@
                         </x-link>
                     </x-table-data-item>
                     <x-table-data-item>
-                        <x-gulden-display value="{{ $transaction->amount }}"/>
+                        <x-munt-display value="{{ $transaction->amount }}"/>
                     </x-table-data-item>
                     <x-table-data-item>
                         @switch($transaction->type)

@@ -15,17 +15,17 @@ class SupplyController extends Controller
     }
 
     /**
-     * Returns the total number of Guldens that will ever be mined.
+     * Returns the total number of Munt that will ever be mined.
      *
      * @return int
      */
     public function totalSupply()
     {
-        return config('gulden.total_supply');
+        return config('munt.total_supply');
     }
 
     /**
-     * Returns the total number of Guldens that have been mined up until now.
+     * Returns the total number of Munt that have been mined up until now.
      *
      * To prevent long calculations, we start from a known block and supply.
      * At block 1.550.000 the supply was 561.870.520

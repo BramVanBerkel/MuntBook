@@ -16,7 +16,7 @@ class SearchController extends Controller
         }
 
         //query is either a transaction or a block hash
-        if (strlen((string) $query) === config('gulden.transaction_or_block_hash_length')) {
+        if (strlen((string) $query) === config('munt.transaction_or_block_hash_length')) {
             if ($block = Block::select('height')->firstWhere('hash', '=', $query)) {
                 return redirect()->route('block', ['block' => $block->height]);
             }
@@ -25,7 +25,7 @@ class SearchController extends Controller
         }
 
         //query is a (witness)address
-        if (strlen((string) $query) === config('gulden.address_length') || strlen((string) $query) === config('gulden.witness_address_length')) {
+        if (strlen((string) $query) === config('munt.address_length') || strlen((string) $query) === config('munt.witness_address_length')) {
             return redirect()->route('address', ['address' => $query]);
         }
 

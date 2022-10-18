@@ -3,17 +3,17 @@
 return [
     /*
     |--------------------------------------------------------------------------
-    | Gulden RPC settings
+    | Munt RPC settings
     |--------------------------------------------------------------------------
     |
-    | These RPC settings are automatically configured for the Gulden service
+    | These RPC settings are automatically configured for the Munt service
     | and used to connect via RPC.
     |
     */
-    'rpc_user' => env('GULDEN_RPC_USER', 'gulden'),
-    'rpc_password' => env('GULDEN_RPC_PASSWORD', 'secret'),
-    'rpc_host' => env('GULDEN_RPC_HOST', '127.0.0.1'),
-    'rpc_port' => env('GULDEN_RPC_PORT', '9232'),
+    'rpc_user' => env('MUNT_RPC_USER', 'munt'),
+    'rpc_password' => env('MUNT_RPC_PASSWORD', 'secret'),
+    'rpc_host' => env('MUNT_RPC_HOST', '127.0.0.1'),
+    'rpc_port' => env('MUNT_RPC_PORT', '9232'),
 
     /*
     |--------------------------------------------------------------------------
@@ -23,27 +23,27 @@ return [
     | Listen for connections on <port> (default: 9231 or testnet: 9923)
     |
     */
-    'port' => env('GULDEN_PORT', '9231'),
+    'port' => env('MUNT_PORT', '9231'),
 
     /*
     |--------------------------------------------------------------------------
     | Testnet
     |--------------------------------------------------------------------------
     |
-    | Optionally configure gulden to run on a testnet
+    | Optionally configure Munt to run on a testnet
     |
     */
-    'testnet' => env('GULDEN_TESTNET', false),
+    'testnet' => env('MUNT_TESTNET', false),
 
     /*
     |--------------------------------------------------------------------------
     | Addnode
     |--------------------------------------------------------------------------
     |
-    | Add nodes on Gulden startup
+    | Add nodes on Munt startup
     |
     */
-    'addnode' => env('GULDEN_ADDNODE'),
+    'addnode' => env('MUNT_ADDNODE'),
 
     /*
     |--------------------------------------------------------------------------
@@ -53,7 +53,7 @@ return [
     | How long to wait before syncing a new block
     |
     */
-    'sync_delay' => env('GULDEN_SYNC_DELAY'),
+    'sync_delay' => env('MUNT_SYNC_DELAY'),
 
     /*
     |--------------------------------------------------------------------------
@@ -63,14 +63,14 @@ return [
     | The command to execute when a new block is found
     |
     */
-    'blocknotify' => env('GULDEN_BLOCKNOTIFY'),
+    'blocknotify' => env('MUNT_BLOCKNOTIFY'),
 
     /*
     |--------------------------------------------------------------------------
     | Lengths
     |--------------------------------------------------------------------------
     |
-    | Save the lengths of certain strings in Gulden to determine what they are
+    | Save the lengths of certain strings in Munt to determine what they are
     |
     */
     'transaction_or_block_hash_length' => 64,
@@ -95,7 +95,7 @@ return [
     | Maintain at most <n> connections to peers (default: 125)
     |
     */
-    'maxconnections' => env('GULDEN_MAXCONNECTIONS'),
+    'maxconnections' => env('MUNT_MA`XCONNECTIONS'),
 
     /*
     |--------------------------------------------------------------------------
@@ -137,7 +137,7 @@ return [
     | Total supply
     |--------------------------------------------------------------------------
     |
-    | The total amount of guldens that will ever be mined
+    | The total amount of Munt that will ever be mined
     |
     */
     'total_supply' => 700_000_000,

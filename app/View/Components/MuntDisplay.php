@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class GuldenDisplay extends Component
+class MuntDisplay extends Component
 {
     public string $class = '';
 
@@ -41,6 +41,6 @@ class GuldenDisplay extends Component
 
     public function render()
     {
-        return view('components.gulden-display');
+        return view('components.munt-display');
     }
 }

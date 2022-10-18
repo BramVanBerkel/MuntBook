@@ -21,8 +21,8 @@ class Address extends Model
     ];
 
     /**
-     * This is the address for Gulden Development.
-     * From block number 1030000 this address will receive 40 Gulden for each block and from block 1226652 80 Gulden.
+     * This is the address for Munt Development.
+     * From block number 1030000 this address will receive 40 Munt for each block and from block 1226652 80 Munt.
      */
     public final const DEVELOPMENT_ADDRESS = 'GPk2TdvW1bjPAaPL72PXhVfYvyqEHKGrDA';
 

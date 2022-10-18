@@ -4,13 +4,15 @@ namespace App\Services;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 
-class GuldenService
+class MuntService
 {
-    public function __construct(private readonly Client $client)
-    {
+    public function __construct(
+        private readonly Client $client
+    ) {
     }
 
     /**
@@ -32,7 +34,7 @@ class GuldenService
     }
 
     /**
-     * Checks if the GuldenD process is running.
+     * Checks if the Munt-daemon process is running.
      */
     public function running(): bool
     {

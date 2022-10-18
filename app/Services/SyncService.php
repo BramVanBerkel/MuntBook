@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 class SyncService
 {
     public function __construct(
-        private readonly GuldenService $guldenService,
+        private readonly MuntService $muntService,
         private readonly AddressService $addressService,
         private readonly BlockService $blockService,
     ) {
@@ -25,7 +25,7 @@ class SyncService
 
     public function syncBlock(int $height)
     {
-        $blockData = $this->guldenService->getBlock($this->guldenService->getBlockHash($height), 1);
+        $blockData = $this->muntService->getBlock($this->muntService->getBlockHash($height), 1);
 
         DB::beginTransaction();
 
@@ -35,7 +35,7 @@ class SyncService
         $block->transactions()->delete();
 
         foreach ($blockData->get('tx') as $txid) {
-            $transactionData = $this->guldenService->getTransaction($txid, true);
+            $transactionData = $this->muntService->getTransaction($txid, true);
 
             $transaction = $this->saveTransaction($transactionData, $block);
 
@@ -47,7 +47,7 @@ class SyncService
         DB::commit();
 
         if ($block->isWitness() && $block->transactions()->count() < 2) {
-            dispatch(new SyncBlock($height))->delay(now()->addSeconds(config('gulden.sync_delay')));
+            dispatch(new SyncBlock($height))->delay(now()->addSeconds(config('munt.sync_delay')));
         }
     }
 
@@ -62,7 +62,7 @@ class SyncService
         $witnessVersion = ($data->get('witness_version') === 0) ? null : $data->get('witness_version');
 
         // Hashrate is not included in the block data, so we have to fetch it separately
-        $hashRate = $this->guldenService->getNetworkHashrate(height: $data->get('height'));
+        $hashRate = $this->muntService->getNetworkHashrate(height: $data->get('height'));
 
         // Convert chainwork to gigahashes using GMP because the chainwork decimal number is too long for php
         $chainwork = gmp_hexdec($data->get('chainwork'));

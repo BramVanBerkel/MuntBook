@@ -57,7 +57,7 @@ class WitnessAddressPart extends Model
             return WitnessAddressPartStatusEnum::EXPIRED_FROM_INACTIVITY;
         }
 
-        if ((app(BlockRepository::class)->currentHeight() - $this->last_active_block) < config('gulden.witness_cooldown_period')) {
+        if ((app(BlockRepository::class)->currentHeight() - $this->last_active_block) < config('munt.witness_cooldown_period')) {
             return WitnessAddressPartStatusEnum::COOLDOWN;
         }
 

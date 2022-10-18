@@ -9,7 +9,7 @@
         </x-information-block-item>
         @if($address->parts->isNotEmpty())
             <x-information-block-item x-data="{ open: false }" name="Total amount locked">
-                <x-gulden-display value="{{ $address->totalAmountLocked }}">
+                <x-munt-display value="{{ $address->totalAmountLocked }}">
                     split in {{ $address->parts->count() }} {{ Str::of('part')->plural($address->parts->count()) }}
                     <button @click='open = !open' type="button" id="menu-button" class="h-4" aria-expanded="true"
                             aria-haspopup="true">
@@ -30,11 +30,11 @@
                         @foreach($address->parts as $part)
                             <p>
                                 Part {{ $loop->index + 1 }}:
-                                <x-gulden-display value="{{ $part->value }}"></x-gulden-display>
+                                <x-munt-display value="{{ $part->value }}"></x-munt-display>
 
                                 <x-badge type="{{ $part->status->type() }}">
                                     @if($part->status === \App\Enums\WitnessAddressPartStatusEnum::COOLDOWN)
-                                        {{ $part->status->label() }} ({{ $part->blocksSinceLastActive }} / {{ config('gulden.witness_cooldown_period') }})
+                                        {{ $part->status->label() }} ({{ $part->blocksSinceLastActive }} / {{ config('munt.witness_cooldown_period') }})
                                     @else
                                         {{ $part->status->label() }}
                                     @endif
@@ -42,7 +42,7 @@
                             </p>
                         @endforeach
                     </div>
-                </x-gulden-display>
+                </x-munt-display>
             </x-information-block-item>
             <x-information-block-item name="Locked from block">
             <span>
@@ -95,11 +95,11 @@
                         <x-date :date="$transaction->timestamp"/>
                     </x-table-data-item>
                     <x-table-data-item>
-                        <x-gulden-display
+                        <x-munt-display
                             value="{{ $transaction->reward }}" :colored="true"/>
                     </x-table-data-item>
                     <x-table-data-item>
-                        <x-gulden-display
+                        <x-munt-display
                             value="{{ $transaction->compound }}"/>
                     </x-table-data-item>
                 </x-table-row>

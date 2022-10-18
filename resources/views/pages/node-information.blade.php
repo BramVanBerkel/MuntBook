@@ -5,7 +5,7 @@
 @section('content')
     @if(!$running)
         <x-alert type="danger">
-            GuldenD is not running!
+            Mun-daemon is not running!
         </x-alert>
     @else
         <x-information-block>

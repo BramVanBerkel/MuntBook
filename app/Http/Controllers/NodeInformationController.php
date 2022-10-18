@@ -3,23 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Services\GeoIPService;
-use App\Services\GuldenService;
+use App\Services\MuntService;
 use Carbon\CarbonInterface;
 
 class NodeInformationController extends Controller
 {
-    public function __invoke(GuldenService $guldenService, GeoIPService $geoIPService)
+    public function __invoke(MuntService $muntService, GeoIPService $geoIPService)
     {
-        if (! $guldenService->running()) {
+        if (! $muntService->running()) {
             return view('pages.node-information', [
                 'running' => false,
             ]);
         }
 
-        $uptime = now()->subSeconds($guldenService->getUptime())->toNow(CarbonInterface::DIFF_ABSOLUTE, parts: 3);
-        $networkInfo = $guldenService->getNetworkInfo();
+        $uptime = now()->subSeconds($muntService->getUptime())->toNow(CarbonInterface::DIFF_ABSOLUTE, parts: 3);
+        $networkInfo = $muntService->getNetworkInfo();
 
-        $peerInfo = $guldenService->getPeerInfo();
+        $peerInfo = $muntService->getPeerInfo();
 
         $ips = $peerInfo->pluck('addr')->map(function (string $addr) {
             //remove port from end of string

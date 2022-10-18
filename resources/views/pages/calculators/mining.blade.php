@@ -75,7 +75,7 @@
                         <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
                             <dt class="text-sm font-medium text-gray-500">Yield per day</dt>
                             <dd class="mt-1 text-3xl font-semibold text-gray-900">
-                                <span x-text="format(nlgPerDay)"></span><span class="gulden-icon"></span>
+                                <span x-text="format(muntPerDay)"></span><span class="munt-icon"></span>
                                 <span x-text="euroFormat(eurosPerDay)"
                                       class="ml-2 text-sm font-medium text-gray-500"></span>
 
@@ -95,7 +95,7 @@
                         <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
                             <dt class="text-sm font-medium text-gray-500">Yield per week</dt>
                             <dd class="mt-1 text-3xl font-semibold text-gray-900">
-                                <span x-text="format(nlgPerWeek)"></span><span class="gulden-icon"></span>
+                                <span x-text="format(muntPerWeek)"></span><span class="munt-icon"></span>
                                 <span x-text="euroFormat(eurosPerWeek)"
                                       class="ml-2 text-sm font-medium text-gray-500"></span>
 
@@ -115,7 +115,7 @@
                         <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
                             <dt class="text-sm font-medium text-gray-500">Yield per month</dt>
                             <dd class="mt-1 text-3xl font-semibold text-gray-900">
-                                <span x-text="format(nlgPerMonth)"></span><span class="gulden-icon"></span>
+                                <span x-text="format(muntPerMonth)"></span><span class="munt-icon"></span>
                                 <span x-text="euroFormat(eurosPerMonth)"
                                       class="ml-2 text-sm font-medium text-gray-500"></span>
 
@@ -135,7 +135,7 @@
                         <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
                             <dt class="text-sm font-medium text-gray-500">Yield per year</dt>
                             <dd class="mt-1 text-3xl font-semibold text-gray-900">
-                                <span x-text="format(nlgPerYear)"></span><span class="gulden-icon"></span>
+                                <span x-text="format(muntPerYear)"></span><span class="munt-icon"></span>
                                 <span x-text="euroFormat(eurosPerYear)"
                                       class="ml-2 text-sm font-medium text-gray-500"></span>
 

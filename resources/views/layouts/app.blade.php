@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>GuldenBook @yield('title')</title>
+    <title>MuntBook @yield('title')</title>
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -17,10 +17,10 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
-    <meta property="og:title" content="GuldenBook @yield('title')" />
+    <meta property="og:title" content="MuntBook @yield('title')" />
     <meta property="og:type" content="website"/>
     <meta property="og:site_name" content="GuldenBook.com"/>
-    <meta property="og:description" content="GuldenBook - The Gulden blockchain explorer"/>
+    <meta property="og:description" content="MuntBook - The Munt blockchain explorer"/>
     <meta property="og:image" content="{{ asset('images/og_image.png') }}" />
     @production
         <script src="https://type-welcome.guldenbook.com/script.js" data-site="JBVDRBZA" defer></script>

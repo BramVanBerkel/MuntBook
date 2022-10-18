@@ -21,7 +21,7 @@ class UpdateBittrexPrices implements ShouldQueue
     use SerializesModels;
 
     /**
-     * Fetch the current MUNT-BTC and BTC-EUR prices, and calculate the NLG-EUR price, by comparing it to the current BTC-EUR price.
+     * Fetch the current MUNT-BTC and BTC-EUR prices, and calculate the MUNT-EUR price, by comparing it to the current BTC-EUR price.
      */
     public function handle(BittrexService $bittrexService)
     {
@@ -30,17 +30,17 @@ class UpdateBittrexPrices implements ShouldQueue
                 ->max('timestamp') ?? Carbon::create(2020, 3, 31);
 
         foreach (CarbonPeriod::create($lastDate, now())->floorDays() as $date) {
-            $guldenPrices = $bittrexService->getPrices($date, 'MUNT-BTC');
+            $muntPrices = $bittrexService->getPrices($date, 'MUNT-BTC');
             $bitcoinPrices = $bittrexService->getPrices($date, 'BTC-EUR');
 
-            foreach (range(0, min($guldenPrices->count() - 1, $bitcoinPrices->count() - 1)) as $index) {
-                $avgGuldenPrice = $this->calculateAverage($guldenPrices[$index]);
+            foreach (range(0, min($muntPrices->count() - 1, $bitcoinPrices->count() - 1)) as $index) {
+                $avgMuntPrice = $this->calculateAverage($muntPrices[$index]);
                 $avgBitcoinPrice = $this->calculateAverage($bitcoinPrices[$index]);
 
                 Price::updateOrCreate([
-                    'timestamp' => Carbon::parse($guldenPrices[$index]['startsAt']),
+                    'timestamp' => Carbon::parse($muntPrices[$index]['startsAt']),
                 ], [
-                    'price' => $avgBitcoinPrice * $avgGuldenPrice,
+                    'price' => $avgBitcoinPrice * $avgMuntPrice,
                     'source' => Price::SOURCE_BITTREX,
                 ]);
             }

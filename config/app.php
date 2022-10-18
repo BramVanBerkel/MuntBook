@@ -176,7 +176,7 @@ return [
         App\Providers\HorizonServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        App\Providers\GuldenServiceProvider::class,
+        App\Providers\MuntServiceProvider::class,
         App\Providers\BittrexServiceProvider::class,
     ],
 

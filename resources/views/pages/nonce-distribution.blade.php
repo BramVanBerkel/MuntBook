@@ -9,7 +9,7 @@
                 Nonce distribution
             </h3>
             <p class="mt-1 text-sm text-gray-500">
-                The pre and post nonce are values in a Gulden block header that are repeatedly modified by SIGMA miners
+                The pre and post nonce are values in a Munt block header that are repeatedly modified by SIGMA miners
                 during the process of attempting to find a valid block to add to the chain. Values can range
                 between 0 and 65536. Due to the nature in which SIGMA works, the post-nonce is expected
                 to have a random distribution. The pre-nonce is also expected to have a random

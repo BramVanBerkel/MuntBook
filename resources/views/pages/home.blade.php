@@ -30,7 +30,7 @@
             </x-slot>
             {{ $transactions24hr }}
         </x-stats-item>
-        @if(!config('gulden.testnet'))
+        @if(!config('munt.testnet'))
         <x-stats-item>
             <x-slot name="title">
                 Price
@@ -63,7 +63,7 @@
                         <x-date :date="$block->timestamp" />
                     </x-table-data-item>
                     <x-table-data-item>{{ $block->transactions }}</x-table-data-item>
-                    <x-table-data-item><x-gulden-display value="{{ $block->value }}"/></x-table-data-item>
+                    <x-table-data-item><x-munt-display value="{{ $block->value }}"/></x-table-data-item>
                 </x-table-row>
             @endforeach
         </x-table-body>

@@ -4,11 +4,11 @@
 
 @section('content')
     <x-information-block description="
-        The top gulden addresses with the highest balance.<br>
+        The top munt addresses with the highest balance.<br>
         <br>
         <br>
-        Please note that this does not mean that these are the wallets with the highest amount of guldens in them.<br>
-        Because Gulden automatically creates a new address when receiving guldens, multiple addresses can be tied to a single wallet.<br>
+        Please note that this does not mean that these are the wallets with the highest amount of Munt in them.<br>
+        Because Munt automatically creates a new address when receiving Munt, multiple addresses can be tied to a single wallet.<br>
         <br>
         Updated hourly
         ">
@@ -35,7 +35,7 @@
                         </x-link>
                     </x-table-data-item>
                     <x-table-data-item>
-                        <x-gulden-display value="{{ $address->value }}" />
+                        <x-munt-display value="{{ $address->value }}" />
                     </x-table-data-item>
                 </x-table-row>
             @endforeach

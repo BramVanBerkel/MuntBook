@@ -3,8 +3,8 @@
 @tailwind components;
 @tailwind utilities;
 
-.gulden-icon {
-    background-image: url('../images/gulden.svg');
+.munt-icon {
+    background-image: url('../images/munt.svg');
     height: 0.8em;
     width: 0.8em;
     display: inline-block;
