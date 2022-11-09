@@ -44,7 +44,6 @@ getCalendarData().then(data => {
         tip.style.top = `${rect.top - 35}px`;
     };
     const mouseOut = function(e) {
-        e = e || window.event;
         tip.style.display = "none";
     };
     for (let i = 0; i < elems.length; i++) {

@@ -15,9 +15,9 @@ class Exec extends Command
     {
         $instruction = implode(' ', $this->argument('instruction'));
 
-        $result = shell_exec(sprintf('./binaries/munt/Munt-cli --datadir=binaries/munt/datadir %s', $instruction));
+        $result = shell_exec(sprintf('./binaries/Munt-cli --datadir=binaries/datadir %s', $instruction));
 
-        if(Str::isJson($result) && !is_numeric($result)) {
+        if (Str::isJson($result) && !is_numeric($result)) {
             dd(json_decode($result));
         }
 

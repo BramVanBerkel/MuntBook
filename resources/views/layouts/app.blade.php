@@ -19,7 +19,7 @@
 
     <meta property="og:title" content="MuntBook @yield('title')" />
     <meta property="og:type" content="website"/>
-    <meta property="og:site_name" content="GuldenBook.com"/>
+    <meta property="og:site_name" content="MuntBook.com"/>
     <meta property="og:description" content="MuntBook - The Munt blockchain explorer"/>
     <meta property="og:image" content="{{ asset('images/og_image.png') }}" />
     @production

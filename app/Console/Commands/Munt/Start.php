@@ -23,8 +23,8 @@ class Start extends Command
             exit();
         }
 
-        if (! file_exists('binaries/munt/datadir')) {
-            mkdir('binaries/munt/datadir');
+        if (! file_exists('binaries/datadir')) {
+            mkdir('binaries/datadir');
         }
 
         $config = "txindex=1\n";
@@ -49,9 +49,9 @@ class Start extends Command
             }
         }
 
-        file_put_contents('binaries/munt/datadir/Munt.conf', $config);
+        file_put_contents('binaries/datadir/munt.conf', $config);
 
-        $command = "./binaries/munt/Munt-daemon -datadir=binaries/munt/datadir";
+        $command = "./binaries/Munt-daemon -datadir=binaries/datadir";
 
         if (! empty(config('munt.testnet'))) {
             $command = sprintf("{$command} -testnet=%s", config('munt.testnet'));

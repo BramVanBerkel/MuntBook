@@ -5,7 +5,7 @@
             <a href="{{ route('home') }}"
                class="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg focus:outline-none focus:shadow-outline">
                 <img class="block h-5 pointer-events-none" src="{{ asset('images/logos/white.svg') }}"
-                     alt="Guldenbook logo"/>
+                     alt="MuntBook logo"/>
             </a>
             <button class="md:hidden rounded-lg focus:outline-none focus:shadow-outline" @click="open = !open">
                 <svg fill="white" viewBox="0 0 20 20" class="w-6 h-6">

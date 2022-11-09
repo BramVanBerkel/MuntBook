@@ -21,6 +21,7 @@ class Check extends Command
     public function handle(MuntService $muntService, SyncService $syncService)
     {
         $blockchainHeight = $muntService->getBlockCount();
+
         $localHeight = Block::max('height') ?? 1;
 
         Log::info("Checking for new blocks. local height: {$localHeight}, blockchain height: {$blockchainHeight}");

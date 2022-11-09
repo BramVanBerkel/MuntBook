@@ -6,7 +6,7 @@
     <x-information-block>
         @if($address->address === \App\Models\Address::DEVELOPMENT_ADDRESS)
             <x-slot name="description">
-                This is the address for Munt development. From block number 1030000 this address will receive 40 Munt for each block and from block 1226652 80 Gulden, this is why we don't show the inputs.
+                This is the address for Munt development. From block number 1030000 this address will receive 40 Munt for each block and from block 1226652 80 Munt, this is why we don't show the inputs.
                 <br>
                 To support Munt development directly by buying Munt, please visit <x-link href="https://blockhut.com/">Blockhut</x-link>
             </x-slot>
