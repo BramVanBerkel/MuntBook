@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use App\Repositories\TransactionRepository;
 use App\Services\BlockService;
-use App\Services\MuntService;
 
 class TransactionController extends Controller
 {
