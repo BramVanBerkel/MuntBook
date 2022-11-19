@@ -23,7 +23,7 @@
     <meta property="og:description" content="MuntBook - The Munt blockchain explorer"/>
     <meta property="og:image" content="{{ asset('images/og_image.png') }}" />
     @production
-        <script src="https://type-welcome.guldenbook.com/script.js" data-site="JBVDRBZA" defer></script>
+        <script src="https://habits-efficient.muntbook.org/script.js" data-site="JBVDRBZA" defer></script>
     @endproduction
 </head>
 <body class="font-sans antialiased">
