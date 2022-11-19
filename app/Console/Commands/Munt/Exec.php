@@ -17,10 +17,10 @@ class Exec extends Command
 
         $result = shell_exec(sprintf('./binaries/Munt-cli --datadir=binaries/datadir %s', $instruction));
 
-        if (Str::isJson($result) && !is_numeric($result)) {
+        if (Str::isJson($result) && ! is_numeric($result)) {
             dd(json_decode($result));
         }
 
-        echo($result);
+        echo $result;
     }
 }

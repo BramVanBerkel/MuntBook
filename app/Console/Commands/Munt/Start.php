@@ -51,7 +51,7 @@ class Start extends Command
 
         file_put_contents('binaries/datadir/munt.conf', $config);
 
-        $command = "./binaries/Munt-daemon -datadir=binaries/datadir";
+        $command = './binaries/Munt-daemon -datadir=binaries/datadir';
 
         if (! empty(config('munt.testnet'))) {
             $command = sprintf("{$command} -testnet=%s", config('munt.testnet'));
