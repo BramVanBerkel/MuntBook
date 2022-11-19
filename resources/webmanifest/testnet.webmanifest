@@ -1,7 +1,7 @@
 {
-    "name": "GuldenBook testnet",
-    "short_name": "GuldenBook testnet",
-    "description": "A Gulden blockchain explorer",
+    "name": "MuntBook testnet",
+    "short_name": "MunbBook testnet",
+    "description": "A Munt blockchain explorer",
     "start_url": ".",
     "background_color": "#00B1E2",
     "theme_color": "#00B1E2",

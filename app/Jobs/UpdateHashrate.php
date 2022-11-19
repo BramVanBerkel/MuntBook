@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Services\GuldenService;
+use App\Services\MuntService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -17,10 +17,10 @@ class UpdateHashrate implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    public function handle(GuldenService $guldenService)
+    public function handle(MuntService $muntService)
     {
         // hashrate in hashes per second
-        $hashrate = $guldenService->getNetworkHashrate();
+        $hashrate = $muntService->getNetworkHashrate();
 
         //convert hashrate to Kh/s if it's less than 1 Mh/s (for testnet)
         $hashrate = ($hashrate / 1_000_000 < 1) ?

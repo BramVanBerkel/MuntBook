@@ -5,7 +5,7 @@ namespace Deployer;
 require 'recipe/laravel.php';
 
 // Config
-set('repository', 'https://bramvanberkel@github.com/BramVanBerkel/GuldenBook.git');
+set('repository', 'https://bramvanberkel@github.com/BramVanBerkel/MuntBook.git');
 
 add('shared_files', [
     '.env',

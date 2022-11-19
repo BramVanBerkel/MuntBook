@@ -6,9 +6,9 @@
     <x-information-block>
         @if($address->address === \App\Models\Address::DEVELOPMENT_ADDRESS)
             <x-slot name="description">
-                This is the address for Gulden development. From block number 1030000 this address will receive 40 Gulden for each block and from block 1226652 80 Gulden, this is why we don't show the inputs.
+                This is the address for Munt development. From block number 1030000 this address will receive 40 Munt for each block and from block 1226652 80 Munt, this is why we don't show the inputs.
                 <br>
-                To support Gulden development directly by buying Guldens, please visit <x-link href="https://blockhut.com/">Blockhut</x-link>
+                To support Munt development directly by buying Munt, please visit <x-link href="https://blockhut.com/">Blockhut</x-link>
             </x-slot>
         @endif
 
@@ -19,13 +19,13 @@
             {{ $address->firstSeen }}
         </x-information-block-item>
         <x-information-block-item name="Value in">
-            <x-gulden-display value="{{ $address->totalReceived }}" />
+            <x-munt-display value="{{ $address->totalReceived }}" />
         </x-information-block-item>
         <x-information-block-item name="Value out">
-            <x-gulden-display value="{{ $address->totalSpent }}" />
+            <x-munt-display value="{{ $address->totalSpent }}" />
         </x-information-block-item>
         <x-information-block-item name="Value">
-            <x-gulden-display value="{{ $address->unspent }}" colored="true" sign="false"/>
+            <x-munt-display value="{{ $address->unspent }}" colored="true" sign="false"/>
         </x-information-block-item>
         <x-information-block-item name="Total transactions">
             {{ $address->totalTransactions }}
@@ -48,7 +48,7 @@
                         </x-link>
                     </x-table-data-item>
                     <x-table-data-item>
-                        <x-gulden-display value="{{ $transaction->amount }}" colored="true" />
+                        <x-munt-display value="{{ $transaction->amount }}" colored="true" />
                     </x-table-data-item>
                 </x-table-row>
             @endforeach

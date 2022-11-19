@@ -5,7 +5,7 @@ namespace App\Jobs;
 use App\Enums\AddressTypeEnum;
 use App\Models\Address;
 use App\Repositories\Address\WitnessAddressRepository;
-use App\Services\GuldenService;
+use App\Services\MuntService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -27,10 +27,10 @@ class UpdateWitnessInfo implements ShouldQueue, ShouldBeUnique
     }
 
     public function handle(
-        GuldenService $guldenService,
+        MuntService $muntService,
         WitnessAddressRepository $witnessAddressRepository
     ) {
-        $witnessInfo = $guldenService->getWitnessInfo(verbose: true);
+        $witnessInfo = $muntService->getWitnessInfo(verbose: true);
 
         $witnessInfo->get('witness_address_list')->groupBy('address')
             ->each(function (Collection $parts, string $address) use ($witnessAddressRepository) {

@@ -3,7 +3,7 @@
     'showTestnet' => false,
 ])
 
-@if(empty(config('gulden.testnet')) || $showTestnet)
+@if(empty(config('munt.testnet')) || $showTestnet)
     <a @class([
     'block',
     'px-4',

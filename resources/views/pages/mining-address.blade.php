@@ -29,7 +29,7 @@
         </x-information-block-item>
         <x-information-block-item name="Rewards found">
             <p>
-                <x-gulden-display value="{{ $address->totalRewardsValue }}" :short="true" /> out of {{ $address->totalRewards }} blocks
+                <x-munt-display value="{{ $address->totalRewardsValue }}" :short="true" /> out of {{ $address->totalRewards }} blocks
             </p>
         </x-information-block-item>
     </x-information-block>
@@ -59,7 +59,7 @@
                         {{ $transaction->date }}
                     </x-table-data-item>
                     <x-table-data-item>
-                        <x-gulden-display value="{{ $transaction->reward }}" colored="true" />
+                        <x-munt-display value="{{ $transaction->reward }}" colored="true" />
                     </x-table-data-item>
                     <x-table-data-item>
                         {{ number_format($transaction->difficulty, 2) }}

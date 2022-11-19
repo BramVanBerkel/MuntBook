@@ -16,13 +16,13 @@
             <x-date :date="$transaction->timestamp" />
         </x-information-block-item>
         <x-information-block-item name="Total value out">
-            <x-gulden-display value="{{ $transaction->amount }}" />
+            <x-munt-display value="{{ $transaction->amount }}" />
         </x-information-block-item>
         <x-information-block-item name="Version">
             {{ $transaction->version }}
         </x-information-block-item>
         <x-information-block-item name="Transaction fee">
-            <x-gulden-display value="{{ $fee }}" />
+            <x-munt-display value="{{ $fee }}" />
         </x-information-block-item>
         @if($transaction->rewardedWitnessAddress !== null)
             <x-information-block-item name="Witness">
@@ -53,7 +53,7 @@
                         </x-link>
                     </x-table-data-item>
                     <x-table-data-item>
-                        <x-gulden-display value="{{ $output->amount }}" colored="true"/>
+                        <x-munt-display value="{{ $output->amount }}" colored="true"/>
                     </x-table-data-item>
                 </x-table-row>
             @endforeach

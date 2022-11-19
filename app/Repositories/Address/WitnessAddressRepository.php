@@ -71,7 +71,7 @@ class WitnessAddressRepository implements AddressRepositoryInterface
                       from
                         blocks
                     )
-                  ) * %d) * interval '1 second' as lock_until_timestamp", config('gulden.blocktime'))),
+                  ) * %d) * interval '1 second' as lock_until_timestamp", config('munt.blocktime'))),
                 DB::raw('count(reward_vouts.*) as total_rewards'),
                 DB::raw('sum(reward_vouts.value) as total_rewards_value'),
             ])

@@ -18,7 +18,7 @@
                 <div class="flex gap-6">
                     <div>
                         <x-label for="amount">
-                            Amount of gulden
+                            Amount of munt
                         </x-label>
 
                         <x-input id="amount" x-model.number="amount" x-on:change="calculate()" class="block mt-1"
@@ -42,7 +42,7 @@
                             <dt class="text-sm font-medium text-gray-500 truncate">Yield per year</dt>
                             <dd class="mt-1 text-3xl font-semibold text-gray-900">
                                 <span x-text="yieldPerYear"></span>
-                                <span class="gulden-icon"></span><span x-text="yieldPerYearPercentage"
+                                <span class="munt-icon"></span><span x-text="yieldPerYearPercentage"
                                                                        class="ml-2 text-sm font-medium text-gray-500"></span>
                             </dd>
                         </div>
@@ -51,7 +51,7 @@
                             <dt class="text-sm font-medium text-gray-500 truncate">Total yield</dt>
                             <dd class="mt-1 text-3xl font-semibold text-gray-900">
                                 <span x-text="totalYield"></span>
-                                <i class="gulden-icon"></i><span x-text="totalYieldPercentage"
+                                <i class="munt-icon"></i><span x-text="totalYieldPercentage"
                                                                  class="ml-2 text-sm font-medium text-gray-500"></span>
                             </dd>
 

@@ -11,7 +11,7 @@
         $route;
 @endphp
 
-@if(empty(config('gulden.testnet')) || $showTestnet)
+@if(empty(config('munt.testnet')) || $showTestnet)
     <a @class([
         'px-4',
         'py-2',

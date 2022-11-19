@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Services\GuldenService;
+use App\Services\MuntService;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -21,9 +21,9 @@ class UpdateDifficulty implements ShouldQueue
     /**
      * @throws GuzzleException
      */
-    public function handle(GuldenService $guldenService)
+    public function handle(MuntService $muntService)
     {
-        $difficulty = $guldenService->getDifficulty();
+        $difficulty = $muntService->getDifficulty();
 
         Cache::put('difficulty', round($difficulty));
     }

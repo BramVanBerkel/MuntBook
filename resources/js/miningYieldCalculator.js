@@ -6,13 +6,13 @@ window.miningYieldCalculator = function() {
         kWhPrice: 0.2,
         price: parseFloat(price),
 
-        // Number of guldens mined per period
-        nlgPerDay: null,
-        nlgPerWeek: null,
-        nlgPerMonth: null,
-        nlgPerYear: null,
+        // Number of munt mined per period
+        muntPerDay: null,
+        muntPerWeek: null,
+        muntPerMonth: null,
+        muntPerYear: null,
 
-        // Number of euros those guldens are worth
+        // Number of euros those munt are worth
         eurosPerDay: null,
         eurosPerWeek: null,
         eurosPerMonth: null,
@@ -37,15 +37,15 @@ window.miningYieldCalculator = function() {
 
             let chance = this.hashrate / averageNetworkHash;
 
-            this.nlgPerDay = (28800 * chance);
-            this.nlgPerWeek = (this.nlgPerDay * 7);
-            this.nlgPerMonth = (this.nlgPerDay * 30);
-            this.nlgPerYear = (this.nlgPerDay * 365);
+            this.muntPerDay = (28800 * chance);
+            this.muntPerWeek = (this.muntPerDay * 7);
+            this.muntPerMonth = (this.muntPerDay * 30);
+            this.muntPerYear = (this.muntPerDay * 365);
 
-            this.eurosPerDay = (this.nlgPerDay * this.price);
-            this.eurosPerWeek = (this.nlgPerWeek * this.price);
-            this.eurosPerMonth = (this.nlgPerMonth * this.price);
-            this.eurosPerYear = (this.nlgPerYear * this.price);
+            this.eurosPerDay = (this.muntPerDay * this.price);
+            this.eurosPerWeek = (this.muntPerWeek * this.price);
+            this.eurosPerMonth = (this.muntPerMonth * this.price);
+            this.eurosPerYear = (this.muntPerYear * this.price);
 
             this.costPerDay = (((this.watts * 24) / 1000) * this.kWhPrice);
             this.costPerWeek = (((this.watts * 168) / 1000) * this.kWhPrice);

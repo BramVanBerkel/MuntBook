@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use App\Repositories\TransactionRepository;
-use App\Services\GuldenService;
+use App\Services\BlockService;
 
 class TransactionController extends Controller
 {
     public function __construct(
-        private readonly GuldenService $guldenService,
+        private readonly BlockService $blockService,
         private readonly TransactionRepository $transactionRepository,
     ) {
     }
@@ -22,7 +22,7 @@ class TransactionController extends Controller
 
         if ($transaction->type === Transaction::TYPE_WITNESS) {
             $fee = $outputs->sum('amount') -
-                $this->guldenService->getWitnessReward($transaction->height);
+                $this->blockService->getBlockSubsidy($transaction->height)->witness;
         } else {
             $fee = abs($outputs->where('type', '=', 'input')->sum('value')) -
                 $outputs->where('type', '=', 'output')->sum('value');

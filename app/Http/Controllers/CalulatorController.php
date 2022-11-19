@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use App\Repositories\BlockRepository;
 use App\Repositories\PriceRepository;
 use App\Services\BlockService;
-use App\Services\GuldenService;
+use App\Services\MuntService;
 
 class CalulatorController extends Controller
 {
     public function __construct(
-        private readonly GuldenService $guldenService,
+        private readonly MuntService $muntService,
         private readonly PriceRepository $priceRepository,
         private readonly BlockRepository $blockRepository,
         private readonly BlockService $blockService,
@@ -19,7 +19,7 @@ class CalulatorController extends Controller
 
     public function witnessYieldCalculator()
     {
-        $witnessInfo = $this->guldenService->getWitnessInfo();
+        $witnessInfo = $this->muntService->getWitnessInfo();
         $currentSubsidy = $this->blockService->getBlockSubsidy($this->blockRepository->currentHeight());
 
         return view('pages.calculators.witness', [
@@ -32,7 +32,7 @@ class CalulatorController extends Controller
     public function miningYieldCalculator()
     {
         $price = $this->priceRepository->getCurrentPrice();
-        $hashrate = $this->guldenService->getNetworkHashrate();
+        $hashrate = $this->muntService->getNetworkHashrate();
         $difficulty = (int) $this->blockRepository->getAverageDifficulty24hrs();
 
         return view('pages.calculators.mining', [
