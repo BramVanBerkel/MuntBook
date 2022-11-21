@@ -16,7 +16,7 @@ class UsersSeeder extends Seeder
     {
         User::create([
             'name' => 'Admin',
-            'email' => 'contact@guldenbook.com',
+            'email' => 'admin@muntbook.org',
             'password' => bcrypt(config('auth.admin_password')),
         ]);
     }
