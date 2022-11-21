@@ -48,9 +48,6 @@
                     Witness
                 </x-navigation.nav-group-item>
             </x-navigation.nav-group>
-            <x-navigation.nav-item route="https://forms.gle/ynxdGLypD4o6YgHE9" target="_blank">
-                Missing something?
-            </x-navigation.nav-item>
         </nav>
     </div>
 </div>
