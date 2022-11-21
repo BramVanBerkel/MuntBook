@@ -5,7 +5,7 @@
                 &copy; {{ now()->format('Y') }} MuntBook. All rights reserved.
                 <br>
                 Please note that MuntBook is an initiative by the volunteers of the Munt community.
-                The data may be inaccurate. If you spot any discrepancies, please email to: <x-link href="mailto:contact@guldenbook.com">contact@guldenbook.com</x-link>
+                The data may be inaccurate. If you spot any discrepancies, please send me a message on the <x-link href="https://muntorg.slack.com" target="_blank">Munt Slack!</x-link>
                 <br>
                 If you wish to support MuntBook, please donate to <x-link href="munt:GctjYr3Ns3orpjSZNFZUWvVn3cGNT81zzL">GctjYr3Ns3orpjSZNFZUWvVn3cGNT81zzL</x-link>
                 <br>
