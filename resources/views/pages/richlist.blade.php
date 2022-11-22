@@ -8,7 +8,7 @@
         <br>
         <br>
         Please note that this does not mean that these are the wallets with the highest amount of Munt in them.<br>
-        Because Munt automatically creates a new address when receiving Munt, multiple addresses can be tied to a single wallet.<br>
+        Because Munt automatically creates a new address when receiving or sending Munt, multiple addresses can be tied to a single wallet.<br>
         <br>
         Updated hourly
         ">
