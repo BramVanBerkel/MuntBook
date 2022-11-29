@@ -45,5 +45,7 @@ class Check extends Command
         }
 
         $progress->finish();
+
+        return Command::SUCCESS;
     }
 }
