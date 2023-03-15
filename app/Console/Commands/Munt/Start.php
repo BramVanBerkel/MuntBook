@@ -20,7 +20,7 @@ class Start extends Command
     {
         if (! file_exists('binaries')) {
             Log::error('binaries folder not found!');
-            exit();
+            exit;
         }
 
         if (! file_exists('binaries/datadir')) {
